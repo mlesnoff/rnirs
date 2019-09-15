@@ -1,5 +1,7 @@
-# rnirs 1.0-4
+# rnirs 
 **R Package - Locally Weighted PLS Regressions and Other Methods for Near Infrared Spectral Data**
+
+** See the Version number of the package number in File DESCRIPTION above **
 
 
 Statistical tool box for near infrared spectral data (or other data) with a focus on locally weighted prediction methods.
