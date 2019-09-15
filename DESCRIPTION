@@ -1,12 +1,13 @@
 Package: rnirs
 Type: Package
 Title: Locally Weighted PLS Regressions and Other Methods for Near Infrared Spectral Data
-Version: 1.0-2
+Version: 1.0-3
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Description: Statistical tool box for near infrared spectral data with a focus on locally weighted prediction methods.
 Depends: R (>= 3.0.0)
 Imports: scales, signal, data.table, FNN, ggplot2, gridExtra 
 Suggests: knitr, rmarkdown
+URL: https://github.com/mlesnoff/rnirs
 License: GPL (>= 2)
 LazyData: yes
