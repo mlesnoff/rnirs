@@ -2,10 +2,11 @@
 **R Package - Locally Weighted PLS Regressions and Other Methods for Near Infrared Spectral Data**
 
 
-Statistical tool box for near infrared spectral (NIRS) data with a focus on locally weighted prediction methods.
+Statistical tool box for near infrared spectral data (or other data) with a focus on locally weighted prediction methods.
 
+- Data checking and summarizing
 - Data pre-processing
-- Factorial analysis
+- Multivariate factorial analyses: PCA, PLS, FDA
 - Global predictive methods
     - Quantitative regressions: PCR, PLSR
     - Discrimination: PLSDA with various DA methods
