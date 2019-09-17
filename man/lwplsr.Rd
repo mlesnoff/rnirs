@@ -109,7 +109,7 @@ Sicard, E. Sabatier, R., 2006. Theoretical framework for local PLS1 regression a
 \examples{
 
 
-\dontrun{
+\donttest{
 
 data(datcass)
 data(datforages)

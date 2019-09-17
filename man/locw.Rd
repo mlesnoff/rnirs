@@ -67,7 +67,7 @@ Lesnoff, M., Metz, M., Roger, J.M.. Comparison of locally weighted PLS strategie
 
 \examples{
 
-\dontrun{
+\donttest{
 
 data(datcass)
 data(datforages)

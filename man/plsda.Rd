@@ -64,7 +64,7 @@ And other outputs: See \code{\link{pls}} and the function defined in \code{algo}
 
 \examples{
 
-\dontrun{
+\donttest{
 
 data(datforages)
 

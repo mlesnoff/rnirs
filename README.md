@@ -1,8 +1,9 @@
-# R package rnirs 1.0-4  
-#### Locally Weighted PLS Regressions and Other Methods for Near Infrared Spectral Data
+# R package rnirs 1.0-5  
+#### Locally Weighted PLS Regression and Discrimination
 
+Package **rnirs** is a statistical tool box focusing on locally weighted prediction methods: regression for quantitative responses and discrimination for qualitative responses. The predictive models can use partial least squares (PLS) dimension reductions or other methods.
 
-Package *rnirs* is a statistical tool box focusing on locally weighted prediction methods: regression for quantitative responses and discrimination for qualitative responses. The package is primarily dedicated to near infrared spectral (NIRS) data but can be used for many other types of data.
+The package is primarily dedicated to near infrared spectral (NIRS) data but can be used for many other types of data.
 
 #### Main features
 
@@ -22,7 +23,7 @@ Package *rnirs* is a statistical tool box focusing on locally weighted predictio
 Under Windows, the computations made in the package are faster with the R version "Microsoft R Open" (https://mran.microsoft.com/open). Installing Rstudio (https://www.rstudio.com/products/rstudio/download/) is also recommended.
 
 
-#### Installation
+#### Installation (GithHub package version)
 
 Install devtools package if not already done
 

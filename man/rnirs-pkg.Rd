@@ -3,10 +3,12 @@
 \docType{package}
 \encoding{latin1}
 
-\title{Locally Weighted PLS Regressions and Other Methods for Near Infrared Spectral Data}
+\title{Locally Weighted PLS Regression and Discrimination}
 
 \description{
-Statistical tool box for near infrared spectral (NIRS) data with a focus on locally weighted prediction methods (eg. kNN-LWPLSR and kNN-LWPLSDA).
+Package rnirs is a statistical tool box focusing on locally weighted prediction methods: regression for quantitative responses and discrimination for qualitative responses. The predictive models can use partial least squares (PLS) dimension reductions or other methods. 
+
+The package is primarily dedicated to near infrared spectral (NIRS) data but can be used for many other types of data.
 }
 
 \details{

@@ -1,10 +1,14 @@
 Package: rnirs
 Type: Package
-Title: Locally Weighted PLS Regressions and Other Methods for Near Infrared Spectral Data
-Version: 1.0-4
+Title: Locally Weighted PLS Regression and Discrimination
+Version: 1.0-5
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
-Description: Statistical tool box for near infrared spectral data with a focus on locally weighted prediction methods.
+Description: Package rnirs is a statistical tool box focusing on locally weighted prediction
+  methods: regression for quantitative responses and discrimination for qualitative responses. 
+  The predictive models can use partial least squares (PLS) dimension reductions or other methods.
+  The package is primarily dedicated to near infrared spectral (NIRS) data 
+  but can be used for many other types of data.
 Depends: R (>= 3.0.0)
 Imports: scales, signal, data.table, FNN, ggplot2, gridExtra 
 Suggests: knitr, rmarkdown

@@ -95,7 +95,7 @@ ranges <- list(c(1000, 1700), c(1800, 2300))
 plotsp(X, ranges = ranges, col = "grey")
 plotsp(X[c(5, 170), ], ranges = ranges, col = c("red", "blue"), add = TRUE, text = TRUE)
 
-\dontrun{
+\donttest{
 
 fm <- pca(X, ncomp = 50)
 P <- fm$P
