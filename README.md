@@ -16,6 +16,7 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
 * Locally weighted predictive methods
     - Quantitative regressions: kNN-LWPLSR, kNN weighted regressions
     - Discrimination: kNN-LWPLSDA with various DA methods, kNN weighted discrimination
+    - Function locw can implement any locally weighted models
 * Cross-validation
 * Graphics
 * Other functions
