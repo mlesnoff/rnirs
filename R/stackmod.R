@@ -6,7 +6,8 @@ stackmod <- function(fit, y = NULL, formula = ~ 1, nam = NULL, weights = NULL) {
 
   if(is.null(nam)) nam <- names(fit)[ncol(fit)]
   
-  if(is.null(weights)) w <- rep(1, m) else w <- weights
+  w <- weights
+  if(is.null(weights)) w <- rep(1, m)
   
   fit$w <- w
   zf <- paste("w", f)
@@ -14,33 +15,28 @@ stackmod <- function(fit, y = NULL, formula = ~ 1, nam = NULL, weights = NULL) {
   names(z)[ncol(z)] <- "wtot"
   
   u <- merge(fit, z, by = colnames(z)[-ncol(z)])
-  
   u$wfin <- u$w / u$wtot
   u[, nam]  <- u[, nam] * u$wfin
   fitw <- u
   
-  if(length(nam) == 1)
-    zf <- paste(nam, f)
-  else
-    zf <- paste("cbind(", paste(nam, collapse = ","), ")", f)
-  
-  v <- aggregate(formula = formula(zf), data = u, FUN = sum)
+  zf <- paste(nam, f)
+  z <- dtaggregate(formula = formula(zf), data = fitw, FUN = sum)
   ## TMP FOR CHECKING
-  #v$wtot <- aggregate(formula = formula(paste("wfin", f)), data = u, FUN = sum)$wfin
+  #v$wtot <- dtaggregate(formula = formula(paste("wfin", f)), data = fitw, FUN = sum)$wfin
   ## END
-  fit <- v
-
-  if(!is.null(y))
-    y <- aggregate(formula = formula(zf), data = y, FUN = mean)
-  else {
-    y <- fit
-    y[, nam] <- NA
-    }
-    
-  r <- y
-  r[, nam] <- y[, nam] - fit[, nam] 
+  zfit <- z
   
-  list(y = y, fit = fit, r = r, fitw = fitw)
+  if(is.null(y)) {
+    zy <- zfit
+    zy[, nam] <- rep(NA, nrow(zy))
+    }
+  else
+    zy <- dtaggregate(formula = formula(zf), data = y, FUN = mean)
+  
+  r <- zy
+  r[, nam] <- zy[, nam] - zfit[, nam] 
+  
+  list(y = zy, fit = zfit, r = r, fitw = fitw)
 
   }
 

@@ -21,11 +21,11 @@ stackmod(fit, y = NULL, formula, nam = NULL, weights = NULL)
 
 \item{fit}{Data frame of predicted values.}
 
-\item{y}{Data frame of \eqn{y-}data. If the \eqn{y-}data do not exist, let \code{NULL} (default).}
+\item{y}{Data frame of \eqn{y-}data. If the \eqn{y-}data do not exist, set to \code{NULL} (default).}
 
 \item{formula}{A right-hand-side formula defing the aggregation levels on which the predictions are averaged.}
 
-\item{nam}{Vector of the name(s) (character string) of the column(s) to consider in \code{y} and \code{fit} for averaging. If \code{NULL} (default), the last column of \code{y} and \code{fit} are considered.}
+\item{nam}{Name (character string) of the column to consider in \code{fit} and \code{y} for calculating the averaging. If \code{NULL} (default), the last column of \code{fit} and \code{y} are considered.}
 
 \item{weights}{A vector (of length the number of rows in \code{y} and \code{fit}) of eventual weights to apply for the averaging. If \code{NULL} (default), this is the standard mean.}
 
