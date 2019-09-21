@@ -29,24 +29,32 @@ Under Windows, the computations made in the package are faster with the R versio
 Install devtools package if not already done
 
 ```{r}
+
 install.packages(devtools)
+
 ```
 Load devtools then install rnirs package
 
 ```{r}
+
 library(devtools)
-install_github("mlesnoff/rnirs")
+install_github("mlesnoff/rnirs", build_vignettes = TRUE)
+
 ```
 Then load rnirs
 
 ```{r}
+
 library(rnirs)
+
 ```
 
 To get an overview of the available functions
 
 ```{r}
+
 ??rnirs
+
 ```
 
 
