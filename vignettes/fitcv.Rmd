@@ -1,0 +1,126 @@
+---
+title: "Cross-validation"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Examples of data analyses}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = TRUE) 
+
+```
+
+```{r, message = FALSE, warning = FALSE}
+
+library(rnirs)             
+
+```
+
+```{r}
+
+n <- 10
+p <- 6
+set.seed(1)
+X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
+y1 <- 100 * rnorm(n)
+y2 <- 100 * rnorm(n)
+Y <- cbind(y1, y2)
+set.seed(NULL)
+
+Xr <- X[1:8, ] ; Yr <- Y[1:8, ] 
+Xu <- X[9:10, ] ; Yu <- Y[9:10, ] 
+
+```
+
+## Cross-validation of a PLSR model
+
+```{r, fig.width = 7, fig.height = 3}
+
+Xr <- datcass$Xr
+yr <- datcass$yr
+
+Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
+dim(Xr)
+
+n <- nrow(Xr)
+segm <- segmcvkfold(n = n, K = 5, typ = "random", nrep = 3)   # Repeated random K-fold CV
+#segm <- segmcvmc(n = n, m = 40, nrep = 30)                   # Monte Carlo CV
+fm <- fitcv(
+  Xr, yr,
+  fun = plsr,
+  ncomp = 20,
+  segm = segm,
+  print = TRUE
+  )
+names(fm)
+head(fm$y)
+head(fm$fit)
+head(fm$r)
+
+z <- mse(fm, ~ ncomp)
+head(z)
+z[z$rmsep == min(z$rmsep), ]
+
+z <- mse(fm, ~ ncomp + rep)
+head(z)
+plotmse(z, group = "rep")
+
+plotmse(z, nam = "r2", group = "rep")
+
+
+```
+
+## Example of CV of an ad'hoc predictive function (e.g. using locw)
+
+```{r, fig.width = 7, fig.height = 3}
+
+fun <- function(Xr, Yr, Xu, Yu = NULL, k, ncomp, ncompdis) {
+  
+  z <- pls(Xr, Yr, Xu, ncomp = ncompdis)
+  resn <- getknn(z$Tr, z$Tu, k = k, diss = "mahalanobis")
+  listnn <- resn$listnn
+  listw <- lapply(resn$listd, wkern, h = 2)
+  fm <- locw(
+    Xr, Yr,
+    Xu, Yu,
+    listnn = listnn,
+    listw = listw,
+    fun = plsr,
+    algo = pls.kernelw,
+    ncomp = ncomp,
+    print = TRUE
+    )
+
+  list(y = fm$y, fit = fm$fit, r = fm$r)
+  
+  }
+
+n <- nrow(Xr)
+segm <- segmcvkfold(n = n, K = 5, typ = "random", nrep = 1)
+fm <- fitcv(
+  Xr, yr,
+  fun = fun,
+  k = 50,
+  ncomp = 20,
+  ncompdis = 10,
+  segm = segm,
+  print = TRUE
+  )
+head(fm$fit)
+z <- mse(fm, ~ k + ncomp)
+head(z)
+z[z$rmsep == min(z$rmsep), ]
+plotmse(z)
+
+
+```
+
+
+
+

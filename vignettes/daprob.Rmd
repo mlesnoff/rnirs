@@ -1,0 +1,83 @@
+---
+title: "Function daprob"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Examples of data analyses}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = TRUE) 
+
+```
+
+```{r, message = FALSE, warning = FALSE}
+
+library(rnirs)             
+library(ggplot2)
+
+```
+
+```{r}
+
+data(iris)
+
+X <- iris[, 1:4]
+y <- iris[, 5]
+N <- nrow(X)
+
+m <- round(.25 * N) # Test
+n <- N - m          # Training
+s <- sample(1:N, m)
+Xr <- X[-s, ]
+yr <- y[-s]
+Xu <- X[s, ]
+yu <- y[s]
+
+```
+
+## LDA (homogeneous covariances)
+
+```{r, fig.width = 7, fig.height = 3}
+
+fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm, lda = TRUE)
+names(fm)
+head(fm$y)
+head(fm$fit)
+head(fm$r)
+fm$ni
+err(fm)
+
+# Same as:
+nclas <- length(unique(yr))
+W <- matW(Xr, yr)$W * n / (n - nclas)
+fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm, sigma = W)
+
+```
+
+## QDA (heterogeneous covariances)
+
+```{r, fig.width = 7, fig.height = 3}
+
+fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm)
+err(fm)
+
+```
+
+## Nonparametric DA
+
+```{r, fig.width = 7, fig.height = 3}
+
+fm <- daprob(Xr, yr, Xu, yu, dens = dkern.gauss, hs = .2)
+err(fm)
+
+```
+
+
+
+

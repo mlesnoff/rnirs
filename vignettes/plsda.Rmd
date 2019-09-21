@@ -1,0 +1,118 @@
+---
+title: "PLS-DA"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Examples of data analyses}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = TRUE) 
+
+```
+
+```{r, message = FALSE, warning = FALSE}
+
+library(rnirs)             
+library(ggplot2)
+
+```
+
+```{r}
+
+data(datforages)
+
+Xr <- datforages$Xr
+yr <- datforages$yr
+
+Xu <- datforages$Xu
+yu <- datforages$yu
+
+Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
+Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
+dim(Xr)
+dim(Xu)
+
+table(yr)
+table(yu)
+
+```
+
+## PLS-DALM
+
+```{r, fig.width = 6, fig.height = 3}
+
+ncomp <- 20
+fm <- plsda(Xr, yr, Xu, yu, ncomp = ncomp, da = dalm)
+names(fm)
+head(fm$y)
+head(fm$fit)
+head(fm$r)
+z <- err(fm, ~ ncomp)
+plotmse(z, nam = "errp")
+z[z$errp == min(z$errp), ]
+
+### Same with plsdalm
+
+ncomp <- 20
+fm <- plsdalm(Xr, yr, Xu, yu, ncomp = ncomp)
+z <- err(fm, ~ ncomp)
+plotmse(z, nam = "errp")
+z[z$errp == min(z$errp), ]
+
+```
+
+## PLS-QDA
+
+```{r, fig.width = 6, fig.height = 3}
+
+ncomp <- 20
+fm <- plsda(Xr, yr, Xu, yu, ncomp, da = daprob)
+names(fm)
+head(fm$y)
+head(fm$fit)
+head(fm$r)
+z <- err(fm, ~ ncomp)
+z
+plotmse(z, nam = "errp")
+z <- z[z$errp == min(z$errp), ]
+z
+
+# Same as:
+# (for ncomp = z$ncomp components)
+u <- pls(Xr, dummy(yr), Xu, ncomp = z$ncomp)
+fm <- daprob(u$Tr, yr, u$Tu, yu)
+err(fm)
+
+```
+
+## PLS-LDA
+
+```{r, fig.width = 6, fig.height = 3}
+
+fm <- plsda(Xr, yr, Xu, yu, ncomp, da = daprob, lda = TRUE)
+z <- err(fm, ~ ncomp)
+plotmse(z, nam = "errp")
+z[z$errp == min(z$errp), ]
+
+```
+
+## PLS-KNNDA
+
+```{r, fig.width = 6, fig.height = 3}
+
+fm <- plsda(Xr, yr, Xu, yu, ncomp, da = knnwda, diss = "mahalanobis", k = 3)
+z <- err(fm, ~ ncomp + k)
+plotmse(z, nam = "errp", group = "k")
+z[z$errp == min(z$errp), ]
+
+```
+
+
+
+

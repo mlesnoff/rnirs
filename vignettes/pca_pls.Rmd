@@ -1,0 +1,136 @@
+---
+title: "PCA and PLS"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Examples of data analyses}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = TRUE) 
+
+```
+
+```{r, message = FALSE, warning = FALSE}
+
+library(rnirs)             
+library(ggplot2)
+
+```
+
+```{r}
+
+n <- 10
+p <- 6
+set.seed(1)
+X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
+y1 <- 100 * rnorm(n)
+y2 <- 100 * rnorm(n)
+Y <- cbind(y1, y2)
+set.seed(NULL)
+
+Xr <- X[1:8, ] ; Yr <- Y[1:8, ] 
+Xu <- X[9:10, ] ; Yu <- Y[9:10, ] 
+
+```
+
+## PCA
+
+```{r, fig.width = 7, fig.height = 3}
+
+ncomp <- 3
+fm <- pca(Xr, ncomp = ncomp)
+names(fm)
+fm$Tr   
+fm$P
+
+## Proportions of explained X-variance
+
+z <- fm$explvarx
+z
+barplot(100 * z$pvar, names.arg = paste("comp", z$ncomp), 
+  ylab = "Variance explained")
+
+## Scores
+
+comp <- c(1, 2)
+#comp <- c(2, 3)
+z <- fm$Tr[, comp]
+plotxy(z)
+plotxy(z, label = TRUE)
+
+## Individual contributions (in proportions)
+
+fm$contr.ind
+colSums(fm$contr.ind)
+
+## Loadings
+
+plotxy(fm$P, label = TRUE, origin = c(0, 0))
+
+## Variables coordonates
+
+plotxy(fm$coord.var, label = TRUE, origin = c(0, 0))
+
+## Correlation circle
+
+comp <- c(1, 2)
+#comp <- c(2, 3)
+z <- fm$cor.circle[, comp]
+plotxy(z, label = TRUE, origin = c(0, 0), circle = TRUE)
+
+## Projection of Xu on the score space Tr ==> Scores Tu
+
+fm <- pca(Xr, Xu, ncomp = ncomp)
+Tr <- fm$Tr
+Tu <- fm$Tu
+Tr
+Tu
+
+res <- rbind(Tr, Tu)
+typ <- c(rep("Reference", nrow(Tr)), rep("Unknown", nrow(Tu)))
+comp <- c(1, 2)
+#comp <- c(2, 3)
+plotxy(res[, comp], group = typ, label = TRUE, origin = c(0, 0)) 
+
+## Syntax for weighting
+
+pca(Xr, Xu, ncomp = ncomp, algo = pca.svdw, weights = rep(1, nrow(Xr)))
+
+```
+
+## PLS
+
+```{r, fig.width = 6, fig.height = 3}
+
+ncomp <- 3
+fm <- pls(Xr, Yr, ncomp = ncomp)
+names(fm)
+fm$Tr
+fm$P
+
+## Proportions of explained X-variance
+
+fm$explvarx
+
+## Projection of Xu on the score space Tr ==> Scores Tu
+
+fm <- pls(Xr, Yr, Xu, ncomp = ncomp)
+fm$Tr
+fm$Tu
+
+## Syntax for weighting
+
+pls(Xr, Yr, Xu, ncomp = ncomp, algo = pls.kernelw, weights = rep(1, nrow(Xr)))$Tu
+
+
+```
+
+
+
+
