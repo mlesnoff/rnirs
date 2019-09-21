@@ -42,14 +42,10 @@ plotsp(z)
 z <- savgol(X, m = 1, n = 11, p = 3, ts = 2)
 plotsp(z)
 
-# Filtering and and then selection of ranges
-
 z <- savgol(X, m = 1, n = 11, p = 3)
 ranges <- list(c(1000, 1700), c(1800, 2500))
 z <- selw(z, ranges)$X
 plotsp(z, ranges = ranges)
-
-# Selection of ranges and then filtering within ranges
 
 z <- savgol(X, m = 1, n = 11, p = 3, ranges = ranges)
 plotsp(z, ranges = ranges)

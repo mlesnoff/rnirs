@@ -65,15 +65,13 @@ X <- iris[, 1:4]
 y <- iris[, 5]
 N <- nrow(X)
 
-m <- round(.25 * N) # Test
-n <- N - m          # Training
+m <- round(.25 * N) 
+n <- N - m        
 s <- sample(1:N, m)
 Xr <- X[-s, ]
 yr <- y[-s]
 Xu <- X[s, ]
 yu <- y[s]
-
-# LDA (homogeneous covariances)
 
 fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm, lda = TRUE)
 names(fm)
@@ -81,21 +79,6 @@ head(fm$y)
 head(fm$fit)
 head(fm$r)
 fm$ni
-err(fm)
-
-# Same as:
-nclas <- length(unique(yr))
-W <- matW(Xr, yr)$W * n / (n - nclas)
-fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm, sigma = W)
-
-##### QDA (heterogeneous covariances)
-
-fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm)
-err(fm)
-
-##### Nonparametric DA
-
-fm <- daprob(Xr, yr, Xu, yu, dens = dkern.gauss, hs = .2)
 err(fm)
 
 }

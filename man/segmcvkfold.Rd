@@ -44,22 +44,15 @@ segmcvmc(n, y = NULL, m, nrep, seed = NULL)
 
 \examples{
 
-#### K-fold
-
 segmcvkfold(n = 10, K = 3)
 segmcvkfold(n = 10, K = 3, type = "interleaved")
 
-# Leave-one-out
 segmcvkfold(n = 10, K = 10)
 
-# replicated
 segmcvkfold(n = 10, K = 3, nrep = 2)
-
-#### Monte Carlo
 
 segmcvmc(n = 10, m = 3, nrep = 5)
 
-#### With classes
 n <- 10
 y <- rep(LETTERS[1:5], 2)
 y

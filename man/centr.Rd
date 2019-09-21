@@ -39,8 +39,6 @@ set.seed(NULL)
 centr(X, y)
 centr(X, y, FUN = median)
 
-#### Example with spectra
-
 data(datforages)
 
 Xr <- datforages$Xr
@@ -55,8 +53,6 @@ par(mfrow = c(1, 2))
 plotsp(u, col = 1:4, main = "Mean spectra per group")
 plotsp(v, col = 1:4, main = "Median spectra per group")
 par(mfrow = c(1, 1))
-
-# Plotting spectra and their mean
 
 z <- Xr[1:20, ]
 plotsp(z, ylab = "Absorbance", col = "grey")

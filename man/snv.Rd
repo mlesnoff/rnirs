@@ -32,14 +32,10 @@ X <- datcass$Xr
 z <- snv(X)
 plotsp(z)
 
-# Snv and then selection of ranges
-
 z <- snv(X)
 ranges <- list(c(1000, 1700), c(1800, 2500))
 z <- selw(z, ranges)$X
 plotsp(z, ranges = ranges)
-
-# Selection of ranges and then snv within ranges
 
 z <- snv(X, ranges = ranges)
 plotsp(z, ranges = ranges)

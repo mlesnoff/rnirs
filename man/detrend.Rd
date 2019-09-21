@@ -25,6 +25,7 @@ Detrend transformation of the row observations (usually spectra) of a data set. 
 \value{A matrix of the transformed data.}
 
 \examples{
+
 data(datcass)
 
 X <- datcass$Xr
@@ -36,17 +37,14 @@ z <- detrend(X, degree = 2)
 plotsp(z, main = "Quadratic detrend")
 par(mfrow = c(1, 1))
 
-# Detrend and then selection of ranges
-
 z <- detrend(X)
 ranges <- list(c(1000, 1700), c(1800, 2500))
 z <- selw(z, ranges)
 plotsp(z$X, ranges = ranges)
 
-# Selection of ranges and then detrend within ranges
-
 z <- detrend(X, ranges = ranges)
 plotsp(z, ranges = ranges)
+
 }
 
 \keyword{datagen}

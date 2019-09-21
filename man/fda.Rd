@@ -52,7 +52,6 @@ p <- p + geom_point(
   )
 p
 
-# Object Tc is the projection of the class centers in the score space
 centers <- centr(Xr, yr)$centers
 centers
 fm <- fda(Xr, yr, centers)

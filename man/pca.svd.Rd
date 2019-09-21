@@ -107,24 +107,6 @@ pca.nipals(X, ncomp = 3)
 
 pca.svdw(X, ncomp = 3, weights = rep(1, n))
 
-##################### WITH MISSING DATA
-
-X2 <- X
-X2[3, 3] <- X2[1, 3] <- X2[1, 2] <- NA
-X2
-
-fm <- pca.nipals(X2, ncomp = 3)
-fm
-
-## Replacement of the missing data in X2
-## by their NIPALS estimates
-
-Xhat <- xfit(fm$T, fm$P, fm$xmeans)
-Xhat
-u <- which(is.na(X2))
-Xfull <- replace(X2, u, Xhat[u])
-Xfull
-
 }
 
 \keyword{datagen}

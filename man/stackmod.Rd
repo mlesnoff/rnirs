@@ -50,8 +50,6 @@ z <- mse(fm, ~ ncomp)
 plotmse(z)
 z[z$rmsep == min(z$rmsep), ]
 
-## Stacking over models having from 5 to 20 components
-
 w <- ifelse(fm$y$ncomp >= 5 & fm$y$ncomp <= 20, 1, 0)
 zfm <- stackmod(fm$fit, fm$y, formula = ~ rownum + rownam, weights = w)
 names(zfm)

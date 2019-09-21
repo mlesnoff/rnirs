@@ -1,7 +1,7 @@
 Package: rnirs
 Type: Package
 Title: Locally Weighted PLS Regression and Discrimination
-Version: 1.0-6
+Version: 1.0-7
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Description: Package rnirs is a statistical tool box focusing on locally weighted prediction
@@ -10,6 +10,7 @@ Description: Package rnirs is a statistical tool box focusing on locally weighte
   The package is primarily dedicated to near infrared spectral (NIRS) data 
   but can be used for many other types of data.
 Depends: R (>= 3.0.0)
+VignetteBuilder: knitr
 Imports: scales, signal, data.table, FNN, ggplot2, gridExtra 
 Suggests: knitr, rmarkdown
 URL: https://github.com/mlesnoff/rnirs

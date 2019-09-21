@@ -81,13 +81,11 @@ u$res
 u$sel
 u$opt
 
-### With integral
 u <- selncomp.wold(z, typ = "integral", alpha = .1)
 u$res
 u$sel
 u$opt
 
-### With smoothing
 u <- selncomp.wold(z, typ = "smooth", f = 1/5)
 u$res
 u$sel

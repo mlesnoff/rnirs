@@ -1,5 +1,9 @@
 # News for the rnirs package
 
+## Version 1.0-7
+
+- Long and/or documented examples moved from the help pages to vignettes.
+
 ## Version 1.0-6
 
 - Function stackmod: simplification (y is now univariate) and correction of potential minor bug.

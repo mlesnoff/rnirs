@@ -33,20 +33,17 @@ ncomp <- 2
 #ncomp <- 10
 fm <- pca(Xr, Xu, ncomp = ncomp)
 
-# approximation of Xr
-Xhat <- xfit(fm$Tr, fm$P, fm$xmeans)
-dim(Xhat)
+Xr_approx <- xfit(fm$Tr, fm$P, fm$xmeans)
+dim(Xr_approx)
 s <- sample(1:nrow(Xr), size = 1)
 plotsp(Xr[s, , drop = FALSE], col = "red")
-plotsp(Xhat[s, , drop = FALSE], col = "blue", add = TRUE, lty = 2)
+plotsp(Xr_approx[s, , drop = FALSE], col = "blue", add = TRUE, lty = 2)
 
-# approximation of Xu
-Xhat <- xfit(fm$Tu, fm$P, fm$xmeans)
-dim(Xhat)
+Xu_approx <- xfit(fm$Tu, fm$P, fm$xmeans)
+dim(Xu_approx)
 s <- sample(1:nrow(Xu), size = 1)
 plotsp(Xu[s, , drop = FALSE], col = "red")
-plotsp(Xhat[s, , drop = FALSE], col = "blue", add = TRUE, lty = 2)
-
+plotsp(Xu_approx[s, , drop = FALSE], col = "blue", add = TRUE, lty = 2)
 
 }
 

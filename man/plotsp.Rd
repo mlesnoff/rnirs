@@ -70,6 +70,7 @@ plotsp1(X, coord.fixed = FALSE, col = "blue", main = "Row", ...)
 }
 
 \examples{
+
 data(datcass)
 
 X <- datcass$Xr
@@ -78,8 +79,8 @@ plotsp(X, ylab = "Absorbance")
 plotsp(X, col.low = "grey80", col.high = "grey60")
 plotsp(X, col.low = "grey95", col.high = "orangered")
 plotsp(X, col.low = "grey95", col.high = "blue3")
-plotsp(X, col.low = "#fff7bc", col.high = "#cc4c02") # http://colorbrewer2.org (YlOrBr)
-plotsp(X, col.low = "#fee0d2", col.high = "#a50f15") # http://colorbrewer2.org (Reds)
+plotsp(X, col.low = "#fff7bc", col.high = "#cc4c02") 
+plotsp(X, col.low = "#fee0d2", col.high = "#a50f15")
 
 plotsp(X, col = "red3")
 
@@ -100,7 +101,7 @@ plotsp(X[c(5, 170), ], ranges = ranges, col = c("red", "blue"), add = TRUE, text
 fm <- pca(X, ncomp = 50)
 P <- fm$P
 
-plotsp1(t(P), main = "Loadings")  # Scrolling the loadings
+plotsp1(t(P), main = "Loadings")
 
 }
 

@@ -67,12 +67,7 @@ Lesnoff, M., Metz, M., Roger, J.M.. Comparison of locally weighted PLS strategie
 
 \examples{
 
-\donttest{
-
 data(datcass)
-data(datforages)
-
-#############------------- QUANTITATIVE RESPONSE
 
 Xr <- datcass$Xr
 yr <- datcass$yr
@@ -85,12 +80,6 @@ Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
 dim(Xr)
 dim(Xu)
 
-### A locally weighted PLSR model where:
-### The dissimilarity between the observations are defined by the Mahalanobis distance 
-### calculated from a global PLS score space of ncompdis = 10 components.
-### - Weighting 1 = selection of k = 50 nearest neighbors
-### - Weighting 2 = weights within each neighborhood calculated with "wkern" 
-
 ncompdis <- 10
 h <- 2
 k <- 50
@@ -116,105 +105,6 @@ head(fm$r)
 z <- mse(fm, ~ ncomp + k)
 z[z$rmsep == min(z$rmsep), ]
 plotmse(z, group = "k")
-
-### Without weighting 2
-
-k <- 50
-ncompdis <- 10
-ncomp <- 20
-z <- pls(Xr, yr, Xu, ncomp = ncompdis)
-resn <- getknn(z$Tr, z$Tu, k = k, diss = "mahalanobis")
-listnn <- resn$listnn
-fm <- locw(
-  Xr, yr,
-  Xu, yu,
-  listnn = listnn,
-  fun = plsr,
-  ncomp = ncomp,
-  print = TRUE
-  )
-z <- mse(fm, ~ ncomp + k)
-z[z$rmsep == min(z$rmsep), ]
-plotmse(z, group = "k")
-
-#############------------- QUALITATIVE RESPONSE
-
-Xr <- datforages$Xr
-yr <- datforages$yr
-
-Xu <- datforages$Xu
-yu <- datforages$yu
-
-Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
-Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
-dim(Xr)
-dim(Xu)
-
-table(yr)
-table(yu)
-
-### A locally weighted PLS-LDA model where:
-### The dissimilarity between the observations are defined by the Mahalanobis distance 
-### calculated from a global PLS score space of ncompdis = 10 components.
-### - Weighting 1 = selection of k = 50 nearest neighbors
-### - Weighting 2 = weights within each neighborhood calculated with "wkern" 
-
-k <- 50
-ncompdis <- 10
-h <- 2
-ncomp <- 15
-z <- pls(Xr, dummy(yr), Xu, ncomp = ncompdis)
-resn <- getknn(z$Tr, z$Tu, k = k, diss = "mahalanobis")
-listnn <- resn$listnn
-listw <- lapply(resn$listd, wkern, h = h)
-fm <- locw(
-  Xr, yr,
-  Xu, yu,
-  listnn = listnn,
-  listw = listw,
-  fun = plsda,
-  da = daprob,
-  lda = TRUE,
-  algo = pls.kernelw,
-  ncomp = ncomp,
-  print = TRUE
-  )
-names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
-z <- err(fm, ~ ncomp + k)
-z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp", group = "k")
-
-### A locally weighted PLSDA (non parametric) model on preliminary calculated global scores
-
-z <- pls(Xr, dummy(yr), Xu, ncomp = 25)
-zXr <- z$Tr
-zXu <- z$Tu
-
-k <- 100
-ncompdis <- 10
-h <- 2
-ncomp <- 10
-resn <- getknn(zXr[, 1:ncompdis], zXu[, 1:ncompdis], k = k, diss = "mahalanobis")
-listnn <- resn$listnn
-listw <- lapply(resn$listd, wkern, h = h)
-fm <- locw(
-  zXr, yr,
-  zXu, yu,
-  listnn = listnn,
-  listw = NULL,
-  fun = plsda, dens = dkern.gauss,
-  da = daprob,
-  ncomp = ncomp,
-  print = TRUE
-  )
-z <- err(fm, ~ ncomp + k)
-z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp", group = "k")
-
-}
 
 }
 

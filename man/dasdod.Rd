@@ -109,7 +109,6 @@ fm$pvarcla
 err(fm)
 err(fm, ~ y1)
 
-# dasdod after a pls data reduction
 fm <- dasdod(Xr, yr, Xu, yu, ncomp.pls = 20, ncomp.pca = 15)
 fm$ncompcla
 fm$pvarcla

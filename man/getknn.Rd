@@ -62,11 +62,6 @@ Xu <- datcass$Xu
 
 k <- 5
 getknn(Xr, Xu[1:3, ], k = k)
-# Row "i" of $nn 
-# = indexes of the k nearest neighbors of the test observation "i"
-# Row "i" of $d
-# = dissimilarities of the k nearest neighbors of the test observation "i"
-# $listnn and $listd are the same as $nn and $d but in a list format.
 
 z <- pca(Xr, Xu, ncomp = 15)
 Tr <- z$Tr

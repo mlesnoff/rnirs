@@ -26,17 +26,14 @@ data(datcass)
 X <- datcass$Xr
 X[1:5, 1:5]
 
-# 1rst derivative
 z <- dderiv(X, n = 5)
 z[1:5, 1:5]
 plotsp(z[sample(1:nrow(z), 100), ])
 
-# 2nd derivative
 z <- dderiv(dderiv(X, n = 5), n = 5)
 z[1:5, 1:5]
 plotsp(z[sample(1:nrow(z), 100), ])
 
-# Such as the WiniIsi pre-processing format "1-5-5"
 z <- mavg(dderiv(X, n = 5), n = 5)
 z[1:5, 1:5]
 plotsp(z[sample(1:nrow(z), 100), ])

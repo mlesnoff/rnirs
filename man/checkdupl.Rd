@@ -54,8 +54,6 @@ checkdupl(dat1, dat2, nam = c("v1", "v2"))
 
 checkdupl(dat1, dat2, nam = c("v1", "v2"), check.all = TRUE)
 
-### Internal duplicates within dat1
-
 z <- checkdupl(X = dat1, Y = dat1)
 z[z$rownum.X != z$rownum.Y, ]
 

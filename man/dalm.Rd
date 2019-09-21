@@ -60,8 +60,8 @@ X <- iris[, 1:4]
 y <- iris[, 5]
 N <- nrow(X)
 
-m <- round(.25 * N) # Test
-n <- N - m          # Training
+m <- round(.25 * N) 
+n <- N - m        
 s <- sample(1:N, m)
 Xr <- X[-s, ]
 yr <- y[-s]

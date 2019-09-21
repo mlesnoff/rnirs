@@ -80,7 +80,6 @@ fm <- plsr(Xr, Yr, Xu, Yu, ncomp = ncomp)
 #fm <- plsr(Xr, Yr, Xu, ncomp = ncomp)
 #fm <- plsr(Xr, Yr[, 1], Xu, Yu[, 1], ncomp = ncomp)
 #fm <- plsr(Xr, Yr, Xu, Yu, ncomp = ncomp, algo = pls.kernelw, weights = rep(1, nrow(Xr)))
-######## PCR
 #fm <- pcr(Xr, Yr, Xu, Yu, ncomp = ncomp)
 #fm <- pcr(Xr, Yr, Xu, Yu, ncomp = ncomp, algo = pca.svdw, weights = rep(1, nrow(Xr)))
 names(fm)
@@ -89,7 +88,7 @@ fm$fit
 fm$r
 mse(fm, ~ ncomp, nam = "y1")
 mse(fm, ~ ncomp, nam = "y2")
-mse(fm, ~ ncomp)  ## y2
+mse(fm, ~ ncomp)
 
 z <- mse(fm, ~ ncomp)
 z

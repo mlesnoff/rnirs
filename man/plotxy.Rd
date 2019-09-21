@@ -67,25 +67,22 @@ plotxy(Tr[, comp], col = "red", alpha = 1)
 
 plotxy(Tr[, comp], origin = NULL) 
 
-## With groups of observations
-
-T <- rbind(Tr, Tu)
+res <- rbind(Tr, Tu)
 typ <- c(rep("Reference", nrow(Tr)), rep("Test", nrow(Tu)))
 comp <- c(1, 2)
 #comp <- c(3, 4)
-plotxy(T[, comp], group = typ, origin = c(0, 0)) 
+plotxy(res[, comp], group = typ, origin = c(0, 0)) 
 
 pal <- c("grey50", "red")
-plotxy(T[, comp], group = typ, pal = pal, labpal = "Type of \ndata", origin = c(0, 0)) 
+plotxy(res[, comp], group = typ, pal = pal, labpal = "Type of \ndata", origin = c(0, 0)) 
 
-# http://ggplot2.tidyverse.org/reference/scale_brewer.html
-# http://colorbrewer2.org
 pal <- "Dark2"
 #pal <- "Set1"
 #pal <- c("#fc9272", "#a50f15") # (Reds)
-plotxy(T[, comp], group = typ, pal = pal, origin = NULL)   
+plotxy(res[, comp], group = typ, pal = pal, origin = NULL)   
 
-plotxy(T[, comp], group = typ, origin = c(0, 0), pal = "Dark2", ellipse = TRUE)
+plotxy(res[, comp], group = typ, origin = c(0, 0), pal = "Dark2", ellipse = TRUE)
+
 
 }
 

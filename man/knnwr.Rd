@@ -81,14 +81,10 @@ Venables, W. N. and Ripley, B. D. (2002) Modern Applied Statistics with S. Fourt
 
 \examples{
 
-\donttest{
-
 library(ggplot2)
 
 data(datcass)
 data(datforages)
-
-######################### knnwr
 
 Xr <- datcass$Xr
 yr <- datcass$yr
@@ -100,13 +96,6 @@ Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
 Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
 dim(Xr)
 dim(Xu)
-
-## A kNN-WR model where:
-## The dissimilarities between the observations are defined
-## by the Mahalanobis distances calculated from a global PLS score space
-## of ncompdis = 10 components.
-## - Weighting 1 = knn selection of k = {5, 10, 15} neighbors
-## - Weighting 2 = within each neighborhood, weights are calculated by "wkern" 
 
 ncompdis <- 10
 h <- c(1, 2)
@@ -132,31 +121,6 @@ p <- ggplot(data = u, aes(x = k, y = rmsep))
 p <- p + geom_point(aes(colour = as.factor(group)), size = 2)
 p
 
-## Same but where :
-## The dissimilarities between the observations are defined
-## by Euclidean distances calculated from the original (i.e. not compressed) X data
-
-ncompdis <- NULL
-h <- c(1, 2)
-k <- seq(5, 20, by = 5)
-fm <- knnwr(
-  Xr, yr,
-  Xu, yu,
-  ncompdis = ncompdis, diss = "euclidean",
-  h = h, k = k,
-  print = TRUE
-  )
-z <- mse(fm, ~ ncompdis + h + k)
-z
-z[z$rmsep == min(z$rmsep), ]
-u <- z
-
-u$group <- paste(u$ncompdis, u$h)
-p <- ggplot(data = u, aes(x = k, y = rmsep))
-p <- p + geom_point(aes(colour = as.factor(group)), size = 2)
-p
-
-######################### knnwda
 
 Xr <- datforages$Xr
 yr <- datforages$yr
@@ -171,13 +135,6 @@ dim(Xu)
 
 table(yr)
 table(yu)
-
-## A kNNWDA model where:
-## The dissimilarities between the observations are defined
-## by the Mahalanobis distances calculated from a global PLS score space
-## of ncompdis = 10 components.
-## - Weighting 1 = knn selection of k = {5, 10, 15} neighbors
-## - Weighting 2 = within each neighborhood, weights are calculated by "wkern" 
 
 ncompdis <- 10
 h <- c(1, 2)
@@ -202,8 +159,6 @@ u$group <- paste(u$ncompdis, u$h)
 p <- ggplot(data = u, aes(x = k, y = errp))
 p <- p + geom_point(aes(colour = as.factor(group)), size = 2)
 p
-
-}
 
 }
 

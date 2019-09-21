@@ -50,21 +50,18 @@ A list of outputs, such as:
 
 data(iris)
 
-data(iris)
-
 X <- iris[, 1:4]
 y <- iris[, 5]
 N <- nrow(X)
 
-m <- round(.25 * N) # Test
-n <- N - m          # Training
+m <- round(.25 * N) 
+n <- N - m          
 s <- sample(1:N, m)
 Xr <- X[-s, ]
 yr <- y[-s]
 Xu <- X[s, ]
 yu <- y[s]
 
-# Euclidean
 fm <- dadis(Xr, yr, Xu, yu)
 names(fm)
 head(fm$y)
@@ -73,11 +70,9 @@ head(fm$r)
 fm$ni
 err(fm)
 
-# Mahalanobis with heterogeneous covariances
 fm <- dadis(Xr, yr, Xu, yu, diss = "mahalanobis")
 err(fm)
 
-# Mahalanobis with homogeneous covariance
 nclas <- length(unique(yr))
 W <- matW(Xr, yr)$W * n / (n - nclas)
 fm <- dadis(Xr, yr, Xu, yu, diss = "mahalanobis", sigma = W)
