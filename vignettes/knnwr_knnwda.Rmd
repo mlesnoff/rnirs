@@ -1,9 +1,9 @@
 ---
-title: "Functions lwplsr, lwplsda"
+title: "knnwr, knnwda"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Examples of data analyses}
+  %\VignetteIndexEntry{knnwr, knnwda}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 

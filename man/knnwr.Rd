@@ -84,7 +84,6 @@ Venables, W. N. and Ripley, B. D. (2002) Modern Applied Statistics with S. Fourt
 library(ggplot2)
 
 data(datcass)
-data(datforages)
 
 Xr <- datcass$Xr
 yr <- datcass$yr
@@ -118,45 +117,6 @@ z[z$rmsep == min(z$rmsep), ]
 u <- z
 u$group <- paste(u$ncompdis, u$h)
 p <- ggplot(data = u, aes(x = k, y = rmsep))
-p <- p + geom_point(aes(colour = as.factor(group)), size = 2)
-p
-
-
-Xr <- datforages$Xr
-yr <- datforages$yr
-
-Xu <- datforages$Xu
-yu <- datforages$yu
-
-Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
-Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
-dim(Xr)
-dim(Xu)
-
-table(yr)
-table(yu)
-
-ncompdis <- 10
-h <- c(1, 2)
-k <- seq(5, 15, by = 5)
-fm <- knnwda(
-  Xr, yr,
-  Xu, yu,
-  ncompdis = ncompdis, diss = "mahalanobis",
-  h = h, k = k,
-  print = TRUE
-  )
-names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
-z <- err(fm, ~ ncompdis + h + k)
-z
-z[z$err == min(z$errp), ]
-
-u <- z
-u$group <- paste(u$ncompdis, u$h)
-p <- ggplot(data = u, aes(x = k, y = errp))
 p <- p + geom_point(aes(colour = as.factor(group)), size = 2)
 p
 

@@ -1,9 +1,9 @@
 ---
-title: "Function daprob"
+title: "daprob"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Examples of data analyses}
+  %\VignetteIndexEntry{daprob}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 

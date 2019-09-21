@@ -123,7 +123,7 @@ dim(Xu)
 
 ncompdis <- 10
 h <- 2
-k <- c(30, 50)
+k <- c(30, 40)
 ncomp <- 15
 fm <- lwplsr(
   Xr, yr,

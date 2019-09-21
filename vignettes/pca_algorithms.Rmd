@@ -1,9 +1,9 @@
 ---
-title: "PCA algorithms"
+title: "pca.svd, pca.svdw, pca.eigen, pca.nipals"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Examples of data analyses}
+  %\VignetteIndexEntry{pca.svd, pca.svdw, pca.eigen, pca.nipals}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 

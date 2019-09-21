@@ -30,12 +30,13 @@ data(datcass)
 
 X <- datcass$Xr
 
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(1, 2))
 z <- detrend(X)
 plotsp(z, main = "Linear detrend")
 z <- detrend(X, degree = 2)
 plotsp(z, main = "Quadratic detrend")
-par(mfrow = c(1, 1))
+par(oldpar)
 
 z <- detrend(X)
 ranges <- list(c(1000, 1700), c(1800, 2500))

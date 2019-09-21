@@ -46,13 +46,12 @@ data(datcass)
 X <- datcass$Xr
 
 fm <- pca.svd(X, ncomp = 10)
-T <- fm$T
 nclas <- 3
-z <- kmeans(x = T, centers = nclas, nstart = 25, iter.max = 50)
+z <- kmeans(x = fm$T, centers = nclas, nstart = 25, iter.max = 50)
 names(z)
 y <- z$cluster
 
-u <- sampclas(X = T, y = y, m = 5)
+u <- sampclas(X = fm$T, y = y, m = 5)
 names(u)
 u$tab
 u$y
@@ -61,13 +60,14 @@ u$y[u$s]
 
 comp <- c(1, 2)
 #comp <- c(2, 3)
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(1, 2))
-plot(T[, comp], col = y)
-plot(T[, comp], col = "grey")
-points(T[u$s, comp], col = u$y[u$s], pch = 19)
-par(mfrow = c(1, 1))
+plot(fm$T[, comp], col = y)
+plot(fm$T[, comp], col = "grey")
+points(fm$T[u$s, comp], col = u$y[u$s], pch = 19)
+par(oldpar)
 
-u <- sampclas(X = T, y = y, m = c(2, 0, 10))
+u <- sampclas(X = fm$T, y = y, m = c(2, 0, 10))
 u$tab
 u$s
 u$y[u$s]

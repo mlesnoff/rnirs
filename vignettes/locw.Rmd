@@ -1,9 +1,9 @@
 ---
-title: "Function locw"
+title: "locw"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Examples of data analyses}
+  %\VignetteIndexEntry{locw}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 

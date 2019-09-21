@@ -1,5 +1,11 @@
 # News for the rnirs package
 
+## Version 1.0-8
+
+- Minor correction of DESCRIPTION file
+
+- Minor changes in examples of  help pages
+
 ## Version 1.0-7
 
 - Long and/or documented examples moved from the help pages to vignettes.

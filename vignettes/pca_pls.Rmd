@@ -1,9 +1,9 @@
 ---
-title: "PCA and PLS"
+title: "pca, pls"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Examples of data analyses}
+  %\VignetteIndexEntry{pca, pls}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
