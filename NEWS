@@ -1,14 +1,18 @@
 # News for the rnirs package
 
+## Version 1.0-9
+
+- Bug correction in plotmse. Now, group must be a column of obj.
+
 ## Version 1.0-8
 
-- Minor correction of DESCRIPTION file
+- Minor correction of DESCRIPTION file.
 
-- Minor changes in examples of  help pages
+- Minor changes in examples of  help pages.
 
 ## Version 1.0-7
 
-- Long and/or documented examples moved from the help pages to vignettes.
+- For compatibility with CRAN rules: Long and/or documented examples moved from the help pages to vignettes.
 
 ## Version 1.0-6
 
@@ -16,7 +20,7 @@
 
 ## Version 1.0-5
 
-- Minor changes in documentations
+- Minor changes in documentations.
 
 
 

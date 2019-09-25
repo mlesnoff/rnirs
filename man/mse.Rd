@@ -40,7 +40,7 @@ plotmse(obj, nam = "rmsep", group = NULL, scale.x.cont = TRUE)
 
 \item{obj}{Data frame returned by \code{\link{mse}} or \code{\link{err}}.}
 
-\item{group}{A vector of length = \code{nrow(obj)}, or a name (character string) of column of \code{obj}, defining groups of observations to be plotted with different colors (default is \code{NULL}).}
+\item{group}{Name (character string) of column of \code{obj} defining the groups of observations to be plotted with different colors (default is \code{NULL}).}
 
 \item{scale.x.cont}{Logical. If \code{TRUE} (default), the xlab-scale is numbered with a step of 1.}
 

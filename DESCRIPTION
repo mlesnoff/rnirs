@@ -1,7 +1,7 @@
 Package: rnirs
 Type: Package
 Title: Locally Weighted PLS Regression and Discrimination
-Version: 1.0-8
+Version: 1.0-9
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Description: Package rnirs is a statistical tool box focusing on locally weighted prediction
