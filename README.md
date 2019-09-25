@@ -8,7 +8,7 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
 ### Main features
 
 * Data checking and summarizing
-* Data pre-processing
+* Data pre-processing (detrend, SNV, derivations)
 * Multivariate factorial analyses: PCA, PLS, FDA
 * Global predictive methods
     - Quantitative regressions: PCR, PLSR
@@ -16,24 +16,24 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
 * Locally weighted predictive methods
     - Quantitative regressions: kNN-LWPLSR, kNN weighted regressions
     - Discrimination: kNN-LWPLSDA with various DA methods, kNN weighted discrimination
-    - Function locw can implement any locally weighted models
+    - The generic function **locw** can implement any locally weighted models
 * Cross-validation
 * Graphics
 * Other functions
 
-Under Windows, the computations made in the package are faster with the R version "Microsoft R Open" (https://mran.microsoft.com/open). Installing Rstudio (https://www.rstudio.com/products/rstudio/download/) is also recommended.
+Using Rstudio (https://www.rstudio.com/products/rstudio/download/) is recommended.
 
 
 ### Installation (GithHub package version)
 
-Install devtools package if not already done
+Install **devtools** package if not already done
 
 ```{r}
 
 install.packages(devtools)
 
 ```
-Load devtools then install rnirs package
+Load **devtools** then install **rnirs** package
 
 ```{r}
 
@@ -41,7 +41,7 @@ library(devtools)
 install_github("mlesnoff/rnirs", build_vignettes = TRUE)
 
 ```
-Then load rnirs
+Then load **rnirs**
 
 ```{r}
 
