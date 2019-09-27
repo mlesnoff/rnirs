@@ -41,23 +41,15 @@ install_github("mlesnoff/rnirs", build_vignettes = TRUE, dependencies = TRUE)
 
 ### Usage
 
-
 Load **rnirs**
-
 
 ```{r}
 library(rnirs)
 ```
-
 To get an overview of the available functions
-
 
 ```{r}
 ??rnirs
 ```
-
-
-
-
 
 
