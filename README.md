@@ -21,40 +21,39 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
 * Graphics
 * Other functions
 
-Using Rstudio (https://www.rstudio.com/products/rstudio/download/) is recommended.
+Using Rstudio is recommended (https://www.rstudio.com/products/rstudio/download/).
 
 
-### Installation (GithHub package version)
+### Installation
 
-Install **devtools** package if not already done
+1. Install **devtools** package (if not already done)
 
 ```{r}
-
 install.packages(devtools)
-
 ```
-Load **devtools** then install **rnirs** package
+
+2. Load **devtools** and then install **rnirs** package
 
 ```{r}
-
 library(devtools)
-install_github("mlesnoff/rnirs", build_vignettes = TRUE)
-
+install_github("mlesnoff/rnirs", build_vignettes = TRUE, dependencies = TRUE)
 ```
-Then load **rnirs**
+
+### Usage
+
+
+Load **rnirs**
+
 
 ```{r}
-
 library(rnirs)
-
 ```
 
 To get an overview of the available functions
 
+
 ```{r}
-
 ??rnirs
-
 ```
 
 
