@@ -1,5 +1,9 @@
 # News for the rnirs package
 
+## Version 1.0-10
+
+- For facilitating the learning of the package, all the examples in the vignettes have been moved again in the example sections of the help pages. Vignettes have been removed.
+
 ## Version 1.0-9
 
 - Bug correction in plotmse. Now, group must be a column of obj.

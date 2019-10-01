@@ -33,7 +33,6 @@ Saporta, G., 2011. Probabilités analyse des données et statistique. Editions T
 \examples{
 
 library(ggplot2)
-data(iris)
 
 Xr <- iris[, 1:4]
 yr <- iris[, 5]
@@ -52,6 +51,7 @@ p <- p + geom_point(
   )
 p
 
+# Object Tc is the projection of the class centers in the score space
 centers <- centr(Xr, yr)$centers
 centers
 fm <- fda(Xr, yr, centers)

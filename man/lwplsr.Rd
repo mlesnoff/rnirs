@@ -108,7 +108,12 @@ Sicard, E. Sabatier, R., 2006. Theoretical framework for local PLS1 regression a
 
 \examples{
 
+library(ggplot2)
+
 data(datcass)
+data(datforages)
+
+######################## lwplsr
 
 Xr <- datcass$Xr
 yr <- datcass$yr
@@ -121,10 +126,17 @@ Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
 dim(Xr)
 dim(Xu)
 
+### A kNN-LWPLSR model where:
+### The dissimilarities between the observations are defined
+### by the Mahalanobis distances calculated in a global PLS score space
+### of ncompdis = 10 components.
+### - Weighting 1 = selection of k nearest neighbors
+### - Weighting 2 = weights within each neighborhood calculated with "wkern" 
+
+k <- c(50, 100)
 ncompdis <- 10
-h <- 2
-k <- c(30, 40)
-ncomp <- 15
+h <- c(1, 2)
+ncomp <- 20
 fm <- lwplsr(
   Xr, yr,
   Xu, yu,
@@ -144,6 +156,117 @@ z[z$rmsep == min(z$rmsep), ]
 u <- z
 u$group <- paste(u$ncompdis, u$h, u$k)
 plotmse(u, group = "group")
+
+### An approach for decreasing the calculation time
+### (and in some cases increasing the results stability 
+### and decreasing the error rates) is to replace matrices Xr and Xu 
+### by global PLSR score matrices Tr and Tu
+
+zfm <- pls(Xr, yr, Xu, ncomp = 25) # calculation of the new data
+zXr <- zfm$Tr
+zXu <- zfm$Tu
+
+k <- c(50, 100)
+ncompdis <- 10
+h <- c(1, 2)
+ncomp <- 20
+fm <- lwplsr(
+  zXr, yr,
+  zXu, yu,
+  ncompdis = ncompdis, diss = "mahalanobis",
+  h = h, k = k,
+  ncomp = ncomp,
+  print = TRUE
+  )
+z <- mse(fm, ~ ncompdis + h + k + ncomp)
+head(z)
+z[z$rmsep == min(z$rmsep), ]
+
+u <- z
+u$group <- paste(u$ncompdis, u$h, u$k)
+plotmse(u, group = "group")
+
+
+######################## lwplsda
+
+Xr <- datforages$Xr
+yr <- datforages$yr
+
+Xu <- datforages$Xu
+yu <- datforages$yu
+
+Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
+Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
+dim(Xr)
+dim(Xu)
+
+table(yr)
+table(yu)
+
+### A kNN-LWPLSDA model (with dalm) where:
+## The dissimilarities between the observations are defined
+## by the Mahalanobis distances calculated from a global PLS score space
+## of ncompdis = 10 components.
+## - Weighting 1 = knn selection of k = {5, 10, 15} neighbors
+## - Weighting 2 = within each neighborhood, weights are calculated by "wkern" 
+
+ncompdis <- 10
+h <- 2
+k <- c(50, 100)
+ncomp <- 15
+fm <- lwplsda(
+  Xr, yr,
+  Xu, yu,
+  ncompdis = ncompdis, diss = "mahalanobis",
+  h = h, k = k,
+  da = dalm,
+  ncomp = ncomp,
+  print = TRUE
+  )
+names(fm)
+head(fm$y)
+head(fm$fit)
+head(fm$r)
+z <- err(fm, ~ ncompdis + h + k + ncomp)
+z[z$errp == min(z$errp), ]
+plotmse(z, nam = "errp", group = "k")
+
+### Same using lwplsdalm (faster)
+
+ncompdis <- 10
+h <- 2
+k <- c(50, 100)
+ncomp <- 15
+fm <- lwplsdalm(
+  Xr, yr,
+  Xu, yu,
+  ncompdis = ncompdis, diss = "mahalanobis",
+  h = h, k = k,
+  ncomp = ncomp,
+  print = TRUE
+  )
+z <- err(fm, ~ ncompdis + h + k + ncomp)
+z[z$errp == min(z$errp), ]
+plotmse(z, nam = "errp", group = "k")
+
+### Same models but changing the DA method ==> LDA
+
+ncompdis <- 10
+h <- 2
+k <- c(50, 100)
+ncomp <- 15
+fm <- lwplsda(
+  Xr, yr,
+  Xu, yu,
+  ncompdis = ncompdis, diss = "mahalanobis",
+  h = h, k = k,
+  da = daprob, lda = TRUE,
+  ncomp = ncomp,
+  print = TRUE
+  )
+z <- err(fm, ~ ncompdis + h + k + ncomp)
+z[z$errp == min(z$errp), ]
+plotmse(z, nam = "errp", group = "k")
 
 }
 

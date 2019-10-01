@@ -77,12 +77,34 @@ X <- datcass$Xr
 
 plotsp(X, ylab = "Absorbance")
 
+plotsp(X, ylab = "Absorbance")
+plotsp(X, col.low = "grey80", col.high = "grey60")
+plotsp(X, col.low = "grey95", col.high = "orangered")
+plotsp(X, col.low = "grey95", col.high = "blue3")
+plotsp(X, col.low = "#fff7bc", col.high = "#cc4c02") 
+plotsp(X, col.low = "#fee0d2", col.high = "#a50f15")
+
+plotsp(X, col = "red3")
+
+oldpar <- par(mfrow = c(1, 1))
+par(mfrow = c(1, 2))
+plotsp(X, rownum = c(5, 170), col = "darkblue", text = TRUE)
+plotsp(X[c(5, 170), ], col = "darkblue", text = TRUE)
+par(oldpar)
+
+plotsp(X, col = "grey")
+plotsp(X, rownum = c(5, 170), col = c("red", "blue"), add = TRUE, text = TRUE, lwd = 2)
+
+ranges <- list(c(1000, 1700), c(1800, 2300))
+plotsp(X, ranges = ranges, col = "grey")
+plotsp(X[c(5, 170), ], ranges = ranges, col = c("red", "blue"), add = TRUE, text = TRUE)
+
 \donttest{
 
 fm <- pca(X, ncomp = 50)
 P <- fm$P
 
-plotsp1(t(P), main = "Loadings")
+plotsp1(t(P), main = "Loadings", ylab = "loading-value")
 
 }
 

@@ -109,6 +109,7 @@ fm$pvarcla
 err(fm)
 err(fm, ~ y1)
 
+### With a preliminary PLS
 fm <- dasdod(Xr, yr, Xu, yu, ncomp.pls = 20, ncomp.pca = 15)
 fm$ncompcla
 fm$pvarcla
