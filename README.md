@@ -1,9 +1,16 @@
-# R package rnirs 1.0-10  
-### Locally Weighted PLS Regression and Discrimination
+## rnirs 1.0-10
+## Locally Weighted PLS Regression and Discrimination
 
-Package **rnirs** is a statistical tool box focusing on locally weighted prediction methods: regression for quantitative responses and discrimination for qualitative responses. The predictive models can use partial least squares (PLS) dimension reductions or other methods.
+R package focusing on locally weighted prediction methods
 
-The package is primarily dedicated to near infrared spectral (NIRS) data but can be used for many other types of data.
+- Regression for quantitative responses
+- Discrimination for qualitative responses 
+
+The prediction models can use partial least squares dimension reductions (PLS) or other methods.
+
+The package is primarily dedicated to near infrared spectral data (NIRS) but is generic for many other types of data.
+
+Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
 ### Main features
 
@@ -18,15 +25,13 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
     - Discrimination: kNN-LWPLSDA with various DA methods, kNN weighted discrimination
     - The generic function **locw** can implement any locally weighted models
 * Cross-validation
+    - Generic function **fitcv**
 * Graphics
 * Other functions
 
-Using Rstudio is recommended (https://www.rstudio.com/products/rstudio/download/).
+### Installation from Github
 
-
-### Installation from GITHUB
-
-1. Install **devtools** package (if not already done)
+1. Install **devtools** package from the CRAN (if not already done)
 
 ```{r}
 install.packages(devtools)
@@ -38,6 +43,18 @@ install.packages(devtools)
 library(devtools)
 install_github("mlesnoff/rnirs", dependencies = TRUE)
 ```
+### Installation from the Tar file rnirs_....tar.gz with Rstudio
+
+1. Install packages from the CRAN (Menu "Packages", "Install", and then "Install From CRAN")
+
+- **scales**
+- **signal**
+- **data.table**
+- **FNN**
+- **ggplot2**
+- **gridExtra** 
+
+2. Download the TAR file **rnirs_....tar.gz** and install it (Menu "Packages", "Install", and then "Install From Package Archive Files")
 
 ### Usage
 
