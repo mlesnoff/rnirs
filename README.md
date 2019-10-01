@@ -1,4 +1,4 @@
-# R package rnirs 1.0-9  
+# R package rnirs 1.0-10  
 ### Locally Weighted PLS Regression and Discrimination
 
 Package **rnirs** is a statistical tool box focusing on locally weighted prediction methods: regression for quantitative responses and discrimination for qualitative responses. The predictive models can use partial least squares (PLS) dimension reductions or other methods.
