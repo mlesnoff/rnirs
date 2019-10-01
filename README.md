@@ -24,7 +24,7 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
 Using Rstudio is recommended (https://www.rstudio.com/products/rstudio/download/).
 
 
-### Installation
+### Installation from GITHUB
 
 1. Install **devtools** package (if not already done)
 
