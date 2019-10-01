@@ -36,7 +36,7 @@ install.packages(devtools)
 
 ```{r}
 library(devtools)
-install_github("mlesnoff/rnirs", build_vignettes = TRUE, dependencies = TRUE)
+install_github("mlesnoff/rnirs", dependencies = TRUE)
 ```
 
 ### Usage
