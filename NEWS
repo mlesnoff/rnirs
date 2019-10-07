@@ -1,5 +1,18 @@
 # News for the rnirs package
 
+## Version 1.0-11
+
+- Boucles "for" replaced by lapply iterations for better memory management
+in functions:
+. kenston
+. pls.kernel, plskernelw
+. pls.nipals, pls.nipalsw
+. pcr, plsr, plsda
+. locw
+. lwplsr, lwplsda, lwplsdalm
+. knnwr, knnwda
+. sdodlist
+
 ## Version 1.0-10
 
 - For facilitating the learning of the package, all the examples in the vignettes
@@ -8,7 +21,7 @@ Vignettes have been removed.
 
 ## Version 1.0-9
 
-- Bug correction in plotmse. Now, group must be a column of obj.
+- Bug correction in plotmse. Now, "group" must be a column of "obj".
 
 ## Version 1.0-8
 

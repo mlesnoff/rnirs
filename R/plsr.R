@@ -10,7 +10,7 @@ plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...) {
   q <- ncol(Yr)
   colnam.Yr <- colnames(Yr)
 
-  Xu <- .matrix(Xu)
+  Xu <- .matrix(Xu, prefix.colnam = "x")
   m <- nrow(Xu)
   rownam.Xu <- row.names(Xu)
 
@@ -41,11 +41,14 @@ plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...) {
   y[, 1, ] <- Yu
   fit[, 1, ] <- Ymeans
 
-  for(a in 1:ncomp) {
-    y[, a + 1, ] <- Yu
-    fit[, a + 1, ] <- Ymeans + Tu[, 1:a, drop = FALSE] %*% Beta[1:a, , drop = FALSE]
-    }
-  
+  lapply(
+    1:ncomp, function(a) {
+      
+      y[, a + 1, ] <<- Yu
+      fit[, a + 1, ] <<- Ymeans + Tu[, 1:a, drop = FALSE] %*% Beta[1:a, , drop = FALSE]
+      
+      }
+    )
   y <- matrix(c(y), nrow = m * (ncomp + 1), ncol = q, byrow = FALSE)
   fit <- matrix(c(fit), nrow = m * (ncomp + 1), ncol = q, byrow = FALSE)
   r <- y - fit

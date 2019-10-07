@@ -4,22 +4,26 @@ sdodlist <- function(fm, ncomp = NULL, ...) {
   nam <- names(fm)
   odu <- odr <- sdu <- sdr <- vector("list", length = nmod)
   
-  for(i in 1:nmod) {
+  res <- lapply(
     
-    z <- sdod(fm[[i]], ncomp = ncomp, ...)
+    1:nmod, function(i) {
       
-    sdr[[i]] <- z$sdr
-    sdu[[i]] <- z$sdu
-    odr[[i]] <- z$odr
-    odu[[i]] <- z$odu
-    
-    #odr[[i]]$rownum <- sdr[[i]]$rownum <- nam[[i]]
-    #odu[[i]]$rownum <- sdu[[i]]$rownum <- nam[[i]]
+      z <- sdod(fm[[i]], ncomp = ncomp, ...)
+        
+      sdr[[i]] <<- z$sdr
+      sdu[[i]] <<- z$sdu
+      odr[[i]] <<- z$odr
+      odu[[i]] <<- z$odu
       
-    odr[[i]]$fm <- sdr[[i]]$fm <- nam[[i]]
-    odu[[i]]$fm <- sdu[[i]]$fm <- nam[[i]]
+      #odr[[i]]$rownum <- sdr[[i]]$rownum <- nam[[i]]
+      #odu[[i]]$rownum <- sdu[[i]]$rownum <- nam[[i]]
+        
+      odr[[i]]$fm <<- sdr[[i]]$fm <<- nam[[i]]
+      odu[[i]]$fm <<- sdu[[i]]$fm <<- nam[[i]]
+      
+      }
     
-    }
+    )
     
   sdr <- setDF(rbindlist(sdr))
   sdu <- setDF(rbindlist(sdu))

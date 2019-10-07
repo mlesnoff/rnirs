@@ -1,12 +1,12 @@
 Package: rnirs
 Type: Package
 Title: Locally Weighted PLS Regression and Discrimination
-Version: 1.0-10
+Version: 1.0-11
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Description: Statistical tool box focusing on locally weighted prediction
   methods: regression for quantitative responses and discrimination for qualitative responses. 
-  The predictive models can use partial least squares dimension reductions or other methods.
+  The prediction models can use partial least squares dimension reductions or other methods.
   The package is primarily dedicated to near infrared spectral data 
   but can be used for many other types of data.
 Depends: R (>= 3.0.0)

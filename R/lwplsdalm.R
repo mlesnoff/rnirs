@@ -25,79 +25,86 @@ lwplsdalm <- function(
   zpar <- z
   npar <- nrow(zpar)
   
-  r <- fit <- y <- vector(mode = "list", length = npar)
-  for(i in 1:nrow(zpar)) {
+  res <- lapply(
     
-    if(print) {
-      cat("\nparam ", "(", i, "/", npar, ") \n", sep = "")
-      print(zpar[i, ]) ; cat("\n")
-      }
+    1:npar, function(i) {
     
-    zncompdis <- zpar$ncompdis[i]
-    zh <- zpar$h[i]
-    zk <- zpar$k[i]
-  
-    if(zncompdis == 0) {
-      Zr <- Xr
-      Zu <- Xu
-      } else { 
-        z <- pls.kernel(Xr, dummy(Yr), ncomp = zncompdis)
-        Zr <- z$T
-        Zu <- projscor(Xu, z)
+      if(print) {
+        cat("\nparam ", "(", i, "/", npar, ") \n", sep = "")
+        print(zpar[i, ]) ; cat("\n")
         }
+      
+      zncompdis <- zpar$ncompdis[i]
+      zh <- zpar$h[i]
+      zk <- zpar$k[i]
     
-    resn <- getknn(Zr, Zu, k = zk, diss = diss)
-    zlistnn <- resn$listnn
-    zlistw <- lapply(resn$listd, wkern, h = zh)
+      if(zncompdis == 0) {
+        Zr <- Xr
+        Zu <- Xu
+        } else { 
+          z <- pls.kernel(Xr, dummy(Yr), ncomp = zncompdis)
+          Zr <- z$T
+          Zu <- projscor(Xu, z)
+          }
+      
+      zresn <- getknn(Zr, Zu, k = zk, diss = diss)
+      zlistnn <- zresn$listnn
+      zlistw <- lapply(zresn$listd, wkern, h = zh)
+    
+      zfm <- locw(
+        Xr, Yr,
+        Xu, Yu,
+        listnn = zlistnn,
+        listw = zlistw,
+        fun = plsdalm,
+        algo = pls.kernelw,
+        ncomp = ncomp,
+        stor = stor,
+        print = print
+        )
+    
+      zy <- setDT(zfm$y)
+      zfit <- setDT(zfm$fit)
+      zr <- setDT(zfm$r)
+      
+      u <- nrow(zy)
+      u <- data.table(
+        ncompdis = rep(zncompdis, u),
+        h = rep(zh, u)
+        )
+      y <- data.table(u, zy)
+      fit <- data.table(u, zfit)
+      r <- data.table(u, zr)
+      
+      fm <- zfm$fm
+      
+      return(list(y = y, fit = fit, r = r, resn = zresn, fm = fm))
   
-    zfm <- locw(
-      Xr, Yr,
-      Xu, Yu,
-      listnn = zlistnn,
-      listw = zlistw,
-      fun = plsdalm,
-      algo = pls.kernelw,
-      ncomp = ncomp,
-      stor = stor,
-      print = print
-      )
-    
-    y[[i]] <- zfm$y
-    fit[[i]] <- zfm$fit
-    r[[i]] <- zfm$r
-    
-    if(i == 1) fm <- zfm$fm else fm <- c(fm, zfm$fm)
-    
-    zy <- zfm$y
-    zfit <- zfm$fit
-    zr <- zfm$r
-    
-    u <- nrow(zy)
-    u <- data.frame(
-      ncompdis = rep(zncompdis, u),
-      h = rep(zh, u)
-      )
-    zy <- cbind(u, zy)
-    zfit <- cbind(u, zfit)
-    zr <- cbind(u, zr)
-    
-    y[[i]] <- zy
-    fit[[i]] <- zfit
-    r[[i]] <- zr
+      }
+  
+    )
 
-    if(i == 1) fm <- zfm$fm else fm <- c(fm, zfm$fm)
-    
+  .f <- function(nam) {
+    z <- lapply(1:length(res), function(i) {res[[i]][nam]})
+    z <- unlist(z, recursive = FALSE)
+    z <- setDF(rbindlist(z))
     }
+  y <- .f("y")
+  fit <- .f("fit")
+  r <- .f("r")
+  
+  z <- lapply(1:length(res), function(i) {res[[i]]["resn"]})
+  resn <- unlist(z, recursive = FALSE)
+  names(resn) <- 1:npar
 
-  y <- setDF(rbindlist(y))
-  fit <- setDF(rbindlist(fit))
-  r <- setDF(rbindlist(r))
+  z <- lapply(1:length(res), function(i) {res[[i]]["fm"]})
+  fm <- unlist(z, recursive = FALSE)[[1]]
   
   if(print) cat("\n\n")
   
   gc()
   
-  list(y = y, fit = fit, r = r, fm = fm)
+  list(y = y, fit = fit, r = r, resn = resn, fm = fm)
   
   }    
     

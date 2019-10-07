@@ -17,7 +17,7 @@ pca.nipals <- function(X, ncomp, gramschmidt = TRUE,
   nc <- p
   xss <- rep(NA, length = ncomp)
 
-  ########## CODE FROM function nipals (package nipals; K. Wright)
+  ########## CODE FROM FUNCTION "nipals" (PACKAGE "nipals"; K. Wright)
   
   x.orig <- x
   col.na.count <- apply(x, 2, function(x) sum(!is.na(x)))

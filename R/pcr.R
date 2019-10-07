@@ -51,11 +51,15 @@ pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pca.svd, ...) {
   y[, 1, ] <- Yu
   fit[, 1, ] <- Ymeans
 
-  for(a in 1:ncomp) {
-    y[, a + 1, ] <- Yu
-    fit[, a + 1, ] <- Ymeans + Tu[, 1:a, drop = FALSE] %*% Beta[1:a, , drop = FALSE]
-    }
-  
+  lapply(
+    1:ncomp, function(a) {
+      
+      y[, a + 1, ] <<- Yu
+      fit[, a + 1, ] <<- Ymeans + Tu[, 1:a, drop = FALSE] %*% Beta[1:a, , drop = FALSE]
+      
+      }
+    )
+    
   y <- matrix(c(y), nrow = m * (ncomp + 1), ncol = q, byrow = FALSE)
   fit <- matrix(c(fit), nrow = m * (ncomp + 1), ncol = q, byrow = FALSE)
   r <- y - fit

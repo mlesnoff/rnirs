@@ -25,42 +25,46 @@ pls.kernel <- function(X, Y, ncomp) {
   
   XY <- crossprod(X, Y)
   
-  for(a in 1:ncomp) {
+  lapply(
     
-    if(zq == 1) w <- XY
-      else {
-        z <- svd(t(XY), nu = 1, nv = 0)
-        w <- XY %*% z$u
-        }
+    1:ncomp, function(a) {
 
-    w <- w / sqrt(sum(w * w))
-    
-    r <- w
-    if(a > 1) 
-      for(j in 1:(a - 1)) 
-        r <- r - sum(P[, j] * w) * R[, j]
-    
-    t <- X %*% r                              
-    
-    tt <- sum(t * t)
-    
-    p <- crossprod(X, t) / tt              
-    
-    c <- crossprod(XY, r) / tt                 
-    
-    XY <- XY - tcrossprod(p, c) * tt          
-    
-    T[, a] <- t
-    P[, a] <- p
-    W[, a] <- w
-    R[, a] <- r
-    C[, a] <- c
-    
-    TT[a] <- tt
-    
+      if(zq == 1) w <- XY
+        else {
+          z <- svd(t(XY), nu = 1, nv = 0)
+          w <- XY %*% z$u
+          }
+  
+      w <- w / sqrt(sum(w * w))
+      
+      r <- w
+      if(a > 1) 
+        for(j in 1:(a - 1))
+          r <- r - sum(P[, j] * w) * R[, j]
+      
+      t <- X %*% r                              
+      
+      tt <- sum(t * t)
+      
+      p <- crossprod(X, t) / tt              
+      
+      c <- crossprod(XY, r) / tt    
+      
+      XY <<- XY - tcrossprod(p, c) * tt
+      
+      T[, a] <<- t
+      P[, a] <<- p
+      W[, a] <<- w
+      R[, a] <<- r
+      C[, a] <<- c
+      
+      TT[a] <<- tt
+      
     }
   
+  )
+    
   list(T = T, P = P, W = W, C = C, R = R, TT = TT,
     xmeans = xmeans, ymeans = ymeans, weights = d)
-  
+
   }

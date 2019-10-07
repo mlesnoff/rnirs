@@ -33,9 +33,12 @@
   
   dat <- data.frame(y = Yr, w = d)
   z <- aggregate(w ~ y, FUN = sum, data = dat)
+
   ind <- which(z$w == max(z$w))
   n <- length(ind)
+  set.seed(seed = 1)
   if(n > 1) ind <- sample(1:n, 1)
+  set.seed(seed = NULL)
   fit <- namclas[ind]
   
   y <- Yu

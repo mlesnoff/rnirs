@@ -80,8 +80,7 @@ dim(Xu)
 table(yr)
 table(yu)
 
-
-## PLS-DALM
+######## PLS-DALM
 
 ncomp <- 20
 fm <- plsda(Xr, yr, Xu, yu, ncomp = ncomp, da = dalm)
@@ -93,7 +92,7 @@ z <- err(fm, ~ ncomp)
 plotmse(z, nam = "errp")
 z[z$errp == min(z$errp), ]
 
-### Same with plsdalm
+## Same with plsdalm
 
 ncomp <- 20
 fm <- plsdalm(Xr, yr, Xu, yu, ncomp = ncomp)
@@ -101,7 +100,7 @@ z <- err(fm, ~ ncomp)
 plotmse(z, nam = "errp")
 z[z$errp == min(z$errp), ]
 
-## PLS-QDA
+######## PLS-QDA
 
 ncomp <- 20
 fm <- plsda(Xr, yr, Xu, yu, ncomp, da = daprob)
@@ -121,22 +120,21 @@ u <- pls(Xr, dummy(yr), Xu, ncomp = z$ncomp)
 fm <- daprob(u$Tr, yr, u$Tu, yu)
 err(fm)
 
+######## PLS-LDA
 
-## PLS-LDA
-
+ncomp <- 20
 fm <- plsda(Xr, yr, Xu, yu, ncomp, da = daprob, lda = TRUE)
 z <- err(fm, ~ ncomp)
 plotmse(z, nam = "errp")
 z[z$errp == min(z$errp), ]
 
+######## PLS-KNNDA
 
-## PLS-KNNDA
-
+ncomp <- 20
 fm <- plsda(Xr, yr, Xu, yu, ncomp, da = knnwda, diss = "mahalanobis", k = 3)
 z <- err(fm, ~ ncomp + k)
 plotmse(z, nam = "errp", group = "k")
 z[z$errp == min(z$errp), ]
-
 
 }
 

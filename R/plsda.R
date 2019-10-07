@@ -37,18 +37,23 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ..
   d <- fm$weights
   
   r <- y <- fit <- vector("list", ncomp)
-  for(a in 1:ncomp) {
+  ni <- NULL
+  lapply(
+    1:ncomp, function(a) {
     
-    param <- list(Xr = Tr[, 1:a, drop = FALSE], Yr = Yr, Xu = Tu[, 1:a, drop = FALSE], Yu = Yu)
-    param <- c(param, dots.da)
-    zfm <- do.call(.da, param)
-    
-    y[[a]] <- zfm$y
-    fit[[a]] <- zfm$fit
-    r[[a]] <- zfm$r
-    
-    }
-  ni <- zfm$ni
+      param <- list(Xr = Tr[, 1:a, drop = FALSE], Yr = Yr, 
+        Xu = Tu[, 1:a, drop = FALSE], Yu = Yu)
+      param <- c(param, dots.da)
+      zfm <- do.call(.da, param)
+      
+      y[[a]] <<- zfm$y
+      fit[[a]] <<- zfm$fit
+      r[[a]] <<- zfm$r
+      
+      ni <<- zfm$ni
+      
+      }
+    )
   
   y <- setDF(rbindlist(y))
   fit <- setDF(rbindlist(fit))
