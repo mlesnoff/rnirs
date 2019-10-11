@@ -12,7 +12,7 @@ The package is primarily dedicated to near infrared spectral data (NIRS) but is 
 
 Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
-Changes related to the package versions are reported in the NEWS file.
+The changes related to the successive package versions are reported in the NEWS file.
 
 ### Main features
 
@@ -46,6 +46,19 @@ library(devtools)
 install_github("mlesnoff/rnirs", dependencies = TRUE)
 ```
 
+### Installation from the Tar file rnirs_....tar.gz with Rstudio
+
+1. Install packages from the CRAN (Menu "Packages", "Install", and then "Install From CRAN")
+
+- **scales**
+- **signal**
+- **data.table**
+- **FNN**
+- **ggplot2**
+- **gridExtra** 
+
+2. Install the file **rnirs_....tar.gz** (Menu "Packages", "Install", and then "Install From Package Archive Files")
+
 ### Usage
 
 Load **rnirs**
@@ -58,5 +71,8 @@ To get an overview of the available functions
 ```{r}
 ??rnirs
 ```
+### Contact
 
+Matthieu Lesnoff
+matthieu.lesnoff@cirad.fr
 
