@@ -4,11 +4,10 @@ checkna <- function(X) {
   rownam <- row.names(X)
   if(is.null(rownam)) rownam <- 1:n
   
-  z <- is.na(X)
-  u <- rowSums(z)
-  u <- data.frame(rownum = 1:n, rownam = rownam, nbna = u)
-  u$all.na <- ifelse(u$nbna == ncol(X), TRUE, FALSE)
-  u
+  z <- rowSums(is.na(X))
+  z <- data.frame(rownum = 1:n, rownam = rownam, nbna = z)
+  z$all.na <- ifelse(z$nbna == ncol(X), TRUE, FALSE)
+  z
   
 }
   

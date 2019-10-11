@@ -73,7 +73,7 @@ yr <- y[-s]
 Xu <- X[s, ]
 yu <- y[s]
 
-# LDA (homogeneous covariances)
+##### LDA (homogeneous covariances)
 
 fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm, lda = TRUE)
 names(fm)

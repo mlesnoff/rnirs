@@ -9,7 +9,7 @@
 
 \description{
 
-Wrappers for k-nearest-neighbors locally weighted PLSR and PLSDA (kNN-LWPLSR/DA) models: 
+Wrappers for k-nearest-neighbors locally weighted PLSR and PLSDA (kNN-LWPLSR and kNN-LWPLSDA) models: 
 
 - Function \code{lwplsr} builds kNN-LWPLSR models 
 
@@ -19,15 +19,15 @@ These wrappers use functions \code{\link{getknn}}, \code{\link{locw}} and functi
 
 Function \code{lwplsdalm} is a faster equivalent of \code{lwplsda(..., da = dalm, ...)}.
 
-LWPLSR is a "local"  modelling approach (a different model is built for each new observation to predict) and a particular case of weighted PLSR (WPLSR) . In WPLSR, specific statistical weights, different from the usual \eqn{1/n} of the standard PLSR, and changing for each new observation to predict, are given to the \eqn{n} training observations. These weights are used in the calculation of (a) the PLS scores and loadings and (b) the regression of the response over the scores. The particularity of LWPLSR wihin the WPLSR models is that the weights depend from dissimilarities (e.g. distances) between this new observation to predict and the training observations.
+LWPLSR is a "local"  method (i.e. a different model is built for each new observation to predict, from a training set defined by neighboring) and a particular case of weighted PLSR (WPLSR) . In WPLSR, specific statistical weights, different from the usual \eqn{1/n} of the standard PLSR are given to all the \eqn{n} training observations. These weights are used in the calculation of (a) the PLS scores and loadings and (b) the regression of the response over the scores. The particularity of LWPLSR wihin the WPLSR models is that the weights depend from dissimilarities (e.g. distances) between this new observation to predict and the training observations. For this reason, the weights change for each new observation to predict.
 
-The basic LWPLSR strategy uses, for each observation to predict, the \eqn{n} training observations. This can be very time consuming, in particular for large \eqn{n}. A faster and often more efficient strategy is to preliminary select in the training set a number of \eqn{k} nearest neighbors to the observation to predict and then to apply LWPLSR only to this pre-selected neighborhood. This corresponds to kNN-LWPLSR. 
+In the literature, the basic version of LWPLSR uses the \eqn{n} training observations for each observation to predict. This can be very time consuming, in particular for large \eqn{n}. A faster and often more efficient strategy is to preliminary select in the training set a number of \eqn{k} nearest neighbors to the observation to predict and then to apply LWPLSR only to this pre-selected neighborhood. This corresponds to kNN-LWPLSR. 
 
-In function \code{locw} (see the help page), the preliminary kNN selection step is referred to as \eqn{weighting 1}, and the weighting of the \eqn{k} neighbors to as \eqn{weighting 2}. 
+In function \code{locw} (see the help page), the preliminary kNN selection step is referred to as \eqn{weighting "1"}, and the weighting of the \eqn{k} neighbors to as \eqn{weighting "2"}. 
 
 kNN-LWPLSDA uses the same principle, though WPLSDA is used in place of WPLSR.
 
-In functions \code{lwplsr}, \code{lwplsda} and \code{lwplsdalm}, the dissimilarities used for computing the weights can be calculated from the original (i.e. without dimension reduction) \eqn{X-}data or, when using argument \code{ncompdis}, from preliminary computed global PLS scores.  
+In functions \code{lwplsr}, \code{lwplsda} and \code{lwplsdalm}, the dissimilarities used for computing the weights can be calculated from the original \eqn{X-}data (i.e. without dimension reduction) or, when using argument \code{ncompdis}, from preliminary computed global PLS scores.  
 
 }
 
@@ -39,8 +39,8 @@ lwplsr(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
   ncomp,
-  stor = TRUE,
-  print = TRUE
+  print = TRUE,
+  ...
   )
 
 lwplsda(
@@ -49,7 +49,6 @@ lwplsda(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
   ncomp,
-  stor = TRUE,
   print = TRUE,
   ...
   )
@@ -60,8 +59,8 @@ lwplsdalm(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
   ncomp,
-  stor = TRUE,
-  print = TRUE
+  print = TRUE,
+  ...
   )
 
 }
@@ -78,7 +77,7 @@ lwplsdalm(
 
 \item{diss}{The type of dissimilarity used for defining the neighbors. Possible values are "euclidean" (default; Euclidean distance), "mahalanobis" (Mahalanobis distance), or "correlation". Correlation dissimilarities are calculated by sqrt(.5 * (1 - rho)).}
 
-\item{ncompdis}{A vector (eventually of length = 1) defining the number(s) of components of the preliminary global PLSR calculated on \eqn{(Xr, Yr)} and \eqn{Xu} for calculating the  dissimilarities used for defining the neighbors. If \code{NULL} (default), there is no preliminary data compression), i.e. the dissimilarities are calculated from the original \eqn{Xr} and \eqn{Xu} data.Each component of \code{ncompdis} is considered successively in the calculations.}
+\item{ncompdis}{A vector (eventually of length = 1) defining the number(s) of components of the preliminary global PLS calculated on \eqn{(Xr, Yr)} and \eqn{Xu} for calculating the  dissimilarities used for defining the neighbors. If \code{NULL} (default), there is no preliminary data compression), i.e. the dissimilarities are calculated from the original \eqn{Xr} and \eqn{Xu} data.Each component of \code{ncompdis} is considered successively in the calculations.}
 
 \item{h}{A vector (eventually of length = 1) defining the scaling shape factor(s) of the function of the weights applied to the neighbors in the weighted PLSR. Lower is \eqn{h}, sharper is the function. See \code{\link{wkern}}.Each component of \code{h} is considered successively in the calculations.}
 
@@ -86,11 +85,9 @@ lwplsdalm(
 
 \item{ncomp}{The maximum number(s) of components considered in the local PLSR models. The predictions are returned for models having from 1 to \eqn{ncomp} components.}
 
-\item{stor}{See \code{\link{locw}}.}
-
 \item{print}{Logical. If \code{TRUE} (default), fitting information are printed.}
 
-\item{...}{Only for \code{lwplsda}. Other arguments to pass in \code{plsda} and in the function set in its argument \code{da}.}
+\item{...}{Other arguments to pass in \code{plsr}, \code{plsda}, or the function set in its argument \code{da}.}
 
 }
 
@@ -106,6 +103,20 @@ Sicard, E. Sabatier, R., 2006. Theoretical framework for local PLS1 regression a
 
 }
 
+\value{
+
+A list of outputs, such as:
+
+\item{y}{Responses for the test data.}
+
+\item{fit}{Predictions for the test data.}
+
+\item{r}{Residuals for the test data.}
+
+\item{fm}{Outputs of the local \code{\link{pls}} and other auxilliary statistics. \code{NULL} if \code{stor = FALSE} in \code{\link{plsr}} or \code{\link{plsda}}.}
+
+}
+
 \examples{
 
 library(ggplot2)
@@ -113,7 +124,7 @@ library(ggplot2)
 data(datcass)
 data(datforages)
 
-######################## lwplsr
+####################### lwplsr
 
 Xr <- datcass$Xr
 yr <- datcass$yr
@@ -126,16 +137,16 @@ Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
 dim(Xr)
 dim(Xu)
 
-### A kNN-LWPLSR model where:
-### The dissimilarities between the observations are defined
-### by the Mahalanobis distances calculated in a global PLS score space
-### of ncompdis = 10 components.
-### - Weighting 1 = selection of k nearest neighbors
-### - Weighting 2 = weights within each neighborhood calculated with "wkern" 
+## A kNN-LWPLSR model where:
+## The dissimilarities between the observations are defined
+## by the Mahalanobis distances calculated in a global PLS score space
+## of ncompdis = 10 components.
+## - Weighting 1 = selection of k nearest neighbors
+## - Weighting 2 = weights within each neighborhood calculated with "wkern" 
 
-k <- c(50, 100)
 ncompdis <- 10
 h <- c(1, 2)
+k <- c(50, 100)
 ncomp <- 20
 fm <- lwplsr(
   Xr, yr,
@@ -154,21 +165,21 @@ head(z)
 z[z$rmsep == min(z$rmsep), ]
 
 u <- z
-u$group <- paste(u$ncompdis, u$h, u$k)
+u$group <- paste("h=", u$h, ", k=", u$k, sep = "")
 plotmse(u, group = "group")
 
-### An approach for decreasing the calculation time
-### (and in some cases increasing the results stability 
-### and decreasing the error rates) is to replace matrices Xr and Xu 
-### by global PLSR score matrices Tr and Tu
+## An approach for decreasing the calculation time
+## (and in some cases increasing the results stability 
+## and decreasing the error rates) is to replace matrices Xr and Xu 
+## by global PLSR score matrices Tr and Tu
 
 zfm <- pls(Xr, yr, Xu, ncomp = 25) # calculation of the new data
 zXr <- zfm$Tr
 zXu <- zfm$Tu
 
-k <- c(50, 100)
 ncompdis <- 10
 h <- c(1, 2)
+k <- c(50, 100)
 ncomp <- 20
 fm <- lwplsr(
   zXr, yr,
@@ -183,11 +194,11 @@ head(z)
 z[z$rmsep == min(z$rmsep), ]
 
 u <- z
-u$group <- paste(u$ncompdis, u$h, u$k)
+u$group <- paste("h=", u$h, ", k=", u$k, sep = "")
 plotmse(u, group = "group")
 
 
-######################## lwplsda
+####################### lwplsda
 
 Xr <- datforages$Xr
 yr <- datforages$yr
@@ -203,7 +214,7 @@ dim(Xu)
 table(yr)
 table(yu)
 
-### A kNN-LWPLSDA model (with dalm) where:
+## A kNN-LWPLSDA model (with dalm) where:
 ## The dissimilarities between the observations are defined
 ## by the Mahalanobis distances calculated from a global PLS score space
 ## of ncompdis = 10 components.
@@ -231,7 +242,7 @@ z <- err(fm, ~ ncompdis + h + k + ncomp)
 z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp", group = "k")
 
-### Same using lwplsdalm (faster)
+## Same using lwplsdalm (faster)
 
 ncompdis <- 10
 h <- 2
@@ -249,7 +260,7 @@ z <- err(fm, ~ ncompdis + h + k + ncomp)
 z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp", group = "k")
 
-### Same models but changing the DA method ==> LDA
+## Same models but changing the DA method ==> LDA
 
 ncompdis <- 10
 h <- 2

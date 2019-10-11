@@ -1,70 +1,61 @@
-plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...) {
+plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, 
+  stor = FALSE, ...) {
   
-  .pls <- match.fun(FUN = algo)
+  .pls.algo <- match.fun(FUN = algo)
 
   dots <- list(...)
   namdot <- names(dots)
   
-  z <- namdot[namdot %in% names(formals(.pls))]
-  if(length(z) > 0) dots.pls <- dots[z] else dots.pls <- NULL
-  
-  Xr <- .matrix(Xr)
-  n <- nrow(Xr)
-  
-  Xu <- .matrix(Xu)
-  m <- nrow(Xu)
-  rownam.Xu <- row.names(Xu)
-  
+  z <- namdot[namdot %in% names(formals(.pls.algo))]
+  if(length(z) > 0) dots.pls.algo <- dots[z] else dots.pls.algo <- NULL
+
   colnam.Yr <- colnames(Yr)
   if(is.null(colnam.Yr)) colnam.Yr <- "y1"
-  
+    
   Yr <- as.factor(Yr)
   ni <- c(table(Yr))
   nclas <- length(ni)
 
   lev <- levels(Yr)
   namclas <- as.character(lev)
-
-  if(!is.null(Yu)) Yu <- as.character(Yu) else Yu <- rep(NA, m)
   
+  Xu <- .matrix(Xu)
+  m <- nrow(Xu)
+  rownam.Xu <- row.names(Xu)
+
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
+    fm <- pca(Xr, Xu, ncomp = ncomp)
     fit <- y <- rep(namclas, m * ncomp)
     dummyfit <- NULL
-    fm <- pca(Xr, Xu, ncomp = ncomp)
     }
   ### END
   
   else {
     
-    Yrdummy <- dummy(Yr)
+    fm <- do.call(
+      plsr, 
+      c(list(Xr = Xr, Yr = dummy(Yr), Xu = Xu, 
+        ncomp = ncomp, algo = algo, stor = stor), dots.pls.algo)
+      )
     
-    param <- list(Xr = Xr, Yr = Yrdummy, Xu = Xu, ncomp = ncomp, algo = algo)
-    param <- c(param, dots.pls)
-    fm <- do.call(plsr, param)  
-    
-    z <- fm$fit
-    dummyfit <- z[z$ncomp > 0, ] 
+    m <- length(fm$fit$ncomp[fm$fit$ncomp == 1])
+    dummyfit <- fm$fit[fm$fit$ncomp > 0, ] 
     
     # if ex-aequos, the first is selected
-    z <- dummyfit
-    z <- z[, (ncol(z) - nclas + 1):ncol(z)]
-    z <- apply(z, FUN = function(x) which.max(x), MARGIN = 1)
-    fit <- sapply(z, FUN = function(x) namclas[x])
+    fit <- dummyfit
+    fit <- fit[, (ncol(fit) - nclas + 1):ncol(fit)]
+    fit <- apply(fit, FUN = function(x) which.max(x), MARGIN = 1)
+    fit <- sapply(fit, FUN = function(x) namclas[x])
     
-    y <- rep(Yu, ncomp)
+    if (!is.null(Yu))
+      y <- rep(as.character(Yu), ncomp)
+    else
+      y <- rep(NA, length(fit))
     
+    fm <- fm$fm
+
     }
-  
-  Tr <- fm$Tr
-  Tu <- fm$Tu
-  m <- nrow(Tu)
-  
-  P <- fm$P
-  C <- fm$C
-  R <- fm$R
-  xmeans <- fm$xmeans
-  ymeans <- fm$ymeans
   
   r <- as.numeric(y != fit)
 
@@ -76,8 +67,13 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...) {
   r <- data.frame(dat, r)
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Yr
   
-  list(y = y, fit = fit, r = r, dummyfit = dummyfit, ni = ni,
-    Tr = Tr, Tu = Tu, P = P, C = C, R = R, xmeans = xmeans, ymeans = ymeans,
-    Xr = Xr, Xu = Xu)
+  if(!stor) fm <- NULL
+  if(stor) {
+    z <- sdod(Xr, Xu, fm) 
+    fm$sd <- z$sdu
+    fm$od <- z$odu
+    }
+
+  list(y = y, fit = fit, r = r, dummyfit = dummyfit, ni = ni, fm = fm)
     
   }

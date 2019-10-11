@@ -1,4 +1,5 @@
-plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ...) {
+plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, 
+  stor = FALSE, ...) {
   
   .pls.algo <- match.fun(FUN = algo)
   
@@ -19,41 +20,30 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ..
     fm <- pca(Xr, Xu, ncomp = ncomp)
   else {
     Yrdummy <- dummy(Yr)
-    param <- list(Xr = Xr, Yr = Yrdummy, Xu = Xu, ncomp = ncomp, algo = algo)
-    param <- c(param, dots.pls.algo)
-    fm <- do.call(pls, param)  
+    fm <- do.call(
+      pls, 
+      c(list(Xr = Xr, Yr = Yrdummy, Xu = Xu, ncomp = ncomp,
+        algo = algo), dots.pls.algo)
+      ) 
     }
   
-  Tr <- fm$Tr
-  Tu <- fm$Tu
-  m <- nrow(Tu)
-  
-  P <- fm$P
-  C <- fm$C
-  R <- fm$R
-  xmeans <- fm$xmeans
-  ymeans <- fm$ymeans
-  
-  d <- fm$weights
+  m <- nrow(fm$Tu)
   
   r <- y <- fit <- vector("list", ncomp)
-  ni <- NULL
-  lapply(
-    1:ncomp, function(a) {
+  for(a in 1:ncomp) {
     
-      param <- list(Xr = Tr[, 1:a, drop = FALSE], Yr = Yr, 
-        Xu = Tu[, 1:a, drop = FALSE], Yu = Yu)
-      param <- c(param, dots.da)
-      zfm <- do.call(.da, param)
-      
-      y[[a]] <<- zfm$y
-      fit[[a]] <<- zfm$fit
-      r[[a]] <<- zfm$r
-      
-      ni <<- zfm$ni
-      
-      }
-    )
+    zfm <- do.call(
+      .da, 
+      c(list(Xr = fm$Tr[, 1:a, drop = FALSE], Yr = Yr,
+        Xu = fm$Tu[, 1:a, drop = FALSE], Yu = Yu), dots.da)
+      )
+    
+    y[[a]] <- zfm$y
+    fit[[a]] <- zfm$fit
+    r[[a]] <- zfm$r
+    
+    }
+  ni <- zfm$ni
   
   y <- setDF(rbindlist(y))
   fit <- setDF(rbindlist(fit))
@@ -65,9 +55,14 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ..
   fit <- data.frame(dat, fit, stringsAsFactors = FALSE)
   r <- data.frame(dat, r, stringsAsFactors = FALSE)
   
-  list(y = y, fit = fit, r = r, ni = ni,
-    Tr = Tr, Tu = Tu, P = P, C = C, R = R, xmeans = xmeans, ymeans = ymeans,
-    Xr = Xr, Xu = Xu, weights = d)
+  if(!stor) fm <- NULL
+  if(stor) {
+    z <- sdod(Xr, Xu, fm)
+    fm$sd <- z$sdu
+    fm$od <- z$odu
+    }
+  
+  list(y = y, fit = fit, r = r, ni = ni, fm = fm)
 
   }
 

@@ -2,52 +2,43 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
   
   .pca.algo <- match.fun(FUN = algo)
   
-  X <- .matrix(Xr, prefix.colnam = "x")
+  Xr <- .matrix(Xr, prefix.colnam = "x")
+  n <- nrow(Xr)
   
-  fm <- .pca.algo(X, ncomp, ...)
+  fm <- .pca.algo(Xr, ncomp, ...)
 
-  T <- fm$T
-  P <- fm$P
-  R <- fm$R
-  sv <- fm$sv
-  xss <- fm$xss                 # = sv^2 when X has no missing data
-  xmeans <- fm$xmeans
+  # xsstot = Total SS of the centered data Xr
+  # = sum of the SS of the Xr-columns
+  # = sum(Xr * Xr) = sum(Xr^2) 
+  # = sum(apply(Xr, MARGIN = 2, FUN = sum))
+  # If Xr of full rank, xsstot = sum(sv^2) where the sum is over the r singular values
+  Xr <- scale(Xr, center = fm$xmeans, scale = FALSE)
+  xsstot <- sum(Xr * Xr, na.rm = TRUE)
   
-  d <- fm$weights
-  
-  n <- nrow(T)
-
-  # xsstot = Total SS of the centered data X
-  # = sum of the SS of the X-columns
-  # = sum(X * X) = sum(X^2) 
-  # = sum(apply(X, MARGIN = 2, FUN = sum))
-  # If X of full rank, xsstot = sum(sv^2) where the sum is over the r singular values
-  X <- scale(X, center = xmeans, scale = FALSE)
-  xsstot <- sum(X * X, na.rm = TRUE)
-  
-  xvar <- xss / (n - 1)
-  pvar <- xss / xsstot
+  xvar <- fm$xss / (n - 1)      # xss = sv^2 when Xr has no missing data
+  pvar <- fm$xss / xsstot
   cumpvar <- cumsum(pvar)
   
-  z <- data.frame(ncomp = 1:length(sv), var = xvar, pvar = pvar, cumpvar = cumpvar)
+  z <- data.frame(ncomp = 1:length(fm$sv), var = xvar, pvar = pvar, cumpvar = cumpvar)
   row.names(z) <- 1:ncomp
   explvarx <- z
   
-  z <- T * T / (n - 1)
+  z <- fm$T * fm$T / (n - 1)
   contr.ind <- scale(z, center = FALSE, scale = xvar[1:ncomp])
   
-  cor.circle <- cor(X, T)
+  cor.circle <- cor(Xr, fm$T)
 
-  z <- scale(T, center = FALSE, scale = sv[1:ncomp]) # normalization of T
-  coord.var <- crossprod(X, z) / sqrt(n - 1)
-  
+  z <- scale(fm$T, center = FALSE, scale = fm$sv[1:ncomp]) # normalization of T
+  coord.var <- crossprod(Xr, z) / sqrt(n - 1)
 
   Tu <- NULL
   if(!is.null(Xu))
     Tu <- projscor(.matrix(Xu), fm)
   
-  list(Tr = T, Tu = Tu, P = P, R = R, xmeans = xmeans, Xr = Xr, Xu = Xu, weights = d, 
-    explvarx = explvarx, contr.ind = contr.ind, cor.circle = cor.circle, coord.var = coord.var)
+  list(Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R,
+    xmeans = fm$xmeans, weights = fm$weights, 
+    explvarx = explvarx, contr.ind = contr.ind, cor.circle = cor.circle, 
+    coord.var = coord.var)
   
   }
 

@@ -1,54 +1,35 @@
-plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...) {
+plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, 
+  stor = FALSE, ...) {
   
   .pls.algo <- match.fun(FUN = algo)
-  
-  Xr <- .matrix(Xr, prefix.colnam = "x")
-  n <- nrow(Xr)
-  p <- ncol(Xr)
 
-  Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
-  q <- ncol(Yr)
-  colnam.Yr <- colnames(Yr)
+  fm <- pls(Xr, Yr, Xu, ncomp, algo, ...)
+  
+  m <- nrow(fm$Tu)
+  rownam.Xu <- row.names(fm$Tu)
+  q <- length(fm$ymeans)
+  colnam.Yu <- names(fm$ymeans)
+  
+  if(is.null(Yu)) 
+    Yu <- matrix(nrow = m, ncol = q)
+  else {
+    if(q == 1) row <- FALSE else row <- TRUE
+    Yu <- .matrix(Yu, row = row)
+    }
 
-  Xu <- .matrix(Xu, prefix.colnam = "x")
-  m <- nrow(Xu)
-  rownam.Xu <- row.names(Xu)
-
-  if(is.null(Yu)) Yu <- matrix(nrow = m, ncol = q)
-    else {
-      if(q == 1) row <- FALSE else row <- TRUE
-      Yu <- .matrix(Yu, row = row, prefix.colnam = "y")
-      }
+  Ymeans <- matrix(rep(fm$ymeans, m), nrow = m, byrow = TRUE)
   
-  fm <- .pls.algo(Xr, Yr, ncomp, ...)
-  
-  Tr <- fm$T
-  Tu <- projscor(Xu, fm)
-  
-  P <- fm$P
-  C <- fm$C
-  R <- fm$R
-  xmeans <- fm$xmeans
-  ymeans <- fm$ymeans
-  
-  d <- fm$weights
-  
-  Ymeans <- matrix(rep(ymeans, m), nrow = m, byrow = TRUE)
-  
-  Beta <- t(C)
+  beta <- t(fm$C)
   
   r <- fit <- y <- array(dim = c(m, ncomp + 1, q))
   y[, 1, ] <- Yu
   fit[, 1, ] <- Ymeans
 
-  lapply(
-    1:ncomp, function(a) {
-      
-      y[, a + 1, ] <<- Yu
-      fit[, a + 1, ] <<- Ymeans + Tu[, 1:a, drop = FALSE] %*% Beta[1:a, , drop = FALSE]
-      
-      }
-    )
+  for(a in 1:ncomp) {
+    y[, a + 1, ] <- Yu
+    fit[, a + 1, ] <- Ymeans + fm$Tu[, 1:a, drop = FALSE] %*% beta[1:a, , drop = FALSE]
+    }
+  
   y <- matrix(c(y), nrow = m * (ncomp + 1), ncol = q, byrow = FALSE)
   fit <- matrix(c(fit), nrow = m * (ncomp + 1), ncol = q, byrow = FALSE)
   r <- y - fit
@@ -65,12 +46,21 @@ plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...) {
   
   zq <- ncol(y)
   u <- (zq - q + 1):zq
-  names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Yr
-
-  list(y = y, fit = fit, r = r,
-    Tr = Tr, Tu = Tu, P = P, C = C, R = R, xmeans = xmeans, ymeans = ymeans,
-    Xr = Xr, Xu = Xu, weights = d)
+  names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Yu
   
+  if(!stor) fm <- NULL
+  if(stor) {
+    
+    fm$bcoef <- bcoef(fm)   
+    
+    z <- sdod(Xr, Xu, fm)
+    fm$sd <- z$sdu
+    fm$od <- z$odu
+    
+    }
+
+  list(y = y, fit = fit, r = r, fm = fm)
+
   }
 
 

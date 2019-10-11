@@ -26,14 +26,17 @@ data(datcass)
 X <- datcass$Xr
 X[1:5, 1:5]
 
+# 1rst derivation
 z <- dderiv(X, n = 5)
 z[1:5, 1:5]
 plotsp(z[sample(1:nrow(z), 100), ])
 
+# 2nd derivation
 z <- dderiv(dderiv(X, n = 5), n = 5)
 z[1:5, 1:5]
 plotsp(z[sample(1:nrow(z), 100), ])
 
+# 1rst derivation and smoothing bu movering average
 z <- mavg(dderiv(X, n = 5), n = 5)
 z[1:5, 1:5]
 plotsp(z[sample(1:nrow(z), 100), ])

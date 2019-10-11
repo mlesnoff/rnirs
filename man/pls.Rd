@@ -7,7 +7,7 @@
 
 \description{
 
-Calculation of PCA or PLS (1 or 2) scores and loadings for training and test data sets.
+Fitting PCA, PLS1 or PLS2.
 
 \code{pca} and \code{pls} use the denominator \eqn{n - 1} (not \eqn{n}) in the variance, covariance and correlation calculations.
 
@@ -74,7 +74,7 @@ names(fm)
 fm$Tr   
 fm$P
 
-## Proportions of explained X-variance
+## Proportion of explained X-variance
 
 z <- fm$explvarx
 z
@@ -136,7 +136,7 @@ names(fm)
 fm$Tr
 fm$P
 
-## Proportions of explained X-variance
+## Proportion of explained X-variance
 
 fm$explvarx
 

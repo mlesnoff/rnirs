@@ -56,10 +56,10 @@ plotsp(u, col = 1:4, main = "Mean spectra per group")
 plotsp(v, col = 1:4, main = "Median spectra per group")
 par(oldpar)
 
-z <- Xr[1:20, ]
-plotsp(z, ylab = "Absorbance", col = "grey")
-u <- centr(z)$centers
-plotsp(u, col = "red", add = TRUE)
+x <- Xr[1:20, ]
+plotsp(x, ylab = "Absorbance", col = "grey")
+u <- centr(x)$centers
+plotsp(u, col = "red", add = TRUE, lwd = 2)
 
 }
 

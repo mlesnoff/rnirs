@@ -9,7 +9,7 @@
 
 Function \code{plsda} fits PLSDA models, with various DA methods.
 
-The class membership (unidimensional variable) \eqn{y} for the reference (= training) observations is firstly transformed (with function \code{\link{dummy}}) to a table \eqn{Ydummy} containing \eqn{nclas} dummy variables, where \eqn{nclas} is the number of classes in \eqn{y}. Then, a PLS2 is implemented on the \eqn{X-}data and the dummy table \eqn{Ydummy}, returning PLS2 scores finally used by the DA method.
+The class membership (unidimensional variable) \eqn{y} for the reference (= training) observations is firstly transformed (with function \code{\link{dummy}}) to a table \eqn{Ydummy} containing \eqn{nclas} dummy variables, where \eqn{nclas} is the number of classes in \eqn{y}. Then, a PLS2 is implemented on the \eqn{X-}data (with function \code{\link{pls}}) and the dummy table \eqn{Ydummy}, returning PLS2 scores finally used by the DA method.
 
 The PLS2 algorithm is defined in argument \code{algo}.
 
@@ -21,9 +21,11 @@ Function \code{plsdalm} is a faster equivalent of \code{plsda(..., da = dalm, ..
 
 \usage{
 
-plsda(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ...)
+plsda(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm,
+  stor = FALSE, ...)
 
-plsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...)
+plsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
+  stor = FALSE, ...)
 
 }
 
@@ -43,6 +45,8 @@ plsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...)
 
 \item{da}{A function defining the discriminant method used for the predictions. Default to \code{\link{dalm}}.} 
 
+\item{stor}{Logical (default to \code{FALSE}). If \code{TRUE}, the function stores all the outputs of function \code{\link{pls}} and  auxilliary statistics  (e.g. b-coefficients, and score and orthogonal distances for the new observations to predict), in a sub-object \code{fm}. See \code{\link{plsr}} for examples).}
+
 \item{...}{Optionnal arguments to pass in functions defined in \code{algo} and \code{da}.}
 
 }
@@ -57,8 +61,7 @@ A list of outputs, such as:
 
 \item{r}{Residuals for the test data.}
 
-And other outputs: See \code{\link{pls}} and the function defined in \code{algo}.
-
+\item{fm}{Outputs of \code{\link{pls}} and other auxilliary statistics. \code{NULL} if \code{stor = FALSE}.}
 
 }
 

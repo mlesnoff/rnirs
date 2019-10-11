@@ -42,6 +42,7 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
   \code{\link{pca}} \tab PCA \cr
   \code{\link{pls}} \tab PLS \cr
   \code{\link{projscor}} \tab Projection on a score space \cr
+  \code{\link{bcoef}} \tab b-coefficients for a PLS model\cr
   \code{\link{sdod}} \tab Score and orthogonal distances for a PCA or PLS score space\cr
   \code{\link{xfit}} \tab Matrix Approximation from multivariate scores and loadings \cr
   }
@@ -51,7 +52,6 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
 \eqn{-- Regression}
 
 \tabular{ll}{
-  \code{\link{pcr}} \tab PCR\cr
   \code{\link{plsr}} \tab PLSR\cr
   }
 
@@ -61,7 +61,7 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
   \code{\link{dalm}} \tab DA using multivariate linear regression\cr
   \code{\link{dadis}} \tab DA using the dissimilarity to class centers\cr
   \code{\link{daglm}} \tab DA using generalized linear models\cr
-  \code{\link{dasdod}} \tab DA using the Simca index\cr
+  \code{\link{dasdod}} \tab DA using a Simca index\cr
   \code{\link{daprob}} \tab Probablistic DA (parametric and non-parametric LDA and QDA)\cr
   \code{\link{plsda}}, \code{\link{plsdalm}} \tab PLSDA using various DA methods\cr
   }
@@ -140,7 +140,6 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
   
   \code{\link{pinv}} \tab Moore-Penrose pseudo-inverse \cr
 
-  \code{\link{sdodlist}} \tab Score and orthogonal distances for a PCA or PLS score space\cr
   \code{\link{sourcedir}} \tab Source R functions in a directory \cr
   \code{\link{wkern}} \tab Kernel weights \cr
   }

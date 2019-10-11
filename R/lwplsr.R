@@ -4,8 +4,8 @@ lwplsr <- function(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
   ncomp,
-  stor = TRUE,
-  print = TRUE
+  print = TRUE,
+  ...
   ) {
 
   diss <- match.arg(diss)
@@ -20,91 +20,65 @@ lwplsr <- function(
   h <- sort(unique(h))
   k <- sort(unique(ifelse(k > n, n, k)))
   
-  z <- expand.grid(ncompdis, h, k)
-  names(z) <- c("ncompdis", "h", "k")
-  param <- z
+  param <- expand.grid(ncompdis, h, k)
+  names(param) <- c("ncompdis", "h", "k")
   npar <- nrow(param)
   
-  res <- lapply(
+  fm <- r <- fit <- y <- vector(mode = "list", length = npar)
+  for(i in 1:npar) {
     
-    1:npar, function(i) {
-    
-      if(print) {
-        cat("\nparam ", "(", i, "/", npar, ") \n", sep = "")
-        print(param[i, ]) ; cat("\n")
-        }
-      
-      zncompdis <- param$ncompdis[i]
-      zh <- param$h[i]
-      zk <- param$k[i]
-    
-      if(zncompdis == 0) {
-        Zr <- Xr
-        Zu <- Xu
-        } else { 
-          z <- pls.kernel(Xr, Yr, ncomp = zncompdis)
-          Zr <- z$T
-          Zu <- projscor(Xu, z)
-          }
-      
-      zresn <- getknn(Zr, Zu, k = zk, diss = diss)
-      zlistnn <- zresn$listnn
-      zlistw <- lapply(zresn$listd, wkern, h = zh)
-      
-      zfm <- locw(
-        Xr, Yr,
-        Xu, Yu,
-        listnn = zlistnn,
-        listw = zlistw,
-        fun = plsr,
-        algo = pls.kernelw,
-        ncomp = ncomp,
-        stor = stor,
-        print = print
-        )
-  
-      zy <- setDT(zfm$y)
-      zfit <- setDT(zfm$fit)
-      zr <- setDT(zfm$r)
-      
-      u <- nrow(zy)
-      u <- data.table(
-        ncompdis = rep(zncompdis, u),
-        h = rep(zh, u)
-        )
-      y <- data.table(u, zy)
-      fit <- data.table(u, zfit)
-      r <- data.table(u, zr)
-      
-      fm <- zfm$fm
-      
-      gc()
-      
-      return(list(y = y, fit = fit, r = r, resn = zresn, fm = fm))
-  
+    if(print) {
+      cat("\nparam ", "(", i, "/", npar, ") \n", sep = "")
+      print(param[i, ]) ; cat("\n")
       }
-  
-    )
-  
-  .f <- function(nam) {
-    z <- lapply(1:length(res), function(i) {res[[i]][nam]})
-    z <- unlist(z, recursive = FALSE)
-    z <- setDF(rbindlist(z))
-    }
-  y <- .f("y")
-  fit <- .f("fit")
-  r <- .f("r")
-  
-  z <- lapply(1:length(res), function(i) {res[[i]]["resn"]})
-  resn <- unlist(z, recursive = FALSE)
-  names(resn) <- 1:npar
+    
+    zncompdis <- param$ncompdis[i]
+    zh <- param$h[i]
+    zk <- param$k[i]
+    
+    if(zncompdis == 0) {
+      zresn <- getknn(Xr, Xu, k = zk, diss = diss)
+      } else { 
+        z <- pls.kernel(Xr, Yr, ncomp = zncompdis)
+        zresn <- getknn(z$T, projscor(Xu, z), k = zk, diss = diss)
+        }    
+    
+    zfm <- locw(
+      Xr, Yr,
+      Xu, Yu,
+      listnn = zresn$listnn,
+      listw = lapply(zresn$listd, wkern, h = zh),
+      fun = plsr,
+      algo = pls.kernelw,
+      ncomp = ncomp,
+      print = print,
+      ...
+      )
+    
+    nr <- nrow(zfm$y)
+    z <- data.frame(
+      ncompdis = rep(zncompdis, nr),
+      h = rep(zh, nr)
+      )
 
-  z <- lapply(1:length(res), function(i) {res[[i]]["fm"]})
-  fm <- unlist(z, recursive = FALSE)[[1]]
+    y[[i]] <- cbind(z, zfm$y)
+    fit[[i]] <- cbind(z, zfm$fit)
+    r[[i]] <- cbind(z, zfm$r)
+    
+    fm[[i]] <- zfm$fm
+    
+    gc()
+  
+    }
+  y <- setDF(rbindlist(y))
+  fit <- setDF(rbindlist(fit))
+  r <- setDF(rbindlist(r))
   
   if(print) cat("\n\n")
   
-  list(y = y, fit = fit, r = r, resn = resn, fm = fm)
+  gc()
+  
+  list(y = y, fit = fit, r = r, fm = fm)
   
   }
   

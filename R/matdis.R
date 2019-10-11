@@ -19,10 +19,10 @@ matdis <- function(X, diss = c("euclidean", "mahalanobis", "correlation")) {
   
   if(diss == "correlation") {
     
-    z <- t(X)
-    z <- cor(z, z)
-    z <- t(z)
-    D <- sqrt(.5 * (1 - z))    # z <- seq(-1, 1, .1) ; plot(z, sqrt(.5 * (1 - z)))
+    X <- t(X)
+    X <- t(cor(X, X))
+    
+    D <- sqrt(.5 * (1 - X))    # z <- seq(-1, 1, .1) ; plot(z, sqrt(.5 * (1 - z)))
     
     }
 

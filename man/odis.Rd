@@ -14,7 +14,7 @@ OD are calculated from a preliminary calculated PCA or PLS.
 
 \usage{
 
-odis(Xr, fm, Xu = NULL, ncomp = NULL, out = c("mad", "sd", "boxplot"), cri = 3)
+odis(Xr, Xu = NULL, fm, ncomp = NULL, out = c("mad", "sd", "boxplot"), cri = 3)
 
 }
 
@@ -22,9 +22,9 @@ odis(Xr, fm, Xu = NULL, ncomp = NULL, out = c("mad", "sd", "boxplot"), cri = 3)
 
 \item{Xr}{The matrix or data frame of reference (= training) observations that was used for building the preliminary model \code{fm}.}
 
-\item{fm}{Output of one of the functions implementing PCA, PLS, etc.}
-
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations (\eqn{Xu} is not used in the calculation of the cutoff that defines the extreme distance values).}
+
+\item{fm}{Output of one of the functions implementing the PCA or PLS.}
 
 \item{ncomp}{Number of components defining the score space to consider for calculating the distances. Default to \code{NULL} (\code{ncomp} is set to the maximal number of scores defined in \code{fm}).}
 
@@ -62,12 +62,12 @@ Xr <- X[1:6, ] ; Yr <- Y[1:6, ]
 Xu <- X[7:8, ] ; Yu <- Y[7:8, ]
 
 fm <- pls(Xr, Yr, ncomp = 3)
-res <- odis(Xr, fm)
+res <- odis(Xr, fm = fm)
 names(res)
 head(res$dr)
 
-fm <- plsr(Xr, Yr, Xu, Yu, ncomp = 3)
-res <- odis(Xr, fm, Xu)
+fm <- pls(Xr, Yr, ncomp = 3)
+res <- odis(Xr, Xu, fm)
 names(res)
 head(res$dr)
 head(res$du)

@@ -1,43 +1,41 @@
-# News for the rnirs package
+## News for the rnirs package
 
-## Version 1.0-11
+#### Version 1.1-0
 
-- Boucles "for" replaced by lapply iterations for better memory management
-in functions:
-. kenston
-. pls.kernel, plskernelw
-. pls.nipals, pls.nipalsw
-. pcr, plsr, plsda
-. locw
-. lwplsr, lwplsda, lwplsdalm
-. knnwr, knnwda
-. sdodlist
+- Major code cleaning in the functions for improving memory management. 
 
-## Version 1.0-10
+- Change of order of the arguments of functions dis, odis and sdod.
+
+- New argument "stor" in functions plsr, plsda, plsdalm. Argument "stor" of function
+locw was removed.
+
+- Function pcr was removed.
+
+#### Version 1.0-10
 
 - For facilitating the learning of the package, all the examples in the vignettes
 have been moved again in the example sections of the help pages. 
 Vignettes have been removed.
 
-## Version 1.0-9
+#### Version 1.0-9
 
 - Bug correction in plotmse. Now, "group" must be a column of "obj".
 
-## Version 1.0-8
+#### Version 1.0-8
 
 - Minor correction of DESCRIPTION file.
 
 - Minor changes in examples of  help pages.
 
-## Version 1.0-7
+#### Version 1.0-7
 
 - For compatibility with CRAN rules: Long and/or documented examples moved from the help pages to vignettes.
 
-## Version 1.0-6
+#### Version 1.0-6
 
 - Function stackmod: simplification (y is now univariate) and correction of potential minor bug.
 
-## Version 1.0-5
+#### Version 1.0-5
 
 - Minor changes in documentations.
 

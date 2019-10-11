@@ -107,18 +107,18 @@ pca.nipals <- function(X, ncomp, gramschmidt = TRUE,
   
   xss <- TotalSS * R2
   
-  T <- scores
-  R <- P <- loadings
   sv <- eig
   
-  row.names(T) <- row.names(X)
-  row.names(P) <- colnames(X)
+  
+  row.names(scores) <- row.names(X)
+  row.names(loadings) <- colnames(X)
   
   nam <- paste("comp", 1:ncomp, sep = "")
-  colnames(T) <- colnames(P) <- nam
+  colnames(scores) <- colnames(loadings) <- nam
   
 
-  list(T = T, P = P, R = R, sv = sv, xss = xss, xmeans = xmeans, weights = d, iter = iter)
+  list(T = scores, P = loadings, R = loadings,
+    sv = sv, xss = xss, xmeans = xmeans, weights = d, iter = iter)
 
   }
 

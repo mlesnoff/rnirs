@@ -1,3 +1,16 @@
+
+.detrend <- function(X, degree) {
+  
+  dimnam <- dimnames(X)
+  wav <- as.numeric(colnames(X))
+  fresid <- function(x, wav, degree) resid(lm(x ~ stats::poly(wav, degree)))
+  X <- apply(X, MARGIN = 1, FUN = fresid, wav = wav, degree = degree)
+  X <- t(X)
+  dimnames(X) <- dimnam
+  X
+  
+  }
+
 .dis <- function(X, mu) {
   
   X <- .matrix(X, prefix.colnam = "x")
@@ -5,13 +18,13 @@
   p <- ncol(X)
   rownam <- row.names(X)
   
-  z <- scale(X, center = mu, scale = FALSE)
-  z <- z * z
-  z <- matrix(rowSums(z), ncol = 1)
+  X <- scale(X, center = mu, scale = FALSE)
+  X <- X * X
+  X <- matrix(rowSums(X), ncol = 1)
 
-  row.names(z) <- rownam
+  row.names(X) <- rownam
   
-  z
+  X
   
   }
 
@@ -32,9 +45,9 @@
   d <- d / sum(d)
   
   dat <- data.frame(y = Yr, w = d)
-  z <- aggregate(w ~ y, FUN = sum, data = dat)
+  cnt <- dtaggregate(w ~ y, FUN = sum, data = dat)
 
-  ind <- which(z$w == max(z$w))
+  ind <- which(cnt$w == max(cnt$w))
   n <- length(ind)
   set.seed(seed = 1)
   if(n > 1) ind <- sample(1:n, 1)
@@ -43,8 +56,6 @@
   
   y <- Yu
   r <- as.numeric(y != fit)
-  
-  cnt <- z
   
   y <- data.frame(rownum = 1, rownam = 1, y, stringsAsFactors = FALSE)
   fit <- data.frame(rownum = 1, rownam = 1, fit, stringsAsFactors = FALSE)
@@ -111,7 +122,7 @@
   
   }
 
-.matrix <- function(X, row = TRUE,  prefix.colnam = "y") {
+.matrix <- function(X, row = TRUE,  prefix.colnam = "x") {
   
   if(is.vector(X)) 
     if(row) X <- matrix(X, nrow = 1)
@@ -127,6 +138,27 @@
   
   }
 
+.savgol <- function(X, m, p, n, ts) {
+  
+  dimnam <- dimnames(X)
+  X <- apply(X, MARGIN = 1, 
+    FUN = signal::sgolayfilt, n = n, p = p, m = m, ts = ts)
+  X <- t(X)
+  dimnames(X) <- dimnam
+  X
+  
+  }
+
+.snv <- function(X, center, scale) {
+  
+  X <- t(X)
+  n <- ncol(X)
+  if(center) xmeans <- colMeans(X) else xmeans <- rep(0, n)
+  if(scale) xscales <- apply(X, MARGIN = 2, FUN = sd) else xscales <- rep(1, n)
+  X <- scale(X, center = xmeans, scale = xscales)
+  t(X)
+  
+  }
 
 
 

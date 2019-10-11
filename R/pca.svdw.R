@@ -19,9 +19,8 @@ pca.svdw <- function(X, ncomp, weights) {
 
   # If n is large, using the "U %*%" may be time consuming
   # The line below is not efficient (find a function for escaping %*%)
-  Tw <- z$u %*% diag(sv, nrow = ncomp)
   
-  T <- 1 / sqrt(d) * Tw
+  T <- 1 / sqrt(d) * z$u %*% diag(sv, nrow = ncomp)
 
   xss <- colSums(T * T)
    

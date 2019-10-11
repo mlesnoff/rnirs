@@ -25,14 +25,14 @@ checkdupl <- function(X, Y, nam = NULL, digits = NULL, check.all = FALSE) {
   u$rownam.Y <- rownam.Y
   z <- u
   
-  u <- merge(zref, z, by = nam, all = FALSE, allow.cartesian = TRUE)
+  z <- merge(zref, z, by = nam, all = FALSE, allow.cartesian = TRUE)
   nam <- c(nam, "rownum.X", "rownum.Y", "rownam.X", "rownam.Y")
-  u <- u[, nam]
+  z <- z[, nam]
   if(check.all)
-    u$all.equal <- (rowSums(abs(X[u$rownum.X, ])) == rowSums(abs(Y[u$rownum.Y, ])))
+    z$all.equal <- (rowSums(abs(X[z$rownum.X, ])) == rowSums(abs(Y[z$rownum.Y, ])))
 
-  u <- u[order(u$rownum.X), ]
+  z <- z[order(z$rownum.X), ]
   
-  u
+  z
   
 }

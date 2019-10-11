@@ -12,7 +12,7 @@ Calculation of dissimilarities between the row observations of a data set and a 
 
 \usage{
 
-dis(Xr, mu = NULL, Xu = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
+dis(Xr, Xu = NULL, mu = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   sigma = NULL, out = c("mad", "sd", "boxplot"), cri = 3)
 
 }
@@ -21,9 +21,9 @@ dis(Xr, mu = NULL, Xu = NULL, diss = c("euclidean", "mahalanobis", "correlation"
 
 \item{Xr}{A \eqn{n x p} matrix or data frame of reference (= training) observations.}
 
-\item{mu}{The vector of length \eqn{p} which is compared to the rows of \eqn{Xr} and, if not \code{NULL}, to the rows \eqn{Xu}. If \code{mu} is \code{NULL} (default), \code{mu} is set to the center (column means) of \eqn{Xr}. }
-
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations (\eqn{Xu} is not used in the calculation of the cutoff that defines the extreme dissimilarity values).}
+
+\item{mu}{The vector of length \eqn{p} which is compared to the rows of \eqn{Xr} and, if not \code{NULL}, to the rows \eqn{Xu}. If \code{mu} is \code{NULL} (default), \code{mu} is set to the center (column means) of \eqn{Xr}. }
 
 \item{diss}{The type of dissimilarities used. Possible values are "euclidean" (Euclidean distances; default) or "mahalanobis" (Mahalanobis distances), or "correlation". Correlation dissimilarities are calculated by \eqn{sqrt(.5 * (1 - rho))}.}
 
@@ -70,11 +70,11 @@ res <- dis(fm$Tr, diss = "mahalanobis")
 names(res)
 head(res$dr)
 
-fm <- plsr(Xr, Yr, Xu, Yu, ncomp = 3)
-res <- dis(fm$Tr, Xu = fm$Tu, diss = "mahalanobis")
+fm <- pls(Xr, Yr, Xu, ncomp = 3)
+res <- dis(fm$Tr, fm$Tu, diss = "mahalanobis")
 names(res)
-head(res$dr)
-head(res$du)
+res$dr
+res$du
 
 }
 

@@ -1,31 +1,30 @@
 \name{sdod}
 \alias{sdod}
-\alias{sdodlist}
 \encoding{latin1}
 
 \title{Score and orthogonal distances (SD, OD)}
 
 \description{
 
-\code{sdod} is a wrapper for calculating score (SD) and orthogonal (OD) distances from a PCA or PLS(R/DA) model, using functions \code{\link{dis}} (with argument \code{diss = "Mahalanobis"}) and \code{\link{odis}}, respectively. See functions \code{\link{dis}} and \code{\link{odis}} for details.
-
-\code{sdodlist} can be used for list of PCA or PLS(R/DA) models, for instance from outputs of \code{lwplsr} etc.
+\code{sdod} is a wrapper for calculating score (SD) and orthogonal (OD) distances from a PCA or PLS model, using functions \code{\link{dis}} (with argument \code{diss = "Mahalanobis"}) and \code{\link{odis}}, respectively. See functions \code{\link{dis}} and \code{\link{odis}} for details.
 
 }
 
 \usage{
 
-sdod(fm, ncomp = NULL, ...)
-
-sdodlist(fm, ncomp = NULL, ...)
+sdod(Xr, Xu, fm, ncomp = NULL, ...)
 
 }
 
 \arguments{
 
-\item{fm}{A PCA or PLS model (or a list of models for \code{sdodlist}). See examples.}
+\item{Xr}{The matrix or data frame of reference (= training) observations that was used for building the preliminary model \code{fm}.}
 
-\item{ncomp}{The number of components (latent variables) to consider for calculating the distances. }
+\item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations (\eqn{Xu} is not used in the calculation of the cutoff that defines the extreme distance values).}
+
+\item{fm}{Output of one of the functions implementing the PCA or PLS.}
+
+\item{ncomp}{The number of PCA or PLS components (i.e. scores) to consider. If \code{NULL} (default), the maximal number of components computed in the PCA or PLS is considered.}
 
 \item{...}{Optional arguments to pass in functions \code{\link{dis}} and \code{\link{odis}}.}
 
@@ -36,7 +35,7 @@ sdodlist(fm, ncomp = NULL, ...)
 
 data(datcass)
 
-## REFERENCE DATA SET
+############# REFERENCE DATA SET
 
 Xr <- datcass$Xr
 Xu <- datcass$Xu
@@ -47,7 +46,7 @@ fm <- pca(Xr, ncomp = 15)
 ## Computations in a score space of 'a' components
 
 a <- 10
-res <- sdod(fm, ncomp = a)
+res <- sdod(Xr, fm = fm, ncomp = a)
 names(res)
 
 sdr <- res$sdr
@@ -103,13 +102,13 @@ plotsp(X = Xr[z$rownum, ], col.low = "grey10", col.high = "grey90")
 v <- centr(Xr, FUN = mean)$centers 
 plotsp(X = v, col = "red", add = TRUE, lwd = 2)
 
-## REFERENCE vs. TEST DATA SETS
+############# REFERENCE vs. TEST DATA SETS
 
 ncomp <- 15
-fm <- pca(Xr, Xu, ncomp = ncomp)
+fm <- pca(Xr, ncomp = ncomp)
 
 a <- 10
-res <- sdod(fm, ncomp = a)
+res <- sdod(Xr, Xu, fm, ncomp = a)
 names(res)
 
 sdr <- res$sdr

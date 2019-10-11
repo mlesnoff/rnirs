@@ -34,9 +34,9 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp.pls = NULL, ncomp.pca, nmin = 5,
   else {
     
     if(!is.null(ncomp.pls)) {
-      z <- pls.kernel(Xr, dummy(Yr), ncomp = ncomp.pls)
-      Xr <- z$T
-      Xu <- projscor(Xu, z)
+      fm <- pls.kernel(Xr, dummy(Yr), ncomp = ncomp.pls)
+      Xr <- fm$T
+      Xu <- projscor(Xu, fm)
       }
       
     pvarcla <- ncompcla <- vector(length = nclas)
@@ -56,7 +56,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp.pls = NULL, ncomp.pca, nmin = 5,
       
         zncomp <- min(ncomp.pca, zn - 1, p - 1)
         
-        fm <- pca(Xr[u, ], Xu, ncomp = zncomp, ...)
+        fm <- pca(Xr[u, ], ncomp = zncomp, ...)
         z <- fm$explvar
         
         if(!is.null(pvar)) {
@@ -69,7 +69,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp.pls = NULL, ncomp.pca, nmin = 5,
         ncompcla[i] <- zncomp
         pvarcla[i] <- z$cumpvar[z$ncomp == zncomp]
         
-        z <- sdod(fm, ncomp = zncomp, cri = cri)
+        z <- sdod(Xr[u, ], Xu, fm, ncomp = zncomp, cri = cri)
         
         if(typcut == "overall") {
           zsd <- z$sdu$d

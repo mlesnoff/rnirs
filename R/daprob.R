@@ -44,13 +44,11 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm, lda = FALSE, prior = c(
     
     ds <- matrix(nrow = m, ncol = nclas)
     for(i in 1:nclas) {
-        
-      zXr <- Xr[Yr == lev[i], , drop = FALSE]
 
       if(identical(.dens, dmnorm) & lda)
-        fm <- .dens(zXr, Xu, sigma = W, ...)
+        fm <- .dens(Xr[Yr == lev[i], , drop = FALSE], Xu, sigma = W, ...)
       else
-        fm <- .dens(zXr, Xu, ...)
+        fm <- .dens(Xr[Yr == lev[i], , drop = FALSE], Xu, ...)
       
       ds[, i] <- fm$fit$fit
         

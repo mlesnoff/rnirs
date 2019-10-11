@@ -11,7 +11,7 @@ Functions \code{knnwr} and \code{knnwda} build kNN (eventually locally weighted)
 
 The functions use functions \code{\link{getknn}} and \code{\link{locw}}. See the code for details
 
-For each new observation to predict, the principle of kNN regression models (R and DA) is to select a number of \eqn{k} nearest neighbors and to calculate the prediction by the average of the response \eqn{y} (for regression) or the most frequent class in \eqn{y} (for discrimination) over this neighborhood. The kNN selection step is referred to as \eqn{weighting 1} in \code{\link{locw}}. In standard kNN regression models, the statistical weight of each of the \eqn{k} neighbors is \eqn{1/k}. In locally weighted kNN regression models, the statistical weights of the neighbors depend from the dissimilarities (preliminary calculated) between the observation to predict and the \eqn{k} neighbors. This step is referred to as \eqn{weighting 2} in \code{\link{locw}}.
+For each new observation to predict, the principle of kNN regression models (R and DA) is to select a number of \eqn{k} nearest neighbors and to calculate the prediction by the average of the response \eqn{y} (for regression) or the most frequent class in \eqn{y} (for discrimination) over this neighborhood. The kNN selection step is referred to as \eqn{weighting "1"} in \code{\link{locw}}. In standard kNN regression models, the statistical weight of each of the \eqn{k} neighbors is \eqn{1/k}. In locally weighted kNN regression models, the statistical weights of the neighbors depend from the dissimilarities (preliminary calculated) between the observation to predict and the \eqn{k} neighbors. This step is referred to as \eqn{weighting "2"} in \code{\link{locw}}.
 
 In \code{knnwr} and \code{knnwda}, the dissimilarities can be calculated from the original (i.e. not compressed) data or from preliminary computed global PLS scores.  
 
@@ -24,7 +24,6 @@ knnwr(
   Xu, Yu = NULL,
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
-  stor = TRUE,
   print = TRUE
   ) 
 
@@ -33,7 +32,6 @@ knnwda(
   Xu, Yu = NULL,
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
-  stor = TRUE,
   print = TRUE
   )
 
@@ -51,13 +49,11 @@ knnwda(
 
 \item{diss}{The type of dissimilarity used for defining the neighbors. Possible values are "euclidean" (default; Euclidean distance), "mahalanobis" (Mahalanobis distance), or "correlation". Correlation dissimilarities are calculated by sqrt(.5 * (1 - rho)).}
 
-\item{ncompdis}{TA vector (eventually of length = 1) defining the number(s) of components of the preliminary global PLSR calculated on \eqn{(Xr, Yr)} and \eqn{Xu} for calculating the  dissimilarities used for defining the neighbors. If \code{NULL} (default; no preliminary data compression), the dissimilarities are calculated from the original data \eqn{Xr} and \eqn{Xu}.Each component of \code{ncompdis} is considered successively in the calculations.}
+\item{ncompdis}{A vector (eventually of length = 1) defining the number(s) of components of the preliminary global PLS calculated on \eqn{(Xr, Yr)} and \eqn{Xu} for calculating the  dissimilarities used for defining the neighbors. If \code{NULL} (default; no preliminary data compression), the dissimilarities are calculated from the original data \eqn{Xr} and \eqn{Xu}.Each component of \code{ncompdis} is considered successively in the calculations.}
 
-\item{h}{A vector (eventually of length = 1) defining the scaling shape factor(s) of the function of the weights applied to the neighbors in the weighted PLSR. Lower is \eqn{h}, sharper is the function. See \code{\link{wkern}}.Each component of \code{h} is considered successively in the calculations.}
+\item{h}{A vector (eventually of length = 1) defining the scaling shape factor(s) of the function of the weights applied to the neighbors in the weighted PLSR. Lower is \eqn{h}, sharper is the function. See \code{\link{wkern}}. Each component of \code{h} is considered successively in the calculations.}
 
 \item{k}{A vector (eventually of length = 1) defining the number(s) of nearest neighbors to select in the reference data set for each observation to predict. Each component of \code{k} is considered successively in the calculations.}
-
-\item{stor}{See \code{\link{locw}}.}
 
 \item{print}{Logical (default = \code{TRUE}). If \code{TRUE}, fitting information are printed.}
 
@@ -103,8 +99,8 @@ dim(Xu)
 ## The dissimilarities between the observations are defined
 ## by the Mahalanobis distances calculated from a global PLS score space
 ## of ncompdis = 10 components.
-## - Weighting 1 = knn selection of k = {5, 10, 15} neighbors
-## - Weighting 2 = within each neighborhood, weights are calculated by "wkern" 
+## - Weighting "1" = knn selection of k = {5, 10, 15} neighbors
+## - Weighting "2" = within each neighborhood, weights are calculated by "wkern" 
 
 ncompdis <- 10
 h <- c(1, 2)
@@ -174,11 +170,12 @@ table(yu)
 ## The dissimilarities between the observations are defined
 ## by the Mahalanobis distances calculated from a global PLS score space
 ## of ncompdis = 10 components.
-## - Weighting 1 = knn selection of k = {5, 10, 15} neighbors
-## - Weighting 2 = within each neighborhood, weights are calculated by "wkern" 
+## - Weighting "1" = knn selection of k = {5, 10, 15} neighbors
+## - Weighting "2" = within each neighborhood, weights are calculated by "wkern" 
 
 ncompdis <- 10
 h <- c(1, 2)
+h <- c(Inf, 1e5)
 k <- seq(5, 15, by = 5)
 fm <- knnwda(
   Xr, yr,

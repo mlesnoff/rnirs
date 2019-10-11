@@ -88,13 +88,11 @@ fun <- function(Xr, Yr, Xu, Yu = NULL, k, ncomp, ncompdis) {
   
   z <- pls(Xr, Yr, Xu, ncomp = ncompdis)
   resn <- getknn(z$Tr, z$Tu, k = k, diss = "mahalanobis")
-  listnn <- resn$listnn
-  listw <- lapply(resn$listd, wkern, h = 2)
   fm <- locw(
     Xr, Yr,
     Xu, Yu,
-    listnn = listnn,
-    listw = listw,
+    listnn = resn$listnn,
+    listw = lapply(resn$listd, wkern, h = 2),
     fun = plsr,
     algo = pls.kernelw,
     ncomp = ncomp,

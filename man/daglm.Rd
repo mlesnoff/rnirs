@@ -50,14 +50,15 @@ X <- iris[, 1:4]
 y <- iris[, 5]
 N <- nrow(X)
 
-m <- round(.25 * N) 
-n <- N - m        
+m <- round(.25 * N) # Test
+n <- N - m          # Training
 s <- sample(1:N, m)
 Xr <- X[-s, ]
 yr <- y[-s]
 Xu <- X[s, ]
 yu <- y[s]
 
+## Binomial model with logit link (logistic regression)
 fm <- daglm(Xr, yr, Xu, yu)
 names(fm)
 head(fm$y)
@@ -66,6 +67,7 @@ head(fm$r)
 fm$ni
 err(fm)
 
+## Gaussian model with identity link (= usual linear model)
 fm <- daglm(Xr, yr, Xu, yu, family = gaussian)
 err(fm)
 

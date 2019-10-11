@@ -1,71 +1,70 @@
-dis <- function(Xr, mu = NULL, Xu = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
-  sigma = NULL, out = c("mad", "sd", "boxplot"), cri = 3) {
+dis <- function(Xr, Xu = NULL, mu = NULL, 
+  diss = c("euclidean", "mahalanobis", "correlation"), sigma = NULL, 
+  out = c("mad", "sd", "boxplot"), cri = 3) {
   
   diss <- match.arg(diss)
   out <- match.arg(out)
   
-  X <- .matrix(Xr, prefix.colnam = "x")                                              
-  n <- nrow(X)
-  p <- ncol(X)
-  rownam <- row.names(X)
+  Xr <- .matrix(Xr, prefix.colnam = "x")                                              
+  n <- nrow(Xr)
+  p <- ncol(Xr)
+  rownam <- row.names(Xr)
   
-  if(is.null(mu)) mu <- colMeans(X)
-  
-  if(diss == "euclidean") d <- sqrt(.dis(X, mu))
+  if(is.null(mu)) mu <- colMeans(Xr)
+
+  if(diss == "euclidean") d <- sqrt(.dis(Xr, mu))
 
   if(diss == "mahalanobis") {
-      if(is.null(sigma)) sigma <- cov(X)
+      if(is.null(sigma)) sigma <- cov(Xr)
       U <- chol(sigma)
-      d <- sqrt(.mah(X, mu, U))
+      d <- sqrt(.mah(Xr, mu, U))
       }
   
   if(diss == "correlation") {
       if(p > 1) {
-        rho <- cor(t(X), mu)
+        rho <- cor(t(Xr), mu)
         d <- sqrt(.5 * (1 - rho))
         } 
-      else d <- sqrt(.dis(X, mu))
+      else d <- sqrt(.dis(Xr, mu))
       }
 
   cut <- switch(
     out, 
     mad = median(d) + cri * mad(d), 
     sd = mean(d) + cri * sd(d),
-    boxplot = {u <- fivenum(d) ; u <- u[4] + 1.5 * diff(u[c(2, 4)])}
+    boxplot = {z <- fivenum(d) ; z <- z[4] + 1.5 * diff(z[c(2, 4)])}
     )
   
-  z <- data.frame(rownum = 1:n, rownam = rownam, ncomp = rep(p, n), d = c(d))
-  z$dstand <- z$d / cut
-  dr <- z
+  dr <- data.frame(rownum = 1:n, rownam = rownam, ncomp = rep(p, n), d = c(d))
+  dr$dstand <- dr$d / cut
   
   ### NEW OBSERVATIONS
   
   du <- NULL
   if(!is.null(Xu)) {
     
-    X <- .matrix(Xu, prefix.colnam = "x")                                              
-    m <- nrow(X)
-    rownam <- row.names(X)
+    Xu <- .matrix(Xu, prefix.colnam = "x")                                              
+    m <- nrow(Xu)
+    rownam <- row.names(Xu)
     
     d <- switch(diss,
       
-      euclidean = sqrt(.dis(X, mu)),
+      euclidean = sqrt(.dis(Xu, mu)),
 
-      mahalanobis = sqrt(.mah(X, mu, U)),
+      mahalanobis = sqrt(.mah(Xu, mu, U)),
       
       correlation = {
         if(p > 1) {
-          rho <- cor(t(X), mu)
+          rho <- cor(t(Xu), mu)
           sqrt(.5 * (1 - rho))
           } 
-        else sqrt(.dis(X, mu))
+        else sqrt(.dis(Xu, mu))
         }
       
       )
     
-    z <- data.frame(rownum = 1:m, rownam = rownam, ncomp = rep(p, m), d = c(d))
-    z$dstand <- z$d / cut
-    du <- z
+    du <- data.frame(rownum = 1:m, rownam = rownam, ncomp = rep(p, m), d = c(d))
+    du$dstand <- du$d / cut
     
     }
 

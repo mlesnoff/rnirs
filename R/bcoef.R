@@ -1,22 +1,17 @@
 bcoef <- function(fm, ncomp = NULL) {
-
-  R <- fm$R
-  C <- fm$C
-  xmeans <- fm$xmeans
-  ymeans <- fm$ymeans
   
-  if(is.null(ncomp)) ncomp <- ncol(C)
+  if(is.null(ncomp)) ncomp <- ncol(fm$C)
   
-  beta <- t(C)
+  beta <- t(fm$C)
   
-  zb <- R[, 1:ncomp, drop = FALSE] %*% beta[1:ncomp,  ]
+  zb <- fm$R[, 1:ncomp, drop = FALSE] %*% beta[1:ncomp,  ]
   
-  int <- ymeans - t(xmeans) %*% zb
+  int <- fm$ymeans - t(fm$xmeans) %*% zb
   
   b <- rbind(int, zb)
   row.names(b)[1] <- "intercept"
-  colnames(b) <- colnames(beta)
+  colnames(b) <- row.names(fm$C)
   
   b
-  
-}
+
+  }

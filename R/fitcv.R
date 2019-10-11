@@ -30,13 +30,14 @@ fitcv <- function(X, Y, fun, segm, print = FALSE, ...) {
           "\n\nRow numbers of X to predict: \ns =", s,
           "\n(The models are fitted on X[-s, ], Y[-s].)\n\n")
       
-      zXr <- X[-s, , drop = FALSE]
-      zYr <- Y[-s, , drop = FALSE]
+      fm <- fun(
+        X[-s, , drop = FALSE], 
+        Y[-s, , drop = FALSE], 
+        X[s, , drop = FALSE], 
+        Y[s, , drop = FALSE], 
+        ...
+        )
       
-      zXu <- X[s, , drop = FALSE]
-      zYu <- Y[s, , drop = FALSE]
-      
-      fm <- fun(zXr, zYr, zXu, zYu, ...)
       zy[[j]] <- fm$y
       
       zfit[[j]] <- fm$fit

@@ -1,4 +1,4 @@
-## rnirs 1.0-11
+## rnirs 1.1-0
 ## Locally Weighted PLS Regression and Discrimination
 
 R package focusing on locally weighted prediction methods
@@ -20,7 +20,7 @@ Changes related to the package versions are reported in the NEWS file.
 * Data pre-processing (detrend, SNV, derivations)
 * Multivariate factorial analyses: PCA, PLS, FDA
 * Global predictive methods
-    - Quantitative regressions: PCR, PLSR
+    - Quantitative regressions: PLSR
     - Discrimination: PLSDA with various DA methods
 * Locally weighted predictive methods
     - Quantitative regressions: kNN-LWPLSR, kNN weighted regressions

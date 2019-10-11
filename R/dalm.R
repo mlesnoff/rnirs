@@ -30,15 +30,14 @@ dalm <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL){
   
   else {
   
-    zXr <- cbind(rep(1, n), Xr)
-    zXu <- cbind(rep(1, m), Xu)
-    Yrdummy <- dummy(Yr)
+    Xr <- cbind(rep(1, n), Xr)
+    Xu <- cbind(rep(1, m), Xu)
     
-    zXr.d <- d * zXr 
+    Xr.d <- d * Xr 
     
-    Beta <- solve(crossprod(zXr.d, zXr)) %*% crossprod(zXr.d, Yrdummy)
+    beta <- solve(crossprod(Xr.d, Xr)) %*% crossprod(Xr.d, dummy(Yr))
     
-    z <- zXu %*% Beta
+    z <- Xu %*% beta
     
     row.names(z) <- rownam.Xu
     colnames(z) <- namclas

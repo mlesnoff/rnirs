@@ -59,6 +59,8 @@ x2 <- seq(min(Tr[, 2]), max(Tr[, 2]), length.out = m)
 Tu <- expand.grid(x1, x2)
 head(Tu)
 
+## Parametric
+
 z <- dmnorm(Tr[yr == "setosa", ], Tu)$fit$fit
 mfit1 <- matrix(z, nrow = m)
 z <- dmnorm(Tr[yr == "versicolor", ], Tu)$fit$fit
@@ -74,6 +76,8 @@ abline(h = 0, v = 0, lty = 2)
 contour(x1, x2, mfit3)
 abline(h = 0, v = 0, lty = 2)
 par(oldpar)
+
+## Non-parametric
 
 hs <- .5
 z <- dkern.gauss(Tr[yr == "setosa", ], Tu, hs = hs)$fit$fit

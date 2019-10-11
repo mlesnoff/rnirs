@@ -4,9 +4,9 @@ locw <- function(
   listnn,
   listw = NULL,
   fun,
-  stor = TRUE,
   print = TRUE,
-  ...) {
+  ...
+  ) {
   
   .fun <- match.fun(fun)
   dots <- list(...)
@@ -17,76 +17,59 @@ locw <- function(
   colnam.Yr <- colnames(Yr)
   
   m <- length(listnn)
-  
   if(is.null(Yu)) Yu <- matrix(nrow = m, ncol = q)
     else Yu <- .matrix(Yu, row = FALSE, prefix.colnam = "y")
   
-  if(!is.null(Xr)) Xr <- .matrix(Xr, prefix.colnam = "x") else Xr <- Yr
-  if(!is.null(Xu)) Xu <- .matrix(Xu, prefix.colnam = "x") else Xu <- Yu
+  if(!is.null(Xr)) Xr <- .matrix(Xr) else Xr <- Yr
+  if(!is.null(Xu)) Xu <- .matrix(Xu) else Xu <- Yu
   rownam.Xu <- row.names(Xu)
   
   weighted <- !is.null(listw)
+  fm <- y <- r <- fit <- vector("list", length = m)
+  names(fm) <- 1:m 
+  for(i in 1:m) {
+    
+    if(print)
+      if(m <= 220) cat(i, "") else if(i %in% seq(1, m, by = 5)) cat(i, "")
+    
+    ind <- listnn[[i]]
+    
+    if(weighted) dots$weights <- listw[[i]]
+    param <- c(
+      list(
+        Xr = Xr[ind, , drop = FALSE], 
+        Yr = Yr[ind, , drop = FALSE], 
+        Xu = Xu[i, , drop = FALSE], 
+        Yu = Yu[i, , drop = FALSE]), 
+      dots
+      )
+    fm[[i]] <- do.call(.fun, param)
+    
+    nr <- nrow(fm[[i]]$y)
+    fm[[i]]$r$rownum <- fm[[i]]$fit$rownum <- fm[[i]]$y$rownum <- rep(i, nr)
+    fm[[i]]$r$rownam <- fm[[i]]$fit$rownam <- fm[[i]]$y$rownam <- rep(rownam.Xu[i], nr)
+    
+    k <-  rep(length(ind), nr)
 
-  res <- lapply(
+    y[[i]] <- data.frame(k = k, fm[[i]]$y)
+    fit[[i]] <- data.frame(k = k, fm[[i]]$fit)
+    r[[i]] <- data.frame(k = k, fm[[i]]$r)
     
-    1:m, function(i) {
-  
-      if(print)
-        if(m <= 220) cat(i, "") else if(i %in% seq(1, m, by = 5)) cat(i, "")
-      
-      ind <- listnn[[i]]
-      
-      zXr <- Xr[ind, , drop = FALSE]
-      zYr <- Yr[ind, , drop = FALSE]
-        
-      zXu <- Xu[i, , drop = FALSE]
-      zYu <- Yu[i, , drop = FALSE]
-      
-      if(weighted) dots$weights <- listw[[i]]
-      param <- list(Xr = zXr, Yr = zYr, Xu = zXu, Yu = zYu)
-      param <- c(param, dots)
-      
-      zfm <- do.call(.fun, param)
-      
-      zy <- zfm$y
-      zfit <- zfm$fit
-      zr <- zfm$r
-      
-      n <- nrow(zy)
-      zr$rownum <- zfit$rownum <- zy$rownum <- rep(i, n)
-      zr$rownam <- zfit$rownam <- zy$rownam <- rep(rownam.Xu[i], n)
-      
-      k <-  rep(length(ind), n)
-      y <- data.table(k = k, zy)
-      fit <- data.frame(k = k, zfit)
-      r <- data.frame(k = k, zr)
-      
-      if(!stor) zfm <- NULL
-      fm <- zfm
-      
-      return(list(y = y, fit = fit, r = r, fm = fm))
-      
-      }
+    fm[[i]][c("y", "fit", "r")] <- NULL  
     
-    )
-  
-  if(print) cat("\n\n")
-  
-  .f <- function(nam) {
-    z <- lapply(1:length(res), function(i) {res[[i]][nam]})
-    z <- unlist(z, recursive = FALSE)
-    z <- setDF(rbindlist(z))
     }
-  y <- .f("y")
-  fit <- .f("fit")
-  r <- .f("r")
-  
-  z <- lapply(1:length(res), function(i) {res[[i]]["fm"]})
-  fm <- unlist(z, recursive = FALSE)
-  names(fm) <- 1:m
-  
-  if(!stor) fm <- NULL
 
+  if(print) cat("\n\n")
+
+  .f <- function(x) {
+    x <- lapply(x, function(x) data.frame(x))
+    x <- setDF(rbindlist(x))
+    }
+  y <- .f(y)
+  fit <- .f(fit)
+  r <- .f(r)
+  
+  rm(list = c("param"))
   gc()
   
   list(y = y, fit = fit, r = r, fm = fm)
