@@ -45,18 +45,6 @@ install.packages(devtools)
 library(devtools)
 install_github("mlesnoff/rnirs", dependencies = TRUE)
 ```
-### Installation from the Tar file rnirs_....tar.gz with Rstudio
-
-1. Install packages from the CRAN (Menu "Packages", "Install", and then "Install From CRAN")
-
-- **scales**
-- **signal**
-- **data.table**
-- **FNN**
-- **ggplot2**
-- **gridExtra** 
-
-2. Download the TAR file **rnirs_....tar.gz** and install it (Menu "Packages", "Install", and then "Install From Package Archive Files")
 
 ### Usage
 
