@@ -1,4 +1,4 @@
-pca.eigenw <- function(X, ncomp, weights) {
+pca.eigenw <- function(X, ncomp, weights = rep(1, nrow(X))) {
   
   X <- .matrix(X, prefix.colnam = "x")
   n <- nrow(X)

@@ -10,8 +10,8 @@ lwplsr <- function(
 
   diss <- match.arg(diss)
   
-  Xr <- .matrix(Xr)
-  Xu <- .matrix(Xu)
+  Xr <- .matrix(Xr, prefix.colnam = "x")
+  Xu <- .matrix(Xu, prefix.colnam = "x")
   n <- nrow(Xr)
   m <- nrow(Xu)
 

@@ -1,5 +1,15 @@
 ## News for the rnirs package
 
+#### Version 1.1-1
+
+- New functions:    
+
+. covsel
+. lmr
+. blocksel, blockscal, blockreduct
+. orthog
+
+
 #### Version 1.1-0
 
 - Major code cleaning in the functions for improving memory management. 
@@ -11,6 +21,7 @@ locw was removed.
 
 - Function pcr was removed.
 
+
 #### Version 1.0-10
 
 - For facilitating the learning of the package, all the examples in the vignettes
@@ -20,6 +31,7 @@ Vignettes have been removed.
 #### Version 1.0-9
 
 - Bug correction in plotmse. Now, "group" must be a column of "obj".
+
 
 #### Version 1.0-8
 
@@ -31,9 +43,11 @@ Vignettes have been removed.
 
 - For compatibility with CRAN rules: Long and/or documented examples moved from the help pages to vignettes.
 
+
 #### Version 1.0-6
 
 - Function stackmod: simplification (y is now univariate) and correction of potential minor bug.
+
 
 #### Version 1.0-5
 

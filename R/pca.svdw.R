@@ -1,4 +1,4 @@
-pca.svdw <- function(X, ncomp, weights) {
+pca.svdw <- function(X, ncomp, weights = rep(1, nrow(X))) {
   
   X <- .matrix(X, prefix.colnam = "x")
   n <- nrow(X)
@@ -9,9 +9,7 @@ pca.svdw <- function(X, ncomp, weights) {
   xmeans <- crossprod(d, X)
   X <- scale(X, center = xmeans, scale = FALSE)
   
-  X <- sqrt(d) * X
-  
-  z <- svd(X, nu = ncomp, nv = ncomp)
+  z <- svd(sqrt(d) * X, nu = ncomp, nv = ncomp)
 
   sv <- z$d[1:ncomp]
   

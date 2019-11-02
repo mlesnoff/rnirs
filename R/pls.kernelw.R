@@ -1,4 +1,4 @@
-pls.kernelw <- function(X, Y, ncomp, weights) {
+pls.kernelw <- function(X, Y, ncomp, weights = rep(1, nrow(X))) {
   
   X <- .matrix(X, prefix.colnam = "x")                                              
   n <- nrow(X)
@@ -9,11 +9,11 @@ pls.kernelw <- function(X, Y, ncomp, weights) {
   
   d <- weights / sum(weights)
   
-  Xd <- d * X   # d * X = D %*% X
+  Xd <- d * X   # d * X = X * d = D %*% X
   
   xmeans <- colSums(Xd) 
 
-  ymeans <- colSums(Y * d)   
+  ymeans <- colSums(d * Y)
   
   X <- scale(X, center = xmeans, scale = FALSE)                                     
   

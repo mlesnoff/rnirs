@@ -32,9 +32,9 @@ pca.eigen(X, ncomp)
 pca.nipals(X, ncomp, gramschmidt = TRUE,
   tol = .Machine$double.eps^0.5, maxit = 100)
 
-pca.svdw(X, ncomp, weights)
+pca.svdw(X, ncomp, weights = rep(1, nrow(X)))
 
-pca.eigenw(X, ncomp, weights)
+pca.eigenw(X, ncomp, weights = rep(1, nrow(X)))
 
 }
 

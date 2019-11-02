@@ -25,11 +25,11 @@ Missing values are not allowed.
 
 pls.kernel(X, Y, ncomp)
 
-pls.kernelw(X, Y, ncomp, weights)
+pls.kernelw(X, Y, ncomp, weights = rep(1, nrow(X)))
 
 pls.nipals(X, Y, ncomp)
 
-pls.nipalsw(X, Y, ncomp, weights)
+pls.nipalsw(X, Y, ncomp, weights = rep(1, nrow(X)))
 
 }
 
@@ -41,7 +41,7 @@ pls.nipalsw(X, Y, ncomp, weights)
 
 \item{ncomp}{The number of scores (i.e. components) to be calculated.}
 
-\item{weights}{A vector of length \eqn{n} defining the statistical weights to apply to the observations.}
+\item{weights}{A vector of length \eqn{n} defining the statistical weights to apply to the row observations.}
 
 }
 
@@ -106,10 +106,10 @@ pls.kernel(X, y1, ncomp = 3)
 pls.kernel(X, Y, ncomp = 3)
 
 pls.kernel(X, Y, ncomp = 3)$T
-pls.kernelw(X, Y, ncomp = 3, weights = rep(1, nrow(X)))$T
+pls.kernelw(X, Y, ncomp = 3, weights = rep(1, n))$T
 
-pls.kernelw(X, Y, ncomp = 3, weights = 1:nrow(X))$T
-pls.nipalsw(X, Y, ncomp = 3, weights = 1:nrow(X))$T
+pls.kernelw(X, Y, ncomp = 3, weights = 1:n)$T
+pls.nipalsw(X, Y, ncomp = 3, weights = 1:n)$T
 
 }
 

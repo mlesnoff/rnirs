@@ -1,13 +1,11 @@
 pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...) {
-  
-  .pls.algo <- match.fun(FUN = algo)
 
   Xr <- .matrix(Xr, prefix.colnam = "x")
   n <- nrow(Xr)
   
   Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
 
-  fm <- .pls.algo(Xr, Yr, ncomp, ...)
+  fm <- algo(Xr, Yr, ncomp, ...)
   
   # xsstot = Total SS of the centered data Xr
   # = sum of the SS of the Xr-columns

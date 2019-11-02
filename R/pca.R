@@ -1,11 +1,9 @@
 pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
   
-  .pca.algo <- match.fun(FUN = algo)
-  
   Xr <- .matrix(Xr, prefix.colnam = "x")
   n <- nrow(Xr)
   
-  fm <- .pca.algo(Xr, ncomp, ...)
+  fm <- algo(Xr, ncomp, ...)
 
   # xsstot = Total SS of the centered data Xr
   # = sum of the SS of the Xr-columns

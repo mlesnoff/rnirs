@@ -47,12 +47,18 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
   \code{\link{xfit}} \tab Matrix Approximation from multivariate scores and loadings \cr
   }
 
+\bold{------------ VARIABLE SELECTION}
+\tabular{ll}{
+  \code{\link{covsel}} \tab CovSel\cr
+  }
+
 \bold{------------ GLOBAL PREDICTIVE METHODS}
 
 \eqn{-- Regression}
 
 \tabular{ll}{
   \code{\link{plsr}} \tab PLSR\cr
+  \code{\link{lmr}} \tab LMR\cr
   }
 
 \eqn{-- Discrimination}
@@ -80,6 +86,15 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
 \tabular{ll}{
   \code{\link{lwplsda}}, \code{\link{lwplsdalm}} \tab kNN-Locally weighted PLSDA\cr
   \code{\link{knnwda}} \tab kNN-weighted discrimination \cr
+  }
+
+\bold{------------ MULTIBLOCK FUNCTIONS}
+
+\tabular{ll}{
+  \code{\link{blocksel}} \tab Block selection in a matrix\cr
+  \code{\link{blockscal}} \tab Block scaling\cr
+  \code{\link{blockreduct}} \tab Block dimension reduction\cr
+  \code{\link{blockreduct}} \tab Orthogonalization of a matrix to another matrix\cr
   }
 
 \bold{------------ MODEL STACKING}

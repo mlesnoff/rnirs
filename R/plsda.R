@@ -1,17 +1,13 @@
 plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, 
   stor = FALSE, ...) {
   
-  .pls.algo <- match.fun(FUN = algo)
-  
-  .da <- match.fun(FUN = da)
-  
   dots <- list(...)
   namdot <- names(dots)
   
-  z <- namdot[namdot %in% names(formals(.pls.algo))]
-  if(length(z) > 0) dots.pls.algo <- dots[z] else dots.pls.algo <- NULL
+  z <- namdot[namdot %in% names(formals(algo))]
+  if(length(z) > 0) dots.algo <- dots[z] else dots.algo <- NULL
   
-  z <- namdot[namdot %in% names(formals(.da))]
+  z <- namdot[namdot %in% names(formals(da))]
   if(length(z) > 0) dots.da <- dots[z] else dots.da <- NULL
   
   nclas <- length(unique(Yr))
@@ -23,7 +19,7 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm,
     fm <- do.call(
       pls, 
       c(list(Xr = Xr, Yr = Yrdummy, Xu = Xu, ncomp = ncomp,
-        algo = algo), dots.pls.algo)
+        algo = algo), dots.algo)
       ) 
     }
   
@@ -33,7 +29,7 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm,
   for(a in 1:ncomp) {
     
     zfm <- do.call(
-      .da, 
+      da, 
       c(list(Xr = fm$Tr[, 1:a, drop = FALSE], Yr = Yr,
         Xu = fm$Tu[, 1:a, drop = FALSE], Yu = Yu), dots.da)
       )

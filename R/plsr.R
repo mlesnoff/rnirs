@@ -1,7 +1,5 @@
 plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, 
   stor = FALSE, ...) {
-  
-  .pls.algo <- match.fun(FUN = algo)
 
   fm <- pls(Xr, Yr, Xu, ncomp, algo, ...)
   

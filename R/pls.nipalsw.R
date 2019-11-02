@@ -1,4 +1,4 @@
-pls.nipalsw <- function(X, Y, ncomp, weights) {
+pls.nipalsw <- function(X, Y, ncomp, weights = rep(1, nrow(X))) {
   
   X <- .matrix(X, prefix.colnam = "x")                                              
   n <- nrow(X)
@@ -9,7 +9,7 @@ pls.nipalsw <- function(X, Y, ncomp, weights) {
   
   d <- weights / sum(weights)
   
-  xmeans <- colSums(d * X)       # d * X = D %*% X
+  xmeans <- colSums(d * X)       # d * X = X * d = D %*% X
 
   ymeans <- colSums(d * Y) 
   

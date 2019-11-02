@@ -5,8 +5,6 @@ pca.nipals <- function(X, ncomp, gramschmidt = TRUE,
   n <- nrow(X)
   p <- ncol(X)
   
-  d <- rep(1 /n, n)
-
   xmeans <- colMeans(X, na.rm = TRUE)
   
   X <- scale(X, center = xmeans, scale = FALSE)
@@ -118,7 +116,7 @@ pca.nipals <- function(X, ncomp, gramschmidt = TRUE,
   
 
   list(T = scores, P = loadings, R = loadings,
-    sv = sv, xss = xss, xmeans = xmeans, weights = d, iter = iter)
+    sv = sv, xss = xss, xmeans = xmeans, weights = rep(1 / n, n), iter = iter)
 
   }
 

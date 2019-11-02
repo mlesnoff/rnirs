@@ -1,4 +1,4 @@
-## rnirs 1.1-0
+## rnirs 1.1-1
 ## Locally Weighted PLS Regression and Discrimination
 
 R package focusing on locally weighted prediction methods
@@ -17,15 +17,17 @@ The changes related to the successive package versions are reported in the NEWS 
 ### Main features
 
 * Data checking and summarizing
-* Data pre-processing (detrend, SNV, derivations)
+* Data pre-processing: detrend, SNV, derivations
 * Multivariate factorial analyses: PCA, PLS, FDA
+* Variable selection: CovSel
 * Global predictive methods
-    - Quantitative regressions: PLSR
+    - Quantitative regressions: PLSR, LMR
     - Discrimination: PLSDA with various DA methods
 * Locally weighted predictive methods
     - Quantitative regressions: kNN-LWPLSR, kNN weighted regressions
     - Discrimination: kNN-LWPLSDA with various DA methods, kNN weighted discrimination
     - The generic function **locw** can implement any locally weighted models
+* Multiblock functions: selection, scaling, diemnsion reduction
 * Cross-validation
     - Generic function **fitcv**
 * Graphics
@@ -33,7 +35,7 @@ The changes related to the successive package versions are reported in the NEWS 
 
 ### Installation from Github
 
-1. Install **devtools** package from the CRAN (if not already done)
+1. If not already done, install **devtools** package from the CRAN
 
 ```{r}
 install.packages(devtools)

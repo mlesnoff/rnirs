@@ -1,13 +1,11 @@
 plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, 
   stor = FALSE, ...) {
-  
-  .pls.algo <- match.fun(FUN = algo)
 
   dots <- list(...)
   namdot <- names(dots)
   
-  z <- namdot[namdot %in% names(formals(.pls.algo))]
-  if(length(z) > 0) dots.pls.algo <- dots[z] else dots.pls.algo <- NULL
+  z <- namdot[namdot %in% names(formals(algo))]
+  if(length(z) > 0) dots.algo <- dots[z] else dots.algo <- NULL
 
   colnam.Yr <- colnames(Yr)
   if(is.null(colnam.Yr)) colnam.Yr <- "y1"
@@ -36,7 +34,7 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
     fm <- do.call(
       plsr, 
       c(list(Xr = Xr, Yr = dummy(Yr), Xu = Xu, 
-        ncomp = ncomp, algo = algo, stor = stor), dots.pls.algo)
+        ncomp = ncomp, algo = algo, stor = stor), dots.algo)
       )
     
     m <- length(fm$fit$ncomp[fm$fit$ncomp == 1])

@@ -7,8 +7,6 @@ pls.kernel <- function(X, Y, ncomp) {
   Y <- .matrix(Y, row = FALSE, prefix.colnam = "y")   
   zq <- ncol(Y)
   
-  d <- rep(1 /n, n)
-  
   xmeans <- colMeans(X)
   
   ymeans <- colMeans(Y)
@@ -61,6 +59,6 @@ pls.kernel <- function(X, Y, ncomp) {
     }
   
   list(T = T, P = P, W = W, C = C, R = R, TT = TT,
-    xmeans = xmeans, ymeans = ymeans, weights = d)
+    xmeans = xmeans, ymeans = ymeans, weights = rep(1 / n, n))
   
   }
