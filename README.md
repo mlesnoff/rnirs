@@ -38,7 +38,7 @@ The changes related to the successive package versions are reported in the NEWS 
 1. If not already done, install **devtools** package from the CRAN
 
 ```{r}
-install.packages(devtools)
+install.packages("devtools")
 ```
 
 2. Load **devtools** and then install **rnirs** package
