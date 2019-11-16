@@ -160,6 +160,15 @@
   
   }
 
+.varw <- function(x, weights = rep(1, length(x))) {
+  
+  d <- weights / sum(weights)
+  
+  xmean <- sum(d * x)
+  
+  sum(d * (x - xmean)^2)
+  
+  }
 
 
 

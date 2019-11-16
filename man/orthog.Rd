@@ -6,7 +6,7 @@
 
 \description{
 
-Function \code{orthog} a matrix \eqn{Y} to a matrix \eqn{X}. 
+Function \code{orthog} orthogonalizes a matrix \eqn{Y} to a matrix \eqn{X}. The row observations can be weighted. 
 
 The function uses function \code{\link{lm}}.
 
@@ -14,7 +14,7 @@ The function uses function \code{\link{lm}}.
 
 \usage{
 
-orthog(X, Y, weights = NULL)
+orthog(X, Y, weights = rep(1, nrow(X)))
 
 }
 
@@ -24,13 +24,15 @@ orthog(X, Y, weights = NULL)
 
 \item{Y}{A \eqn{n x q} matrix or data frame to orthogonalize to \eqn{X}.}
 
-\item{weights}{A vector of length \eqn{n} defining the statistical weights to apply to the row observations. Default to \code{NULL} (weights = \eqn{1/n}).}
+\item{weights}{A vector of length \eqn{n} defining the statistical weights to apply to the row observations.}
 
 }
 
 \value{
 
-The \eqn{Y} matrix orthogonized to \eqn{X}.
+\item{Y}{The \eqn{Y} matrix orthogonalized to \eqn{X}.}
+
+\item{b}{The regression coefficients used for orthogonalization.}
 
 }
 

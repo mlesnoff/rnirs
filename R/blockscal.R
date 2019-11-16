@@ -1,26 +1,40 @@
-blockscal <- function(Xr, Xu = NULL, blocks, stat = sd) {
+blockscal <- function(Xr, Xu = NULL, blocks, weights = rep(1, nrow(Xr))) {
   
-  nb <- length(blocks)
+  nbl <- length(blocks)
   
+  d <- weights / sum(weights)
+
   res <- blocksel(Xr, blocks)
   Xr <- res$X
+  blocks <- res$blocks
   
-  xdisptot <- rep(NA, nb)
-  for(i in 1:nb) {
+  xdisptot <- rep(NA, nbl)
+  for(i in 1:nbl) {
     
-    xdisptot[i] <- sum(apply(Xr[, res$blocks[[i]], drop = FALSE], MARGIN = 2, FUN = stat))
-    Xr[, res$blocks[[i]]] <- Xr[, res$blocks[[i]], drop = FALSE] / xdisptot[i]
+    #xdisptot[i] <- sum(
+    #  apply(Xr[, blocks[[i]], drop = FALSE], MARGIN = 2, 
+    #    FUN = function(x) sqrt(.varw(x)))
+    #  )
+    
+    xdisptot[i] <- sqrt(
+      sum(
+      apply(Xr[, blocks[[i]], drop = FALSE], MARGIN = 2, FUN = .varw, 
+        weights = weights)
+        )
+      )
+    
+    Xr[, blocks[[i]]] <- Xr[, blocks[[i]], drop = FALSE] / xdisptot[i]
       
     }
 
   if(!is.null(Xu)) {
     
     Xu <- blocksel(Xu, blocks)$X
-    for(i in 1:nb)  
-      Xu[, res$blocks[[i]]] <- Xu[, res$blocks[[i]], drop = FALSE] / xdisptot[i]
+    for(i in 1:nbl)  
+      Xu[, blocks[[i]]] <- Xu[, blocks[[i]], drop = FALSE] / xdisptot[i]
     
     }
     
-  list(Xr = Xr, Xu = Xu, xdisptot = xdisptot, blocks = res$blocks)  
+  list(Xr = Xr, Xu = Xu, blocks = blocks, xdisptot = xdisptot)  
 
   }

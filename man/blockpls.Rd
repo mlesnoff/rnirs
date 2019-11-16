@@ -1,12 +1,12 @@
-\name{blockreduct}
-\alias{blockreduct}
+\name{blockpls}
+\alias{blockpls}
 \encoding{latin1}
 
 \title{Block dimension reduction}
 
 \description{
 
-Function \code{blockreduct} implements block reduction on a reference (= training) matrix and eventually a new (= test) matrix. The block reduction consists in calculating latent variables (scores) for each block, by PCA (default) or PLS. 
+Function \code{blockpls} implements block reduction on a reference (= training) matrix and eventually a new (= test) matrix. The block reduction consists in calculating latent variables (scores) for each block, by PCA (default) or PLS. 
 
 The scores are calculated for each block of the reference matrix and then concatenated into a new matrix (blocks of scores). The eventual new observations (test matrix) are projected by block on these reference space scores.
 
@@ -16,7 +16,7 @@ The function uses function \code{\link{blocksel}}.
 
 \usage{
 
-blockreduct(Xr, Yr = NULL, Xu = NULL, blocks, ncomp, ...)
+blockpls(Xr, Yr = NULL, Xu = NULL, blocks, ncomp, ...)
 
 }
 
@@ -42,7 +42,7 @@ blockreduct(Xr, Yr = NULL, Xu = NULL, blocks, ncomp, ...)
 
 \item{Tu}{A matrix with the scores calculated from \eqn{Xu} and then concatenated by block. \code{NULL} if \code{Xu = NULL}.}
 
-\item{blocks}{A list of column numbers defining the blocks in \eqn{Tr}, and eventually in \eqn{Tu}.}
+\item{blocks}{A list of column numbers defining the blocks in the output matrices \eqn{Tr} and \eqn{Tu}.}
 
 }
 
@@ -59,8 +59,8 @@ Y
 
 blocks <- list(1:3, 4:6, 7:9)
 blocks
-res <- blockreduct(X[1:3, ], Xu = X[4:5, ], blocks = blocks, ncomp = 2) 
-#res <- blockreduct(X[1:3, ], Y[1:3, ], X[4:5, ], blocks = blocks, ncomp = 2) 
+res <- blockpls(X[1:3, ], Xu = X[4:5, ], blocks = blocks, ncomp = 2) 
+#res <- blockpls(X[1:3, ], Y[1:3, ], X[4:5, ], blocks = blocks, ncomp = 2) 
 res
 
 }

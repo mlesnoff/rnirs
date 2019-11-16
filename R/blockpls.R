@@ -1,16 +1,16 @@
-blockreduct <- function(Xr, Yr = NULL, Xu = NULL, blocks, ncomp, ...) {
+blockpls <- function(Xr, Yr = NULL, Xu = NULL, blocks, ncomp, ...) {
   
-  nb <- length(blocks)
-  if(length(ncomp) == 1) ncomp <- rep(ncomp, nb)
+  nbl <- length(blocks)
+  if(length(ncomp) == 1) ncomp <- rep(ncomp, nbl)
   
-  zblocks <- data.frame(numcol = 1:sum(ncomp), bl = rep(1:nb, ncomp))
+  zblocks <- data.frame(numcol = 1:sum(ncomp), bl = rep(1:nbl, ncomp))
   
   res <- blocksel(Xr, blocks)
   Xr <- res$X
   if(!is.null(Xu))
     Xu <- blocksel(Xu, blocks)$X  
   
-  for(i in 1:nb) {
+  for(i in 1:nbl) {
     
     u <- res$blocks[[i]]
     

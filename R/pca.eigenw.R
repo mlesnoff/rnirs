@@ -6,7 +6,7 @@ pca.eigenw <- function(X, ncomp, weights = rep(1, nrow(X))) {
   
   d <- weights / sum(weights)
   
-  xmeans <- crossprod(d, X)
+  xmeans <- colSums(d * X)    # = crossprod(d, X)
   X <- scale(X, center = xmeans, scale = FALSE)
 
   z <- eigen(crossprod(sqrt(d) * X))

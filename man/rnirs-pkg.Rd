@@ -91,10 +91,10 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
 \bold{------------ MULTIBLOCK FUNCTIONS}
 
 \tabular{ll}{
+  \code{\link{orthog}} \tab Orthogonalization of a matrix to another matrix\cr
   \code{\link{blocksel}} \tab Block selection in a matrix\cr
   \code{\link{blockscal}} \tab Block scaling\cr
-  \code{\link{blockreduct}} \tab Block dimension reduction\cr
-  \code{\link{blockreduct}} \tab Orthogonalization of a matrix to another matrix\cr
+  \code{\link{blockpls}} \tab Block dimension reduction\cr
   }
 
 \bold{------------ MODEL STACKING}
