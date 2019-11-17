@@ -1,12 +1,16 @@
 ## News for the rnirs package
 
+#### Version 1.2-0
+
+- New functions:  blocksopls, blocksopca
+
 #### Version 1.1-2
 
 - New function:  headm
 
 - Change of outputs of function orthog
 
-- Function blockreduct has been renamed blockpls
+- Function blockreduct has been renamed to blockpls
 
 #### Version 1.1-1
 

@@ -94,7 +94,8 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
   \code{\link{orthog}} \tab Orthogonalization of a matrix to another matrix\cr
   \code{\link{blocksel}} \tab Block selection in a matrix\cr
   \code{\link{blockscal}} \tab Block scaling\cr
-  \code{\link{blockpls}} \tab Block dimension reduction\cr
+  \code{\link{blockpls}} \tab Block dimension reduction by PLS or PCA\cr
+  \code{\link{blocksopls}}, \code{\link{blocksopca}} \tab Block dimension reduction by SO-PLS or SO-PCA\cr
   }
 
 \bold{------------ MODEL STACKING}
@@ -119,6 +120,7 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
 
 \bold{------------ MISCELLANEOUS}
 \tabular{ll}{
+  \code{\link{headm}} \tab Return the first part of a matrix or data frame \cr
   \code{\link{kenston}} \tab Kennard-Stone sampling \cr
   \code{\link{matdis}} \tab Dissimilarity matrix (between observations)\cr
   \code{\link{sampclas}} \tab Within-class sampling\cr

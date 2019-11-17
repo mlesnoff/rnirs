@@ -4,6 +4,7 @@ blocksel <- function(X, blocks) {
   n <- nrow(X)
   
   nbl <- length(blocks)
+  
   selcol <- unlist(blocks)
   
   colnam <- colnames(X)[selcol]

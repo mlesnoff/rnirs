@@ -20,7 +20,7 @@ blocksel(X, blocks)
 
 \item{X}{A \eqn{n x p} matrix or data frame of variables.}
 
-\item{blocks}{A list of same size as the number of blocks. Each component of the list has to give the column numbers in \eqn{X} defining the given block.}
+\item{blocks}{A list of same length as the number of blocks. Each component of the list gives the column numbers in \eqn{X} defining the given block.}
 
 }
 

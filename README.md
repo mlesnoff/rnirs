@@ -1,4 +1,4 @@
-## rnirs 1.1-2
+## rnirs 1.2-0
 ## Locally Weighted PLS Regression and Discrimination
 
 R package focusing on locally weighted prediction methods
@@ -26,12 +26,17 @@ The changes in the successive versions of the package are reported in the **NEWS
 * Locally weighted predictive methods
     - Quantitative regressions: kNN-LWPLSR, kNN weighted regressions
     - Discrimination: kNN-LWPLSDA with various DA methods, kNN weighted discrimination
-    - The generic function **locw** can implement any locally weighted models
-* Multiblock functions: block-selection, -scaling, -dimension reduction
+    - Generic function **locw** for implementing any locally weighted models
+* Multiblock functions:
+    - Orthogonalization of a matrix to another matrix
+    - block-selection
+    - block-scaling
+    - block-dimension reduction by PLS or PCA
+    - block-dimension reduction by SO-PLS or SO-PCA
 * Cross-validation
     - Generic function **fitcv**
 * Graphics
-* Other functions
+* Miscellaneous functions
 
 ### Installation from Github
 

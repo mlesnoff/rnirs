@@ -1,18 +1,21 @@
 blockpls <- function(Xr, Yr = NULL, Xu = NULL, blocks, ncomp, ...) {
   
   nbl <- length(blocks)
+  
   if(length(ncomp) == 1) ncomp <- rep(ncomp, nbl)
   
   zblocks <- data.frame(numcol = 1:sum(ncomp), bl = rep(1:nbl, ncomp))
   
-  res <- blocksel(Xr, blocks)
-  Xr <- res$X
+  newdat <- blocksel(Xr, blocks)
+  Xr <- newdat$X
+  newblocks <- newdat$blocks
+  
   if(!is.null(Xu))
     Xu <- blocksel(Xu, blocks)$X  
   
   for(i in 1:nbl) {
     
-    u <- res$blocks[[i]]
+    u <- newdat$blocks[[i]]
     
     if(is.null(Yr))
       fm <- pca(Xr[, u, drop = FALSE], Xu[, u, drop = FALSE], ncomp[i], ...)

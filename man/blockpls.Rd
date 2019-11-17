@@ -2,15 +2,15 @@
 \alias{blockpls}
 \encoding{latin1}
 
-\title{Block dimension reduction}
+\title{Block dimension reduction by PLS or PCA}
 
 \description{
 
-Function \code{blockpls} implements block reduction on a reference (= training) matrix and eventually a new (= test) matrix. The block reduction consists in calculating latent variables (scores) for each block, by PCA (default) or PLS. 
+Function \code{blockpls} implements block dimension reduction on a reference (= training) matrix and eventually a new (= test) matrix, by PLS or PCA (default). The block reduction consists in calculating latent variables (scores) for each block. 
 
-The scores are calculated for each block of the reference matrix and then concatenated into a new matrix (blocks of scores). The eventual new observations (test matrix) are projected by block on these reference space scores.
+The scores calculated for each block for the reference matrix and the eventual new matrix are concatenated into new output matrices (blocks of scores).
 
-The function uses function \code{\link{blocksel}}.
+The reference row observations can be weighted.
 
 }
 
@@ -28,11 +28,11 @@ blockpls(Xr, Yr = NULL, Xu = NULL, blocks, ncomp, ...)
 
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations, which receives the same block-scaling as \eqn{Xr} (\eqn{Xu} is not used in the calculation of the block score spaces). Default to \code{NULL}.}
 
-\item{blocks}{A list of same size as the number of blocks. Each component of the list has to give the column numbers in \eqn{Xr} defining the given block. The same blocks are use for \eqn{Xu} if not \code{NULL}.}
+\item{blocks}{A list of same length as the number of blocks. Each component of the list gives the column numbers in \eqn{Xr} defining the given block. The same blocks are used for \eqn{Xu}.}
 
-\item{ncomp}{A list of same size as the number of blocks defining the number of scores to calculate for each block, or a single number. In this last case, the same number of scores is used for all the blocks.}
+\item{ncomp}{A list of same length as the number of blocks defining the number of scores to calculate for each block, or a single number. In this last case, the same number of scores is used for all the blocks.}
 
-\item{...}{Other arguments to pass in functions \code{\link{pca}} or \code{\link{pls}}.}
+\item{...}{Other arguments to pass in functions \code{\link{pls}} or \code{\link{pca}}.}
 
 }
 
