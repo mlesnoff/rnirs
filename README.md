@@ -12,7 +12,7 @@ The package is primarily dedicated to near infrared spectral data (NIRS) but is 
 
 Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
-The changes in the successive versions of the package are reported in the **NEWS file.**
+The changes in the successive versions of the package are reported in the **NEWS file** above.
 
 ### Main features
 
