@@ -1,8 +1,14 @@
 ## News for the rnirs package
 
+#### Version 1.2-1
+
+- Correction of the example in the help page of function orthog
+
+
 #### Version 1.2-0
 
 - New functions:  blocksopls, blocksopca
+
 
 #### Version 1.1-2
 
@@ -11,6 +17,7 @@
 - Change of outputs of function orthog
 
 - Function blockreduct has been renamed to blockpls
+
 
 #### Version 1.1-1
 

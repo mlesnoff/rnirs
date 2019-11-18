@@ -49,17 +49,24 @@ Y
 
 fm <- lm(Y ~ X)
 Y - fm$fitted.values
-Yortho <- orthog(X, Y)
-Yortho
-t(Yortho) %*% X
+fm$coef
+
+res <- orthog(X, Y)
+res$Y
+t(res$Y) %*% X     # ===> orthogonal
+res$b
+
+#### WITH WEIGHTS
 
 w <- 1:nrow(X)
-d <- w / sum(w)
-fm <- lm(Y ~ X, weights = d)
+fm <- lm(Y ~ X, weights = w)
 Y - fm$fitted.values
-Yortho <- orthog(X, Y, weights = d)
-Yortho
-t(Yortho) %*% diag(d) %*% X
+fm$coef
+
+res <- orthog(X, Y, weights = w)
+res$Y
+t(res$Y) %*% diag(w) %*% X     # ===> orthogonal
+res$b
 
 }
 
