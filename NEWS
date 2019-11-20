@@ -1,5 +1,9 @@
 ## News for the rnirs package
 
+#### Version 1.2-2
+
+- Correction of a small bug in function fitcv
+
 #### Version 1.2-1
 
 - Correction of the example in the help page of function orthog

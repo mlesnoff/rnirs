@@ -5,7 +5,7 @@ fitcv <- function(X, Y, fun, segm, print = FALSE, ...) {
   X <- .matrix(X)
   n <- nrow(X)
   
-  if(is.vector(Y)) Y <- .matrix(Y, row = FALSE)
+  if(is.factor(Y) | is.vector(Y)) Y <- .matrix(Y, row = FALSE)
   nvar <- ncol(Y)
   colnam.Y <- colnames(Y)
   if(is.null(colnam.Y)) colnam.Y <- paste("y", 1:nvar, sep = "")
