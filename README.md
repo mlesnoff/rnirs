@@ -8,11 +8,11 @@ R package focusing on locally weighted prediction methods
 
 The prediction models can use partial least squares dimension reductions (PLS) or other methods.
 
-The package is primarily dedicated to near infrared spectral data (NIRS) but is generic for many other types of data.
+The package can handle many types of data, although it was primarily dedicated to near infrared spectral data (NIRS).
 
-Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
+The changes in the successive versions of the package are reported in the **NEWS** file above.
 
-The changes in the successive versions of the package are reported in the **NEWS file** above.
+Using **Rstudio** is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
 ### Main features
 
