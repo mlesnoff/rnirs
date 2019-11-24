@@ -61,9 +61,9 @@ install_github("mlesnoff/rnirs", dependencies = TRUE)
 - **FNN**
 - **ggplot2**
 - **gridExtra** 
+- **ptw**
 - **scales**
 - **signal**
-- **SparseM**
 
 2. Install the file **rnirs_....tar.gz** (Menu "Packages", "Install", and then "Install From Package Archive Files")
 
