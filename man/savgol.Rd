@@ -5,10 +5,14 @@
 \title{Savitzky-Golay smoothing}
 
 \description{
-Smoothing, with a Savitzky-Golay filter, of the row observations (usually spectra) of a data set .
+
+Smoothing by derivation, with a Savitzky-Golay filter, of the row observations (usually spectra) of a data set .
+
+The function uses function \code{\link{sgolayfilt}}.
+
 }
 
-\usage{savgol(X, m, n, p, ts = 1, ranges = NULL)}
+\usage{savgol(X, m, n, p, ts = 1)}
 
 \arguments{
 
@@ -22,8 +26,6 @@ Smoothing, with a Savitzky-Golay filter, of the row observations (usually spectr
 
 \item{ts}{A scaling factor (e.g. the step between two wavelengths in matrix \eqn{X}), see argument \code{ts} in function \code{\link{sgolayfilt}}. This has not impact on the form of the output.}
 
-\item{ranges}{See \code{\link{selw}}. Default to \code{NULL}: all the columns of \code{X} are considered. If not \code{NULL}, the transformation is implemented separately for each range.}
-
 }
 
 \details{\code{savgol} uses functions \code{\link{sgolayfilt}} and \code{\link{sgolay}} of package \code{signal}.}
@@ -32,23 +34,21 @@ Smoothing, with a Savitzky-Golay filter, of the row observations (usually spectr
 \value{A matrix of the transformed data.}
 
 \examples{
+
 data(datcass)
 
-X <- datcass$Xr
+X <- datcass$Xu
 
-z <- savgol(X, m = 1, n = 11, p = 3)
-plotsp(z)
+m <- 1 ; n <- 11 ; p <- 3
+par(mfrow = c(1, 2))
+z <- X
+headm(z)
+plotsp(z, main = "Signal")
+z <- savgol(X, m, n, p)
+headm(z)
+plotsp(z, main = "Corrected signal")
+par(mfrow = c(1, 1))
 
-z <- savgol(X, m = 1, n = 11, p = 3, ts = 2)
-plotsp(z)
-
-z <- savgol(X, m = 1, n = 11, p = 3)
-ranges <- list(c(1000, 1700), c(1800, 2500))
-z <- selw(z, ranges)$X
-plotsp(z, ranges = ranges)
-
-z <- savgol(X, m = 1, n = 11, p = 3, ranges = ranges)
-plotsp(z, ranges = ranges)
 }
 
 \keyword{datagen}

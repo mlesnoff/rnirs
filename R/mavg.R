@@ -4,7 +4,7 @@ mavg <- function(X, n = 3) {
   if(n %% 2 == 0) stop("n must be an odd integer.")
   
   X <- .matrix(X)
-  colnam <- colnames(X)
+  dimnam <- dimnames(X)
   
   .f <- function(x, n){
     x <- stats::filter(
@@ -16,13 +16,11 @@ mavg <- function(X, n = 3) {
     as.vector(x)
     }
   
-  z <- apply(X, MARGIN = 1, FUN = .f, n = n)
-  z <- t(z)
-  row.names(z) <- row.names(X)
-  colnames(z) <- colnam
+  X <- t(apply(X, MARGIN = 1, FUN = .f, n = n))
+  dimnames(X) <- dimnam
   
-  z <- z[, complete.cases(t(z)), drop = FALSE]
+  X <- X[, complete.cases(t(X)), drop = FALSE]
   
-  z
+  X
 
   }

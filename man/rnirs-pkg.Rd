@@ -29,10 +29,9 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
 \bold{------------ DATA PREPROCESSING}
 \tabular{ll}{
   \code{\link{dderiv}} \tab Derivation by finite difference\cr
-  \code{\link{detrend}} \tab Detrend transformation\cr
+  \code{\link{detrend}} \tab Detrend transformation (polynom, lowess, als)\cr
   \code{\link{mavg}} \tab Smoothing by moving average \cr
-  \code{\link{selw}} \tab Selection of wavelength ranges in spectra\cr
-  \code{\link{savgol}} \tab Savitsky-Golay filtering\cr
+  \code{\link{savgol}} \tab Savitsky-Golay filtering (derivation)\cr
   \code{\link{snv}} \tab Standard-normal-deviation transformation\cr
   }
 

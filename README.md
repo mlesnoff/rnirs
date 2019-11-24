@@ -1,4 +1,4 @@
-## rnirs 1.2-2
+## rnirs 1.2-3
 ## Locally Weighted PLS Regression and Discrimination
 
 R package focusing on locally weighted prediction methods
@@ -17,7 +17,7 @@ Using **Rstudio** is recommended for installation and usage (https://www.rstudio
 ### Main features
 
 * Data checking and summarizing
-* Data pre-processing: detrend, SNV, derivations
+* Data pre-processing: Detrend (poly, lowess, als), SNV, Derivation (sav-gol, Finite difference)
 * Multivariate factorial analyses: PCA, PLS, FDA
 * Variable selection: CovSel
 * Global predictive methods
@@ -57,12 +57,13 @@ install_github("mlesnoff/rnirs", dependencies = TRUE)
 
 1. Install packages from the CRAN (Menu "Packages", "Install", and then "Install From CRAN")
 
-- **scales**
-- **signal**
 - **data.table**
 - **FNN**
 - **ggplot2**
 - **gridExtra** 
+- **scales**
+- **signal**
+- **SparseM**
 
 2. Install the file **rnirs_....tar.gz** (Menu "Packages", "Install", and then "Install From Package Archive Files")
 

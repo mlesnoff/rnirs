@@ -1,21 +1,13 @@
-snv <- function(X, center = TRUE, scale = TRUE, ranges = NULL) {
+snv <- function(X, center = TRUE, scale = TRUE) {
 
-  X <- .matrix(X)
+  X <- t(.matrix(X))
+  n <- ncol(X)
   
-  if(is.null(ranges)) X <- .snv(X, center, scale)
+  if(center) xmeans <- colMeans(X) else xmeans <- rep(0, n)
   
-  else {
-    
-    k <- length(ranges)
-    Xlist <- selw(X, ranges)$Xlist
-    for(i in 1:k) {
-      z <- Xlist[[i]]
-      if(!is.null(z))
-        if(ncol(z) > 1) z <- .snv(z, center, scale) else z <- NULL
-      if(i == 1) X <- z else X <- cbind(X, z)
-      }
-    
-    }
+  if(scale) xscales <- apply(X, MARGIN = 2, FUN = sd) else xscales <- rep(1, n)
+  
+  X <- t(scale(X, center = xmeans, scale = xscales))
   
   X
   

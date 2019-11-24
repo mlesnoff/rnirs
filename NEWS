@@ -1,26 +1,40 @@
-## News for the rnirs package
+## News for package rnirs
+
+#### Version 1.2-3
+
+- Package ptw has been added and is now required.
+
+- Function plotsp was simplified, and argument ranges replaced by argument blocks.
+
+- Argument range has been removed from functions detrend, snv and savgol.
+
+- Various methods (lowess, als) have been added to function detrend.
+
+- Function selw was removed.
+
 
 #### Version 1.2-2
 
-- Correction of a small bug in function fitcv
+- Correction of a small bug in function fitcv.
+
 
 #### Version 1.2-1
 
-- Correction of the example in the help page of function orthog
+- Correction of the example in the help page of function orthog.
 
 
 #### Version 1.2-0
 
-- New functions:  blocksopls, blocksopca
+- New functions:  blocksopls, blocksopca.
 
 
 #### Version 1.1-2
 
-- New function:  headm
+- New function:  headm.
 
-- Change of outputs of function orthog
+- Change of outputs of function orthog.
 
-- Function blockreduct has been renamed to blockpls
+- Function blockreduct has been renamed to blockpls.
 
 
 #### Version 1.1-1
@@ -30,7 +44,7 @@
 . covsel
 . lmr
 . blocksel, blockscal, blockreduct
-. orthog
+. orthog.
 
 
 #### Version 1.1-0

@@ -9,17 +9,17 @@
 
 \code{plotsp} plots lines corresponding to the spectra (or more generally row observations) of a data set.
 
-\code{plotsp1} plots only one line per plot and can be used for scrolling the lines (i.e. spectrum by spectrum). After running a \code{plotsp1} command, the plots are printed successively by pushing the R console "entry button", and stopped by entering any character in the R console.
+\code{plotsp1} plots only one row observation per plot (i.e. spectrum by spectrum) and can be used for scrolling the rows. After running a \code{plotsp1} command, the plots are printed successively by pushing the R console "entry button", and stopped by entering any character in the R console.
 
 }
 
 \usage{
+
 plotsp(
   X,
-  rownum = NULL, step = NULL, ranges = NULL,
+  blocks = NULL,
   col = NULL,
-  col.low = "#ece7f2",
-  col.high = "#045a8d",
+  col.low = "#ece7f2", col.high = "#045a8d",
   xlim = NULL, ylim = NULL,
   xlab = "x-value", ylab = "y-value", main = NULL,
   add = FALSE,
@@ -33,15 +33,11 @@ plotsp1(X, coord.fixed = FALSE, col = "blue", main = "Row", ...)
   
 \arguments{
 
-\item{X}{A matrix or data frame of observations (usually spectra). The column names of \eqn{X} must be integers (usually wavelengths).}
+\item{X}{A matrix or data frame of observations (usually spectra).}
 
-\item{rownum}{Vector of the row numbers of the observations in \eqn{X} to be plotted. If \code{NULL} (default), all the observations are plotted.}
+\item{blocks}{A list whose each component gives the column numbers in \eqn{X} defining the given block to be plotted. The blocks are plotted successively on the same graph. Default to \code{NULL} (all the columns are plotted).}
 
-\item{step}{Integer representing at which step are selected the columns that are plotted. If \code{NULL} (default), all the columns are plotted.}
-
-\item{ranges}{See \code{\link{selw}}.Default to \code{NULL}: all the columns of \code{X} are considered. If not \code{NULL}, the data are plotted separately for each range.}
-
-\item{col}{Defines the color of the observations. Examples of color names are returned by \code{colors()}. If \code{NULL} (default), a color gradient is defined by function \code{seq_gradient_pal} of package \code{scales} (the gradient is defined by arguments \code{col.low} and \code{col.high} below) (See for instance http://colorbrewer2.org for other gradients than colors()).}
+\item{col}{Defines the color of the row observations. Examples of color names are returned by \code{colors()}. If \code{NULL} (default), a color gradient is defined by function \code{seq_gradient_pal} of package \code{scales} (the gradient is defined by arguments \code{col.low} and \code{col.high} below) (See for instance http://colorbrewer2.org for other gradients than colors()).}
 
 \item{col.low}{Colour for low end of the gradient. See function \code{seq_gradient_pal} of package \code{scales}. Ignored if argument \code{col} is not \code{NULL}.}
 
@@ -73,7 +69,7 @@ plotsp1(X, coord.fixed = FALSE, col = "blue", main = "Row", ...)
 
 data(datcass)
 
-X <- datcass$Xr
+X <- datcass$Xu
 
 plotsp(X, ylab = "Absorbance")
 
@@ -86,24 +82,23 @@ plotsp(X, col.low = "#fee0d2", col.high = "#a50f15")
 
 plotsp(X, col = "red3")
 
-oldpar <- par(mfrow = c(1, 1))
-par(mfrow = c(1, 2))
-plotsp(X, rownum = c(5, 170), col = "darkblue", text = TRUE)
-plotsp(X[c(5, 170), ], col = "darkblue", text = TRUE)
-par(oldpar)
+plotsp(X[c(16, 69), ], col = c("red", "darkblue"), text = TRUE)
 
 plotsp(X, col = "grey")
-plotsp(X, rownum = c(5, 170), col = c("red", "blue"), add = TRUE, text = TRUE, lwd = 2)
+plotsp(X[c(16, 69), ], col = c("red", "blue"), add = TRUE, text = TRUE, lwd = 2)
 
-ranges <- list(c(1000, 1700), c(1800, 2300))
-plotsp(X, ranges = ranges, col = "grey")
-plotsp(X[c(5, 170), ], ranges = ranges, col = c("red", "blue"), add = TRUE, text = TRUE)
+blocks <- list(1:500, 700:900)
+plotsp(X, blocks = blocks)
 
 \donttest{
 
 fm <- pca(X, ncomp = 50)
 P <- fm$P
 
+# Scrolling plot of the loadings 
+# (After running the code, 
+# type Enter in the R console for starting the scrolling,
+# and type any character in the R console) 
 plotsp1(t(P), main = "Loadings", ylab = "loading-value")
 
 }

@@ -14,7 +14,7 @@ Calculation of the first derivatives, by finite differences, of the row observat
 
 \item{X}{A \eqn{n x p} matrix or data frame on which are calculated the derivatives.}
 
-\item{n}{The number of points (i.e. columns of \code{X}) defining the window over wich is calculate each finite difference. The derivation is calculated for the point at the center of the window. Therefore, \code{n} must be an odd integer (and be higher or equal to 3).}
+\item{n}{The number of points (i.e. columns of \code{X}) defining the window over wich is calculate each finite difference. The derivation is calculated for the point at the center of the window. Therefore, \code{n} must be an odd integer, and be higher or equal to 3.}
 
 \item{ts}{A scaling factor for the finite differences (by default, \code{ts} = 1.)}
 }
@@ -23,23 +23,18 @@ Calculation of the first derivatives, by finite differences, of the row observat
 
 data(datcass)
 
-X <- datcass$Xr
-X[1:5, 1:5]
+X <- datcass$Xu
 
-# 1rst derivation
-z <- dderiv(X, n = 5)
-z[1:5, 1:5]
-plotsp(z[sample(1:nrow(z), 100), ])
-
-# 2nd derivation
-z <- dderiv(dderiv(X, n = 5), n = 5)
-z[1:5, 1:5]
-plotsp(z[sample(1:nrow(z), 100), ])
-
-# 1rst derivation and smoothing bu movering average
-z <- mavg(dderiv(X, n = 5), n = 5)
-z[1:5, 1:5]
-plotsp(z[sample(1:nrow(z), 100), ])
+n <- 11
+par(mfrow = c(1, 2))
+z <- X
+headm(z)
+plotsp(z, main = "Signal")
+z <- dderiv(X, n)
+#z <- dderiv(dderiv(X, n), n)     # = 2nd derivate
+headm(z)
+plotsp(z, main = "Corrected signal")
+par(mfrow = c(1, 1))
 
 }
 

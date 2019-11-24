@@ -1,11 +1,50 @@
-
-.detrend <- function(X, degree) {
+.detrend.als <- function(X, lambda = 1e+07, p = 0.001, maxit = 25, baseline = FALSE) {
   
+  X <- .matrix(X)
   dimnam <- dimnames(X)
-  wav <- as.numeric(colnames(X))
-  fresid <- function(x, wav, degree) resid(lm(x ~ stats::poly(wav, degree)))
-  X <- apply(X, MARGIN = 1, FUN = fresid, wav = wav, degree = degree)
-  X <- t(X)
+  
+  eps <- 1e-8
+  fun <- function(x, lambda, p, eps, maxit) asysm(x, lambda, p, eps, maxit)
+  zX <- t(apply(X, MARGIN = 1, FUN = fun, 
+    lambda = lambda, p = p, eps = eps, maxit = maxit))
+
+  if(baseline) X <- zX else X <- X - zX
+  
+  dimnames(X) <- dimnam
+  X
+  
+  }
+
+.detrend.lowess <- function(X, f = 2/3, iter = 3, baseline = FALSE) {
+  
+  X <- .matrix(X)
+  dimnam <- dimnames(X)
+  
+  fun <- function(x, f, iter) lowess(x, f = f, iter = iter)$y
+  zX <- t(apply(X, MARGIN = 1, FUN = fun, f = f, iter = iter))
+
+  if(baseline) X <- zX else X <- X - zX
+  
+  dimnames(X) <- dimnam
+  X
+  
+  }
+
+.detrend.poly <- function(X, degree = 1, baseline = FALSE) {
+  
+  X <- .matrix(X)
+  dimnam <- dimnames(X)
+  
+  if(baseline) 
+    zf <- fitted 
+  else 
+    zf <- resid
+  
+  y <- 1:ncol(X)
+  fun <- function(x, y, degree) zf(lm(x ~ stats::poly(y, degree = degree)))
+
+  X <- t(apply(X, MARGIN = 1, FUN = fun, y = y, degree = degree))
+  
   dimnames(X) <- dimnam
   X
   
@@ -138,28 +177,6 @@
   
   }
 
-.savgol <- function(X, m, p, n, ts) {
-  
-  dimnam <- dimnames(X)
-  X <- apply(X, MARGIN = 1, 
-    FUN = signal::sgolayfilt, n = n, p = p, m = m, ts = ts)
-  X <- t(X)
-  dimnames(X) <- dimnam
-  X
-  
-  }
-
-.snv <- function(X, center, scale) {
-  
-  X <- t(X)
-  n <- ncol(X)
-  if(center) xmeans <- colMeans(X) else xmeans <- rep(0, n)
-  if(scale) xscales <- apply(X, MARGIN = 2, FUN = sd) else xscales <- rep(1, n)
-  X <- scale(X, center = xmeans, scale = xscales)
-  t(X)
-  
-  }
-
 .varw <- function(x, weights = rep(1, length(x))) {
   
   d <- weights / sum(weights)
@@ -169,27 +186,5 @@
   sum(d * (x - xmean)^2)
   
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
