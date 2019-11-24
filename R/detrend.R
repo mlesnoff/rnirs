@@ -1,22 +1,15 @@
-detrend <- function(X, degree = 1, ranges = NULL) {
-  
-  X <- .matrix(X, prefix.colnam = "")
+detrend <- function(X, method = c("poly", "lowess", "als"), ...) {
 
-  if(is.null(ranges))
-    X <- .detrend(X, degree)
-  
-  else {
-    
-    k <- length(ranges)
-    Xlist <- selw(X, ranges)$Xlist
-    for(i in 1:k) {
-      z <- Xlist[[i]]
-      if(!is.null(z))
-        if(ncol(z) > degree) z <- .detrend(z, degree) else z <- NULL
-      if(i == 1) X <- z else X <- cbind(X, z)
-      }
-    
-    }
+  X <- .matrix(X)
+
+  fun <- switch(
+    match.arg(method),
+    "poly" = .detrend.poly,
+    "lowess" = .detrend.lowess,
+    "als" = .detrend.als
+    )
+
+  X <- fun(X, ...)
   
   X
   
