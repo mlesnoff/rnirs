@@ -17,7 +17,7 @@ Using **Rstudio** is recommended for installation and usage (https://www.rstudio
 ### Main features
 
 * Data checking and summarizing
-* Data pre-processing: Detrend (poly, lowess, als), SNV, Derivation (sav-gol, Finite difference)
+* Data pre-processing: Detrend (poly, lowess, als), SNV, Derivation (Sav-Gol, Finite difference)
 * Multivariate factorial analyses: PCA, PLS, FDA
 * Variable selection: CovSel
 * Global predictive methods
@@ -29,10 +29,10 @@ Using **Rstudio** is recommended for installation and usage (https://www.rstudio
     - Generic function **locw** for implementing any locally weighted models
 * Multiblock functions:
     - Orthogonalization of a matrix to another matrix
-    - block-selection
-    - block-scaling
-    - block-dimension reduction by PLS or PCA
-    - block-dimension reduction by SO-PLS or SO-PCA
+    - Block-selection
+    - Block-scaling
+    - Block-dimension reduction by PLS or PCA
+    - Block-dimension reduction by SO-PLS or SO-PCA
 * Cross-validation
     - Generic function **fitcv**
 * Graphics
