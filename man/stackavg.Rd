@@ -1,5 +1,5 @@
-\name{stackmod}
-\alias{stackmod}
+\name{stackavg}
+\alias{stackavg}
 \encoding{latin1}
 
 \title{Stacking for regression models}
@@ -13,7 +13,7 @@ The function implements a model stacking (also referred to as model averaging or
 
 \usage{
 
-stackmod(fit, y = NULL, formula, nam = NULL, weights = NULL)
+stackavg(fit, y = NULL, formula, nam = NULL, weights = NULL)
 
 }
 
@@ -51,7 +51,7 @@ plotmse(z)
 z[z$rmsep == min(z$rmsep), ]
 
 w <- ifelse(fm$y$ncomp >= 5 & fm$y$ncomp <= 20, 1, 0)
-zfm <- stackmod(fm$fit, fm$y, formula = ~ rownum + rownam, weights = w)
+zfm <- stackavg(fm$fit, fm$y, formula = ~ rownum + rownam, weights = w)
 names(zfm)
 head(zfm$y)
 head(zfm$fit)

@@ -1,4 +1,4 @@
-## rnirs 1.2-3
+## rnirs 1.3-0
 ## Locally Weighted PLS Regression and Discrimination
 
 R package focusing on locally weighted prediction methods
@@ -17,7 +17,7 @@ Using **Rstudio** is recommended for installation and usage (https://www.rstudio
 ### Main features
 
 * Data checking and summarizing
-* Data pre-processing: Detrend (poly, lowess, als), SNV, Derivation (Sav-Gol, Finite difference)
+* Data pre-processing: Detrend (poly, lowess, als), SNV, Derivation (Savitsky-Golay, Finite difference)
 * Multivariate factorial analyses: PCA, PLS, FDA
 * Variable selection: CovSel
 * Global predictive methods
@@ -33,6 +33,8 @@ Using **Rstudio** is recommended for installation and usage (https://www.rstudio
     - Block-scaling
     - Block-dimension reduction by PLS or PCA
     - Block-dimension reduction by SO-PLS or SO-PCA
+* Stacking
+    - stackavg
 * Cross-validation
     - Generic function **fitcv**
 * Graphics

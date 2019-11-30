@@ -1,4 +1,4 @@
-stackmod <- function(fit, y = NULL, formula = ~ 1, nam = NULL, weights = NULL) {
+stackavg <- function(fit, y = NULL, formula = ~ 1, nam = NULL, weights = NULL) {
   
   m <- nrow(fit)
   

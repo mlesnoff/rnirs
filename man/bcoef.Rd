@@ -6,21 +6,19 @@
 
 \description{
 
-Function \code{bcoef} returns the "b-coefficients" (= regression coefficients for the \eqn{X}-matrix), including the intercept, from a PLS model.
+Function \code{bcoef} returns the "b-coefficients" (= regression coefficients for the \eqn{X}-matrix), including the intercept, from a PLS or PLSR model.
 
 }
 
 \usage{
 
-bcoef(fm, ncomp = NULL)
+bcoef(fm)
 
 }
 
 \arguments{
 
-\item{fm}{Output of one of the functions implementing the PCA or PLS.}
-
-\item{ncomp}{The number of PLS components (i.e. scores) to consider. If \code{NULL} (default), the maximal number of components computed in the PLS is considered.}
+\item{fm}{Output  of functions \code{\link{pls}} or \code{\link{plsr}}, or of the PLS algorithm functions.}
 
 }
 
@@ -36,13 +34,13 @@ y2 <- 100 * rnorm(n)
 Y <- cbind(y1, y2)
 set.seed(NULL)
 
-fm <- pls.kernel(X, Y, ncomp = 3)
-bcoef(fm)
-bcoef(fm, ncomp = 2)
-
 fm <- pls(X, Y, ncomp = 3)
+#fm <- plsr(X, Y, X, ncomp = 3)
+#fm <- pls.kernel(X, Y, ncomp = 3)
 bcoef(fm)
-bcoef(fm, ncomp = 2)
+
+fm <- pls(X, Y[, 1], ncomp = 3)
+bcoef(fm)
 
 }
 

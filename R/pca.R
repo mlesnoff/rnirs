@@ -17,7 +17,8 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
   pvar <- fm$xss / xsstot
   cumpvar <- cumsum(pvar)
   
-  z <- data.frame(ncomp = 1:length(fm$sv), var = xvar, pvar = pvar, cumpvar = cumpvar)
+  z <- data.frame(ncomp = 1:length(fm$sv), var = xvar, pvar = pvar, 
+    cumpvar = cumpvar)
   row.names(z) <- 1:ncomp
   explvarx <- z
   
@@ -31,7 +32,7 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
 
   Tu <- NULL
   if(!is.null(Xu))
-    Tu <- projscor(.matrix(Xu), fm)
+    Tu <- .projscor(fm, .matrix(Xu))
   
   list(Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R,
     xmeans = fm$xmeans, weights = fm$weights, 

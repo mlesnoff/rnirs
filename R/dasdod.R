@@ -1,5 +1,8 @@
-dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp.pls = NULL, ncomp.pca, nmin = 5,
-  typcut = c("overall", "class"), pvar = NULL, cri = 3, ...){
+dasdod <- function(Xr, Yr, Xu, Yu = NULL, 
+  ncomp.pls = NULL, ncompcla, 
+  nmin = 5,
+  typcut = c("overall", "class"), cri = 3, 
+  ...){
   
   if(nmin < 2) stop("\nArgument nmin must be >= 2.\n\n")
   
@@ -22,8 +25,12 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp.pls = NULL, ncomp.pca, nmin = 5,
   
   namclas <- as.character(levels(Yr))
   
-  if(!is.null(Yu)) Yu <- as.character(Yu) else Yu <- rep(NA, m)
+  if(!is.null(Yu)) 
+    Yu <- as.character(Yu) else Yu <- rep(NA, m)
   
+  if(length(ncompcla) == 1) 
+    ncompcla <- rep(ncompcla, nclas)
+
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
     fit <- rep(namclas, m)
@@ -36,10 +43,10 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp.pls = NULL, ncomp.pca, nmin = 5,
     if(!is.null(ncomp.pls)) {
       fm <- pls.kernel(Xr, dummy(Yr), ncomp = ncomp.pls)
       Xr <- fm$T
-      Xu <- projscor(Xu, fm)
+      Xu <- .projscor(fm, Xu)
       }
       
-    pvarcla <- ncompcla <- vector(length = nclas)
+    pvarcla <- vector(length = nclas)
     
     for(i in 1:nclas) {
       
@@ -54,32 +61,24 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp.pls = NULL, ncomp.pca, nmin = 5,
       
       else {
       
-        zncomp <- min(ncomp.pca, zn - 1, p - 1)
+        ncompcla[i] <- min(ncompcla[i], zn - 1, p - 1)
         
-        fm <- pca(Xr[u, ], ncomp = zncomp, ...)
+        fm <- pca(Xr[u, ], Xu, ncomp = ncompcla[i], ...)
+        
         z <- fm$explvar
+        pvarcla[i] <- z$cumpvar[z$ncomp == ncompcla[i]]
         
-        if(!is.null(pvar)) {
-          
-          zpvar <- min(c(max(z$cumpvar), pvar))
-          zncomp <- min(z$ncomp[z$cumpvar >= zpvar])
-        
-          }
-        
-        ncompcla[i] <- zncomp
-        pvarcla[i] <- z$cumpvar[z$ncomp == zncomp]
-        
-        z <- sdod(Xr[u, ], Xu, fm, ncomp = zncomp, cri = cri)
+        res.sd <- scordis(fm, cri = cri)$du
+        res.od <- odis(fm, Xr[u, ], Xu, cri = cri)$du
         
         if(typcut == "overall") {
-          zsd <- z$sdu$d
-          zod <- z$odu$d
-          zsd <- zsd / zncomp
+          zsd <- res.sd$d / ncompcla[i]
+          zod <- res.od$d
           }
         
         if(typcut == "class") {
-          zsd <- z$sdu$dstand
-          zod <- z$odu$dstand
+          zsd <- res.sd$dstand
+          zod <- res.od$dstand
           }
       
         }

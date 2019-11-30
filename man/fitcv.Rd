@@ -54,7 +54,7 @@ Xu <- X[9:10, ] ; Yu <- Y[9:10, ]
 Xr <- datcass$Xr
 yr <- datcass$yr
 
-Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
+Xr <- detrend(Xr)
 dim(Xr)
 
 n <- nrow(Xr)

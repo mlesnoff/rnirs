@@ -12,7 +12,7 @@ For each new observation to predict, the function calculates a SIMCA index \eqn{
 
 A PCA (= model representing the class) is implemented for each class. Then, two distances (referred to as SD and OD) are calculated for each new observation to predict and class. SD is the "score distance", i.e. the Mahalanobis distance between the projection of the new observation in the PCA score space and the center of the space. OD is the "orthogonal (or model) distance", i.e. the Euclidean distance between the new observation and its projection on the score space.
 
-The SIMCA index used in function \code{dasdod} is \eqn{d = sqrt(.5 * (SD / c_sd)^2 + .5 * (OD / c_od)^2)}, where \eqn{c_sd} and \eqn{c_od} are scaling values making SD and OD comparable before aggregation. In the litterature, \eqn{c_sd} and \eqn{c_od} are often calculated from parametric asumptions (e.g. for SD, a \eqn{Chi-2} or Fisher distribution). Instead, function \code{dasdod} uses the robust non-parametric scaling values: 
+The SIMCA index used in function \code{dasdod} is \eqn{d = sqrt(.5 * (SD / c_sd)^2 + .5 * (OD / c_od)^2)}, where \eqn{c_sd} and \eqn{c_od} are scaling values standardizing SD and OD, and making them comparable before aggregation. In the litterature, \eqn{c_sd} and \eqn{c_od} are often calculated from parametric asumptions (e.g. for SD, a \eqn{Chi-2} or Fisher distribution). Instead, function \code{dasdod} uses the robust non-parametric scaling values: 
 
 - \eqn{c_sd = median(SD) + cri * mad(SD)}
 
@@ -26,14 +26,19 @@ In the first method (default), all the score distances calculated for the test s
 
 In the second method, \eqn{c_sd} is calculated within each class, from the score distances distributions of the training set. For class \eqn{j}, the score distances calculated for the training set give the set \eqn{SD_j = {SD_ij ; i = 1, ..., n_j}}. Then, the scaling value is calculated as \eqn{c_sd_j = median(SD_j) + cri * mad(SD_j)}, and the SIMCA index for a new observation \eqn{i} is \eqn{d_ij = sqrt(.5 * (SD_ij / c_sd_j)^2 + .5 * (OD_ij / c_od_j)^2)}. This corresponds to the standard approach reported in the litterature except that c_sd_j is defined from parametric distributions.
 
-By default in the function, the number of PCA components in the \eqn{L} classes is set consistent between the classes (if they are enough number of training observations in each of the classes; if not, the number of components for a given low-size class is automatically decreased). Alternatively, when using argument \code{pvar}, it is calculated independently for each class for reaching a given proportion of cumulated explained \eqn{X-}variance. When the number of PCA components is different between the classes, in the first method of calculation of the scaling values, SD_ij is divided by the number of components of class \eqn{j} for making comparable the values between the classes. 
+The number of PCA components in the \eqn{L} classes are defined in argument \code{ncompcla}. If they are enough number of training observations in a given class, the number of components is automatically decreased. In the first method of calculation of the scaling values, SD_ij is divided by the number of components used for class \eqn{j}, for making comparable the values between the classes. 
 
 }
 
 
 \usage{
-dasdod(Xr, Yr, Xu, Yu = NULL, ncomp.pls = NULL, ncomp.pca, nmin = 5,
-  typcut = c("overall", "class"), pvar = NULL, cri = 3, ...)
+
+dasdod(Xr, Yr, Xu, Yu = NULL, 
+  ncomp.pls = NULL, ncompcla, 
+  nmin = 5,
+  typcut = c("overall", "class"), cri = 3, 
+  ...)
+
 }
 
 \arguments{
@@ -48,13 +53,11 @@ dasdod(Xr, Yr, Xu, Yu = NULL, ncomp.pls = NULL, ncomp.pca, nmin = 5,
 
 \item{ncomp.pls}{If not \code{NULL}, a PLS is implemented on the original \eqn{X-}data and the PCAs per class are computed on the \code{ncomp.pls} components. This can improve discrimination on some data. Default to \code{NULL} (the PCAs are computed on the original data).}
 
-\item{ncomp.pca}{The number of PCA components (i.e. scores) to be calculated for each class. Ignored if argument \code{pvar} is not \code{NULL}.}
+\item{ncompcla}{Number of PCA components (i.e. scores) to be calculated for each class. A vector of same length as the number of classes or an integer (in this last case, the same score number is given for all the classes). The number of scores is automatically decreased if the class size is too low.}
 
 \item{nmin}{Minimal number of training observations in the class for implementing a PCA. If this number is lower than \code{nmin}, the corresponding class level is not considered (a \code{NA} is returned for the SIMCA index of this level).}
 
 \item{typcut}{Method for calculating the scaling values \eqn{c_sd} and \eqn{c_od} (see section \eqn{Description}). Possible values are "overall" (default; marginal calculation over all the classes) or "class" (calculation within each class).}
-
-\item{pvar}{If not \code{NULL} (default), proportion of cumulated explained \eqn{X-}variance to reach in the calculation of the number of PCA components for each class.}
 
 \item{cri}{Value used in the calculation of the "mad" cutoffs for defining the scaling values \eqn{c_sd} and \eqn{c_od}.}
 
@@ -65,7 +68,7 @@ dasdod(Xr, Yr, Xu, Yu = NULL, ncomp.pls = NULL, ncomp.pca, nmin = 5,
 
 \value{
 
-A list of outputs, such as:
+A list of outputs (see examples), such as:
 
 \item{y}{Responses for the test data.}
 
@@ -86,7 +89,7 @@ A list of outputs, such as:
 
 \examples{
 
-data(iris)
+data(datforages)
 
 Xr <- datforages$Xr
 yr <- datforages$yr
@@ -102,15 +105,24 @@ dim(Xu)
 table(yr)
 table(yu)
 
-ncomp.pca <- 15
-fm <- dasdod(Xr, yr, Xu, yu, ncomp.pca = ncomp.pca)
+ncompcla <- 15
+fm <- dasdod(Xr, yr, Xu, yu, ncompcla = ncompcla)
+names(fm)
+head(fm$y)
+head(fm$fit)
+head(fm$r)
+head(fm$d)
+head(fm$sd.stand)
+head(fm$od.stand)
+fm$ni
 fm$ncompcla
 fm$pvarcla
 err(fm)
 err(fm, ~ y1)
 
-### With a preliminary PLS
-fm <- dasdod(Xr, yr, Xu, yu, ncomp.pls = 20, ncomp.pca = 15)
+## With a preliminary PLS
+
+fm <- dasdod(Xr, yr, Xu, yu, ncomp.pls = 20, ncompcla = 15)
 fm$ncompcla
 fm$pvarcla
 err(fm)

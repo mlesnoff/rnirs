@@ -60,7 +60,7 @@ data(datcass)
 Xr <- datcass$Xr
 yr <- datcass$yr
 
-Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
+Xr <- detrend(Xr)
 
 n <- nrow(Xr)
 segm <- segmcvkfold(n = n, K = 5, typ = "random", nrep = 1)
@@ -86,7 +86,7 @@ u$res
 u$sel
 u$opt
 
-u <- selncomp.wold(z, typ = "smooth", f = 1/5)
+u <- selncomp.wold(z, typ = "smooth", f = 1/3)
 u$res
 u$sel
 u$opt

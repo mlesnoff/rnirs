@@ -1,10 +1,11 @@
-bcoef <- function(fm, ncomp = NULL) {
+bcoef <- function(fm) {
   
-  if(is.null(ncomp)) ncomp <- ncol(fm$C)
+  if(!is.null(fm$fm))
+    fm <- fm$fm
   
   beta <- t(fm$C)
   
-  zb <- fm$R[, 1:ncomp, drop = FALSE] %*% beta[1:ncomp,  ]
+  zb <- fm$R %*% beta
   
   int <- fm$ymeans - t(fm$xmeans) %*% zb
   

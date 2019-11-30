@@ -25,7 +25,7 @@ pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...) {
   
   Tu <- NULL
   if(!is.null(Xu))
-    Tu <- projscor(.matrix(Xu), fm)
+    Tu <- .projscor(fm, .matrix(Xu))
   
   list(Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, C = fm$C,
     xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights, 

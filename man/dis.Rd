@@ -2,7 +2,7 @@
 \alias{dis}
 \encoding{latin1}
 
-\title{Dissimilarities between row observations and a given vector}
+\title{Dissimilarities between a given vector and row observations}
 
 \description{
 
@@ -12,20 +12,20 @@ Calculation of dissimilarities between the row observations of a data set and a 
 
 \usage{
 
-dis(Xr, Xu = NULL, mu = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
+dis(mu = NULL, Xr, Xu = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   sigma = NULL, out = c("mad", "sd", "boxplot"), cri = 3)
 
 }
 
 \arguments{
 
+\item{mu}{The vector of length \eqn{p} which is compared to the rows of \eqn{Xr} and, if not \code{NULL}, to the rows \eqn{Xu}. If \code{mu} is \code{NULL} (default), \code{mu} is set to the center (column means) of \eqn{Xr}. }
+
 \item{Xr}{A \eqn{n x p} matrix or data frame of reference (= training) observations.}
 
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations (\eqn{Xu} is not used in the calculation of the cutoff that defines the extreme dissimilarity values).}
 
-\item{mu}{The vector of length \eqn{p} which is compared to the rows of \eqn{Xr} and, if not \code{NULL}, to the rows \eqn{Xu}. If \code{mu} is \code{NULL} (default), \code{mu} is set to the center (column means) of \eqn{Xr}. }
-
-\item{diss}{The type of dissimilarities used. Possible values are "euclidean" (Euclidean distances; default) or "mahalanobis" (Mahalanobis distances), or "correlation". Correlation dissimilarities are calculated by \eqn{sqrt(.5 * (1 - rho))}.}
+\item{diss}{The type of dissimilarities used. Possible values are "euclidean" (Euclidean distances; default), "mahalanobis" (Mahalanobis distances), or "correlation". Correlation dissimilarities are calculated by \eqn{sqrt(.5 * (1 - rho))}.}
 
 \item{sigma}{For Mahalanobis distance, the covariance matrix. If \code{NULL} (default), this is the covariance matrix of \eqn{Xr}.}
 
@@ -37,7 +37,7 @@ dis(Xr, Xu = NULL, mu = NULL, diss = c("euclidean", "mahalanobis", "correlation"
 
 \details{
 
-As indicator of extreme dissimilarity value, a "standardized" SD variable is calculated as \eqn{dstand = d / cutoff-value}. The dissimilarity is considered extreme if \eqn{dstand > 1}.
+The "standardized" variable \eqn{dstand} calculated as \eqn{dstand = d / cutoff-value} is an indicator of extreme dissimilarity value. The dissimilarity is considered extreme if \eqn{dstand > 1}.
 
 }
 
@@ -65,16 +65,16 @@ set.seed(NULL)
 Xr <- X[1:6, ] ; Yr <- Y[1:6, ]
 Xu <- X[7:8, ] ; Yu <- Y[7:8, ]
 
+mu <- NULL
+dis(mu, Xr)
+
+dis(mu, Xr, Xu)
+
 fm <- pls(Xr, Yr, ncomp = 3)
-res <- dis(fm$Tr, diss = "mahalanobis")
-names(res)
-head(res$dr)
+dis(mu, fm$Tr, diss = "mahalanobis")
 
 fm <- pls(Xr, Yr, Xu, ncomp = 3)
-res <- dis(fm$Tr, fm$Tu, diss = "mahalanobis")
-names(res)
-res$dr
-res$du
+dis(mu, Xr = fm$Tr, Xu = fm$Tu, diss = "mahalanobis")
 
 }
 

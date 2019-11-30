@@ -1,4 +1,4 @@
-dis <- function(Xr, Xu = NULL, mu = NULL, 
+dis <- function(mu = NULL, Xr, Xu = NULL, 
   diss = c("euclidean", "mahalanobis", "correlation"), sigma = NULL, 
   out = c("mad", "sd", "boxplot"), cri = 3) {
   
@@ -12,12 +12,12 @@ dis <- function(Xr, Xu = NULL, mu = NULL,
   
   if(is.null(mu)) mu <- colMeans(Xr)
 
-  if(diss == "euclidean") d <- sqrt(.dis(Xr, mu))
+  if(diss == "euclidean") d <- sqrt(.dis(mu, Xr))
 
   if(diss == "mahalanobis") {
       if(is.null(sigma)) sigma <- cov(Xr)
       U <- chol(sigma)
-      d <- sqrt(.mah(Xr, mu, U))
+      d <- sqrt(.mah(mu, Xr, U))
       }
   
   if(diss == "correlation") {
@@ -25,7 +25,7 @@ dis <- function(Xr, Xu = NULL, mu = NULL,
         rho <- cor(t(Xr), mu)
         d <- sqrt(.5 * (1 - rho))
         } 
-      else d <- sqrt(.dis(Xr, mu))
+      else d <- sqrt(.dis(mu, Xr))
       }
 
   cut <- switch(
@@ -49,28 +49,29 @@ dis <- function(Xr, Xu = NULL, mu = NULL,
     
     d <- switch(diss,
       
-      euclidean = sqrt(.dis(Xu, mu)),
+      euclidean = sqrt(.dis(mu, Xu)),
 
-      mahalanobis = sqrt(.mah(Xu, mu, U)),
+      mahalanobis = sqrt(.mah(mu, Xu, U)),
       
       correlation = {
         if(p > 1) {
           rho <- cor(t(Xu), mu)
           sqrt(.5 * (1 - rho))
           } 
-        else sqrt(.dis(Xu, mu))
+        else sqrt(.dis(mu, Xu))
         }
       
       )
     
-    du <- data.frame(rownum = 1:m, rownam = rownam, ncomp = rep(p, m), d = c(d))
+    du <- data.frame(rownum = 1:m, rownam = rownam, 
+      ncomp = rep(p, m), d = c(d))
     du$dstand <- du$d / cut
     
     }
 
   ### END
 
-  list(dr = dr, du = du)
+  list(dr = dr, du = du, cut = cut)
   
   }
 

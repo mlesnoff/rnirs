@@ -34,7 +34,7 @@ dmnorm <- function(Xr = NULL, Xu, mu = NULL, sigma = NULL, diag = FALSE) {
     U <- diag(p)
   ####### END
 
-  d <- .mah(Xu, mu, U)
+  d <- .mah(mu, Xu, U)
   
   zdet <- det(U)^2
   if(zdet == 0) zdet <- 1e-20

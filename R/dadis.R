@@ -32,12 +32,13 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
   else {
   
     centers <- centr(Xr, Yr)$centers
-    if(diss == "mahalanobis" & is.null(sigma)) Wi <- matW(Xr, Yr)$Wi
+    if(diss == "mahalanobis" & is.null(sigma))
+      Wi <- matW(Xr, Yr)$Wi
   
     for(i in 1:nclas) {
     
       if(diss %in% c("euclidean", "correlation"))
-        zd <- dis(Xu, centers[i, ], diss = diss)$dr$d
+        zd <- dis(centers[i, ], Xu, diss = diss)$dr$d
   
       if(diss == "mahalanobis") {
         
@@ -59,7 +60,7 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
           }
         ### END
         
-        zd <- .mah(Xu, centers[i, ], U)
+        zd <- .mah(centers[i, ], Xu, U)
         
         }
     

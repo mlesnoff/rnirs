@@ -21,11 +21,11 @@ Function \code{plsdalm} is a faster equivalent of \code{plsda(..., da = dalm, ..
 
 \usage{
 
-plsda(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm,
-  stor = FALSE, ...)
+plsda(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, 
+  da = dalm, ...)
 
 plsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
-  stor = FALSE, ...)
+  ...)
 
 }
 
@@ -45,15 +45,13 @@ plsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
 
 \item{da}{A function defining the discriminant method used for the predictions. Default to \code{\link{dalm}}.} 
 
-\item{stor}{Logical (default to \code{FALSE}). If \code{TRUE}, the function stores all the outputs of function \code{\link{pls}} and  auxilliary statistics  (e.g. b-coefficients, and score and orthogonal distances for the new observations to predict), in a sub-object \code{fm}. See \code{\link{plsr}} for examples).}
-
 \item{...}{Optionnal arguments to pass in functions defined in \code{algo} and \code{da}.}
 
 }
 
 \value{
 
-A list of outputs, such as:
+A list of outputs (see examples), such as:
 
 \item{y}{Responses for the test data.}
 
@@ -61,7 +59,7 @@ A list of outputs, such as:
 
 \item{r}{Residuals for the test data.}
 
-\item{fm}{Outputs of \code{\link{pls}} and other auxilliary statistics. \code{NULL} if \code{stor = FALSE}.}
+\item{fm}{Output of function \code{\link{pls}}.}
 
 }
 
@@ -103,10 +101,18 @@ z <- err(fm, ~ ncomp)
 plotmse(z, nam = "errp")
 z[z$errp == min(z$errp), ]
 
-######## PLS-QDA
+######## PLS-LDA
 
 ncomp <- 20
 fm <- plsda(Xr, yr, Xu, yu, ncomp, da = daprob)
+z <- err(fm, ~ ncomp)
+plotmse(z, nam = "errp")
+z[z$errp == min(z$errp), ]
+
+######## PLS-QDA
+
+ncomp <- 20
+fm <- plsda(Xr, yr, Xu, yu, ncomp, da = daprob, lda = FALSE)
 names(fm)
 head(fm$y)
 head(fm$fit)
@@ -120,21 +126,14 @@ z
 # Same as:
 # (for ncomp = z$ncomp components)
 u <- pls(Xr, dummy(yr), Xu, ncomp = z$ncomp)
-fm <- daprob(u$Tr, yr, u$Tu, yu)
+fm <- daprob(u$Tr, yr, u$Tu, yu, lda = FALSE)
 err(fm)
-
-######## PLS-LDA
-
-ncomp <- 20
-fm <- plsda(Xr, yr, Xu, yu, ncomp, da = daprob, lda = TRUE)
-z <- err(fm, ~ ncomp)
-plotmse(z, nam = "errp")
-z[z$errp == min(z$errp), ]
 
 ######## PLS-KNNDA
 
 ncomp <- 20
-fm <- plsda(Xr, yr, Xu, yu, ncomp, da = knnwda, diss = "mahalanobis", k = 3)
+fm <- plsda(Xr, yr, Xu, yu, ncomp, da = knnwda, 
+  diss = "mahalanobis", k = 3)
 z <- err(fm, ~ ncomp + k)
 plotmse(z, nam = "errp", group = "k")
 z[z$errp == min(z$errp), ]

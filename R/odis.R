@@ -1,7 +1,8 @@
-odis <- function(Xr, Xu = NULL, fm, ncomp = NULL, 
+odis <- function(fm, Xr, Xu = NULL,  
   out = c("mad", "sd", "boxplot"), cri = 3) {
     
-  if(is.null(fm$Tr))  fm$Tr <- fm$T
+  if(!is.null(fm$fm))
+    fm <- fm$fm
   
   out <- match.arg(out)
   
@@ -11,12 +12,9 @@ odis <- function(Xr, Xu = NULL, fm, ncomp = NULL,
   
   Xr <- scale(Xr, center = fm$xmeans, scale = FALSE)
   
-  if(is.null(ncomp)) ncomp <- ncol(fm$Tr)
+  ncomp <- ncol(fm$Tr)
 
-  Er <- Xr - tcrossprod(
-    fm$Tr[, 1:ncomp, drop = FALSE],
-    fm$P[, 1:ncomp, drop = FALSE]
-    )
+  Er <- Xr - tcrossprod(fm$Tr, fm$P)
   
   d <- sqrt(rowSums(Er * Er))
   cut <- switch(
@@ -39,13 +37,10 @@ odis <- function(Xr, Xu = NULL, fm, ncomp = NULL,
     m <- nrow(Xu)
     rownam <- row.names(Xu)
     
-    Tu <- projscor(Xu, fm)
+    Tu <- .projscor(fm, Xu)
     Xu <- scale(Xu, center = fm$xmeans, scale = FALSE)
     
-    Eu <- Xu - tcrossprod(
-      Tu[, 1:ncomp, drop = FALSE],
-      fm$P[, 1:ncomp, drop = FALSE]
-      )
+    Eu <- Xu - tcrossprod(Tu, fm$P)
     
     d <- sqrt(rowSums(Eu * Eu))
     
@@ -57,6 +52,6 @@ odis <- function(Xr, Xu = NULL, fm, ncomp = NULL,
   
   ### END
 
-  list(dr = dr, du = du, Er = Er, Eu = Eu)
+  list(dr = dr, du = du, cut = cut) #, Er = Er, Eu = Eu
 
 }

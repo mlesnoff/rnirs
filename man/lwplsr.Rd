@@ -39,6 +39,7 @@ lwplsr(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
   ncomp,
+  stor = TRUE,
   print = TRUE,
   ...
   )
@@ -49,6 +50,7 @@ lwplsda(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
   ncomp,
+  stor = TRUE,
   print = TRUE,
   ...
   )
@@ -59,6 +61,7 @@ lwplsdalm(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
   ncomp,
+  stor = TRUE,
   print = TRUE,
   ...
   )
@@ -85,6 +88,8 @@ lwplsdalm(
 
 \item{ncomp}{The maximum number(s) of components considered in the local PLSR models. The predictions are returned for models having from 1 to \eqn{ncomp} components.}
 
+\item{stor}{Logical (default to \code{TRUE}). See \code{\link{locw}}.}
+
 \item{print}{Logical. If \code{TRUE} (default), fitting information are printed.}
 
 \item{...}{Other arguments to pass in \code{plsr}, \code{plsda}, or the function set in its argument \code{da}.}
@@ -105,15 +110,13 @@ Sicard, E. Sabatier, R., 2006. Theoretical framework for local PLS1 regression a
 
 \value{
 
-A list of outputs, such as:
+A list of outputs (see examples), such as:
 
 \item{y}{Responses for the test data.}
 
 \item{fit}{Predictions for the test data.}
 
 \item{r}{Residuals for the test data.}
-
-\item{fm}{Outputs of the local \code{\link{pls}} and other auxilliary statistics. \code{NULL} if \code{stor = FALSE} in \code{\link{plsr}} or \code{\link{plsda}}.}
 
 }
 
@@ -132,8 +135,8 @@ yr <- datcass$yr
 Xu <- datcass$Xu
 yu <- datcass$yu
 
-Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
-Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
+Xr <- detrend(Xr)
+Xu <- detrend(Xu)
 dim(Xr)
 dim(Xu)
 
@@ -145,8 +148,8 @@ dim(Xu)
 ## - Weighting 2 = weights within each neighborhood calculated with "wkern" 
 
 ncompdis <- 10
-h <- c(1, 2)
-k <- c(50, 100)
+h <- c(2, Inf)
+k <- c(100, Inf)
 ncomp <- 20
 fm <- lwplsr(
   Xr, yr,
@@ -174,16 +177,14 @@ plotmse(u, group = "group")
 ## by global PLSR score matrices Tr and Tu
 
 zfm <- pls(Xr, yr, Xu, ncomp = 25) # calculation of the new data
-zXr <- zfm$Tr
-zXu <- zfm$Tu
 
 ncompdis <- 10
-h <- c(1, 2)
-k <- c(50, 100)
+h <- c(2, Inf)
+k <- c(100, Inf)
 ncomp <- 20
 fm <- lwplsr(
-  zXr, yr,
-  zXu, yu,
+  zfm$Tr, yr,
+  zfm$Tu, yu,
   ncompdis = ncompdis, diss = "mahalanobis",
   h = h, k = k,
   ncomp = ncomp,
@@ -271,7 +272,7 @@ fm <- lwplsda(
   Xu, yu,
   ncompdis = ncompdis, diss = "mahalanobis",
   h = h, k = k,
-  da = daprob, lda = TRUE,
+  da = daprob,
   ncomp = ncomp,
   print = TRUE
   )

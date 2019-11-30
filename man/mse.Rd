@@ -22,7 +22,8 @@ mse(fm, formula = ~ 1, nam = NULL, digits = 3)
 
 err(fm, formula = ~ 1, nam = NULL, digits = 4)
 
-plotmse(obj, nam = "rmsep", group = NULL, scale.x.cont = TRUE)
+plotmse(obj, nam = "rmsep", group = NULL, scale.x.cont = TRUE,
+  col = NULL)
 
 }
 
@@ -43,6 +44,8 @@ plotmse(obj, nam = "rmsep", group = NULL, scale.x.cont = TRUE)
 \item{group}{Name (character string) of column of \code{obj} defining the groups of observations to be plotted with different colors (default is \code{NULL}).}
 
 \item{scale.x.cont}{Logical. If \code{TRUE} (default), the xlab-scale is numbered with a step of 1.}
+
+\item{col}{Defines the color of the lines representing the error rate.}
 
 }
 

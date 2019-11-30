@@ -107,7 +107,7 @@ pca.nipals(X, ncomp = 3)
 
 pca.svdw(X, ncomp = 3, weights = rep(1, n))
 
-##################### WITH MISSING DATA
+######## WITH MISSING DATA
 
 X2 <- X
 X2[3, 3] <- X2[1, 3] <- X2[1, 2] <- NA

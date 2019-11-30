@@ -40,9 +40,9 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
   \code{\link{fda}} \tab Factorial discriminant analysis\cr
   \code{\link{pca}} \tab PCA \cr
   \code{\link{pls}} \tab PLS \cr
-  \code{\link{projscor}} \tab Projection on a score space \cr
   \code{\link{bcoef}} \tab b-coefficients for a PLS model\cr
-  \code{\link{sdod}} \tab Score and orthogonal distances for a PCA or PLS score space\cr
+  \code{\link{scordis}} \tab Score distances for a PCA or PLS score space\cr
+  \code{\link{odis}} \tab Orthogonal distances for a PCA or PLS score space\cr
   \code{\link{xfit}} \tab Matrix Approximation from multivariate scores and loadings \cr
   }
 
@@ -99,7 +99,7 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
 
 \bold{------------ MODEL STACKING}
 \tabular{ll}{
-  \code{\link{stackmod}} \tab Model stacking for regression models\cr 
+  \code{\link{stackavg}} \tab Model stacking for regression models\cr 
   }
 
 \bold{------------ CROSS-VALIDATION AND ERROR RATES}
@@ -145,7 +145,7 @@ The package is primarily dedicated to near infrared spectral (NIRS) data but can
 \eqn{-- Other}
 
 \tabular{ll}{
-  \code{\link{dis}}  \tab Dissimilarities between row observations and a given vector \cr
+  \code{\link{dis}}  \tab Dissimilarities between a given vector and row observations  \cr
   \code{\link{dkern.gauss}}, \code{\link{dmnorm}} \tab Probability density prediction \cr
   \code{\link{dummy}} \tab Table of dummy variables \cr
   \code{\link{getknn}} \tab Knn selection \cr

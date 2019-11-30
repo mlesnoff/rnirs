@@ -1,5 +1,5 @@
 plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, 
-  stor = FALSE, ...) {
+  ...) {
 
   fm <- pls(Xr, Yr, Xu, ncomp, algo, ...)
   
@@ -45,17 +45,6 @@ plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
   zq <- ncol(y)
   u <- (zq - q + 1):zq
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Yu
-  
-  if(!stor) fm <- NULL
-  if(stor) {
-    
-    fm$bcoef <- bcoef(fm)   
-    
-    z <- sdod(Xr, Xu, fm)
-    fm$sd <- z$sdu
-    fm$od <- z$odu
-    
-    }
 
   list(y = y, fit = fit, r = r, fm = fm)
 

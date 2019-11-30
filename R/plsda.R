@@ -1,5 +1,5 @@
-plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, 
-  stor = FALSE, ...) {
+plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, 
+  da = dalm, ...) {
   
   dots <- list(...)
   namdot <- names(dots)
@@ -12,8 +12,11 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm,
   
   nclas <- length(unique(Yr))
   
-  if(nclas == 1)
+  if(nclas == 1) {
     fm <- pca(Xr, Xu, ncomp = ncomp)
+    fm$C <- matrix(NA, nrow = 1, ncol = ncomp)
+    fm$ymeans <- rep(NA, nrow(Xu))
+    }
   else {
     Yrdummy <- dummy(Yr)
     fm <- do.call(
@@ -50,15 +53,8 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm,
   y <- data.frame(dat, y, stringsAsFactors = FALSE)
   fit <- data.frame(dat, fit, stringsAsFactors = FALSE)
   r <- data.frame(dat, r, stringsAsFactors = FALSE)
-  
-  if(!stor) fm <- NULL
-  if(stor) {
-    z <- sdod(Xr, Xu, fm)
-    fm$sd <- z$sdu
-    fm$od <- z$odu
-    }
-  
-  list(y = y, fit = fit, r = r, ni = ni, fm = fm)
+
+  list(y = y, fit = fit, r = r, fm = fm, ni = ni)
 
   }
 

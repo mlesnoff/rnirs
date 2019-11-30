@@ -6,27 +6,23 @@
 
 \description{
 
-Calculation of the Euclidean orthogonal distances (OD = "\eqn{X}-residuals") between row observations of a data set and their projection on a PCA or PLS score space (e.g. Hubert et al. 2005, Van Branden & Hubert 2005, p. 66; Varmuza & Filzmoser, 2009, p. 79).
-
-OD are calculated from a preliminary calculated PCA or PLS.
+Calculation orthogonal distances (OD = "\eqn{X}-residuals") from a PCA, PLS or PLSR model, i.e. the Euclidean distances between row observations of a data set and their projection on the score space (see e.g. Hubert et al. 2005, Van Branden & Hubert 2005, p. 66; Varmuza & Filzmoser, 2009, p. 79).
 
 }
 
 \usage{
 
-odis(Xr, Xu = NULL, fm, ncomp = NULL, out = c("mad", "sd", "boxplot"), cri = 3)
+odis(fm, Xr, Xu = NULL, out = c("mad", "sd", "boxplot"), cri = 3)
 
 }
 
 \arguments{
 
+\item{fm}{Output of functions \code{\link{pca}}, \code{\link{pls}} or \code{\link{plsr}}.}
+
 \item{Xr}{The matrix or data frame of reference (= training) observations that was used for building the preliminary model \code{fm}.}
 
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations (\eqn{Xu} is not used in the calculation of the cutoff that defines the extreme distance values).}
-
-\item{fm}{Output of one of the functions implementing the PCA or PLS.}
-
-\item{ncomp}{Number of components defining the score space to consider for calculating the distances. Default to \code{NULL} (\code{ncomp} is set to the maximal number of scores defined in \code{fm}).}
 
 \item{out}{Type of summary statistics used for detecting extreme OD values. Possible values are "mad" (mean absolute deviation "MAD"; default), "sd" (standard deviation) or "boxplot" (boxplot statistics). For "mad" and "sd", the cutoff is given by \eqn{median(d) + cri * mad(d)} or \eqn{mean(d) + cri * sd(d)}, respectively, where \eqn{d} is the vector of dissimilarities for the reference observations \eqn{Xr}. For "boxplot", the cutoff is given by \eqn{2nd quartile(d) + 1.5 * IQR(d)}.}
 
@@ -36,16 +32,18 @@ odis(Xr, Xu = NULL, fm, ncomp = NULL, out = c("mad", "sd", "boxplot"), cri = 3)
 
 \details{
 
-As indicator of extreme distance value, a "standardized" OD variable is calculated as \eqn{dstand = d / cutoff-value}. The OD is considered extreme if \eqn{dstand > 1}.
+The "standardized" variable \eqn{dstand} calculated as \eqn{dstand = d / cutoff-value} is an  indicator of extreme value. OD is considered extreme if \eqn{dstand > 1}.
 
 }
 
 \references{
+
 M. Hubert, P. J. Rousseeuw, K. Vanden Branden (2005). ROBPCA: a new approach to robust principal components analysis. Technometrics, 47, 64-79.
 
 K. Vanden Branden, M. Hubert (2005). Robuts classification in high dimension based on the SIMCA method. Chem. Lab. Int. Syst, 79, 10-21. 
 
 K. Varmuza, P. Filzmoser (2009). Introduction to multivariate statistical analysis in chemometrics. CRC Press, Boca Raton.
+
 }
 
 \examples{
@@ -62,15 +60,10 @@ Xr <- X[1:6, ] ; Yr <- Y[1:6, ]
 Xu <- X[7:8, ] ; Yu <- Y[7:8, ]
 
 fm <- pls(Xr, Yr, ncomp = 3)
-res <- odis(Xr, fm = fm)
-names(res)
-head(res$dr)
+#fm <- plsr(Xr, Yr, Xu, ncomp = 3)
+odis(fm, Xr)
 
-fm <- pls(Xr, Yr, ncomp = 3)
-res <- odis(Xr, Xu, fm)
-names(res)
-head(res$dr)
-head(res$du)
+odis(fm, Xr, Xu)
 
 }
 

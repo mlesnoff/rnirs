@@ -1,4 +1,4 @@
-lmr <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL, stor = FALSE) {
+lmr <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL) {
   
   Xr <- .matrix(Xr, prefix.colnam = "x")
   n <- nrow(Xr)
@@ -38,12 +38,6 @@ lmr <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL, stor = FALSE) {
   u <- (zq - q + 1):zq
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Yu
   
-  if(!stor)
-    fm <- NULL
-  else {
-    fm$weights <- d   
-    }  
-  
   list(y = y, fit = fit, r = r, fm = fm)
   
-}
+  }

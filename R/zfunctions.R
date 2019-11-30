@@ -50,7 +50,7 @@
   
   }
 
-.dis <- function(X, mu) {
+.dis <- function(mu, X) {
   
   X <- .matrix(X, prefix.colnam = "x")
   n <- nrow(X)
@@ -140,7 +140,7 @@
 
   }
 
-.mah <- function(X, mu, U = NULL) {
+.mah <- function(mu, X, U = NULL) {
   
   X <- .matrix(X, prefix.colnam = "x")
   n <- nrow(X)
@@ -157,7 +157,7 @@
   zX <- X %*% Uinv
   zmu <- mu %*% Uinv
   
-  .dis(zX, zmu)
+  .dis(zmu, zX)
   
   }
 
@@ -187,4 +187,18 @@
   
   }
 
+.projscor <- function(fm, X) {
+  
+  ## fm = Output of functions pca or pls, 
+  ## or of the PCA or PLS algorithm functions
 
+  T <- scale(.matrix(X), center = fm$xmeans, scale = FALSE) %*% fm$R
+    
+  rownam <- row.names(X)
+  colnam <- paste("comp", 1:ncol(T), sep = "")
+  
+  dimnames(T) <- list(rownam, colnam)
+  
+  T
+  
+  }

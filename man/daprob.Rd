@@ -12,8 +12,8 @@ For each observation to predict, the function calculates the posterior probabili
 
 \usage{
 
-daprob(Xr, Yr, Xu, Yu = NULL, dens = dmnorm, lda = FALSE,
-  prior = c("proportional", "uniform"), ...)
+daprob(Xr, Yr, Xu, Yu = NULL, dens = dmnorm, 
+  lda = TRUE, prior = c("proportional", "uniform"), ...)
 
 }
 
@@ -29,7 +29,7 @@ daprob(Xr, Yr, Xu, Yu = NULL, dens = dmnorm, lda = FALSE,
 
 \item{dens}{A function returning the probability density of the observation conditionnally to the class. Default to \code{\link{dmnorm}}.}
 
-\item{lda}{Logical, only considered if \code{dens = dmnorm}. If \code{FALSE} (default), a QDA is implemented, orherwise a LDA is implemented.}
+\item{lda}{Logical, only considered if \code{dens = dmnorm}. If \code{TRUE} (default), a LDA is implemented, orherwise a QDA is implemented.}
 
 \item{prior}{The prior probabilities of class membership. Possible values are "proportional" (default; probablities are set equal to the observed proportions of the classes in \code{Yr}), "uniform" (probablities are set equal for all the classes), or a vector of values defining the probabilities for each class.}
 
@@ -75,7 +75,7 @@ yu <- y[s]
 
 ##### LDA (homogeneous covariances)
 
-fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm, lda = TRUE)
+fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm)
 names(fm)
 head(fm$y)
 head(fm$fit)
@@ -83,14 +83,9 @@ head(fm$r)
 fm$ni
 err(fm)
 
-# Same as:
-nclas <- length(unique(yr))
-W <- matW(Xr, yr)$W * n / (n - nclas)
-fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm, sigma = W)
-
 ##### QDA (heterogeneous covariances)
 
-fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm)
+fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm, lda = FALSE)
 err(fm)
 
 ##### Nonparametric DA

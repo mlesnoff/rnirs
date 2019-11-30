@@ -12,7 +12,7 @@ Function \code{lmr} fits a linear regression model (LMR) using function \code{\l
 
 \usage{
 
-lmr(Xr, Yr, Xu, Yu = NULL, weights = NULL, stor = FALSE)
+lmr(Xr, Yr, Xu, Yu = NULL, weights = NULL)
 
 }
 
@@ -28,13 +28,11 @@ lmr(Xr, Yr, Xu, Yu = NULL, weights = NULL, stor = FALSE)
 
 \item{weights}{A vector of length \eqn{n} defining the statistical weights to apply to the observations. Default to \code{NULL} (weights = \eqn{1/n}).}
 
-\item{stor}{Logical (default to \code{FALSE}). If \code{TRUE}, the function stores all the outputs of function \code{\link{lm}} and  auxilliary statistics  (e.g. b-coefficients), in a sub-object \code{fm}.}
-
 }
 
 \value{
 
-A list of outputs, such as:
+A list of outputs (see examples), such as:
 
 \item{y}{Responses for the test data.}
 
@@ -42,7 +40,7 @@ A list of outputs, such as:
 
 \item{r}{Residuals for the test data.}
 
-\item{fm}{Outputs of \code{\link{lm}} and other auxilliary statistics. \code{NULL} if \code{stor = FALSE}.}
+\item{fm}{Output of function \code{\link{lm}}.}
 
 }
 
@@ -60,11 +58,14 @@ set.seed(NULL)
 Xr <- X[1:8, ] ; Yr <- Y[1:8, ] 
 Xu <- X[9:10, ] ; Yu <- Y[9:10, ] 
 
-fm <- lmr(Xr, Yr, Xu, Yu, stor = TRUE)
+fm <- lmr(Xr, Yr, Xu, Yu)
 names(fm)
-
-fm$fm$coef
+fm$y
 fm$fit
+fm$r
+names(fm$fm)
+
+coef(fm$fm)
 
 mse(fm, nam = "y1")
 mse(fm, nam = "y2")

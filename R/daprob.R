@@ -1,4 +1,5 @@
-daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm, lda = FALSE, prior = c("proportional", "uniform"), ...){
+daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm, 
+  lda = TRUE, prior = c("proportional", "uniform"), ...){
   
   .dens <- match.fun(FUN = dens)
 
@@ -34,7 +35,8 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm, lda = FALSE, prior = c(
   else {
 
     if(is.character(prior))
-      prior <- switch(prior, 
+      prior <- switch(
+        prior, 
         proportional = ni / sum(ni), 
         uniform = rep(1 / nclas, nclas)
         )
@@ -46,7 +48,8 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm, lda = FALSE, prior = c(
     for(i in 1:nclas) {
 
       if(identical(.dens, dmnorm) & lda)
-        fm <- .dens(Xr[Yr == lev[i], , drop = FALSE], Xu, sigma = W, ...)
+        fm <- .dens(Xr[Yr == lev[i], , drop = FALSE], Xu, 
+          sigma = W, ...)
       else
         fm <- .dens(Xr[Yr == lev[i], , drop = FALSE], Xu, ...)
       

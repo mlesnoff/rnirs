@@ -11,11 +11,11 @@
 
 In kNN-LW models, the prediction is implemented in two sequential steps, therafter referred to as \eqn{weighting "1"} and \eqn{weighting "2"}, respectively. For each new observation to predict, the two steps are as follow:
 
-- \eqn{Step/Weighting "1"} corresponds to a "binary" weighting. The \eqn{k} nearest neighbors (in the training data set) of the obervation to predict are selected and constitute the neighborhood. The prediction model (implemented in the next step) is only run on this neighborhood. It is equivalent to give a weight = 1 to all the observation in the neighborhood, and a weight = 0 to the other training observations.
+- \eqn{Step (weighting) "1"} corresponds to a "binary" weighting. The \eqn{k} nearest neighbors (in the training data set) of the obervation to predict are selected and constitute the neighborhood. The prediction model (implemented in the next step) is only run on this neighborhood. It is equivalent to give a weight = 1 to all the observation in the neighborhood, and a weight = 0 to the other training observations.
 
-- \eqn{Step/Weighting "2"} is a within-neighborhood weighting. Each of the \eqn{k} nearest neighbors receives a statistical weight (eventually different from the usual \eqn{1/k} as in the standard PLS) that is entered as input in the prediction model. The weights depend from dissimilarities (preliminary calculated) between the new observation to predict and the \eqn{k} neighbors. 
+- \eqn{Step (weighting) "2"} is a within-neighborhood weighting. Each of the \eqn{k} nearest neighbors receives a statistical weight (eventually different from the usual \eqn{1/k} as in the standard PLS) that is entered as input in the prediction model. The weights depend from dissimilarities (preliminary calculated) between the new observation to predict and the \eqn{k} neighbors. 
 
-The overall principle of \code{locw} is as follows. The prediction model used in step \eqn{"2"} has to be defined in a separate function specified in argument \code{fun}. If there is a number of \eqn{m} new observations to predict, a list of \eqn{m} vectors (defining the \eqn{m} neighborhoods) has to be provided as input to \code{locw} in argument \code{listnn}. Each of the \eqn{m} vectors contains the indexes of the nearest neighbors (in the training set) of the observation to predict. The \eqn{m} vectors are not necessary of same length, i.e. the neighborhood size can vary between observations to predict.  Then  \code{locw} runs the prediction model successively for each of the \eqn{m} neighborhoods, returning \eqn{m} predictions.    
+In \code{locw}, the prediction model used in step \eqn{"2"} has to be defined in a separate function specified in argument \code{fun}. If there is a number of \eqn{m} new observations to predict, a list of \eqn{m} vectors (defining the \eqn{m} neighborhoods) has to be provided as input to \code{locw} in argument \code{listnn}. Each of the \eqn{m} vectors contains the indexes of the nearest neighbors (in the training set) of the observation to predict. The \eqn{m} vectors are not necessary of same length, i.e. the neighborhood size can vary between observations to predict.  Then  \code{locw} runs the prediction model successively for each of the \eqn{m} neighborhoods, returning \eqn{m} predictions.    
 
 }
 
@@ -27,6 +27,7 @@ locw(
   listnn,
   listw = NULL,
   fun,
+  stor = TRUE,
   print = TRUE,
   ...
   )
@@ -48,6 +49,8 @@ locw(
 \item{listw}{A list of \eqn{m} vectors defining weighting 2. Component \eqn{i} of this list is a vector (must have the same length as component \eqn{i} of \code{listnn}) of the statistical weights of the nearest neighbors, used in the prediction model.}
 
 \item{fun}{A function defining the prediction model to run on the \eqn{m} neighborhoods. The output of the function defined in \code{fun} must be a list with at least the three components \code{y}, \code{fit} and \code{r} (see for instance the outputs of \code{\link{plsr}}).}
+
+\item{stor}{Logical (default to \code{TRUE}). If \code{TRUE}, the function stores all the outputs of the function defined in argument \code{fun}, in a sub-object \code{fm} of length \eqn{n} (one component for each predicted observation).}
 
 \item{print}{Logical (default = \code{TRUE}). If \code{TRUE}, fitting information are printed.}
 
@@ -77,8 +80,8 @@ yr <- datcass$yr
 Xu <- datcass$Xu
 yu <- datcass$yu
 
-Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
-Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
+Xr <- detrend(Xr)
+Xu <- detrend(Xu)
 dim(Xr)
 dim(Xu)
 
@@ -151,7 +154,7 @@ dim(Xu)
 table(yr)
 table(yu)
 
-## A locally weighted PLS-LDA model where:
+## A locally weighted PLS-QDA model where:
 ## The dissimilarity between the observations are defined by the Mahalanobis distance 
 ## calculated from a global PLS score space of ncompdis = 10 components.
 ## - Weighting "1" = selection of k = 50 nearest neighbors
@@ -171,8 +174,7 @@ fm <- locw(
   listnn = listnn,
   listw = listw,
   fun = plsda,
-  da = daprob,
-  lda = TRUE,
+  da = daprob, lda = FALSE,
   algo = pls.kernelw,
   ncomp = ncomp,
   print = TRUE
@@ -188,20 +190,19 @@ plotmse(z, nam = "errp", group = "k")
 ## A locally weighted PLSDA (non parametric) model 
 ## on preliminary calculated global scores
 
-z <- pls(Xr, dummy(yr), Xu, ncomp = 25)
-zXr <- z$Tr
-zXu <- z$Tu
+zfm <- pls(Xr, dummy(yr), Xu, ncomp = 25)
 
 ncompdis <- 10
 h <- 2
 k <- 100
 ncomp <- 15
-resn <- getknn(zXr[, 1:ncompdis], zXu[, 1:ncompdis], k = k, diss = "mahalanobis")
+resn <- getknn(zfm$Tr[, 1:ncompdis], zfm$Tu[, 1:ncompdis], 
+  k = k, diss = "mahalanobis")
 listnn <- resn$listnn
 listw <- lapply(resn$listd, wkern, h = h)
 fm <- locw(
-  zXr, yr,
-  zXu, yu,
+  zfm$Tr, yr,
+  zfm$Tu, yu,
   listnn = listnn,
   listw = NULL,
   fun = plsda, dens = dkern.gauss,

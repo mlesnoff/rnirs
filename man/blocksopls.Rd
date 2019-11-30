@@ -35,7 +35,7 @@ blocksopca(Xr, Xu = NULL, blocks, ncomp, ...)
 
 \item{blocks}{A list of same length as the number of blocks. Each component of the list gives the column numbers in \eqn{Xr} defining the given block. The same blocks are used for \eqn{Xu}.}
 
-\item{ncomp}{A list of same length as the number of blocks defining the number of scores to calculate for each block, or a single number. In this last case, the same number of scores is used for all the blocks.}
+\item{ncomp}{A vector of same length as the number of blocks defining the number of scores to calculate for each block, or a single number. In this last case, the same number of scores is used for all the blocks.}
 
 \item{...}{Other arguments to pass in functions \code{\link{pls}} or \code{\link{pca}}.}
 

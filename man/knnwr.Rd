@@ -24,6 +24,7 @@ knnwr(
   Xu, Yu = NULL,
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
+  stor = TRUE,
   print = TRUE
   ) 
 
@@ -32,6 +33,7 @@ knnwda(
   Xu, Yu = NULL,
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
+  stor = TRUE,
   print = TRUE
   )
 
@@ -55,13 +57,15 @@ knnwda(
 
 \item{k}{A vector (eventually of length = 1) defining the number(s) of nearest neighbors to select in the reference data set for each observation to predict. Each component of \code{k} is considered successively in the calculations.}
 
+\item{stor}{Logical (default to \code{TRUE}). See \code{\link{locw}}.}
+
 \item{print}{Logical (default = \code{TRUE}). If \code{TRUE}, fitting information are printed.}
 
 }
 
 \value{
 
-A list of outputs, such as:
+A list of outputs (see examples), such as:
 
 \item{y}{Responses for the test data.}
 
@@ -90,8 +94,8 @@ yr <- datcass$yr
 Xu <- datcass$Xu
 yu <- datcass$yu
 
-Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
-Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
+Xr <- detrend(Xr)
+Xu <- detrend(Xu)
 dim(Xr)
 dim(Xu)
 
@@ -175,7 +179,6 @@ table(yu)
 
 ncompdis <- 10
 h <- c(1, 2)
-h <- c(Inf, 1e5)
 k <- seq(5, 15, by = 5)
 fm <- knnwda(
   Xr, yr,

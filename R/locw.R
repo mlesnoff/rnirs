@@ -4,6 +4,7 @@ locw <- function(
   listnn,
   listw = NULL,
   fun,
+  stor = TRUE,
   print = TRUE,
   ...
   ) {
@@ -55,8 +56,6 @@ locw <- function(
     fit[[i]] <- data.frame(k = k, fm[[i]]$fit)
     r[[i]] <- data.frame(k = k, fm[[i]]$r)
     
-    fm[[i]][c("y", "fit", "r")] <- NULL  
-    
     }
 
   if(print) cat("\n\n")
@@ -68,6 +67,9 @@ locw <- function(
   y <- .f(y)
   fit <- .f(fit)
   r <- .f(r)
+  
+  if(!stor)
+    fm <- NULL
   
   rm(list = c("param"))
   gc()

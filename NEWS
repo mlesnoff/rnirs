@@ -1,5 +1,28 @@
 ## News for package rnirs
 
+#### Version 1.3-0
+
+- Correction of a small bug in function fda.
+
+- Modification of examples.
+
+- Argument col has been added to function plotmse.
+
+- Order of arguments in function projscor have changed.
+
+- Function sdod has been removed and replaced by functions scordis and odis.
+
+- Function stackmod has been renamed to stackavg.
+
+- Argument stor have been removed from functions plsr etc. and added to functions locw, lwplsr etc.
+
+- Function projscor has been removed and deplaced to the zfunctions (.projscor).
+
+- Few modifications of functions bcoef, scordis and odis.
+
+- Few modifications of outpits of functions locw, lwplsr, etc.
+
+
 #### Version 1.2-3
 
 - Package ptw has been added and is now required.

@@ -1,5 +1,5 @@
-plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, 
-  stor = FALSE, ...) {
+plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
+  ...) {
 
   dots <- list(...)
   namdot <- names(dots)
@@ -24,6 +24,8 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
     fm <- pca(Xr, Xu, ncomp = ncomp)
+    fm$C <- matrix(NA, nrow = 1, ncol = ncomp)
+    fm$ymeans <- rep(NA, nrow(Xu))
     fit <- y <- rep(namclas, m * ncomp)
     dummyfit <- NULL
     }
@@ -34,7 +36,7 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
     fm <- do.call(
       plsr, 
       c(list(Xr = Xr, Yr = dummy(Yr), Xu = Xu, 
-        ncomp = ncomp, algo = algo, stor = stor), dots.algo)
+        ncomp = ncomp, algo = algo), dots.algo)
       )
     
     m <- length(fm$fit$ncomp[fm$fit$ncomp == 1])
@@ -50,8 +52,6 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
       y <- rep(as.character(Yu), ncomp)
     else
       y <- rep(NA, length(fit))
-    
-    fm <- fm$fm
 
     }
   
@@ -64,14 +64,8 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
   fit <- data.frame(dat, fit, stringsAsFactors = FALSE)
   r <- data.frame(dat, r)
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Yr
-  
-  if(!stor) fm <- NULL
-  if(stor) {
-    z <- sdod(Xr, Xu, fm) 
-    fm$sd <- z$sdu
-    fm$od <- z$odu
-    }
 
-  list(y = y, fit = fit, r = r, dummyfit = dummyfit, ni = ni, fm = fm)
+  list(y = y, fit = fit, r = r, 
+    dummyfit = dummyfit, fm = fm, ni = ni)
     
   }
