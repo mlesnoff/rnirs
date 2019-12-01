@@ -71,6 +71,7 @@ fm <- fitcv(
   segm = segm,
   print = TRUE
   )
+
 z <- mse(fm, ~ ncomp)
 head(z)
 z[z$rmsep == min(z$rmsep), ]
