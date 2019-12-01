@@ -43,6 +43,7 @@ X
 
 blocks <- list(1:2, 4, 6:8)
 blocks
+
 blocksel(X, blocks) 
 
 }

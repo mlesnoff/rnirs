@@ -60,12 +60,11 @@ u$y[u$s]
 
 comp <- c(1, 2)
 #comp <- c(2, 3)
-oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(1, 2))
 plot(fm$T[, comp], col = y)
 plot(fm$T[, comp], col = "grey")
 points(fm$T[u$s, comp], col = u$y[u$s], pch = 19)
-par(oldpar)
+par(mfrow = c(1, 1))
 
 u <- sampclas(X = fm$T, y = y, m = c(2, 0, 10))
 u$tab

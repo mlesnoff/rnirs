@@ -96,8 +96,9 @@ yu <- datcass$yu
 
 Xr <- detrend(Xr)
 Xu <- detrend(Xu)
-dim(Xr)
-dim(Xu)
+
+headm(Xr)
+headm(Xu)
 
 ## A kNN-WR model where:
 ## The dissimilarities between the observations are defined
@@ -120,6 +121,7 @@ names(fm)
 head(fm$y)
 head(fm$fit)
 head(fm$r)
+
 z <- mse(fm, ~ ncompdis + h + k)
 z
 z[z$rmsep == min(z$rmsep), ]
@@ -144,6 +146,7 @@ fm <- knnwr(
   h = h, k = k,
   print = TRUE
   )
+
 z <- mse(fm, ~ ncompdis + h + k)
 z
 z[z$rmsep == min(z$rmsep), ]
@@ -164,8 +167,9 @@ yu <- datforages$yu
 
 Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
 Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
-dim(Xr)
-dim(Xu)
+
+headm(Xr)
+headm(Xu)
 
 table(yr)
 table(yu)
@@ -188,9 +192,10 @@ fm <- knnwda(
   print = TRUE
   )
 names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
+headm(fm$y)
+headm(fm$fit)
+headm(fm$r)
+
 z <- err(fm, ~ ncompdis + h + k)
 z
 z[z$err == min(z$errp), ]

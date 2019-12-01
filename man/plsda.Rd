@@ -75,8 +75,9 @@ yu <- datforages$yu
 
 Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
 Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
-dim(Xr)
-dim(Xu)
+
+headm(Xr)
+headm(Xu)
 
 table(yr)
 table(yu)
@@ -84,16 +85,17 @@ table(yu)
 ######## PLS-DALM
 
 ncomp <- 20
-fm <- plsda(Xr, yr, Xu, yu, ncomp = ncomp, da = dalm)
+fm <- plsda(Xr, yr, Xu, yu, ncomp = ncomp)
 names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
+headm(fm$y)
+headm(fm$fit)
+headm(fm$r)
+
 z <- err(fm, ~ ncomp)
 plotmse(z, nam = "errp")
 z[z$errp == min(z$errp), ]
 
-## Same with plsdalm
+## Same with plsdalm (faster)
 
 ncomp <- 20
 fm <- plsdalm(Xr, yr, Xu, yu, ncomp = ncomp)
@@ -105,6 +107,7 @@ z[z$errp == min(z$errp), ]
 
 ncomp <- 20
 fm <- plsda(Xr, yr, Xu, yu, ncomp, da = daprob)
+
 z <- err(fm, ~ ncomp)
 plotmse(z, nam = "errp")
 z[z$errp == min(z$errp), ]
@@ -112,28 +115,21 @@ z[z$errp == min(z$errp), ]
 ######## PLS-QDA
 
 ncomp <- 20
-fm <- plsda(Xr, yr, Xu, yu, ncomp, da = daprob, lda = FALSE)
-names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
+fm <- plsda(Xr, yr, Xu, yu, ncomp, da = daprob, 
+  lda = FALSE)
+
 z <- err(fm, ~ ncomp)
 z
 plotmse(z, nam = "errp")
 z <- z[z$errp == min(z$errp), ]
 z
 
-# Same as:
-# (for ncomp = z$ncomp components)
-u <- pls(Xr, dummy(yr), Xu, ncomp = z$ncomp)
-fm <- daprob(u$Tr, yr, u$Tu, yu, lda = FALSE)
-err(fm)
-
 ######## PLS-KNNDA
 
 ncomp <- 20
 fm <- plsda(Xr, yr, Xu, yu, ncomp, da = knnwda, 
   diss = "mahalanobis", k = 3)
+  
 z <- err(fm, ~ ncomp + k)
 plotmse(z, nam = "errp", group = "k")
 z[z$errp == min(z$errp), ]

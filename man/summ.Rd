@@ -23,15 +23,18 @@ Calculation of summary statistics for each column  of a matrix or data frame. In
 \value{A data frame of summary statistics.}
 
 \examples{
+
 dat <- data.frame(
   v1 = rnorm(10),
   v2 = c(NA, rnorm(8), NA),
   v3 = c(NA, NA, NA, rnorm(7))
-)
+  )
 dat
 
 summ(dat)
+
 summ(dat, nam = c("v1", "v3"))
+
 }
 
 \keyword{datagen}

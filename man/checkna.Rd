@@ -15,6 +15,7 @@
 \value{A data frame summarizing the numbers of NA by rows.}
 
 \examples{
+
 dat <- data.frame(
   v1 = c(NA, rnorm(9)), 
   v2 = c(NA, rnorm(8), NA),
@@ -23,6 +24,7 @@ dat <- data.frame(
 dat
 
 checkna(dat)
+
 }
 
 \keyword{datagen}

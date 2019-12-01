@@ -102,7 +102,9 @@ set.seed(NULL)
 X
 
 pca.svd(X, ncomp = 3)
+
 pca.eigen(X, ncomp = 3)
+
 pca.nipals(X, ncomp = 3)
 
 pca.svdw(X, ncomp = 3, weights = rep(1, n))

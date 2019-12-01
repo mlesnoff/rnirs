@@ -59,6 +59,7 @@ Y
 
 blocks <- list(1:3, 4:6, 7:9)
 blocks
+
 res <- blockpls(X[1:3, ], Xu = X[4:5, ], blocks = blocks, ncomp = 2) 
 #res <- blockpls(X[1:3, ], Y[1:3, ], X[4:5, ], blocks = blocks, ncomp = 2) 
 res

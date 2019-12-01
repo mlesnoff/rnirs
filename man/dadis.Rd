@@ -64,10 +64,11 @@ yu <- y[s]
 
 fm <- dadis(Xr, yr, Xu, yu)
 names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
+headm(fm$y)
+headm(fm$fit)
+headm(fm$r)
 fm$ni
+
 err(fm)
 
 fm <- dadis(Xr, yr, Xu, yu, diss = "mahalanobis")

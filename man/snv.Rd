@@ -30,13 +30,14 @@ X <- datcass$Xu
 
 center <- TRUE
 #center <- FALSE
+zX <- snv(X, center = center)
+
+headm(X)
+headm(zX)
+
 par(mfrow = c(1, 2))
-z <- X
-headm(z)
-plotsp(z, main = "Signal")
-z <- snv(X, center = center)
-headm(z)
-plotsp(z, main = "Corrected signal")
+plotsp(X, main = "Signal")
+plotsp(zX, main = "Corrected signal")
 par(mfrow = c(1, 1))
 
 }

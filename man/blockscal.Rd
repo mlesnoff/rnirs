@@ -52,6 +52,7 @@ X
 
 blocks <- list(1:2, 4, 6:8)
 blocks
+
 res <- blockscal(X[1:3, ], X[4:5, ], blocks)
 res
 

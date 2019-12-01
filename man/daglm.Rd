@@ -59,15 +59,18 @@ Xu <- X[s, ]
 yu <- y[s]
 
 ## Binomial model with logit link (logistic regression)
+
 fm <- daglm(Xr, yr, Xu, yu)
 names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
+headm(fm$y)
+headm(fm$fit)
+headm(fm$r)
 fm$ni
+
 err(fm)
 
 ## Gaussian model with identity link (= usual linear model)
+
 fm <- daglm(Xr, yr, Xu, yu, family = gaussian)
 err(fm)
 

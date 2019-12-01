@@ -26,14 +26,15 @@ data(datcass)
 X <- datcass$Xu
 
 n <- 11
+zX <- dderiv(X, n)                 # = 1st derivate
+#zX <- dderiv(dderiv(X, n), n)     # = 2nd derivate
+
+headm(X)
+headm(zX)
+
 par(mfrow = c(1, 2))
-z <- X
-headm(z)
-plotsp(z, main = "Signal")
-z <- dderiv(X, n)
-#z <- dderiv(dderiv(X, n), n)     # = 2nd derivate
-headm(z)
-plotsp(z, main = "Corrected signal")
+plotsp(X, main = "Signal")
+plotsp(zX, main = "Corrected signal")
 par(mfrow = c(1, 1))
 
 }

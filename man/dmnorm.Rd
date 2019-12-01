@@ -57,7 +57,7 @@ m <- 50
 x1 <- seq(min(Tr[, 1]), max(Tr[, 1]), length.out = m)
 x2 <- seq(min(Tr[, 2]), max(Tr[, 2]), length.out = m)
 Tu <- expand.grid(x1, x2)
-head(Tu)
+headm(Tu)
 
 ## Parametric
 
@@ -67,6 +67,7 @@ z <- dmnorm(Tr[yr == "versicolor", ], Tu)$fit$fit
 mfit2 <- matrix(z, nrow = m)
 z <- dmnorm(Tr[yr == "virginica", ], Tu)$fit$fit
 mfit3 <- matrix(z, nrow = m)
+
 par(mfrow = c(2, 2))
 contour(x1, x2, mfit1)
 abline(h = 0, v = 0, lty = 2)
@@ -85,6 +86,7 @@ z <- dkern.gauss(Tr[yr == "versicolor", ], Tu, hs = hs)$fit$fit
 mfit2 <- matrix(z, nrow = m)
 z <- dkern.gauss(Tr[yr == "virginica", ], Tu, hs = hs)$fit$fit
 mfit3 <- matrix(z, nrow = m)
+
 par(mfrow = c(2, 2))
 contour(x1, x2, mfit1)
 abline(h = 0, v = 0, lty = 2)

@@ -28,6 +28,7 @@ headm(X)
 n <- 1000
 p <- 200
 X <- matrix(rnorm(n * p), nrow = n)
+
 headm(X)
 
 }

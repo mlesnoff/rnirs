@@ -6,7 +6,7 @@
 
 \description{
 
-Sampling row observations of a data set with the Kennard-Stone algorithm (1969).
+Sampling row observations of a data set with the Kennard-Stone algorithm (1969), usually for selecting a test set.
 
 }
 
@@ -28,7 +28,7 @@ kenston(X, m, diss = c("euclidean", "mahalanobis", "correlation"))
 
 \value{
 
-A vector of the indexes (i.e. row numbers) of the selected observations.
+A vector of the indexes (i.e. row numbers) of the selected (usually test) observations.
 
 }
 

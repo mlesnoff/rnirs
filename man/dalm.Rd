@@ -70,11 +70,12 @@ yu <- y[s]
 
 fm <- dalm(Xr, yr, Xu, yu)
 names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
-head(fm$dummyfit)
+headm(fm$y)
+headm(fm$fit)
+headm(fm$r)
+headm(fm$dummyfit)
 fm$ni
+
 err(fm)
 
 }

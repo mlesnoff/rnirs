@@ -3,8 +3,9 @@ plotxy <- function(X, label = FALSE, group = NULL,
   alpha = 1/5, pal = NULL, labpal = NULL, ...) {
   
   X <- as.data.frame(X[, 1:2])
-  
-  if(!is.null(group) & !is.factor(group)) group <- as.factor(group)
+
+  if(!is.null(group) & !is.factor(group)) 
+    group <- as.factor(group)
 
   if(is.null(group)) {
     
@@ -54,8 +55,8 @@ plotxy <- function(X, label = FALSE, group = NULL,
     
     
   if(!is.null(origin)) {
-    p <- p + geom_hline(yintercept = origin[1], col = "gray")
-    p <- p + geom_vline(xintercept = origin[2], col = "gray")
+    p <- p + geom_vline(xintercept = origin[1], col = "gray")
+    p <- p + geom_hline(yintercept = origin[2], col = "gray")
     }
   p <- p + xlab(colnames(X)[1]) + ylab(colnames(X)[2])
   

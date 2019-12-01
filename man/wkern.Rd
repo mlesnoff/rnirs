@@ -40,7 +40,8 @@ d <- 0:15
 squared <- FALSE
 #squared <- TRUE
 w <- wkern(d, h = 1, squared = squared)
-plot(d / max(d), w, xlab = "Normalized distance", ylab = "Normalized weight", type = "l") 
+plot(d / max(d), w, xlab = "Normalized distance", ylab = "Normalized weight", 
+  type = "l") 
 
 d <- 0:15
 h <- c(.5, 1, 1.5, 2.5, 5)
@@ -51,7 +52,7 @@ for(i in 1:length(h)) {
   }
 res$u <- res$d / max(res$d)
 res$h <- as.factor(res$h)
-head(res)
+headm(res)
 p <- ggplot(data = res, aes(x = u, y = w, col = h))
 p <- p + xlab("Normalized distance") + ylab("Normalized weight")
 p1 <- p + geom_line(aes()) + ggtitle("Squared = FALSE")
@@ -63,7 +64,7 @@ for(i in 1:length(h)) {
   }
 res$u <- res$d / max(res$d)
 res$h <- as.factor(res$h)
-head(res)
+headm(res)
 p <- ggplot(data = res, aes(x = u, y = w, col = h))
 p <- p + xlab("Normalized distance") + ylab("Normalized weight")
 p2 <- p + geom_line(aes()) + ggtitle("Squared = TRUE")

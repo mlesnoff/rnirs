@@ -35,18 +35,17 @@ The function uses function \code{\link{sgolayfilt}}.
 
 \examples{
 
-data(datcass)
-
 X <- datcass$Xu
 
 m <- 1 ; n <- 11 ; p <- 3
+zX <- savgol(X, m, n, p)
+
+headm(X)
+headm(zX)
+
 par(mfrow = c(1, 2))
-z <- X
-headm(z)
-plotsp(z, main = "Signal")
-z <- savgol(X, m, n, p)
-headm(z)
-plotsp(z, main = "Corrected signal")
+plotsp(X, main = "Signal")
+plotsp(zX, main = "Corrected signal")
 par(mfrow = c(1, 1))
 
 }

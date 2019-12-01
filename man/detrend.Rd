@@ -49,6 +49,8 @@ data(datcass)
 
 X <- datcass$Xu
 
+headm(X)
+
 ### Polynom
 
 degree <- 1

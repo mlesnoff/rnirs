@@ -77,10 +77,11 @@ yu <- y[s]
 
 fm <- daprob(Xr, yr, Xu, yu, dens = dmnorm)
 names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
+headm(fm$y)
+headm(fm$fit)
+headm(fm$r)
 fm$ni
+
 err(fm)
 
 ##### QDA (heterogeneous covariances)

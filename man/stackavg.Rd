@@ -46,6 +46,7 @@ Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
 
 ncomp <- 30
 fm <- plsr(Xr, yr, Xu, yu, ncomp = ncomp)
+
 z <- mse(fm, ~ ncomp)
 plotmse(z)
 z[z$rmsep == min(z$rmsep), ]
@@ -56,6 +57,7 @@ names(zfm)
 head(zfm$y)
 head(zfm$fit)
 head(zfm$r)
+
 mse(zfm)
 
 }

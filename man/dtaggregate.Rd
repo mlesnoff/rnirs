@@ -34,10 +34,13 @@ dat <- data.frame(matrix(rnorm(2 * 100), ncol = 2))
 names(dat) <- c("y1", "y2")
 dat$typ1 <- sample(1:2, size = nrow(dat), TRUE)
 dat$typ2 <- sample(1:3, size = nrow(dat), TRUE)
-head(dat)
+
+headm(dat)
 
 dtaggregate(y1 ~ 1, data = dat)
+
 dtaggregate(y1 ~ typ1 + typ2, data = dat)
+
 dtaggregate(y1 ~ typ1 + typ2, data = dat, trim = .2)
 
 }

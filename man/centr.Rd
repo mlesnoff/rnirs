@@ -47,14 +47,13 @@ table(yr)
 
 u <- centr(Xr, yr)$centers
 v <- centr(Xr, yr, FUN = median)$centers
-dim(u)
-dim(v)
+headm(u)
+headm(v)
 
-oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(1, 2))
 plotsp(u, col = 1:4, main = "Mean spectra per group")
 plotsp(v, col = 1:4, main = "Median spectra per group")
-par(oldpar)
+par(mfrow = c(1, 1))
 
 x <- Xr[1:20, ]
 plotsp(x, ylab = "Absorbance", col = "grey")

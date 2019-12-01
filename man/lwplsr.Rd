@@ -96,18 +96,6 @@ lwplsdalm(
 
 }
 
-\references{
-
-Kim, S., Kano, M., Nakagawa, H., Hasebe, S., 2011. Estimation of active pharmaceutical ingredients content using locally weighted partial least squares and statistical wavelength selection. Int. J. Pharm., 421, 269-274.
-
-Lesnoff, M., Metz, M., Roger, J.M.. Comparison of locally weighted PLS strategies for regression and discrimination on agronomic NIR Data. Submitted to Journal of Chemometrics.
-
-Schaal, S., Atkeson, C., Vijayamakumar, S. 2002. Scalable techniques from nonparametric statistics for the real time robot learning. Applied Intell., 17, 49-60.
-
-Sicard, E. Sabatier, R., 2006. Theoretical framework for local PLS1 regression and application to a rainfall data set. Comput. Stat. Data Anal., 51, 1393-1410.
-
-}
-
 \value{
 
 A list of outputs (see examples), such as:
@@ -117,6 +105,18 @@ A list of outputs (see examples), such as:
 \item{fit}{Predictions for the test data.}
 
 \item{r}{Residuals for the test data.}
+
+}
+
+\references{
+
+Kim, S., Kano, M., Nakagawa, H., Hasebe, S., 2011. Estimation of active pharmaceutical ingredients content using locally weighted partial least squares and statistical wavelength selection. Int. J. Pharm., 421, 269-274.
+
+Lesnoff, M., Metz, M., Roger, J.M.. Comparison of locally weighted PLS strategies for regression and discrimination on agronomic NIR Data. Submitted to Journal of Chemometrics.
+
+Schaal, S., Atkeson, C., Vijayamakumar, S. 2002. Scalable techniques from nonparametric statistics for the real time robot learning. Applied Intell., 17, 49-60.
+
+Sicard, E. Sabatier, R., 2006. Theoretical framework for local PLS1 regression and application to a rainfall data set. Comput. Stat. Data Anal., 51, 1393-1410.
 
 }
 
@@ -160,11 +160,12 @@ fm <- lwplsr(
   print = TRUE
   )
 names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
+headm(fm$y)
+headm(fm$fit)
+headm(fm$r)
+
 z <- mse(fm, ~ ncompdis + h + k + ncomp)
-head(z)
+headm(z)
 z[z$rmsep == min(z$rmsep), ]
 
 u <- z
@@ -190,8 +191,9 @@ fm <- lwplsr(
   ncomp = ncomp,
   print = TRUE
   )
+
 z <- mse(fm, ~ ncompdis + h + k + ncomp)
-head(z)
+headm(z)
 z[z$rmsep == min(z$rmsep), ]
 
 u <- z
@@ -209,8 +211,9 @@ yu <- datforages$yu
 
 Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
 Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
-dim(Xr)
-dim(Xu)
+
+headm(Xr)
+headm(Xu)
 
 table(yr)
 table(yu)
@@ -236,9 +239,10 @@ fm <- lwplsda(
   print = TRUE
   )
 names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
+headm(fm$y)
+headm(fm$fit)
+headm(fm$r)
+
 z <- err(fm, ~ ncompdis + h + k + ncomp)
 z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp", group = "k")
@@ -257,6 +261,7 @@ fm <- lwplsdalm(
   ncomp = ncomp,
   print = TRUE
   )
+
 z <- err(fm, ~ ncompdis + h + k + ncomp)
 z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp", group = "k")
@@ -276,12 +281,10 @@ fm <- lwplsda(
   ncomp = ncomp,
   print = TRUE
   )
+
 z <- err(fm, ~ ncompdis + h + k + ncomp)
 z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp", group = "k")
 
 }
-
-
-
 

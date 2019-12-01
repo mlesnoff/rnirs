@@ -82,8 +82,9 @@ yu <- datcass$yu
 
 Xr <- detrend(Xr)
 Xu <- detrend(Xu)
-dim(Xr)
-dim(Xu)
+
+headm(Xr)
+headm(Xu)
 
 ## A locally weighted PLSR model where:
 ## The dissimilarity between the observations are defined by the Mahalanobis distance 
@@ -113,6 +114,7 @@ names(fm)
 head(fm$y)
 head(fm$fit)
 head(fm$r)
+
 z <- mse(fm, ~ ncomp + k)
 z[z$rmsep == min(z$rmsep), ]
 plotmse(z, group = "k")
@@ -133,6 +135,7 @@ fm <- locw(
   ncomp = ncomp,
   print = TRUE
   )
+
 z <- mse(fm, ~ ncomp + k)
 z[z$rmsep == min(z$rmsep), ]
 plotmse(z, group = "k")
@@ -148,8 +151,9 @@ yu <- datforages$yu
 
 Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
 Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
-dim(Xr)
-dim(Xu)
+
+headm(Xr)
+headm(Xu)
 
 table(yr)
 table(yu)
@@ -183,6 +187,7 @@ names(fm)
 head(fm$y)
 head(fm$fit)
 head(fm$r)
+
 z <- err(fm, ~ ncomp + k)
 z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp", group = "k")
@@ -210,6 +215,7 @@ fm <- locw(
   ncomp = ncomp,
   print = TRUE
   )
+
 z <- err(fm, ~ ncomp + k)
 z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp", group = "k")

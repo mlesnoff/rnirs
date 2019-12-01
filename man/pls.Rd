@@ -85,9 +85,9 @@ barplot(100 * z$pvar, names.arg = paste("comp", z$ncomp),
 
 comp <- c(1, 2)
 #comp <- c(2, 3)
-z <- fm$Tr[, comp]
-plotxy(z)
-plotxy(z, label = TRUE)
+plotxy(fm$Tr[, comp])
+
+plotxy(fm$Tr[, comp], label = TRUE)
 
 ## Individual contributions (in proportions)
 
@@ -150,82 +150,6 @@ fm$Tu
 pls(Xr, Yr, Xu, ncomp = ncomp, algo = pls.kernelw, 
   weights = rep(1, nrow(Xr)))$Tu
 
-################################################## bcoef
-
-n <- 8
-p <- 6
-set.seed(1)
-X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
-y1 <- 100 * rnorm(n)
-y2 <- 100 * rnorm(n)
-Y <- cbind(y1, y2)
-set.seed(NULL)
-
-fm <- pls.kernel(X, Y[, 1], ncomp = 3)
-bcoef(fm)
-
-fm <- pls.kernel(X, Y, ncomp = 3)
-bcoef(fm)
-
-fm <- pls(X, Y, ncomp = 3)
-bcoef(fm)
-
-################################################## plsr
-
-n <- 10
-p <- 6
-set.seed(1)
-X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
-y1 <- 100 * rnorm(n)
-y2 <- 100 * rnorm(n)
-Y <- cbind(y1, y2)
-set.seed(NULL)
-
-Xr <- X[1:8, ] ; Yr <- Y[1:8, ] 
-Xu <- X[9:10, ] ; Yu <- Y[9:10, ] 
-
-ncomp <- 3
-fm <- plsr(Xr, Yr, Xu, Yu, ncomp = ncomp)
-names(fm)
-fm$y
-fm$fit
-fm$r
-
-plsr(Xr, Yr, Xu, ncomp = ncomp)[c("y", "fit", "r")]
-
-plsr(Xr, Yr[, 1], Xu, Yu[, 1], ncomp = ncomp)[c("y", "fit", "r")]
-
-## For the model with ncomp components
-
-fm$b    # b-coefficients
-cbind(rep(1, nrow(Xu)), Xu) %*% fm$b
-fm$fit[fm$fit$ncomp == ncomp, ]
-
-fm$sd   # SD (score distances; see function scordis)
-fm$od   # OD (orthogonal distances; see function odis)
-
-## mse and plotmse
-
-ncomp <- 3
-fm <- plsr(Xr, Yr, Xu, Yu, ncomp = ncomp)
-mse(fm, ~ ncomp, nam = "y1")
-mse(fm, ~ ncomp, nam = "y2")
-mse(fm, ~ ncomp)
-
-z <- mse(fm, ~ ncomp)
-z
-z[z$rmsep == min(z$rmsep), ]
-plotmse(z)
-
-## Syntax with weights
-
-ncomp <- 3
-fm <- plsr(Xr, Yr, Xu, Yu, ncomp = ncomp, 
-  algo = pls.kernelw, weights = rep(1, nrow(Xr)))
-fm$y
-fm$fit
-fm$r
-  
 }
 
 

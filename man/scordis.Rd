@@ -43,6 +43,7 @@ y1 <- 100 * rnorm(n)
 y2 <- 100 * rnorm(n)
 Y <- cbind(y1, y2)
 set.seed(NULL)
+
 Xr <- X[1:6, ] ; Yr <- Y[1:6, ]
 Xu <- X[7:8, ] ; Yu <- Y[7:8, ]
 

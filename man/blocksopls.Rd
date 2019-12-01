@@ -95,15 +95,14 @@ blocks
 
 ncomp <- 2
 
-fm <- blocksopls(Xr, Yr, Xu, blocks, ncomp)
-fm
+blocksopls(Xr, Yr, Xu, blocks, ncomp)
 
 ### With weights
 
 w <- rep(1, n)
 #w <- 1:n
-fm <- blocksopls(Xr, Yr, Xu, blocks, ncomp, algo = pls.kernelw, weights = w)
-fm
+blocksopls(Xr, Yr, Xu, blocks, ncomp, 
+  algo = pls.kernelw, weights = w)
 
 }
 

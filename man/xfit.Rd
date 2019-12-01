@@ -26,23 +26,28 @@ Xr <- datcass$Xr
 Xu <- datcass$Xu
 Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
 Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
-dim(Xr)
-dim(Xu)
+
+headm(Xr)
+headm(Xu)
 
 ncomp <- 2
 #ncomp <- 10
 fm <- pca(Xr, Xu, ncomp = ncomp)
 
-# approximation of Xr
+## Approximation of Xr
+
 Xr_approx <- xfit(fm$Tr, fm$P, fm$xmeans)
-dim(Xr_approx)
+headm(Xr_approx)
+
 s <- sample(1:nrow(Xr), size = 1)
 plotsp(Xr[s, , drop = FALSE], col = "red")
 plotsp(Xr_approx[s, , drop = FALSE], col = "blue", add = TRUE, lty = 2)
 
-# approximation of Xu
+## Approximation of Xu
+
 Xu_approx <- xfit(fm$Tu, fm$P, fm$xmeans)
-dim(Xu_approx)
+headm(Xu_approx)
+
 s <- sample(1:nrow(Xu), size = 1)
 plotsp(Xu[s, , drop = FALSE], col = "red")
 plotsp(Xu_approx[s, , drop = FALSE], col = "blue", add = TRUE, lty = 2)

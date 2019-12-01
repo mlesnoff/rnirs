@@ -44,7 +44,8 @@ fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL) {
   Pz <- u$P
   explvar <- u$explvar
   
-  # Coefficients of linear discriminants: P = "LD" of lda(MASS) = Loadings for X
+  # Coefficients of linear discriminants: 
+  # P = "LD" of lda(MASS) = Loadings for X
   P <- tU %*% Pz[, 1:ncomp, drop = FALSE]
   
   # Scores

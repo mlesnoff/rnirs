@@ -23,13 +23,14 @@ data(datcass)
 X <- datcass$Xu
 
 n <- 11
+zX <- mavg(X, n) 
+
+headm(X)
+headm(zX)
+
 par(mfrow = c(1, 2))
-z <- X
-headm(z)
-plotsp(z, main = "Signal")
-z <- mavg(X, n)
-headm(z)
-plotsp(z, main = "Corrected signal")
+plotsp(X, main = "Signal")
+plotsp(zX, main = "Corrected signal")
 par(mfrow = c(1, 1))
 
 }

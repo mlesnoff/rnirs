@@ -1,5 +1,12 @@
 ## News for package rnirs
 
+#### Version 1.3-1
+
+- Correction of a small bug in function plotxy.
+
+- Modifictaion of examples.
+
+
 #### Version 1.3-0
 
 - Correction of a small bug in function fda.

@@ -55,11 +55,11 @@ Xr <- datcass$Xr
 yr <- datcass$yr
 
 Xr <- detrend(Xr)
-dim(Xr)
+headm(Xr)
 
 n <- nrow(Xr)
-segm <- segmcvkfold(n = n, K = 5, typ = "random", nrep = 3)   # Repeated random K-fold CV
-#segm <- segmcvmc(n = n, m = 40, nrep = 30)                   # Monte Carlo CV
+segm <- segmcvkfold(n = n, K = 5, typ = "random", nrep = 3)   # = Repeated random K-fold CV
+#segm <- segmcvmc(n = n, m = 40, nrep = 30)                   # = Monte Carlo CV
 fm <- fitcv(
   Xr, yr,
   fun = plsr,
@@ -68,16 +68,16 @@ fm <- fitcv(
   print = TRUE
   )
 names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
+headm(fm$y)
+headm(fm$fit)
+headm(fm$r)
 
 z <- mse(fm, ~ ncomp)
-head(z)
+headm(z)
 z[z$rmsep == min(z$rmsep), ]
 
 z <- mse(fm, ~ ncomp + rep)
-head(z)
+headm(z)
 plotmse(z, group = "rep")
 
 plotmse(z, nam = "r2", group = "rep")
@@ -114,9 +114,10 @@ fm <- fitcv(
   segm = segm,
   print = TRUE
   )
-head(fm$fit)
+headm(fm$fit)
+
 z <- mse(fm, ~ k + ncomp)
-head(z)
+headm(z)
 z[z$rmsep == min(z$rmsep), ]
 plotmse(z)
 

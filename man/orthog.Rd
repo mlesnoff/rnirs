@@ -47,14 +47,15 @@ set.seed(NULL)
 X
 Y
 
-fm <- lm(Y ~ X)
-Y - fm$fitted.values
-fm$coef
-
 res <- orthog(X, Y)
 res$Y
 t(res$Y) %*% X     # ===> orthogonal
 res$b
+
+# Same as:
+fm <- lm(Y ~ X)
+Y - fm$fitted.values
+fm$coef
 
 #### WITH WEIGHTS
 

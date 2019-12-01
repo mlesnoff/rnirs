@@ -97,26 +97,28 @@ yr <- datforages$yr
 Xu <- datforages$Xu
 yu <- datforages$yu
 
-Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
-Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
-dim(Xr)
-dim(Xu)
+headm(Xr)
+headm(Xu)
 
 table(yr)
 table(yu)
 
+Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
+Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
+
 ncompcla <- 15
 fm <- dasdod(Xr, yr, Xu, yu, ncompcla = ncompcla)
 names(fm)
-head(fm$y)
-head(fm$fit)
-head(fm$r)
-head(fm$d)
-head(fm$sd.stand)
-head(fm$od.stand)
+headm(fm$y)
+headm(fm$fit)
+headm(fm$r)
+headm(fm$d)
+headm(fm$sd.stand)
+headm(fm$od.stand)
 fm$ni
 fm$ncompcla
 fm$pvarcla
+
 err(fm)
 err(fm, ~ y1)
 
@@ -125,6 +127,7 @@ err(fm, ~ y1)
 fm <- dasdod(Xr, yr, Xu, yu, ncomp.pls = 20, ncompcla = 15)
 fm$ncompcla
 fm$pvarcla
+
 err(fm)
 
 }

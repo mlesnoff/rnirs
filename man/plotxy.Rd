@@ -56,8 +56,8 @@ res <- pls(Xr, yr, Xu, ncomp = ncomp)
 names(res)
 Tr <- res$Tr
 Tu <- res$Tu
-head(Tr)
-head(Tu)
+headm(Tr)
+headm(Tu)
 
 comp <- c(1, 2)
 #comp <- c(3, 4)
@@ -74,7 +74,8 @@ comp <- c(1, 2)
 plotxy(res[, comp], group = typ, origin = c(0, 0)) 
 
 pal <- c("grey50", "red")
-plotxy(res[, comp], group = typ, pal = pal, labpal = "Type of \ndata", origin = c(0, 0)) 
+plotxy(res[, comp], group = typ, pal = pal, labpal = "Type of \ndata", 
+  origin = c(0, 0)) 
 
 # http://ggplot2.tidyverse.org/reference/scale_brewer.html
 # http://colorbrewer2.org
@@ -83,7 +84,8 @@ pal <- "Dark2"
 #pal <- c("#fc9272", "#a50f15") # (Reds)
 plotxy(res[, comp], group = typ, pal = pal, origin = NULL)   
 
-plotxy(res[, comp], group = typ, origin = c(0, 0), pal = "Dark2", ellipse = TRUE)
+plotxy(res[, comp], group = typ, origin = c(0, 0), pal = "Dark2", 
+  ellipse = TRUE)
 
 }
 
