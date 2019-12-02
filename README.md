@@ -55,6 +55,16 @@ library(devtools)
 install_github("mlesnoff/rnirs", dependencies = TRUE)
 ```
 
+At the question:
+```{r}
+These packages have more recent versions available.
+Which would you like to update?"
+```
+for easier installation, it is recommended choosing: 
+```{r}
+3: None
+```
+
 ### Installation from the Tar file rnirs_....tar.gz with Rstudio
 
 1. Install packages from the CRAN (Menu "Packages", "Install", and then "Install From CRAN")
