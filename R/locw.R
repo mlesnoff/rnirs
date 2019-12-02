@@ -46,6 +46,8 @@ locw <- function(
       )
     fm[[i]] <- do.call(.fun, param)
     
+    fm[[i]]$nn <- ind
+    
     nr <- nrow(fm[[i]]$y)
     fm[[i]]$r$rownum <- fm[[i]]$fit$rownum <- fm[[i]]$y$rownum <- rep(i, nr)
     fm[[i]]$r$rownam <- fm[[i]]$fit$rownam <- fm[[i]]$y$rownam <- rep(rownam.Xu[i], nr)

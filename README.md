@@ -1,4 +1,4 @@
-## rnirs 1.3-1
+## rnirs 1.3-2
 ## Locally Weighted PLS Regression and Discrimination
 
 R package focusing on locally weighted prediction methods

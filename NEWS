@@ -1,5 +1,12 @@
 ## News for package rnirs
 
+#### Version 1.3-2
+
+- New functions lscordis and lodis.
+
+- Slight modification of outputs of function locw.
+
+
 #### Version 1.3-1
 
 - Correction of a small bug in function plotxy.

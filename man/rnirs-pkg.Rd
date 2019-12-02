@@ -41,8 +41,8 @@ The package was primarily dedicated to near infrared spectral (NIRS) data but ca
   \code{\link{pca}} \tab PCA \cr
   \code{\link{pls}} \tab PLS \cr
   \code{\link{bcoef}} \tab b-coefficients for a PLS model\cr
-  \code{\link{scordis}} \tab Score distances for a PCA or PLS score space\cr
-  \code{\link{odis}} \tab Orthogonal distances for a PCA or PLS score space\cr
+  \code{\link{scordis}}, \code{\link{lscordis}} \tab Score distances for a PCA or PLS score space\cr
+  \code{\link{odis}}, \code{\link{lodis}} \tab Orthogonal distances for a PCA or PLS score space\cr
   \code{\link{xfit}} \tab Matrix Approximation from multivariate scores and loadings \cr
   }
 
