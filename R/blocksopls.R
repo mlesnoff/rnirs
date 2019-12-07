@@ -65,6 +65,7 @@ blocksopls <- function(Xr, Yr, Xu = NULL, blocks, ncomp, ...) {
   
   if(nullXu) Fitu <- Tu <- NULL
   
-  list(Tr = Tr, Tu = Tu, Fitr = Fitr, Fitu = Fitu, blocks = blocks)  
+  list(Tr = Tr, Tu = Tu, Fitr = Fitr, Fitu = Fitu, 
+    blocks = blocks, ncomp = ncomp)  
 
   }

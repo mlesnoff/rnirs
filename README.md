@@ -1,4 +1,4 @@
-## rnirs 1.3-2
+## rnirs 1.3-3
 ## Locally Weighted PLS Regression and Discrimination
 
 R package focusing on locally weighted prediction methods
@@ -14,7 +14,9 @@ The changes in the successive versions of the package are reported in the **NEWS
 
 Using **Rstudio** is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
-### Main features
+### Main features 
+
+(Type **??rnirs** in the R console for details)
 
 * Data checking and summarizing
 * Data pre-processing: Detrend (poly, lowess, als), SNV, Derivation (Savitsky-Golay, Finite difference)

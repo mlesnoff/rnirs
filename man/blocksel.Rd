@@ -6,7 +6,7 @@
 
 \description{
 
-Function \code{blocksel} selects blocks (i.e. sets of columns) in a matrix and concatenates the selected blocks into a new matrix. 
+Function \code{blocksel} selects blocks (i.e. sets of columns) within a given matrix and concatenates the selected blocks into a new matrix. 
 
 }
 

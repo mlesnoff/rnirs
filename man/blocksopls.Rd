@@ -7,21 +7,23 @@
 
 \description{
 
-Functions \code{blocksopls} and \code{blocksopca} implements block dimension reduction, by PLS or PCA sequential orthogonalization (SO-PLS and SO-PCA, respectively), of a reference (= training) matrix and eventually a new (= test) matrix. 
+Functions \code{blocksopca} and \code{blocksopls} implement dimension reduction of pre-selected blocks of variables (= set of columns) of a reference (= training) matrix and eventually a new (= test) matrix, by sequential orthogonalization-PCA or -PLS (SO-PCA and SO-PLS), respectively. 
 
-SO-PLS is for instance described in Menichelli et al. (2014), Biancolillo et al. (2015) and Biancolillo (2016). SO-PCA uses the same approach but without needing response variables \eqn{Y}. 
+SO-PLS is for instance described in Menichelli et al. (2014), Biancolillo et al. (2015) and Biancolillo (2016). SO-PCA uses the same approach but replacing PLS by PCA (in such case, response variables \eqn{Y} are not required). The block reduction consists in calculating latent variables (= scores) for each block, each block being sequentially orthogonalized to the information computed from the previous blocks.
 
-The scores calculated for each block for the reference matrix and the eventual new matrix are concatenated into new output matrices (blocks of scores).
+The scores calculated for the different blocks of the reference matrix are concatenated into a new output matrix (= concatenation of the blocks of scores). The same is done for the eventual test matrix.
 
-The reference row observations can be weighted.
+These output matrices can be used in LMR, PLSR or PLSDA (or any other models) for \eqn{Y-}predictions, see examples.
+
+The function allows giving particular weights to the rows of the reference matrix in the calculations (argument \code{weights} to specify within the optional arguments "\code{...}").
 
 }
 
 \usage{
 
-blocksopls(Xr, Yr, Xu = NULL, blocks, ncomp, ...)
-
 blocksopca(Xr, Xu = NULL, blocks, ncomp, ...)
+
+blocksopls(Xr, Yr, Xu = NULL, blocks, ncomp, ...)
 
 }
 
@@ -55,15 +57,12 @@ blocksopca(Xr, Xu = NULL, blocks, ncomp, ...)
 
 \references{
 
-
 - Biancolillo et al. , 2015. Combining SO-PLS and linear discriminant analysis for
 multi-block classification. Chemometrics and Intelligent Laboratory Systems, 141, 58-67.
 
 - Biancolillo, A. 2016. Method development in the area of multi-block analysis focused on food analysis. PhD. University of copenhagen.
 
 - Menichelli et al., 2014. SO-PLS as an exploratory tool for path modelling. Food Quality and Preference, 36, 122-134.
-
-
 
 }
 
@@ -97,12 +96,70 @@ ncomp <- 2
 
 blocksopls(Xr, Yr, Xu, blocks, ncomp)
 
-### With weights
+############# Syntax with weights
 
 w <- rep(1, n)
 #w <- 1:n
 blocksopls(Xr, Yr, Xu, blocks, ncomp, 
   algo = pls.kernelw, weights = w)
+
+############# Syntax for a SO-PLSR
+
+data(datcass)
+
+Xr <- datcass$Xr
+yr <- datcass$yr
+
+Xu <- datcass$Xu
+yu <- datcass$yu
+
+Xr <- detrend(Xr, method = "lowess")
+Xu <- detrend(Xu, method = "lowess")
+
+blocks <- list(1:500, 501:1050)
+ncomp <- c(10, 5)
+zfm <- blocksopls(Xr, yr, Xu, blocks = blocks, ncomp = ncomp)
+fm <- lmr(zfm$Tr, yr, zfm$Tu, yu)
+headm(fm$fit)
+mse(fm)
+plot(fm$fit$y1, fm$y$y1)
+abline(0, 1)
+
+zfm <- blocksopls(Xr, yr, Xu, blocks = blocks, ncomp = ncomp)
+zncomp <- ncol(zfm$Tr)
+fm <- plsr(zfm$Tr, yr, zfm$Tu, yu, ncomp = zncomp)
+headm(fm$fit)
+z <- mse(fm, ~ ncomp)
+plotmse(z)
+zncomp <- 7
+z[z$ncomp == zncomp, ]
+y <- fm$y
+fit <- fm$fit
+plot(fit$y1[fit$ncomp == zncomp], y$y1[y$ncomp == zncomp])
+abline(0, 1)
+
+############# Syntax for a SO-PLSDA
+
+data(datforages)
+
+Xr <- datforages$Xr
+yr <- datforages$yr
+
+Xu <- datforages$Xu
+yu <- datforages$yu
+
+Xr <- detrend(Xr)
+Xu <- detrend(Xu)
+
+table(yr)
+table(yu)
+
+blocks <- list(1:350, 351:700)
+ncomp <- 10
+zfm <- blocksopls(Xr, dummy(yr), Xu, blocks = blocks, ncomp = ncomp)
+fm <- daprob(zfm$Tr, yr, zfm$Tu, yu)
+headm(fm$fit)
+err(fm)
 
 }
 

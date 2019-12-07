@@ -73,8 +73,8 @@ yr <- datforages$yr
 Xu <- datforages$Xu
 yu <- datforages$yu
 
-Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
-Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
+Xr <- detrend(Xr)
+Xu <- detrend(Xu)
 
 headm(Xr)
 headm(Xu)

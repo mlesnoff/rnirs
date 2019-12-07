@@ -6,11 +6,15 @@
 
 \description{
 
-Function \code{blockpls} implements block dimension reduction on a reference (= training) matrix and eventually a new (= test) matrix, by PLS or PCA (default). The block reduction consists in calculating latent variables (scores) for each block. 
+Function \code{blockpls} implements dimension reduction of pre-selected blocks of variables (= set of columns) of a reference (= training) matrix and eventually a new (= test) matrix, by PCA (default) or PLS. The block reduction consists in calculating latent variables (= scores) for each block. The calculations are done independentlty between the blocks.
 
-The scores calculated for each block for the reference matrix and the eventual new matrix are concatenated into new output matrices (blocks of scores).
+The scores calculated for each block for the reference matrix are concatenated into a new output matrix (this matrix is the concatenation of the blocks of scores). The same is done for the eventual test matrix.
 
-The reference row observations can be weighted.
+If argument \code{Yr = NULL} (default), the reduction methods is PCA. and PLS in the other case.
+
+These output matrices can be used in LMR, PLSR or PLSDA (or any other models) for \eqn{Y-}predictions, see examples in \code{\link{blocksopls}}.
+
+The function allows giving particular weights to the rows of the reference matrix in the calculations (argument \code{weights} to specify within the optional arguments "\code{...}").
 
 }
 

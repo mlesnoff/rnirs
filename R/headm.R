@@ -37,7 +37,7 @@ headm <- function(X) {
   
   if(n > nmax) cat("...\n\n")
   
-  cat("\nClass =", cla, "   nrow =", n, "   ncol =", p, "\n\n")
+  cat("\nnrow =", n, " ncol =", p, "    class =", cla, "\n\n")
   
   }
   

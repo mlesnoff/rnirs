@@ -17,7 +17,7 @@ importFrom("FNN", "knn")
 #importFrom("ggplot2", "geom_point", , "geom_hline", "geom_vline", "ggplot", "labs", 
 #  "scale_colour_brewer", "scale_colour_manual")
 
-importFrom("scales", "seq_gradient_pal")
+importFrom("scales", "seq_gradient_pal", "hue_pal")
 
 importFrom("signal", "sgolayfilt")
 

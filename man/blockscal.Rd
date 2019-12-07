@@ -6,9 +6,13 @@
 
 \description{
 
-Function \code{blockscal} scales the blocks (i.e. sets of columns) of a matrix, and concatenates the scaled blocks into a new matrix. Each block is scaled by its "norm": square root of the sum of the variances of each column of the block. The variances can be weighted  
+Function \code{blockscal} scales the blocks (i.e. sets of columns) of a reference (= training) matrix and eventually a new (= test) matrix, and concatenates the scaled blocks into two new output matrices. 
 
-The reference row observations can be weighted.
+Each block of the reference matrix is scaled by its "norm", i.e. the square root of the sum of the variances of each column of the block. The blocks of the test matrix are scaled by the norms of the blocks of the reference matrix. 
+
+These output matrices can be used in LMR, PLSR or PLSDA (or any other models) for \eqn{Y-}predictions, see examples in \code{\link{blocksopls}}.
+
+The function allows giving particular weights to the rows of the reference matrix in the calculations (argument \code{weights} to specify within the optional arguments "\code{...}").
 
 }
 
