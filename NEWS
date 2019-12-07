@@ -1,6 +1,11 @@
 ## News for package rnirs
 
-#### Version 1.3-2
+#### Version 1.3-4
+
+- Add of variable contributions in outputs of function pca.
+
+
+#### Version 1.3-3
 
 - Correction of a bug in function plotxy (colors with group).
 

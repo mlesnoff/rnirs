@@ -47,7 +47,7 @@ A list of outputs (see examples), such as:
 
 \item{explvar}{Proportions of \eqn{Xr-}variance explained by the Xr-score space.}
 
-And other outputs: See the function defined in \code{algo}.
+And other outputs: See the examples and function defined in \code{algo}.
 
 }
 
@@ -74,14 +74,14 @@ names(fm)
 fm$Tr   
 fm$P
 
-## Proportion of explained X-variance
+### Proportion of explained X-variance
 
 z <- fm$explvarx
 z
 barplot(100 * z$pvar, names.arg = paste("comp", z$ncomp), 
   ylab = "Pct. of variance explained")
 
-## Scores
+### Scores
 
 comp <- c(1, 2)
 #comp <- c(2, 3)
@@ -89,27 +89,34 @@ plotxy(fm$Tr[, comp])
 
 plotxy(fm$Tr[, comp], label = TRUE)
 
-## Individual contributions (in proportions)
+### Contributions of the individuals (in proportions)
 
 fm$contr.ind
 colSums(fm$contr.ind)
 
-## Loadings
+### Loadings
 
 plotxy(fm$P, label = TRUE, origin = c(0, 0))
 
-## Variables coordonates
+### Coordonates of the variables
 
 plotxy(fm$coord.var, label = TRUE, origin = c(0, 0))
 
-## Correlation circle
+### Contributions of the variables (in proportions)
+
+fm$contr.var
+colSums(fm$contr.var)
+
+### Correlation circle
+
+fm$cor.circle
 
 comp <- c(1, 2)
 #comp <- c(2, 3)
 z <- fm$cor.circle[, comp]
 plotxy(z, label = TRUE, origin = c(0, 0), circle = TRUE)
 
-## Projection of Xu on the score space Tr ==> Scores Tu
+### Projection of Xu on the score space Tr ==> Scores Tu
 
 fm <- pca(Xr, Xu, ncomp = ncomp)
 fm$Tr
@@ -122,7 +129,7 @@ comp <- c(1, 2)
 #comp <- c(2, 3)
 plotxy(res[, comp], group = group, label = TRUE, origin = c(0, 0)) 
 
-## Syntax with weighting
+### Syntax with weighting
 
 pca(Xr, Xu, ncomp = ncomp, algo = pca.svdw, 
   weights = rep(1, nrow(Xr)))
@@ -135,17 +142,17 @@ names(fm)
 fm$Tr
 fm$P
 
-## Proportion of explained X-variance
+### Proportion of explained X-variance
 
 fm$explvarx
 
-## Projection of Xu on the score space Tr ==> Scores Tu
+### Projection of Xu on the score space Tr ==> Scores Tu
 
 fm <- pls(Xr, Yr, Xu, ncomp = ncomp)
 fm$Tr
 fm$Tu
 
-## Syntax with weighting
+### Syntax with weighting
 
 pls(Xr, Yr, Xu, ncomp = ncomp, algo = pls.kernelw, 
   weights = rep(1, nrow(Xr)))$Tu

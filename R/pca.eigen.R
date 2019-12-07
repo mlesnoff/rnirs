@@ -9,7 +9,7 @@ pca.eigen <- function(X, ncomp) {
 
   z <- eigen(crossprod(X))
   
-  xss <- z$values[1:ncomp]  # = eigenvalues
+  xss <- z$values[1:ncomp]  # = eigenvalues of X'X
   
   sv <- sqrt(xss)           # norms of the scores T = sv[1:ncomp]
   

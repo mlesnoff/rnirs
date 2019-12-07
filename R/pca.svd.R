@@ -11,7 +11,7 @@ pca.svd <- function(X, ncomp) {
 
   sv <- z$d[1:ncomp]  # norms of the scores T = sv[1:ncomp]
   
-  xss <- sv^2         # = eigenvalues
+  xss <- sv^2         # = eigenvalues of X'X
    
   P <- z$v
 
