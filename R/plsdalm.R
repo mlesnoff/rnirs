@@ -1,5 +1,5 @@
-plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
-  ...) {
+plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
+  algo = pls.kernel, ...) {
 
   dots <- list(...)
   namdot <- names(dots)
@@ -66,6 +66,6 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Yr
 
   list(y = y, fit = fit, r = r, 
-    dummyfit = dummyfit, fm = fm, ni = ni)
+    dummyfit = dummyfit, fm = fm$fm, ni = ni)
     
   }

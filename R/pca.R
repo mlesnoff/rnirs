@@ -9,7 +9,8 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
   # = sum of the SS of the Xr-columns
   # = sum(Xr * Xr) = sum(Xr^2) 
   # = sum(apply(Xr, MARGIN = 2, FUN = sum))
-  # If Xr of full rank, xsstot = sum(sv^2) where the sum is over the r singular values
+  # If Xr of full rank, xsstot = sum(sv^2) where the sum is 
+  # over the r singular values
   Xr <- scale(Xr, center = fm$xmeans, scale = FALSE)
   xsstot <- sum(Xr * Xr, na.rm = TRUE)
   

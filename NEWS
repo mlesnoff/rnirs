@@ -1,5 +1,10 @@
 ## News for package rnirs
 
+#### Version 1.3-5
+
+- Correction of a small bug in function plsdalm (consistency with functions sdis, odis).
+
+
 #### Version 1.3-4
 
 - Add of variable contributions in outputs of function pca.
