@@ -57,12 +57,12 @@ library(devtools)
 install_github("mlesnoff/rnirs", dependencies = TRUE)
 ```
 
-At the question:
+In case of the following question during installation
 ```{r}
 These packages have more recent versions available.
 Which would you like to update?"
 ```
-for easier installation, it is recommended choosing: 
+it is recommended (for easier installation) choosing: 
 ```{r}
 3: None
 ```
