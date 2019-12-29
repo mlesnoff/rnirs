@@ -220,6 +220,57 @@ z <- err(fm, ~ ncomp + k)
 z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp", group = "k")
 
+############ OBJECTS RETURNED BY THE FUNCTION
+
+n <- 8
+p <- 6
+set.seed(1)
+X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
+row.names(X) <- paste("AA", 1:n, sep = "")
+y1 <- 100 * rnorm(nrow(X))
+y2 <- 100 * rnorm(nrow(X))
+Y <- cbind(y1, y2)
+set.seed(NULL)
+
+Xr <- X
+Yr <- Y
+Xu <- X[c(1, 2, 4), ] ; Yu <- Y[c(1, 2, 4), ]
+
+z <- pls(Xr, Yr, Xu, ncomp = 3)
+z <- getknn(z$Tr, z$Tu, k = 5, diss = "mahalanobis")
+listnn <- z$listnn
+listw <- lapply(z$listd, wkern, h = 2)
+fm <- locw(
+  Xr, Yr,
+  Xu, Yu,
+  listnn = listnn,
+  fun = plsr,
+  #algo = pls.kernel,
+  algo = pls.kernelw, listw = listw, 
+  ncomp = 2,
+  stor = TRUE
+  )
+
+names(fm)
+fm[c("y", "fit", "r")]
+
+## Object fm$fm: A list whose each component contains 
+## the output for one obsrervation to predict
+names(fm$fm)
+
+## Observation i
+i <- 1
+#i <- 2
+#i <- 3
+names(fm$fm[[1]])
+fm$fm[[1]]$fm
+fm$fm[[1]]$nn
+bcoef(fm$fm[[1]])
+
+## Score and orthogonal distances
+lscordis(fm)
+lodis(fm, Xr, Xu)
+
 }
 
 \keyword{datagen}
