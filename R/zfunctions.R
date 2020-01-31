@@ -67,6 +67,17 @@
   
   }
 
+.findmax.ind <- function(x, seed = NULL) {
+  ind <- which(x == max(x))
+  n <- length(ind)
+  if(n > 1) {
+    set.seed(seed = seed)
+    ind <- ind[sample(1:n, 1)]
+    set.seed(seed = NULL)
+    }
+  ind
+  }
+
 .knnda <- function(Xr = NULL, Yr, Xu = NULL, Yu = NULL, weights = NULL) {
 
   colnam.Yr <- colnames(Yr)
@@ -76,6 +87,8 @@
   ni <- c(table(Yr))
   nclas <- length(ni)
 
+  n <- length(Yr)
+  
   # levels returns the sorted character level names 
   lev <- levels(Yr)      
 
@@ -90,11 +103,7 @@
   dat <- data.frame(y = Yr, w = d)
   cnt <- dtaggregate(w ~ y, FUN = sum, data = dat)
 
-  ind <- which(cnt$w == max(cnt$w))
-  n <- length(ind)
-  set.seed(seed = 1)
-  if(n > 1) ind <- sample(1:n, 1)
-  set.seed(seed = NULL)
+  ind <- .findmax.ind(cnt$w)
   fit <- lev[ind]
   
   y <- Yu
