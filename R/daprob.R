@@ -20,14 +20,14 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
   ni <- c(table(Yr))
   nclas <- length(ni)
   
-  lev <- levels(Yr)
-  namclas <- as.character(lev)
+  # levels returns the sorted character level names 
+  lev <- levels(Yr)      
   
   if(!is.null(Yu)) Yu <- as.character(Yu) else Yu <- rep(NA, m) 
   
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
-    fit <- rep(namclas, m)
+    fit <- rep(lev, m)
     fm <- posterior <- prior <- ds <- NULL
     }
   ### END
@@ -70,9 +70,9 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
   
     # if ex-aequos, the first is selected
     z <- apply(posterior, FUN = function(x) which.max(x), MARGIN = 1) 
-    fit <- sapply(z, FUN = function(x) namclas[x])
+    fit <- sapply(z, FUN = function(x) lev[x])
     
-    colnames(posterior) <- colnames(prior) <- colnames(ds) <- namclas
+    colnames(posterior) <- colnames(prior) <- colnames(ds) <- lev
     rownames(posterior) <- rownames(prior) <- rownames(ds) <- rownam.Xu
   
     }

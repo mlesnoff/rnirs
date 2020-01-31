@@ -13,7 +13,9 @@ knnwda <- function(
   Xu <- .matrix(Xu)
   n <- nrow(Xr)
   m <- nrow(Xu)
-
+  
+  nclas <- length(unique(Yr))
+  
   if(is.null(ncompdis)) ncompdis <- 0
   ncompdis <- sort(unique(ncompdis))
   h <- sort(unique(h))
@@ -37,8 +39,11 @@ knnwda <- function(
     
     if(zncompdis == 0) {
       zresn <- getknn(Xr, Xu, k = zk, diss = diss)
-      } else { 
-        z <- pls.kernel(Xr, dummy(Yr), ncomp = zncompdis)
+      } else {
+          if(nclas == 1)
+            z <- pca.svd(Xr, ncomp = zncompdis)
+          else
+            z <- pls.kernel(Xr, dummy(Yr), ncomp = zncompdis)
         zresn <- getknn(z$T, .projscor(z, Xu), k = zk, diss = diss)
         }
     

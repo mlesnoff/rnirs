@@ -1,4 +1,4 @@
-## rnirs 1.3-6
+## rnirs 1.3-7
 ## Locally Weighted PLS Regression and Discrimination
 
 R package focusing on locally weighted prediction methods
@@ -6,17 +6,15 @@ R package focusing on locally weighted prediction methods
 - Regression for quantitative responses
 - Discrimination for qualitative responses 
 
-The prediction models can use partial least squares dimension reductions (PLS) or other methods.
+The prediction models can use dimension reduction methods (e.g. partial least squares) or other methods.
 
 The package can handle many types of data, although it was primarily dedicated to near infrared spectral (NIRS) data.
 
 The changes in the successive versions of the package are reported in the **NEWS** file above.
 
-Using **Rstudio** is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
+Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
 ### Main features 
-
-(Type **??rnirs** in the R console for details)
 
 * Data checking and summarizing
 * Data pre-processing: Detrend (poly, lowess, als), SNV, Derivation (Savitsky-Golay, Finite difference)
@@ -42,18 +40,39 @@ Using **Rstudio** is recommended for installation and usage (https://www.rstudio
 * Graphics
 * Miscellaneous functions
 
+You can write **??rnirs** in the R console for details.
+
 ### Installation from Github
 
-1. If not already done, install **devtools** package from the CRAN
+1. For the first installation and if not already done
+
+a. For Windows, install Rtools
+
+Download the Rtools.exe available at
+
+https://cran.r-project.org/bin/windows/Rtools/
+
+and run it.
+
+The Rtools site gives indications for other operating systems. 
+
+b. Install Rstudio
+
+https://www.rstudio.com/products/rstudio/download/
+
+c. Install package **devtools**  from the CRAN. Package devtools uses Rtools for facilitating packages installations. Use the Rstudio menu or write in the R console
 
 ```{r}
 install.packages("devtools")
 ```
-
-2. Load **devtools** and then install **rnirs** package
+2. Load **devtools**. Use the Rstudio menu or write in the R console
 
 ```{r}
 library(devtools)
+```
+3. Install **rnirs** package. Write in the R console
+
+```{r}
 install_github("mlesnoff/rnirs", dependencies = TRUE)
 ```
 
@@ -69,7 +88,7 @@ it is recommended (for easier installation) choosing:
 
 ### Installation from the Tar file rnirs_....tar.gz with Rstudio
 
-1. Install packages from the CRAN (Menu "Packages", "Install", and then "Install From CRAN")
+1. First, install packages from the CRAN
 
 - **data.table**
 - **FNN**
@@ -79,16 +98,16 @@ it is recommended (for easier installation) choosing:
 - **scales**
 - **signal**
 
-2. Install the file **rnirs_....tar.gz** (Menu "Packages", "Install", and then "Install From Package Archive Files")
+2. Then, install the file **rnirs_....tar.gz** (Menu "Packages", "Install", and then "Install From Package Archive Files")
 
 ### Usage
 
-Load **rnirs**
+Load **rnirs**. Write in the R console
 
 ```{r}
 library(rnirs)
 ```
-To get an overview of the available functions
+To get an overview of the available functions, write in the R console
 
 ```{r}
 ??rnirs

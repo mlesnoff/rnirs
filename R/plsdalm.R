@@ -14,8 +14,8 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   ni <- c(table(Yr))
   nclas <- length(ni)
 
-  lev <- levels(Yr)
-  namclas <- as.character(lev)
+  # levels returns the sorted character level names 
+  lev <- levels(Yr)      
   
   Xu <- .matrix(Xu)
   m <- nrow(Xu)
@@ -26,7 +26,8 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
     fm <- pca(Xr, Xu, ncomp = ncomp)
     fm$C <- matrix(NA, nrow = 1, ncol = ncomp)
     fm$ymeans <- rep(NA, nrow(Xu))
-    fit <- y <- rep(namclas, m * ncomp)
+    y <- rep(as.character(Yu), ncomp)
+    fit <- rep(lev, m * ncomp)
     dummyfit <- NULL
     }
   ### END
@@ -46,7 +47,7 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
     fit <- dummyfit
     fit <- fit[, (ncol(fit) - nclas + 1):ncol(fit)]
     fit <- apply(fit, FUN = function(x) which.max(x), MARGIN = 1)
-    fit <- sapply(fit, FUN = function(x) namclas[x])
+    fit <- sapply(fit, FUN = function(x) lev[x])
     
     if (!is.null(Yu))
       y <- rep(as.character(Yu), ncomp)

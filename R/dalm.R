@@ -14,8 +14,8 @@ dalm <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL){
   ni <- c(table(Yr))
   nclas <- length(ni)
   
-  lev <- levels(Yr)
-  namclas <- as.character(lev)
+  # levels returns the sorted character level names 
+  lev <- levels(Yr)      
   
   if(!is.null(Yu)) Yu <- as.character(Yu) else Yu <- rep(NA, m)
   
@@ -23,7 +23,7 @@ dalm <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL){
   
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
-    fit <- rep(namclas, m)
+    fit <- rep(lev, m)
     dummyfit <- NULL
     }
   ### END
@@ -40,12 +40,12 @@ dalm <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL){
     z <- Xu %*% beta
     
     row.names(z) <- rownam.Xu
-    colnames(z) <- namclas
+    colnames(z) <- lev
     dummyfit <- z
   
     # if ex-aequos, the first is selected
     z <- apply(dummyfit, FUN = function(x) which.max(x), MARGIN = 1) 
-    fit <- sapply(z, FUN = function(x) namclas[x])
+    fit <- sapply(z, FUN = function(x) lev[x])
   
     }
 

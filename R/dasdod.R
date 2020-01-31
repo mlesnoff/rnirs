@@ -23,7 +23,8 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
   ni <- c(table(Yr))
   nclas <- length(ni)
   
-  namclas <- as.character(levels(Yr))
+  # levels returns the sorted character level names 
+  lev <- levels(Yr)      
   
   if(!is.null(Yu)) 
     Yu <- as.character(Yu) else Yu <- rep(NA, m)
@@ -33,7 +34,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
 
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
-    fit <- rep(namclas, m)
+    fit <- rep(lev, m)
     pvarcla <- ncompcla <- d <- od.stand <- sd.stand <- NULL
     }
   ### END
@@ -50,7 +51,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
     
     for(i in 1:nclas) {
       
-      u <- which(Yr == namclas[i])
+      u <- which(Yr == lev[i])
       zn <- length(u)
       
       if(zn < nmin) {
@@ -101,12 +102,12 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
       }
       
     theta <- .5
-    colnames(od.stand) <- colnames(sd.stand) <- namclas
+    colnames(od.stand) <- colnames(sd.stand) <- lev
     d <- sqrt(theta * sd.stand^2 + (1 - theta) * od.stand^2)
   
     # if ex-aequos, the first is selected
     z <- apply(d, FUN = function(x) which.min(x), MARGIN = 1) 
-    fit <- sapply(z, FUN = function(x) namclas[x])
+    fit <- sapply(z, FUN = function(x) lev[x])
   
     }
 

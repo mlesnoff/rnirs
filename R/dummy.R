@@ -3,9 +3,12 @@ dummy <- function(Y) {
   if(sum(is.na(Y)) > 0)  stop("NA in 'Y' are not allowed")
   
   Y <- as.factor(Y)
+  # levels returns the sorted character level names 
   lev <- levels(Y)
   nlev <- length(lev)
-  #if(nlev > nlevmax)  stop("Too many levels: check if 'Y' is really a qualitative variable.")
+  
+  #if(nlev > nlevmax)  
+  #  stop("Too many levels: check if 'Y' is really a qualitative variable.")
   
   if(nlev == 1) Y <- factor(Y, levels = c(lev, ".NA"))
 

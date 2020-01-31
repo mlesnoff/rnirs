@@ -18,13 +18,14 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
   ni <- c(table(Yr))
   nclas <- length(ni)
   
-  namclas <- as.character(levels(Yr))
+  # levels returns the sorted character level names 
+  lev <- levels(Yr)      
   
   if(!is.null(Yu)) Yu <- as.character(Yu) else Yu <- rep(NA, m)
 
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
-    fit <- rep(namclas, m)
+    fit <- rep(lev, m)
     centers <- d <- NULL
     }
   ### END
@@ -70,11 +71,11 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
 
   if(is.vector(d)) d <- matrix(d, nrow = 1)
   
-  colnames(d) <- namclas
+  colnames(d) <- lev
   
   # if ex-aequos, the first is selected
   z <- apply(d, FUN = function(x) which.min(x), MARGIN = 1) 
-  fit <- sapply(z, FUN = function(x) namclas[x])
+  fit <- sapply(z, FUN = function(x) lev[x])
   
   }
   

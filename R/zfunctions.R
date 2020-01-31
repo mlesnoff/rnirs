@@ -71,9 +71,13 @@
 
   colnam.Yr <- colnames(Yr)
   if(is.null(colnam.Yr)) colnam.Yr <- "y1"
-
+  
   Yr <- as.factor(Yr)
-  namclas <- as.character(levels(Yr))
+  ni <- c(table(Yr))
+  nclas <- length(ni)
+
+  # levels returns the sorted character level names 
+  lev <- levels(Yr)      
 
   if(!is.null(Yu)) Yu <- as.character(Yu) else Yu <- NA
   if(length(Yu) != 1) stop("Dimension of Yu must be 1x1.")
@@ -91,7 +95,7 @@
   set.seed(seed = 1)
   if(n > 1) ind <- sample(1:n, 1)
   set.seed(seed = NULL)
-  fit <- namclas[ind]
+  fit <- lev[ind]
   
   y <- Yu
   r <- as.numeric(y != fit)
@@ -101,7 +105,7 @@
   r <- data.frame(rownum = 1, rownam = 1, r)
   names(cnt)[1] <- names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Yr
   
-  list(y = y, fit = fit, r = r, cnt = cnt)  
+  list(y = y, fit = fit, r = r, ni = ni, cnt = cnt)  
   
   }
 
