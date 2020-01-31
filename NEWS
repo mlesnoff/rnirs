@@ -2,7 +2,9 @@
 
 ###-----------------Version 1.3-7
 
+- Bug correction in lwlplsdalm. The bug concerned only the case where the knn selction selected samples having all the same class.
 
+- Modification of help page of function kenston. 
 
 
 ###-----------------Version 1.3-6
