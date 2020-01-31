@@ -1,4 +1,4 @@
-## rnirs 1.3-7
+## rnirs 1.4-0
 ## Locally Weighted PLS Regression and Discrimination
 
 R package focusing on locally weighted prediction methods
@@ -35,6 +35,7 @@ Using Rstudio is recommended for installation and usage (https://www.rstudio.com
     - Block-dimension reduction by SO-PLS or SO-PCA
 * Stacking
     - stackavg
+    - stackavg.cla
 * Cross-validation
     - Generic function **fitcv**
 * Graphics

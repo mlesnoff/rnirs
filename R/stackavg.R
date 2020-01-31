@@ -6,12 +6,13 @@ stackavg <- function(fit, y = NULL, formula = ~ 1, nam = NULL, weights = NULL) {
 
   if(is.null(nam)) nam <- names(fit)[ncol(fit)]
   
-  w <- weights
-  if(is.null(weights)) w <- rep(1, m)
+  if(is.null(weights)) w <- rep(1, m) else w <- weights
   
   fit$w <- w
-  zf <- paste("w", f)
-  z <- dtaggregate(formula = formula(zf), data = fit, FUN = sum)
+  z <- dtaggregate(
+    formula = formula(paste("w", f)), 
+    data = fit, FUN = sum
+    )
   names(z)[ncol(z)] <- "wtot"
   
   u <- merge(fit, z, by = colnames(z)[-ncol(z)])
@@ -19,19 +20,28 @@ stackavg <- function(fit, y = NULL, formula = ~ 1, nam = NULL, weights = NULL) {
   u[, nam]  <- u[, nam] * u$wfin
   fitw <- u
   
-  zf <- paste(nam, f)
-  z <- dtaggregate(formula = formula(zf), data = fitw, FUN = sum)
+  z <- dtaggregate(
+    formula = formula(paste(nam, f)), 
+    data = fitw, FUN = sum
+    )
   ## TMP FOR CHECKING
   #v$wtot <- dtaggregate(formula = formula(paste("wfin", f)), data = fitw, FUN = sum)$wfin
   ## END
   zfit <- z
   
   if(is.null(y)) {
+    
     zy <- zfit
     zy[, nam] <- rep(NA, nrow(zy))
+    
     }
   else
-    zy <- dtaggregate(formula = formula(zf), data = y, FUN = mean)
+    # y (= data) is the same for all the models.
+    # Therefore, a non-weighted mean is required here.
+    zy <- dtaggregate(
+      formula = formula(paste(nam, f)), 
+      data = y, FUN = mean
+      )
   
   r <- zy
   r[, nam] <- zy[, nam] - zfit[, nam] 

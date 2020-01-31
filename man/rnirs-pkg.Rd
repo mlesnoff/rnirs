@@ -100,6 +100,7 @@ The package was primarily dedicated to near infrared spectral (NIRS) data but ca
 \bold{------------ MODEL STACKING}
 \tabular{ll}{
   \code{\link{stackavg}} \tab Model stacking for regression models\cr 
+  \code{\link{stackavg.cla}} \tab Model stacking for discrimination models\cr 
   }
 
 \bold{------------ CROSS-VALIDATION AND ERROR RATES}
