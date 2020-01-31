@@ -66,14 +66,10 @@ c. Install package **devtools**  from the CRAN. Package devtools uses Rtools for
 ```{r}
 install.packages("devtools")
 ```
-2. Load **devtools**. Use the Rstudio menu or write in the R console
+2. Load **devtools** and install **rnirs** package. Write in the R console
 
 ```{r}
 library(devtools)
-```
-3. Install **rnirs** package. Write in the R console
-
-```{r}
 install_github("mlesnoff/rnirs", dependencies = TRUE)
 ```
 
