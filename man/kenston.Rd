@@ -6,7 +6,9 @@
 
 \description{
 
-Sampling row observations of a data set with the Kennard-Stone algorithm (1969), usually for selecting a test set.
+Sampling row observations of a data set with the Kennard-Stone (KS) algorithm (1969). 
+
+At the end, the KS algorithm provides a segmentation of the data set in two parts: one with higher variability (the selected KS samples) and one with lower variability (the non selected KS samples). Function \code{kenston} returns the part with higher variability (this may be the opposite in other softwares). The selected samples can be used as validation or test set for calibrating a robust model or estimating a robust RMSEP.
 
 }
 
@@ -28,7 +30,7 @@ kenston(X, m, diss = c("euclidean", "mahalanobis", "correlation"))
 
 \value{
 
-A vector of the indexes (i.e. row numbers) of the selected (usually test) observations.
+A vector of the indexes (i.e. row numbers) of the selected observations.
 
 }
 
