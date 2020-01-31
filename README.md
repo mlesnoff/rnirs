@@ -81,10 +81,7 @@ In case of the following question during installation
 These packages have more recent versions available.
 Which would you like to update?"
 ```
-it is recommended (for easier installation) choosing: 
-```{r}
-3: None
-```
+it is recommended to skip updates.
 
 ### Installation from the Tar file rnirs_....tar.gz with Rstudio
 
