@@ -14,7 +14,7 @@ The changes in the successive versions of the package are reported in the **NEWS
 
 Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
-### Main features 
+## Main features 
 
 * Data checking and summarizing
 * Data pre-processing: Detrend (poly, lowess, als), SNV, Derivation (Savitsky-Golay, Finite difference)
@@ -43,7 +43,7 @@ Using Rstudio is recommended for installation and usage (https://www.rstudio.com
 
 You can write **??rnirs** in the R console for details.
 
-### Installation from Github
+## Installation from Github
 
 1. For the first installation and if not already done
 
@@ -80,7 +80,7 @@ Which would you like to update?"
 ```
 it is recommended to skip updates.
 
-### Installation from the Tar file rnirs_....tar.gz with Rstudio
+## Installation from the Tar file rnirs_....tar.gz with Rstudio
 
 1. First, install packages from the CRAN
 
@@ -94,7 +94,7 @@ it is recommended to skip updates.
 
 2. Then, install the file **rnirs_....tar.gz** (Menu "Packages", "Install", and then "Install From Package Archive Files")
 
-### Usage
+## Usage
 
 Load **rnirs**. Write in the R console
 
