@@ -1,4 +1,4 @@
-.detrend.als <- function(X, lambda = 1e+07, p = 0.001, maxit = 25, baseline = FALSE) {
+.detrend.als <- function(X, lambda = 1e+07, p = 0.001, maxit = 25) {
   
   X <- .matrix(X)
   dimnam <- dimnames(X)
@@ -8,40 +8,32 @@
   zX <- t(apply(X, MARGIN = 1, FUN = fun, 
     lambda = lambda, p = p, eps = eps, maxit = maxit))
 
-  if(baseline) X <- zX else X <- X - zX
-  
   dimnames(X) <- dimnam
   X
   
   }
 
-.detrend.lowess <- function(X, f = 2/3, iter = 3, baseline = FALSE) {
+.detrend.lowess <- function(X, f = 2/3, iter = 3) {
   
   X <- .matrix(X)
   dimnam <- dimnames(X)
   
   fun <- function(x, f, iter) lowess(x, f = f, iter = iter)$y
   zX <- t(apply(X, MARGIN = 1, FUN = fun, f = f, iter = iter))
-
-  if(baseline) X <- zX else X <- X - zX
   
   dimnames(X) <- dimnam
   X
   
   }
 
-.detrend.poly <- function(X, degree = 1, baseline = FALSE) {
+.detrend.poly <- function(X, degree = 1) {
   
   X <- .matrix(X)
   dimnam <- dimnames(X)
   
-  if(baseline) 
-    zf <- fitted 
-  else 
-    zf <- resid
-  
   y <- 1:ncol(X)
-  fun <- function(x, y, degree) zf(lm(x ~ stats::poly(y, degree = degree)))
+  fun <- function(x, y, degree) 
+    resid(lm(x ~ stats::poly(y, degree = degree)))
 
   X <- t(apply(X, MARGIN = 1, FUN = fun, y = y, degree = degree))
   

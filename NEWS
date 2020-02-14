@@ -1,5 +1,14 @@
 ## News for package rnirs
 
+###-----------------Version 1.4-1
+
+- Improvement of headm.
+
+- Modification of the help of selnocomp.wold
+
+- Argument "baseline" in functions detrend has been removed (see examples).
+
+
 ###-----------------Version 1.4-0
 
 - New function stackavg.cla

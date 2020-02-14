@@ -2,26 +2,26 @@
 \alias{selncomp.wold}
 \encoding{latin1}
 
-\title{Heuristic selection of the number of components in a PCR/PLSR or PLSDA model with the Wold's criterion}
+\title{Heuristic selection of the number of components in a PLSR or PLSDA model with the Wold's criterion}
 
 \description{
 
-The function helps to select the number of components in a PCR/PLSR or PLSDA model using a heuristic criterion (Wold, 1978). The raw criterion is \eqn{R = 1 - r(a+1) / r(a)} where \eqn{r} is the error rate considered in the calculation (msep, rmsep, classification error rate, etc.) and \eqn{a} the model dimension (nb. components). \eqn{R} represents the relative gain in efficiency after a new dimension is added in the model. The iterations continue until \eqn{R} becomes lower than a threshold value \eqn{alpha} (by default, \eqn{alpha} is set to .01 in the function).
+The function helps to select the number of components in a PLSR or PLSDA model using a heuristic criterion (Wold, 1978). 
 
-Two other variants are proposed (argument \code{typ}):
+The criterion is \eqn{R = 1 - r(a+1) / r(a)} where \eqn{r} is the observed error rate quantifying the model performance (rmsep, msep, classification error rate, etc.) and \eqn{a} the model dimension (= nb. components). \eqn{R} represents the relative gain in efficiency after a new dimension is added to the model. The iterations continue until \eqn{R} becomes lower than a threshold value \eqn{alpha}. By default and as an indication, \eqn{alpha} is set to .01 in the function, but the user should set any more relevant value for his data, depending on his objective of parcimony.
 
-- An "integral" version in which the raw error rate is replaced by the area under the error rate curve. In that case, ratio \eqn{R} becomes \eqn{R = r(a+1) / r(a) - 1}.
+In some cases, the observed error rate \eqn{r} is erratic, making difficult interpreting the \eqn{R} variations. This is for instance frequent with the classification error rate used in discrimination. For such a situation, \code{selncomp.wold} proposes two alternative to the observed error rate \eqn{r} (using argument \code{typ}):
 
-- A "smoothed" version in which the raw error rate is smoothed (using function \code{\link{lowess}}) before calculating \eqn{R}.
+- \code{typ = "integral"}. \eqn{R} is calculated from the area under the observed error rate curve \eqn{r}. In that case, ratio \eqn{R} becomes \eqn{R = c.r(a+1) / c.r(a) - 1}, where \eqn{c.r} is the cumulated error rate ("area" under the curve).
 
-Both variants can be usefull when the observed raw error rate is erratic, making difficult interpreting the \eqn{R} variations. This is frequent with classification error rates. 
+- \code{typ = "smoothed"}. \eqn{R} is calculated on a non-parametric smoothing  (using function \code{\link{lowess}}) of \eqn{r}.
 
 }
 
 \usage{
 selncomp.wold(obj, nam = "rmsep", alpha = .01, 
-  typ = c("raw", "integral", "smooth"), correct = TRUE, digits = 3,
-  plot = TRUE, title = NULL, ...
+  typ = c("raw", "integral", "smooth"), 
+  correct = TRUE, digits = 3, plot = TRUE, title = NULL, ...
   )
   }
 
@@ -31,7 +31,7 @@ selncomp.wold(obj, nam = "rmsep", alpha = .01,
 
 \item{nam}{Name (character string) of the column corresponding to the error rate \eqn{r}. Default is \code{nam = "rmse"}.}
 
-\item{typ}{Type of calculation of the criterium \eqn{R}. Possible values are \code{"raw"} (default), \code{"integral"} and \code{"smooth"}.}
+\item{typ}{Type of calculation of the criterium \eqn{R}. Possible values are \code{"raw"} (default; usual calculation on the observed error rate), \code{"integral"} and \code{"smooth"}.}
 
 \item{alpha}{Proportion \eqn{alpha} used as threshold for selecting the number of components.}
 
@@ -39,7 +39,7 @@ selncomp.wold(obj, nam = "rmsep", alpha = .01,
 
 \item{digits}{The number of digits for the numerical outputs.}
 
-\item{plot}{Logical indicating is a plot is drawn. Default to \code{TRUE}.}
+\item{plot}{Logical indicating is a plot is dobservedn. Default to \code{TRUE}.}
 
 \item{title}{Optional title for the plot. Default to \code{NULL}.}
 

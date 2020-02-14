@@ -49,14 +49,14 @@ stackavg.cla <- function(fit, y = NULL, formula = ~ 1, nam = NULL, weights = NUL
   res <- data.frame(res, z, stringsAsFactors = FALSE)
   names(res)[ncol(res)] <- nam
   
-  zfit <- res
+  fit.avg <- res
   
   ###### y
   
   if(is.null(y)) {
     
-    zy <- zfit
-    zy[, nam] <- rep(NA, nrow(zy))
+    y.avg <- fit.avg
+    y.avg[, nam] <- rep(NA, nrow(y.avg))
     
     }
   else {
@@ -85,15 +85,15 @@ stackavg.cla <- function(fit, y = NULL, formula = ~ 1, nam = NULL, weights = NUL
     res <- data.frame(res, z, stringsAsFactors = FALSE)
     names(res)[ncol(res)] <- nam
     
-    zy <- res
+    y.avg <- res
 
   }
   
-  r <- zy
-  r[, nam] <- as.numeric(zy[, nam] != zfit[, nam])
+  r <- y.avg
+  r[, nam] <- as.numeric(y.avg[, nam] != fit.avg[, nam])
   
   ###### end  
   
-  list(y = zy, fit = zfit, r = r, fitw = fitw)
+  list(y = y.avg, fit = fit.avg, r = r, fitw = fitw)
 
   }
