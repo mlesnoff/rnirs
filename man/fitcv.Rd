@@ -92,7 +92,7 @@ fun <- function(Xr, Yr, Xu, Yu = NULL, k, ncomp, ncompdis) {
     Xr, Yr,
     Xu, Yu,
     listnn = resn$listnn,
-    listw = lapply(resn$listd, wkern, h = 2),
+    listw = lapply(resn$listd, wdist, h = 2),
     fun = plsr,
     algo = pls.kernelw,
     ncomp = ncomp,

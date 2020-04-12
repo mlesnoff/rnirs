@@ -6,7 +6,7 @@ odis <- function(fm, Xr, Xu = NULL,
   
   out <- match.arg(out)
   
-  Xr <- .matrix(Xr, prefix.colnam = "x")
+  Xr <- .matrix(Xr)
   n <- nrow(Xr)
   rownam <- row.names(Xr)
   

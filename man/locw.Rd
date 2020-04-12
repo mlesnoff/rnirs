@@ -72,7 +72,7 @@ library(ggplot2)
 data(datcass)
 data(datforages)
 
-############ QUANTITATIVE RESPONSE
+############################# QUANTITATIVE RESPONSE
 
 Xr <- datcass$Xr
 yr <- datcass$yr
@@ -90,7 +90,7 @@ headm(Xu)
 ## The dissimilarity between the observations are defined by the Mahalanobis distance 
 ## calculated from a global PLS score space of ncompdis = 10 components.
 ## - Weighting "1" = selection of k = 50 nearest neighbors
-## - Weighting "2" = weights within each neighborhood calculated with "wkern" 
+## - Weighting "2" = weights within each neighborhood calculated with "wdist" 
 
 ncompdis <- 10
 h <- 2
@@ -99,7 +99,7 @@ ncomp <- 20
 z <- pls(Xr, yr, Xu, ncomp = ncompdis)
 resn <- getknn(z$Tr, z$Tu, k = k, diss = "mahalanobis")
 listnn <- resn$listnn
-listw <- lapply(resn$listd, wkern, h = h)
+listw <- lapply(resn$listd, wdist, h = h)
 fm <- locw(
   Xr, yr,
   Xu, yu,
@@ -141,7 +141,7 @@ z[z$rmsep == min(z$rmsep), ]
 plotmse(z, group = "k")
 
 
-############ QUALITATIVE RESPONSE
+############################# QUALITATIVE RESPONSE
 
 Xr <- datforages$Xr
 yr <- datforages$yr
@@ -162,7 +162,7 @@ table(yu)
 ## The dissimilarity between the observations are defined by the Mahalanobis distance 
 ## calculated from a global PLS score space of ncompdis = 10 components.
 ## - Weighting "1" = selection of k = 50 nearest neighbors
-## - Weighting "2" = weights within each neighborhood calculated with "wkern" 
+## - Weighting "2" = weights within each neighborhood calculated with "wdist" 
 
 ncompdis <- 10
 h <- 2
@@ -171,7 +171,7 @@ ncomp <- 15
 z <- pls(Xr, dummy(yr), Xu, ncomp = ncompdis)
 resn <- getknn(z$Tr, z$Tu, k = k, diss = "mahalanobis")
 listnn <- resn$listnn
-listw <- lapply(resn$listd, wkern, h = h)
+listw <- lapply(resn$listd, wdist, h = h)
 fm <- locw(
   Xr, yr,
   Xu, yu,
@@ -204,7 +204,7 @@ ncomp <- 15
 resn <- getknn(zfm$Tr[, 1:ncompdis], zfm$Tu[, 1:ncompdis], 
   k = k, diss = "mahalanobis")
 listnn <- resn$listnn
-listw <- lapply(resn$listd, wkern, h = h)
+listw <- lapply(resn$listd, wdist, h = h)
 fm <- locw(
   zfm$Tr, yr,
   zfm$Tu, yu,
@@ -220,7 +220,7 @@ z <- err(fm, ~ ncomp + k)
 z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp", group = "k")
 
-############ OBJECTS RETURNED BY THE FUNCTION
+############################# OBJECTS RETURNED BY THE FUNCTION
 
 n <- 8
 p <- 6
@@ -239,7 +239,7 @@ Xu <- X[c(1, 2, 4), ] ; Yu <- Y[c(1, 2, 4), ]
 z <- pls(Xr, Yr, Xu, ncomp = 3)
 z <- getknn(z$Tr, z$Tu, k = 5, diss = "mahalanobis")
 listnn <- z$listnn
-listw <- lapply(z$listd, wkern, h = 2)
+listw <- lapply(z$listd, wdist, h = 2)
 fm <- locw(
   Xr, Yr,
   Xu, Yu,
@@ -254,20 +254,29 @@ fm <- locw(
 names(fm)
 fm[c("y", "fit", "r")]
 
-## Object fm$fm: A list whose each component contains 
-## the output for one obsrervation to predict
+### Object fm$fm 
+### = list of the outputs for each predicted observation 
+### Length of the list = nrow(Xu)
+
 names(fm$fm)
 
-## Observation i
+### Observation i
 i <- 1
 #i <- 2
 #i <- 3
 names(fm$fm[[1]])
-fm$fm[[1]]$fm
+
+# Neighbors
 fm$fm[[1]]$nn
+
+# PLS model on the neighbors
+fm$fm[[1]]$fm
+
+# b-coefficients of this PLS model
 bcoef(fm$fm[[1]])
 
-## Score and orthogonal distances
+### Score and orthogonal distances for the PLS models
+
 lscordis(fm)
 lodis(fm, Xr, Xu)
 

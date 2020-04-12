@@ -14,12 +14,9 @@ blockscal <- function(Xr, Xu = NULL, blocks, weights = rep(1, nrow(Xr))) {
   xdisptot <- rep(NA, nbl)
   for(i in 1:nbl) {
     
-    xdisptot[i] <- sqrt(
-      sum(
-      apply(Xr[, newblocks[[i]], drop = FALSE], MARGIN = 2, FUN = .varw, 
-        weights = weights)
-        )
-      )
+    z <- .xvars(Xr[, newblocks[[i]], drop = FALSE], weights = weights)
+    
+    xdisptot[i] <- sqrt(sum(z))
     
     Xr[, newblocks[[i]]] <- Xr[, newblocks[[i]], drop = FALSE] / xdisptot[i]
       

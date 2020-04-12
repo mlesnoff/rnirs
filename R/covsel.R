@@ -1,6 +1,6 @@
 covsel <- function(X, Y, nvar = NULL, scaly = TRUE, weights = rep(1, nrow(X))) {
   
-  X <- .matrix(X, prefix.colnam = "x")
+  X <- .matrix(X)
   n <- nrow(X)
   p <- ncol(X)
   
@@ -12,10 +12,10 @@ covsel <- function(X, Y, nvar = NULL, scaly = TRUE, weights = rep(1, nrow(X))) {
   d <- weights / sum(weights)
   D <- diag(d)
   
-  xmeans <- colSums(d * X)
+  xmeans <- .xmeans(X, weights = d)
   X <- scale(X, center = xmeans, scale = FALSE)
   
-  ymeans <- colSums(d * Y)
+  ymeans <- .xmeans(Y, weights = d)
   Y <- scale(Y, center = ymeans, scale = FALSE)
   
   if(scaly)

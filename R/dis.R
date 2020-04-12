@@ -5,7 +5,7 @@ dis <- function(mu = NULL, Xr, Xu = NULL,
   diss <- match.arg(diss)
   out <- match.arg(out)
   
-  Xr <- .matrix(Xr, prefix.colnam = "x")                                              
+  Xr <- .matrix(Xr)                                              
   n <- nrow(Xr)
   p <- ncol(Xr)
   rownam <- row.names(Xr)
@@ -43,7 +43,7 @@ dis <- function(mu = NULL, Xr, Xu = NULL,
   du <- NULL
   if(!is.null(Xu)) {
     
-    Xu <- .matrix(Xu, prefix.colnam = "x")                                              
+    Xu <- .matrix(Xu)                                              
     m <- nrow(Xu)
     rownam <- row.names(Xu)
     

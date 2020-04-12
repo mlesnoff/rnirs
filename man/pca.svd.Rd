@@ -2,25 +2,30 @@
 \alias{pca.svd}
 \alias{pca.eigen}
 \alias{pca.nipals}
+\alias{pca.nipalsna}
 \alias{pca.svdw}
 \alias{pca.eigenw}
+\alias{pca.nipalsw}
 \encoding{latin1}
 
 \title{PCA algorithms}
 
 \description{
 
-Algorithms for PCA.
+Algorithms for centered PCA of a matrix \eqn{X}.
 
-\code{pca.svd} implements a SVD decomposition, using function \code{\link{svd}}. 
+- \code{pca.svd}, \code{pca.svdw}: SVD decomposition, using function \code{\link{svd}}. 
 
-\code{pca.eigen} implements an eigen decomposition, using function \code{\link{eigen}}. 
+- \code{pca.eigen}, \code{pca.eigenw}: eigen decomposition, using function \code{\link{eigen}}. 
 
-\code{pca.nipals} implements the NIPALS PCA algorithm. The core of \code{pca.nipals} uses the optimized (for computation time) code  of function \code{nipals} of package \code{nipals} (K. Wright) available on CRAN. Missing data are allowed.
+- \code{pca.nipals}, \code{pca.nipalsw}: NIPALS. 
 
-Functions \code{pca.eigenw} and \code{pca.svdw} allows to define statistical weights for the observations different from the weights \eqn{1/n} used in standard PCA. This modifies the importance of the \eqn{n} training observations in the calculations of the scores and loadings.
+- \code{pca.nipalsna}: NIPALS allowing missing data in \eqn{X} (\code{NA} are not allowed in the other algorithms). The core of \code{pca.nipals} uses the optimized code (for computation time) of function \code{nipals} of package \code{nipals} (K. Wright) available on CRAN.
 
-Missing values are not allowed except for function \code{pca.nipals}.
+All algorithms center matrix \eqn{X}.
+
+Functions \code{pca.svdw} and \code{pca.eigenw} give weights to the observations (rows of \eqn{X}) (argument \code{weight}). This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. Function \code{pca.svdw} implements a SVD of \eqn{D^(1/2) X}, where D = diag(weights) and X has been centered with metric \eqn{D}. Function \code{pca.eignenw} implements an eigen decomposition of \eqn{X' D X}.
+
 }
 
 \usage{
@@ -29,12 +34,18 @@ pca.svd(X, ncomp)
 
 pca.eigen(X, ncomp)
 
-pca.nipals(X, ncomp, gramschmidt = TRUE,
+pca.nipals(X, ncomp,
+  tol = .Machine$double.eps^0.5, maxit = 100)
+
+pca.nipalsna(X, ncomp, gramschmidt = TRUE,
   tol = .Machine$double.eps^0.5, maxit = 100)
 
 pca.svdw(X, ncomp, weights = rep(1, nrow(X)))
 
 pca.eigenw(X, ncomp, weights = rep(1, nrow(X)))
+
+pca.nipalsw(X, ncomp, weights = rep(1, nrow(X)),
+  tol = .Machine$double.eps^0.5, maxit = 100)
 
 }
 
@@ -44,22 +55,15 @@ pca.eigenw(X, ncomp, weights = rep(1, nrow(X)))
 
 \item{ncomp}{The number of PCA scores (i.e. components) to be calculated.}
 
-\item{weights}{A vector of length \eqn{n} defining the statistical weights to apply to the observations. }
+\item{weights}{A vector of length \eqn{n} defining the weights to apply to the observations.}
 
-Specific arguments of \code{pca.nipals}:
+Specific arguments of \code{pca.nipalsna}:
 
 \item{gramschmidt}{Logical. If TRUE (default), when there are missing data, a Gram-Schmidt orthogonalization is implemented at each iteration of the NIPALS algorithm. This slightly corrects the scores to insure that they are orthogonal. See vignettes in package \code{nipals}.}
 
 \item{tol}{Tolerance for testing convergence of the NIPALS iterations for each principal component.}
 
 \item{maxit}{Maximum number of NIPALS iterations for each principal component.}
-
-}
-
-
-\details{
-
-The functions center \eqn{X} before the analysis, and normalize the eventual statistical weights to sum to 1 (the \code{weights} input is automatically tranformed to \code{weights/sum(weights)}). If all the weights are set to be equal, this is the standard PCA.
 
 }
 
@@ -91,7 +95,6 @@ Wright, K., 2018. Package nipals: Principal Components Analysis using NIPALS wit
 
 }
 
-
 \examples{
 
 n <- 6
@@ -115,7 +118,7 @@ X2 <- X
 X2[3, 3] <- X2[1, 3] <- X2[1, 2] <- NA
 X2
 
-fm <- pca.nipals(X2, ncomp = 3)
+fm <- pca.nipalsna(X2, ncomp = 3)
 fm
 
 ## Replacement of the missing data in X2

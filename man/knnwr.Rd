@@ -53,7 +53,7 @@ knnwda(
 
 \item{ncompdis}{A vector (eventually of length = 1) defining the number(s) of components of the preliminary global PLS calculated on \eqn{(Xr, Yr)} and \eqn{Xu} for calculating the  dissimilarities used for defining the neighbors. If \code{NULL} (default; no preliminary data compression), the dissimilarities are calculated from the original data \eqn{Xr} and \eqn{Xu}.Each component of \code{ncompdis} is considered successively in the calculations.}
 
-\item{h}{A vector (eventually of length = 1) defining the scaling shape factor(s) of the function of the weights applied to the neighbors in the weighted PLSR. Lower is \eqn{h}, sharper is the function. See \code{\link{wkern}}. Each component of \code{h} is considered successively in the calculations.}
+\item{h}{A vector (eventually of length = 1) defining the scaling shape factor(s) of the function of the weights applied to the neighbors in the weighted PLSR. Lower is \eqn{h}, sharper is the function. See \code{\link{wdist}}. Each component of \code{h} is considered successively in the calculations.}
 
 \item{k}{A vector (eventually of length = 1) defining the number(s) of nearest neighbors to select in the reference data set for each observation to predict. Each component of \code{k} is considered successively in the calculations.}
 
@@ -105,7 +105,7 @@ headm(Xu)
 ## by the Mahalanobis distances calculated from a global PLS score space
 ## of ncompdis = 10 components.
 ## - Weighting "1" = knn selection of k = {5, 10, 15} neighbors
-## - Weighting "2" = within each neighborhood, weights are calculated by "wkern" 
+## - Weighting "2" = within each neighborhood, weights are calculated by "wdist" 
 
 ncompdis <- 10
 h <- c(1, 2)
@@ -179,7 +179,7 @@ table(yu)
 ## by the Mahalanobis distances calculated from a global PLS score space
 ## of ncompdis = 10 components.
 ## - Weighting "1" = knn selection of k = {5, 10, 15} neighbors
-## - Weighting "2" = within each neighborhood, weights are calculated by "wkern" 
+## - Weighting "2" = within each neighborhood, weights are calculated by "wdist" 
 
 ncompdis <- 10
 h <- c(1, 2)

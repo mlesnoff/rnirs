@@ -2,7 +2,7 @@ orthog <- function(X, Y, weights = rep(1, nrow(X))) {
   
   # Y is orthogonalized to X
 
-  X <- .matrix(X, prefix.colnam = "x")
+  X <- .matrix(X)
   n <- nrow(X)
   
   Y <- .matrix(Y, row = FALSE, prefix.colnam = "y")

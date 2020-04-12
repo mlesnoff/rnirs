@@ -42,7 +42,7 @@ knnwr <- function(
         zresn <- getknn(z$T, .projscor(z, Xu), k = zk, diss = diss)
         }
     
-    zlistw <- lapply(zresn$listd, wkern, h = zh)
+    zlistw <- lapply(zresn$listd, wdist, h = zh)
     
     zfm <- locw(
       Xr, Yr,

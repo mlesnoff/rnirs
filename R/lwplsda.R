@@ -11,8 +11,8 @@ lwplsda <- function(
 
   diss <- match.arg(diss)
   
-  Xr <- .matrix(Xr, prefix.colnam = "x")
-  Xu <- .matrix(Xu, prefix.colnam = "x")
+  Xr <- .matrix(Xr)
+  Xu <- .matrix(Xu)
   n <- nrow(Xr)
   m <- nrow(Xu)
 
@@ -49,7 +49,7 @@ lwplsda <- function(
         zresn <- getknn(z$T, .projscor(z, Xu), k = zk, diss = diss)
         }    
   
-    zlistw <- lapply(zresn$listd, wkern, h = zh)
+    zlistw <- lapply(zresn$listd, wdist, h = zh)
     
     zfm <- locw(
       Xr, Yr,

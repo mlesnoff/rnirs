@@ -82,7 +82,7 @@ lwplsdalm(
 
 \item{ncompdis}{A vector (eventually of length = 1) defining the number(s) of components of the preliminary global PLS calculated on \eqn{(Xr, Yr)} and \eqn{Xu} for calculating the  dissimilarities used for defining the neighbors. If \code{NULL} (default), there is no preliminary data compression), i.e. the dissimilarities are calculated from the original \eqn{Xr} and \eqn{Xu} data.Each component of \code{ncompdis} is considered successively in the calculations.}
 
-\item{h}{A vector (eventually of length = 1) defining the scaling shape factor(s) of the function of the weights applied to the neighbors in the weighted PLSR. Lower is \eqn{h}, sharper is the function. See \code{\link{wkern}}.Each component of \code{h} is considered successively in the calculations.}
+\item{h}{A vector (eventually of length = 1) defining the scaling shape factor(s) of the function of the weights applied to the neighbors in the weighted PLSR. Lower is \eqn{h}, sharper is the function. See \code{\link{wdist}}.Each component of \code{h} is considered successively in the calculations.}
 
 \item{k}{A vector (eventually of length = 1) defining the number(s) of nearest neighbors to select in the reference data set for each observation to predict. Each component of \code{k} is considered successively in the calculations.}
 
@@ -127,7 +127,7 @@ library(ggplot2)
 data(datcass)
 data(datforages)
 
-####################### lwplsr
+############################# lwplsr
 
 Xr <- datcass$Xr
 yr <- datcass$yr
@@ -145,7 +145,7 @@ dim(Xu)
 ## by the Mahalanobis distances calculated in a global PLS score space
 ## of ncompdis = 10 components.
 ## - Weighting 1 = selection of k nearest neighbors
-## - Weighting 2 = weights within each neighborhood calculated with "wkern" 
+## - Weighting 2 = weights within each neighborhood calculated with "wdist" 
 
 ncompdis <- 10
 h <- c(2, Inf)
@@ -201,7 +201,7 @@ u$group <- paste("h=", u$h, ", k=", u$k, sep = "")
 plotmse(u, group = "group")
 
 
-####################### lwplsda
+############################# lwplsda
 
 Xr <- datforages$Xr
 yr <- datforages$yr
@@ -223,7 +223,7 @@ table(yu)
 ## by the Mahalanobis distances calculated from a global PLS score space
 ## of ncompdis = 10 components.
 ## - Weighting 1 = knn selection of k = {5, 10, 15} neighbors
-## - Weighting 2 = within each neighborhood, weights are calculated by "wkern" 
+## - Weighting 2 = within each neighborhood, weights are calculated by "wdist" 
 
 ncompdis <- 10
 h <- 2
@@ -285,6 +285,65 @@ fm <- lwplsda(
 z <- err(fm, ~ ncompdis + h + k + ncomp)
 z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp", group = "k")
+
+############################# OBJECTS RETURNED BY THE FUNCTIONS
+
+n <- 8
+p <- 6
+set.seed(1)
+X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
+row.names(X) <- paste("AA", 1:n, sep = "")
+y1 <- 100 * rnorm(nrow(X))
+y2 <- 100 * rnorm(nrow(X))
+Y <- cbind(y1, y2)
+set.seed(NULL)
+
+Xr <- X
+Yr <- Y
+Xu <- X[c(1, 2, 4), ] ; Yu <- Y[c(1, 2, 4), ]
+
+ncompdis <- 3
+h <- 2
+k <- 5
+ncomp <- 2
+fm <- lwplsr(
+  Xr, Yr,
+  Xu, Yu,
+  ncompdis = ncompdis, diss = "mahalanobis",
+  h = h, k = k,
+  ncomp = ncomp,
+  print = TRUE
+  )
+
+names(fm)
+fm[c("y", "fit", "r")]
+
+### Object fm$fm 
+### = list of the outputs for each predicted observation 
+### Length of the list = nrow(Xu)
+
+names(fm$fm)
+
+### Observation i
+i <- 1
+#i <- 2
+#i <- 3
+names(fm$fm[[1]])
+
+# Neighbors
+fm$fm[[1]]$nn
+
+# PLS model on the neighbors
+fm$fm[[1]]$fm
+
+# b-coefficients of this PLS model
+bcoef(fm$fm[[1]])
+
+### Score and orthogonal distances for the PLS models
+
+lscordis(fm)
+lodis(fm, Xr, Xu)
+
 
 }
 

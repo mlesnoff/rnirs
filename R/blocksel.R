@@ -1,6 +1,6 @@
 blocksel <- function(X, blocks) {
   
-  X <- .matrix(X, prefix.colnam = "x")
+  X <- .matrix(X)
   n <- nrow(X)
   
   nbl <- length(blocks)

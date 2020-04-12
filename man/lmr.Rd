@@ -2,7 +2,7 @@
 \alias{lmr}
 \encoding{latin1}
 
-\title{PLSR models}
+\title{LMR models}
 
 \description{
 

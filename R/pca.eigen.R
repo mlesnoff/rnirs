@@ -1,6 +1,6 @@
 pca.eigen <- function(X, ncomp) {
   
-  X <- .matrix(X, prefix.colnam = "x")
+  X <- .matrix(X)
   n <- nrow(X)
   p <- ncol(X)
 
@@ -9,9 +9,14 @@ pca.eigen <- function(X, ncomp) {
 
   z <- eigen(crossprod(X))
   
-  xss <- z$values[1:ncomp]  # = eigenvalues of X'X
+  xss <- z$values[1:ncomp]
+  ## = eigenvalues of X'X
+  ## = colSums(T * T)
   
-  sv <- sqrt(xss)           # norms of the scores T = sv[1:ncomp]
+  sv <- sqrt(xss)
+  ## = norms of the scores T
+  ## = .xnorms(T)
+  ## = sqrt(colSums(T * T))
   
   P <- z$vectors[, 1:ncomp, drop = FALSE]
 
@@ -20,10 +25,10 @@ pca.eigen <- function(X, ncomp) {
   row.names(T) <- row.names(X)
   row.names(P) <- colnames(X)
   
-  nam <- paste("comp", 1:ncomp, sep = "")
-  colnames(T) <- colnames(P) <- nam
+  colnames(T) <- colnames(P) <- paste("comp", 1:ncomp, sep = "")
   
-  list(T = T, P = P, R = P, sv = sv, xss = xss, xmeans = xmeans, weights = rep(1 / n, n))
+  list(T = T, P = P, R = P, sv = sv, xss = xss, 
+    xmeans = xmeans, weights = rep(1, n))
 
 }
 

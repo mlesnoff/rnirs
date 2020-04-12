@@ -1,63 +1,91 @@
 ## News for package rnirs
 
-###-----------------Version 1.4-1
+###----------------- Version 1.5-0
 
-- Improvement of headm.
+- Function wkern has been renamed to wdist, and slightly modified (in particular for the management of the outliers). This may vary slightly the numerical results of
+functions using wdist.
+
+- Function pca.nipals has been renamed to pca.nipalsna.
+
+- New functions have been added: 
+
+    influ.pls
+
+    pca.nipals
+
+    pca.nipalsw
+
+    Auxiliary functions available in file zfunctions.R
+      .wkern: Various weight functions
+      .xmeans, .xvars: weighted column means and variances of a matrix
+      .xcov, .xcor: weighted covariance and correlation matrices
+      .nipals: NIPALS computation of the 1st eigen vector of a matrix
+      
+- Small bugs have been corrected in summary outputs of pca.svdw, pca.eigenw, and pca/pls for weighted versions.
+
+- Improvement of help page of function lwplsr.
+
+- Various code cleaning.
+
+
+###----------------- Version 1.4-1
+
+- Improvement of function headm.
 
 - Modification of the help of selnocomp.wold
 
-- Argument "baseline" in functions detrend has been removed (see examples).
+- Argument "baseline" in function detrend has been removed (see examples).
 
 
-###-----------------Version 1.4-0
+###----------------- Version 1.4-0
 
 - New function stackavg.cla
 
 
-###-----------------Version 1.3-7
+###----------------- Version 1.3-7
 
-- Bug correction in lwlplsdalm. The bug concerned only the case where the knn selction selected samples having all the same class.
+- Bug correction in lwlplsdalm. The bug concerned only the case where the knn selection selected samples having all the same class.
 
 - Modification of help page of function kenston. 
 
 
-###-----------------Version 1.3-6
+###----------------- Version 1.3-6
 
 - Modifications in few help pages.
 
 
-###-----------------Version 1.3-5
+###----------------- Version 1.3-5
 
 - Correction of a small bug in function plsdalm (consistency with functions sdis, odis).
 
 
-###-----------------Version 1.3-4
+###----------------- Version 1.3-4
 
 - Add of variable contributions in outputs of function pca.
 
 
-###-----------------Version 1.3-3
+###----------------- Version 1.3-3
 
 - Correction of a bug in function plotxy (colors with group).
 
 - Modification of help pages of functions blockscal, blockpls and blocksopls.
 
 
-###-----------------Version 1.3-2
+###----------------- Version 1.3-2
 
 - New functions lscordis and lodis.
 
 - Slight modification of outputs of function locw.
 
 
-###-----------------Version 1.3-1
+###----------------- Version 1.3-1
 
 - Correction of a small bug in function plotxy.
 
 - Modifictaion of examples.
 
 
-###-----------------Version 1.3-0
+###----------------- Version 1.3-0
 
 - Correction of a small bug in function fda.
 
@@ -80,7 +108,7 @@
 - Few modifications of outpits of functions locw, lwplsr, etc.
 
 
-###-----------------Version 1.2-3
+###----------------- Version 1.2-3
 
 - Package ptw has been added and is now required.
 
@@ -93,22 +121,22 @@
 - Function selw was removed.
 
 
-###-----------------Version 1.2-2
+###----------------- Version 1.2-2
 
 - Correction of a small bug in function fitcv.
 
 
-###-----------------Version 1.2-1
+###----------------- Version 1.2-1
 
 - Correction of the example in the help page of function orthog.
 
 
-###-----------------Version 1.2-0
+###----------------- Version 1.2-0
 
 - New functions:  blocksopls, blocksopca.
 
 
-###-----------------Version 1.1-2
+###----------------- Version 1.1-2
 
 - New function:  headm.
 
@@ -117,7 +145,7 @@
 - Function blockreduct has been renamed to blockpls.
 
 
-###-----------------Version 1.1-1
+###----------------- Version 1.1-1
 
 - New functions:    
 
@@ -127,7 +155,7 @@
 . orthog.
 
 
-###-----------------Version 1.1-0
+###----------------- Version 1.1-0
 
 - Major code cleaning in the functions for improving memory management. 
 
@@ -139,34 +167,34 @@ locw was removed.
 - Function pcr was removed.
 
 
-###-----------------Version 1.0-10
+###----------------- Version 1.0-10
 
 - For facilitating the learning of the package, all the examples in the vignettes
 have been moved again in the example sections of the help pages. 
 Vignettes have been removed.
 
-###-----------------Version 1.0-9
+###----------------- Version 1.0-9
 
 - Bug correction in plotmse. Now, "group" must be a column of "obj".
 
 
-###-----------------Version 1.0-8
+###----------------- Version 1.0-8
 
 - Minor correction of DESCRIPTION file.
 
 - Minor changes in examples of  help pages.
 
-###-----------------Version 1.0-7
+###----------------- Version 1.0-7
 
 - For compatibility with CRAN rules: Long and/or documented examples moved from the help pages to vignettes.
 
 
-###-----------------Version 1.0-6
+###----------------- Version 1.0-6
 
 - Function stackmod: simplification (y is now univariate) and correction of potential minor bug.
 
 
-###-----------------Version 1.0-5
+###----------------- Version 1.0-5
 
 - Minor changes in documentations.
 

@@ -6,7 +6,7 @@
 
 \description{
 
-Calculation of dissimilarities between the row observations of a data set and a given vector \eqn{mu}. By default, vector \eqn{mu} is the center (column means) of the reference (= training) data set.
+Calculation of dissimilarities between the row observations of a data set and a given vector \eqn{mu}. By default, if not specified, vector \eqn{mu} is the center (column means) of the reference (= training) data set.
 
 }
 
@@ -19,7 +19,7 @@ dis(mu = NULL, Xr, Xu = NULL, diss = c("euclidean", "mahalanobis", "correlation"
 
 \arguments{
 
-\item{mu}{The vector of length \eqn{p} which is compared to the rows of \eqn{Xr} and, if not \code{NULL}, to the rows \eqn{Xu}. If \code{mu} is \code{NULL} (default), \code{mu} is set to the center (column means) of \eqn{Xr}. }
+\item{mu}{The vector of length \eqn{p} which is compared to the \eqn{n} rows of \eqn{Xr} and, if not \code{NULL}, to the \eqn{m} rows \eqn{Xu}. If \code{mu} is \code{NULL} (default), \code{mu} is set to the center (column means) of \eqn{Xr}. }
 
 \item{Xr}{A \eqn{n x p} matrix or data frame of reference (= training) observations.}
 
@@ -27,17 +27,17 @@ dis(mu = NULL, Xr, Xu = NULL, diss = c("euclidean", "mahalanobis", "correlation"
 
 \item{diss}{The type of dissimilarities used. Possible values are "euclidean" (Euclidean distances; default), "mahalanobis" (Mahalanobis distances), or "correlation". Correlation dissimilarities are calculated by \eqn{sqrt(.5 * (1 - rho))}.}
 
-\item{sigma}{For Mahalanobis distance, the covariance matrix. If \code{NULL} (default), this is the covariance matrix of \eqn{Xr}.}
+\item{sigma}{For Mahalanobis distance, the covariance matrix considered. If \code{NULL} (default), \code{sigma} is set to \code{cov(Xr)}.}
 
-\item{out}{Type of summary statistics used for calculating a cutoff for detecting extreme values of dissimilarity. Possible values are "mad" (mean absolute deviation "MAD"; default), "sd" (standard deviation) or "boxplot" (boxplot statistics). For "mad" and "sd", the cutoff is given by \eqn{median(d) + cri * mad(d)} or \eqn{mean(d) + cri * sd(d)}, respectively, where \eqn{d} is the vector of dissimilarities for the reference observations \eqn{Xr}. For "boxplot", the cutoff is given by \eqn{2nd quartile(d) + 1.5 * IQR(d)}.}
+\item{out}{Type of summary statistics used for calculating a cutoff for detecting extreme values of dissimilarity. Possible values are "mad" (mean absolute deviation "MAD"; default), "sd" (standard deviation) or "boxplot" (boxplot statistics). For "mad" and "sd", the cutoff is given by \eqn{median(d) + cri * mad(d)} or \eqn{mean(d) + cri * sd(d)}, respectively, where \eqn{d} is the vector of dissimilarities for the reference observations \eqn{Xr}, and  \eqn{cri} a value to be specified (see below). For "boxplot", the cutoff is given by \eqn{2nd quartile(d) + 1.5 * IQR(d)}.}
 
-\item{cri}{Value used in the calculation of the "mad" or "sd" cutoff values for detecting the extreme dissimilarity values; see argument \code{out}.}
+\item{cri}{Value used in the calculation of the "mad" or "sd" cutoff values for detecting the extreme dissimilarity values; see argument \code{out}. Default to \code{cri = 3}.}
 
 }
 
 \details{
 
-The "standardized" variable \eqn{dstand} calculated as \eqn{dstand = d / cutoff-value} is an indicator of extreme dissimilarity value. The dissimilarity is considered extreme if \eqn{dstand > 1}.
+The "standardized" variable \eqn{dstand} provided in the outputs, calculated as \eqn{dstand = d / cutoff-value}, is an indicator of extreme dissimilarity value. The dissimilarity is considered extreme if \eqn{dstand > 1}.
 
 }
 

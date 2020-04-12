@@ -42,13 +42,16 @@
   
   }
 
-.dis <- function(mu, X) {
+.dis <- function(mu, X, ...) {
   
-  X <- .matrix(X, prefix.colnam = "x")
+  # Calculates the square of the Euclidean distances 
+  # between the rows of X and vector mu
+  
+  X <- .matrix(X, ...)
   n <- nrow(X)
   p <- ncol(X)
   rownam <- row.names(X)
-  
+
   X <- scale(X, center = mu, scale = FALSE)
   X <- X * X
   X <- matrix(rowSums(X), ncol = 1)
@@ -56,6 +59,28 @@
   row.names(X) <- rownam
   
   X
+  
+  }
+
+.ellips <- function(shape, center = rep(0, ncol(shape)), radius = 1) {
+  
+  # The generated ellipse is: (x - mu)' * S^(-1) * (x - mu) <= r^2  
+  # shape = variance-covariance matrix S (size q x q) of x (vector of length q)
+  # center = mu (vector of length q)
+  # radius = r
+  
+  theta <- seq(0, 2 * pi, length = 51)
+  circ <- radius * cbind(cos(theta), sin(theta))
+  
+  z <- eigen(shape)
+  d <- sqrt(z$values)
+  V <- z$vectors
+  
+  X <- V %*% diag(d) %*% t(circ)
+  
+  X <- t(X + center)
+  
+  list(X = X, V = V, d = d)
   
   }
 
@@ -145,9 +170,12 @@
 
   }
 
-.mah <- function(mu, X, U = NULL) {
+.mah <- function(mu, X, U = NULL, ...) {
   
-  X <- .matrix(X, prefix.colnam = "x")
+  # Square of the Mahalanobis distances between
+  # the rows of X and the vector mu 
+  
+  X <- .matrix(X, ...)
   n <- nrow(X)
   p <- ncol(X)
   rownam <- row.names(X)
@@ -182,13 +210,34 @@
   
   }
 
-.varw <- function(x, weights = rep(1, length(x))) {
+.nipals <- function(X, weights = rep(1, nrow(X)), 
+  tol = .Machine$double.eps^0.5, maxit = 100) {
   
-  d <- weights / sum(weights)
+  ## Find p such as ||X - t'p|| = min, with ||p|| = 1
+  ## t = X %*% p
   
-  xmean <- sum(d * x)
+  t <- X[, which.max(.xvars(X, weights = weights))]
+  ztol <- 1
+  iter <- 1
+    
+  while(ztol > tol & iter <= maxit) {
+    
+    p <- crossprod(weights * X, t) / sum(weights * t * t)
+    p <- p / sqrt(sum(p * p))
+        
+    zt <- X %*% p
+      
+    ztol <- .xnorms(t - zt, weights = weights)
+    t <- zt
+    iter <- iter + 1
+    
+    }
+
+  sv <- .xnorms(t, weights = weights)
+  ## = norm of the score t
+  ## = sqrt(sum(weight * t * t))
   
-  sum(d * (x - xmean)^2)
+  list(t = c(t), p = c(p), sv = sv, niter = iter)
   
   }
 
@@ -207,3 +256,102 @@
   T
   
   }
+
+.wkern <- function(x, nam = "huber", a = 1.345) {
+  
+  switch(
+    
+    nam,
+    
+    bisquare = ifelse(abs(x) < a, (1 - (x / a)^2)^2, 0),
+    
+    cauchy = ifelse(abs(x) < a, 1 / (1 + (x / a)^2), 0),
+    
+    epan = ifelse(abs(x) < a, 1 - (x / a)^2, 0),
+    
+    gauss = ifelse(abs(x) < a, exp(-(x / a)^2), 0),
+    
+    huber =  ifelse(abs(x) < a, 1, a / abs(x)),
+    
+    invexp =  ifelse(abs(x) < a, 1 / exp(abs(x / a)), 0),
+    
+    talworth = ifelse(abs(x) < a, 1, 0),
+    
+    trian = ifelse(abs(x) < a, 1 - abs(x / a), 0),
+    
+    tricube = ifelse(abs(x) < a, (1 - abs(x / a)^3)^3, 0)
+
+    )
+
+  }
+
+.xmeans <- function(X, weights = NULL, ...) {
+  
+  X <- .matrix(X, ...)
+  
+  if(is.null(weights))
+    weights <- rep(1, nrow(X))
+  
+  colSums(weights * X) / sum(weights)   
+  
+  }
+
+.xnorms <- function(X, weights = NULL, ...) {
+  
+  X <- .matrix(X, ...)
+  
+  if(is.null(weights))
+    weights <- rep(1, nrow(X))
+  
+  sqrt(colSums(weights * X * X))
+  
+  }
+
+.xvars <- function(X, weights = NULL, ...) {
+  
+  X <- .matrix(X, ...)
+  
+  if(is.null(weights))
+    weights <- rep(1, nrow(X))
+  
+  xmeans <- .xmeans(X, weights = weights)
+  X <- scale(X, center = xmeans, scale = FALSE)
+  
+  colSums(weights * X * X)  / sum(weights)
+  
+  
+  }
+
+.xcor <- function(X, weights = NULL, ...) {
+
+  X <- .matrix(X, ...)
+  
+  if(is.null(weights))
+    weights <- rep(1, nrow(X))
+  
+  xmeans <- .xmeans(X, weights = weights)
+  xvars <- .xvars(X, weights = weights)
+  
+  X <- scale(X, center = xmeans, scale = sqrt(xvars))
+  
+  crossprod(weights * X, X) / sum(weights)
+  
+  }
+
+.xcov <- function(X, weights = NULL, ...) {
+  
+  X <- .matrix(X, ...)
+  
+  if(is.null(weights))
+    weights <- rep(1, nrow(X))
+  
+  xmeans <- .xmeans(X, weights = weights)
+  X <- scale(X, center = xmeans, scale = FALSE)
+  
+  crossprod(sqrt(weights) * X) / sum(weights)
+  
+  }
+
+
+
+

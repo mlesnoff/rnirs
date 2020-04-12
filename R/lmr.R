@@ -1,10 +1,10 @@
 lmr <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL) {
   
-  Xr <- .matrix(Xr, prefix.colnam = "x")
+  Xr <- .matrix(Xr)
   n <- nrow(Xr)
   p <- ncol(Xr)
   
-  Xu <- .matrix(Xu, prefix.colnam = "x")
+  Xu <- .matrix(Xu)
   m <- nrow(Xu)
   rownam.Xu <- row.names(Xu)
 

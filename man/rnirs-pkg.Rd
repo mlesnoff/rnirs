@@ -6,7 +6,7 @@
 \title{Locally Weighted PLS Regression and Discrimination}
 
 \description{
-Package rnirs is a statistical tool box focusing on locally weighted prediction methods: regression for quantitative responses and discrimination for qualitative responses. The predictive models can use partial least squares (PLS) dimension reductions or other methods. 
+Package rnirs is a statistical tool box for locally weighted prediction methods: regression (quantitative responses) and discrimination (qualitative responses). The predictive models can use dimension reductions (such as PLS) or other methods. 
 
 The package was primarily dedicated to near infrared spectral (NIRS) data but can be used for many other types of data.
 }
@@ -41,6 +41,7 @@ The package was primarily dedicated to near infrared spectral (NIRS) data but ca
   \code{\link{pca}} \tab PCA \cr
   \code{\link{pls}} \tab PLS \cr
   \code{\link{bcoef}} \tab b-coefficients for a PLS model\cr
+  \code{\link{influ.pls}} \tab Regression influence measures for a PLS model\cr
   \code{\link{scordis}}, \code{\link{lscordis}} \tab Score distances for a PCA or PLS score space\cr
   \code{\link{odis}}, \code{\link{lodis}} \tab Orthogonal distances for a PCA or PLS score space\cr
   \code{\link{xfit}} \tab Matrix Approximation from multivariate scores and loadings \cr
@@ -131,9 +132,9 @@ The package was primarily dedicated to near infrared spectral (NIRS) data but ca
 \eqn{-- PCA and weighted PCA algorithms}
 
 \tabular{ll}{
-  \code{\link{pca.svd}}, \code{\link{pca.svdw}} \tab Svd algorithms \cr
+  \code{\link{pca.svd}}, \code{\link{pca.svdw}} \tab SVD algorithms \cr
   \code{\link{pca.eigen}}, \code{\link{pca.eigenw}} \tab Eigen algorithms \cr
-  \code{\link{pca.nipals}} \tab Nipals algorithm with missing data allowed \cr
+  \code{\link{pca.nipals}}, \code{\link{pca.nipalsw}}, \code{\link{pca.nipalsna}} \tab Nipals algorithms \cr
   }
 
 \eqn{-- PLS and weighted PLS algorithms}
@@ -158,8 +159,10 @@ The package was primarily dedicated to near infrared spectral (NIRS) data but ca
   \code{\link{pinv}} \tab Moore-Penrose pseudo-inverse \cr
 
   \code{\link{sourcedir}} \tab Source R functions in a directory \cr
-  \code{\link{wkern}} \tab Kernel weights \cr
+  \code{\link{wdist}} \tab Weights for distances \cr
   }
+
+See also the auxiliary functions in file zfunctions.R.
 
 }
 
