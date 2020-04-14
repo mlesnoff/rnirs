@@ -100,8 +100,7 @@ blocksopls(Xr, Yr, Xu, blocks, ncomp)
 
 w <- rep(1, n)
 #w <- 1:n
-blocksopls(Xr, Yr, Xu, blocks, ncomp, 
-  algo = pls.kernelw, weights = w)
+blocksopls(Xr, Yr, Xu, blocks, ncomp, weights = w)
 
 ############# Syntax for a SO-PLSR
 

@@ -222,9 +222,11 @@
     
   while(ztol > tol & iter <= maxit) {
     
+    ## Regression of X on t
     p <- crossprod(weights * X, t) / sum(weights * t * t)
     p <- p / sqrt(sum(p * p))
         
+    ## Regression of X' on p
     zt <- X %*% p
       
     ztol <- .xnorms(t - zt, weights = weights)

@@ -9,11 +9,11 @@
 
 Function \code{plsda} fits PLSDA models, with various DA methods.
 
-The class membership (unidimensional variable) \eqn{y} for the reference (= training) observations is firstly transformed (with function \code{\link{dummy}}) to a table \eqn{Ydummy} containing \eqn{nclas} dummy variables, where \eqn{nclas} is the number of classes in \eqn{y}. Then, a PLS2 is implemented on the \eqn{X-}data (with function \code{\link{pls}}) and the dummy table \eqn{Ydummy}, returning PLS2 scores finally used by the DA method.
+The class membership \eqn{y} (unidimensional variable) for the reference observations (= training) is firstly transformed to a table \eqn{Ydummy} containing \eqn{nclas} dummy variables (with function \code{\link{dummy}}), where \eqn{nclas} is the number of classes in \eqn{y}. Then, a PLS2 is implemented on the \eqn{X-}data and the dummy table \eqn{Ydummy} (with function \code{\link{pls}}), returning PLS2 scores finally used by the DA method.
 
 The PLS2 algorithm is defined in argument \code{algo}.
 
-The DA method is defined in argument \code{da}. The default DA method is \code{\link{dalm}}. Other methods presently avalaible are \code{\link{dadis}}, \code{\link{daglm}}, \code{\link{daprob}} and \code{\link{knnwda}}. Any other ad'hoc DA methods can be developed by the user. Note that the DA method \code{\link{dasdod}} can not be used in \code{plsda}: in this last function, the number of PLS components (that corresponds to the input data for the DA) varies from 1 to \code{ncomp}; \code{\link{dasdod}} computes PCAs from the input data (here the PLS components) which cannot be implemented when the number of PLS comoonents is equal to 1 or 2.
+The DA method is defined in argument \code{da}. The default DA method is \code{\link{dalm}}. Other methods presently avalaible are \code{\link{dadis}}, \code{\link{daglm}}, \code{\link{daprob}} and \code{\link{knnda}}. Any other ad'hoc DA methods can be developed by the user. Note that the DA method \code{\link{dasdod}} can not be used in \code{plsda}: in this last function, the number of PLS components (that corresponds to the input data for the DA) varies from 1 to \code{ncomp}; \code{\link{dasdod}} computes PCAs from the input data (here the PLS components) which cannot be implemented when the number of PLS comoonents is equal to 1 or 2.
 
 Function \code{plsdalm} is a faster equivalent of \code{plsda(..., da = dalm, ...)}.
 
@@ -127,7 +127,7 @@ z
 ######## PLS-KNNDA
 
 ncomp <- 20
-fm <- plsda(Xr, yr, Xu, yu, ncomp, da = knnwda, 
+fm <- plsda(Xr, yr, Xu, yu, ncomp, da = knnda, 
   diss = "mahalanobis", k = 3)
   
 z <- err(fm, ~ ncomp + k)

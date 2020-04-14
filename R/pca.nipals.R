@@ -1,11 +1,11 @@
-pca.nipals <- function(X, ncomp, 
+pca.nipals <- function(X, ncomp, weights = rep(1, nrow(X)), 
   tol = .Machine$double.eps^0.5, maxit = 100) {
   
   X <- .matrix(X)
   n <- nrow(X)
   p <- ncol(X)
   
-  xmeans <- colMeans(X)
+  xmeans <- .xmeans(X, weights = weights)
   X <- scale(X, center = xmeans, scale = FALSE)
   
   sv <- vector(length = ncomp)
@@ -16,7 +16,7 @@ pca.nipals <- function(X, ncomp,
   
   for(a in 1:ncomp) {
     
-    z <- .nipals(X)
+    z <- .nipals(X, weights = weights)
   
     X <- X - z$t %*% t(z$p)
     
@@ -24,9 +24,9 @@ pca.nipals <- function(X, ncomp,
     T[, a] <- z$t
     
     sv[a] <- z$sv
-    ## = norm of the score t
-    ## = .xnorms(t)
-    ## = sqrt(sum(t * t))
+    ## = norm of the score t (in metric D)
+    ## = .xnorms(t, weights = weights)
+    ## = sqrt(sum(weight * t * t))
   
     niter[a] <- z$niter
     
@@ -34,8 +34,8 @@ pca.nipals <- function(X, ncomp,
     
   xss <- sv^2         
   ## = eigenvalues of X'X
-  ## = colSums(T * T)
-    
+  ## = colSums(weights T * T)
+   
   row.names(T) <- row.names(X)
   row.names(P) <- colnames(X)
   colnames(P) <- colnames(T) <- paste("comp", 1:ncomp, sep = "") 

@@ -49,7 +49,7 @@ Xr <- X[1:8, ] ; Yr <- Y[1:8, ]
 Xu <- X[9:10, ] ; Yu <- Y[9:10, ] 
 
 
-## Cross-validation of a PLSR model
+################ Cross-validation of a PLSR model
 
 Xr <- datcass$Xr
 yr <- datcass$yr
@@ -82,7 +82,7 @@ plotmse(z, group = "rep")
 
 plotmse(z, nam = "r2", group = "rep")
 
-## Example of CV of an ad'hoc predictive function (e.g. using locw)
+################ Example of CV of an ad'hoc predictive function (e.g. using locw)
 
 fun <- function(Xr, Yr, Xu, Yu = NULL, k, ncomp, ncompdis) {
   
@@ -94,7 +94,7 @@ fun <- function(Xr, Yr, Xu, Yu = NULL, k, ncomp, ncompdis) {
     listnn = resn$listnn,
     listw = lapply(resn$listd, wdist, h = 2),
     fun = plsr,
-    algo = pls.kernelw,
+    algo = pls.kernel,
     ncomp = ncomp,
     print = TRUE
     )

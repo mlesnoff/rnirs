@@ -78,14 +78,14 @@ The package was primarily dedicated to near infrared spectral (NIRS) data but ca
 
 \tabular{ll}{
   \code{\link{lwplsr}} \tab kNN-Locally weighted PLSR\cr
-  \code{\link{knnwr}} \tab kNN-weighted regression \cr
+  \code{\link{knnr}} \tab kNN-weighted regression \cr
   }
 
 \eqn{-- Discrimination}
 
 \tabular{ll}{
   \code{\link{lwplsda}}, \code{\link{lwplsdalm}} \tab kNN-Locally weighted PLSDA\cr
-  \code{\link{knnwda}} \tab kNN-weighted discrimination \cr
+  \code{\link{knnda}} \tab kNN-weighted discrimination \cr
   }
 
 \bold{------------ MULTIBLOCK FUNCTIONS}
@@ -132,16 +132,16 @@ The package was primarily dedicated to near infrared spectral (NIRS) data but ca
 \eqn{-- PCA and weighted PCA algorithms}
 
 \tabular{ll}{
-  \code{\link{pca.svd}}, \code{\link{pca.svdw}} \tab SVD algorithms \cr
-  \code{\link{pca.eigen}}, \code{\link{pca.eigenw}} \tab Eigen algorithms \cr
-  \code{\link{pca.nipals}}, \code{\link{pca.nipalsw}}, \code{\link{pca.nipalsna}} \tab Nipals algorithms \cr
+  \code{\link{pca.svd}} \tab SVD algorithm \cr
+  \code{\link{pca.eigen}} \tab Eigen algorithm \cr
+  \code{\link{pca.nipals}}, \code{\link{pca.nipalsna}} \tab Nipals algorithms \cr
   }
 
 \eqn{-- PLS and weighted PLS algorithms}
 
 \tabular{ll}{
-  \code{\link{pls.kernel}}, \code{\link{pls.kernelw}} \tab Kernel algorithms \cr
-  \code{\link{pls.nipals}}, \code{\link{pls.nipalsw}} \tab Nipals algorithms \cr
+  \code{\link{pls.kernel}} \tab Kernel algorithm \cr
+  \code{\link{pls.nipals}} \tab Nipals algorithm \cr
   }
 
 \eqn{-- Other}

@@ -1,25 +1,25 @@
-\name{knnwr}
-\alias{knnwr}
-\alias{knnwda}
+\name{knnr}
+\alias{knnr}
+\alias{knnda}
 \encoding{latin1}
 
 \title{kNN-WR/WDA}
 
 \description{
 
-Functions \code{knnwr} and \code{knnwda} build kNN (eventually locally weighted) regression models for a quantitative (\code{knnlwr}) or qualitative (\code{knnlwda}) univariate response \eqn{y}.
+Functions \code{knnr} and \code{knnda} build kNN (eventually locally weighted) regression models for a quantitative (\code{knnlwr}) or qualitative (\code{knnlwda}) univariate response \eqn{y}.
 
 The functions use functions \code{\link{getknn}} and \code{\link{locw}}. See the code for details
 
 For each new observation to predict, the principle of kNN regression models (R and DA) is to select a number of \eqn{k} nearest neighbors and to calculate the prediction by the average of the response \eqn{y} (for regression) or the most frequent class in \eqn{y} (for discrimination) over this neighborhood. The kNN selection step is referred to as \eqn{weighting "1"} in \code{\link{locw}}. In standard kNN regression models, the statistical weight of each of the \eqn{k} neighbors is \eqn{1/k}. In locally weighted kNN regression models, the statistical weights of the neighbors depend from the dissimilarities (preliminary calculated) between the observation to predict and the \eqn{k} neighbors. This step is referred to as \eqn{weighting "2"} in \code{\link{locw}}.
 
-In \code{knnwr} and \code{knnwda}, the dissimilarities can be calculated from the original (i.e. not compressed) data or from preliminary computed global PLS scores.  
+In \code{knnr} and \code{knnda}, the dissimilarities can be calculated from the original (i.e. not compressed) data or from preliminary computed global PLS scores.  
 
 }
 
 \usage{
 
-knnwr(
+knnr(
   Xr, Yr,
   Xu, Yu = NULL,
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
@@ -28,7 +28,7 @@ knnwr(
   print = TRUE
   ) 
 
-knnwda(
+knnda(
   Xr, Yr,
   Xu, Yu = NULL,
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
@@ -86,7 +86,7 @@ library(ggplot2)
 data(datcass)
 data(datforages)
 
-######################## knnwr
+######################## knnr
 
 Xr <- datcass$Xr
 yr <- datcass$yr
@@ -110,7 +110,7 @@ headm(Xu)
 ncompdis <- 10
 h <- c(1, 2)
 k <- seq(5, 20, by = 5)
-fm <- knnwr(
+fm <- knnr(
   Xr, yr,
   Xu, yu,
   ncompdis = ncompdis, diss = "mahalanobis",
@@ -139,7 +139,7 @@ p
 ncompdis <- NULL
 h <- c(1, 2)
 k <- seq(5, 20, by = 5)
-fm <- knnwr(
+fm <- knnr(
   Xr, yr,
   Xu, yu,
   ncompdis = ncompdis, diss = "euclidean",
@@ -157,7 +157,7 @@ p <- ggplot(data = u, aes(x = k, y = rmsep))
 p <- p + geom_point(aes(colour = as.factor(group)), size = 2)
 p
 
-######################## knnwda
+######################## knnda
 
 Xr <- datforages$Xr
 yr <- datforages$yr
@@ -174,7 +174,7 @@ headm(Xu)
 table(yr)
 table(yu)
 
-## A kNNWDA model where:
+## A knnDA model where:
 ## The dissimilarities between the observations are defined
 ## by the Mahalanobis distances calculated from a global PLS score space
 ## of ncompdis = 10 components.
@@ -184,7 +184,7 @@ table(yu)
 ncompdis <- 10
 h <- c(1, 2)
 k <- seq(5, 15, by = 5)
-fm <- knnwda(
+fm <- knnda(
   Xr, yr,
   Xu, yu,
   ncompdis = ncompdis, diss = "mahalanobis",

@@ -146,10 +146,6 @@ comp <- c(1, 2)
 #comp <- c(2, 3)
 plotxy(res[, comp], group = group, label = TRUE, origin = c(0, 0)) 
 
-### Syntax with weighting
-
-pca(Xr, Xu, ncomp = ncomp, algo = pca.svdw, 
-  weights = rep(1, nrow(Xr)))
 
 ##################### PLS
 
@@ -172,11 +168,6 @@ influ.pls(fm)
 fm <- pls(Xr, Yr, Xu, ncomp = ncomp)
 fm$Tr
 fm$Tu
-
-### Syntax with weighting
-
-pls(Xr, Yr, Xu, ncomp = ncomp, algo = pls.kernelw, 
-  weights = rep(1, nrow(Xr)))$Tu
 
 }
 

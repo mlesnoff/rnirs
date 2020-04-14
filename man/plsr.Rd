@@ -95,14 +95,6 @@ z
 z[z$rmsep == min(z$rmsep), ]
 plotmse(z)
 
-## Syntax with weights
-
-ncomp <- 3
-fm <- plsr(Xr, Yr, Xu, Yu, ncomp = ncomp, 
-  algo = pls.kernelw, weights = rep(1, nrow(Xr)))
-fm$y
-fm$fit
-fm$r
 
 }
 

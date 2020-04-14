@@ -52,7 +52,7 @@ lwplsr <- function(
       listnn = zresn$listnn,
       listw = zlistw,
       fun = plsr,
-      algo = pls.kernelw,
+      algo = pls.kernel,
       ncomp = ncomp,
       stor = stor,
       print = print,

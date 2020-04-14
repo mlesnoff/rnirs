@@ -1,4 +1,4 @@
-knnwda <- function(
+knnr <- function(
   Xr, Yr,
   Xu, Yu = NULL,
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
@@ -13,13 +13,11 @@ knnwda <- function(
   Xu <- .matrix(Xu)
   n <- nrow(Xr)
   m <- nrow(Xu)
-  
-  nclas <- length(unique(Yr))
-  
+
   if(is.null(ncompdis)) ncompdis <- 0
   ncompdis <- sort(unique(ncompdis))
-  h <- sort(unique(h))
   k <- sort(unique(ifelse(k > n, n, k)))
+  h <- sort(unique(h))
   
   param <- expand.grid(ncompdis, h, k)
   names(param) <- c("ncompdis", "h", "k")
@@ -34,16 +32,13 @@ knnwda <- function(
       }
     
     zncompdis <- param$ncompdis[i]
-    zh <- param$h[i]
     zk <- param$k[i]
-    
+    zh <- param$h[i]
+  
     if(zncompdis == 0) {
       zresn <- getknn(Xr, Xu, k = zk, diss = diss)
-      } else {
-          if(nclas == 1)
-            z <- pca.svd(Xr, ncomp = zncompdis)
-          else
-            z <- pls.kernel(Xr, dummy(Yr), ncomp = zncompdis)
+      } else { 
+        z <- pls.kernel(Xr, Yr, ncomp = zncompdis)
         zresn <- getknn(z$T, .projscor(z, Xu), k = zk, diss = diss)
         }
     
@@ -54,7 +49,7 @@ knnwda <- function(
       Xu, Yu,
       listnn = zresn$listnn,
       listw = zlistw,
-      fun = .knnda,
+      fun = .knnr,
       stor = stor,
       print = print
       )
@@ -85,7 +80,6 @@ knnwda <- function(
     gc()
     
     }
-
   y <- setDF(rbindlist(y))
   fit <- setDF(rbindlist(fit))
   r <- setDF(rbindlist(r))
@@ -97,5 +91,7 @@ knnwda <- function(
   gc()
   
   list(y = y, fit = fit, r = r, fm = fm, resn = resn, param = param)
-  
+
   }
+  
+  

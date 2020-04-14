@@ -106,7 +106,6 @@ fm <- locw(
   listnn = listnn,
   listw = listw,
   fun = plsr,
-  algo = pls.kernelw,
   ncomp = ncomp,
   print = TRUE
   )
@@ -179,7 +178,6 @@ fm <- locw(
   listw = listw,
   fun = plsda,
   da = daprob, lda = FALSE,
-  algo = pls.kernelw,
   ncomp = ncomp,
   print = TRUE
   )
@@ -245,8 +243,7 @@ fm <- locw(
   Xu, Yu,
   listnn = listnn,
   fun = plsr,
-  #algo = pls.kernel,
-  algo = pls.kernelw, listw = listw, 
+  listw = listw, 
   ncomp = 2,
   stor = TRUE
   )

@@ -1,5 +1,17 @@
 ## News for package rnirs
 
+##----------------- Version 1.5-1
+
+- For facilitating package maintenance and evolution, 
+
+(a) Functions pca.svd, pca.eigen, pca.nipals, pls.kernel and pls.nipals have been removed.
+
+(b) Functions pca.svdw, pca.eigenw, pca.nipalsw, pls.kernelw and pls.nipalsw 
+have been renamed to pca.svd, pca.eigen, pca.nipals, pls.kernel and pls.nipals 
+
+(c) Functions knnwr and knnwda have been renamed knnr and knnda 
+
+
 ###----------------- Version 1.5-0
 
 - Function wkern has been renamed to wdist, and slightly modified (in particular for the management of the outliers). This may vary slightly the numerical results of

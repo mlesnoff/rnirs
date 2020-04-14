@@ -3,48 +3,38 @@
 \alias{pca.eigen}
 \alias{pca.nipals}
 \alias{pca.nipalsna}
-\alias{pca.svdw}
-\alias{pca.eigenw}
-\alias{pca.nipalsw}
 \encoding{latin1}
 
 \title{PCA algorithms}
 
 \description{
 
-Algorithms for centered PCA of a matrix \eqn{X}.
+Algorithms for PCA of a matrix \eqn{X}.
 
-- \code{pca.svd}, \code{pca.svdw}: SVD decomposition, using function \code{\link{svd}}. 
+- \code{pca.svd}: SVD decomposition, using function \code{\link{svd}}. 
 
-- \code{pca.eigen}, \code{pca.eigenw}: eigen decomposition, using function \code{\link{eigen}}. 
+- \code{pca.eigen}: eigen decomposition, using function \code{\link{eigen}}. 
 
-- \code{pca.nipals}, \code{pca.nipalsw}: NIPALS. 
+- \code{pca.nipals}: NIPALS. 
 
 - \code{pca.nipalsna}: NIPALS allowing missing data in \eqn{X} (\code{NA} are not allowed in the other algorithms). The core of \code{pca.nipals} uses the optimized code (for computation time) of function \code{nipals} of package \code{nipals} (K. Wright) available on CRAN.
 
 All algorithms center matrix \eqn{X}.
 
-Functions \code{pca.svdw} and \code{pca.eigenw} give weights to the observations (rows of \eqn{X}) (argument \code{weight}). This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. Function \code{pca.svdw} implements a SVD of \eqn{D^(1/2) X}, where D = diag(weights) and X has been centered with metric \eqn{D}. Function \code{pca.eignenw} implements an eigen decomposition of \eqn{X' D X}.
+The functions (except \code{pca.nipalsna}) can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weight}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. For instance, function \code{pca.svd} implements a SVD of \eqn{D^(1/2) X}, where D = diag(weights) and X has been centered with metric \eqn{D}. Function \code{pca.eignenw} implements an eigen decomposition of \eqn{X' D X}.
 
 }
 
 \usage{
 
-pca.svd(X, ncomp)
+pca.svd(X, ncomp, weights = rep(1, nrow(X)))
 
-pca.eigen(X, ncomp)
+pca.eigen(X, ncomp, weights = rep(1, nrow(X)))
 
-pca.nipals(X, ncomp,
+pca.nipals(X, ncomp, weights = rep(1, nrow(X)),
   tol = .Machine$double.eps^0.5, maxit = 100)
 
 pca.nipalsna(X, ncomp, gramschmidt = TRUE,
-  tol = .Machine$double.eps^0.5, maxit = 100)
-
-pca.svdw(X, ncomp, weights = rep(1, nrow(X)))
-
-pca.eigenw(X, ncomp, weights = rep(1, nrow(X)))
-
-pca.nipalsw(X, ncomp, weights = rep(1, nrow(X)),
   tol = .Machine$double.eps^0.5, maxit = 100)
 
 }
@@ -109,8 +99,6 @@ pca.svd(X, ncomp = 3)
 pca.eigen(X, ncomp = 3)
 
 pca.nipals(X, ncomp = 3)
-
-pca.svdw(X, ncomp = 3, weights = rep(1, n))
 
 ######## WITH MISSING DATA
 
