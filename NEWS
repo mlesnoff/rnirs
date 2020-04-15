@@ -1,5 +1,10 @@
 ## News for package rnirs
 
+##----------------- Version 1.5-2
+
+- Better management of weights = 0 in pca.svd.
+
+
 ##----------------- Version 1.5-1
 
 - For facilitating package maintenance and evolution, 

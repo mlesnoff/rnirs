@@ -12,15 +12,16 @@ pca.svd <- function(X, ncomp, weights = rep(1, nrow(X))) {
   
   z <- svd(sqrt(weights) * X, nu = ncomp, nv = ncomp)
   
+  P <- z$v
+  
+  T <- X %*% P
+  ## If weights > 0
+  ## = 1 / sqrt(weights) * z$u %*% diag(sv, nrow = ncomp)
+
   sv <- z$d[1:ncomp]
   ## = norms of the scores T (in metric D)
   ## = .xnorms(T, weights = weights)
   ## = sqrt(colSums(weights * T * T))
-  ## If n is large, using the "U %*%" may be time consuming
-  ## The line below is not efficient (find a function for escaping %*%)
-  T <- 1 / sqrt(weights) * z$u %*% diag(sv, nrow = ncomp)
-
-  P <- z$v
 
   xss <- sv^2         
   ## = eigenvalues of X'DX
