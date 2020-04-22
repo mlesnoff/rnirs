@@ -1,22 +1,24 @@
-odis <- function(fm, Xr, Xu = NULL,  
-  out = c("mad", "sd", "boxplot"), cri = 3) {
+odis <- function(fm, Xr, Xu = NULL, out = c("mad", "sd", "boxplot"), cri = 3) {
     
   if(!is.null(fm$fm))
     fm <- fm$fm
   
+  if(is.null(fm$Tr))
+    fm$Tr <- fm$T
+  
   out <- match.arg(out)
   
-  Xr <- .matrix(Xr)
-  n <- nrow(Xr)
-  rownam <- row.names(Xr)
+  X <- .matrix(Xr)
+  n <- dim(X)[1]
+  rownam <- row.names(X)
   
-  Xr <- scale(Xr, center = fm$xmeans, scale = FALSE)
+  X <- scale(X, center = fm$xmeans, scale = FALSE)
   
-  ncomp <- ncol(fm$Tr)
+  ncomp <- dim(fm$Tr)[2]
 
-  Er <- Xr - tcrossprod(fm$Tr, fm$P)
+  E <- X - tcrossprod(fm$Tr, fm$P)
   
-  d <- sqrt(rowSums(Er * Er))
+  d <- sqrt(rowSums(E * E))
   cut <- switch(
     out, 
     mad = median(d) + cri * mad(d), 
@@ -34,7 +36,7 @@ odis <- function(fm, Xr, Xu = NULL,
   if(!is.null(Xu)) {
     
     Xu <- .matrix(Xu)
-    m <- nrow(Xu)
+    m <- dim(Xu)[1]
     rownam <- row.names(Xu)
     
     Tu <- .projscor(fm, Xu)
@@ -52,6 +54,6 @@ odis <- function(fm, Xr, Xu = NULL,
   
   ### END
 
-  list(dr = dr, du = du, cut = cut) #, Er = Er, Eu = Eu
+  list(dr = dr, du = du, cut = cut)
 
 }

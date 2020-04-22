@@ -8,13 +8,15 @@
 Calculation of a dissimilarity matrix for a data set: dissimilarities calculated between each of the row observations of the data set.
 }
 
-\usage{matdis(X, diss = c("euclidean", "mahalanobis", "correlation"))}
+\usage{matdis(X, diss = c("euclidean", "mahalanobis", "correlation"), weights = NULL)}
 
 \arguments{
 
 \item{X}{A \eqn{n x p} matrix or data frame. }
 
 \item{diss}{Type of dissimilarities calculated. Possible values are "euclidean" (default; Euclidean distance), "mahalanobis" (Mahalanobis distance), or "correlation". Correlation dissimilarities are calculated by sqrt(.5 * (1 - rho)).} 
+
+\item{weights}{Only for Mahalanobis distance. A vector of length \eqn{n} defining a priori weights to apply to the training observations, for the computation of the covariance matrix. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 }
 

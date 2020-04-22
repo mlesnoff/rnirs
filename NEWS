@@ -1,5 +1,26 @@
 ## News for package rnirs
 
+##----------------- Version 1.5-3
+
+- For better consistency between the functions using row weighting (argument "weights"),
+the weights are now automaticaly "normalized" to sum to 1 before the next computations. 
+
+- New functions:
+
+  pca.sph (Robust PCA)
+
+  Auxiliary functions: 
+    .medspa (script from rrcov v.1.4-3 on R CRAN, V. Todorov, 2016)
+    .ellips
+
+- Argument "c" in wdist has been renamed "cri".
+
+- Auxiliary functions .xmeans, .xnorms, .xvars have been renamed
+.xmean, .xnorm, .xvar, and their default arguments have changed.
+
+- Various code cleaning.
+
+
 ##----------------- Version 1.5-2
 
 - Better management of weights = 0 in pca.svd.

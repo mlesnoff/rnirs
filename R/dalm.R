@@ -17,9 +17,15 @@ dalm <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL){
   # levels returns the sorted character level names 
   lev <- levels(Yr)      
   
-  if(!is.null(Yu)) Yu <- as.character(Yu) else Yu <- rep(NA, m)
+  if(!is.null(Yu)) 
+    Yu <- as.character(Yu) 
+  else 
+    Yu <- rep(NA, m)
   
-  if(is.null(weights)) d <- rep(1 / n, n) else d <- weights / sum(weights)
+  if(is.null(weights)) 
+    weights <- rep(1 / n, n) 
+  else 
+    weights <- weights / sum(weights)
   
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
@@ -33,7 +39,7 @@ dalm <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL){
     Xr <- cbind(rep(1, n), Xr)
     Xu <- cbind(rep(1, m), Xu)
     
-    Xr.d <- d * Xr 
+    Xr.d <- weights * Xr 
     
     beta <- solve(crossprod(Xr.d, Xr)) %*% crossprod(Xr.d, dummy(Yr))
     

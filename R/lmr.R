@@ -1,11 +1,12 @@
 lmr <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL) {
   
   Xr <- .matrix(Xr)
-  n <- nrow(Xr)
-  p <- ncol(Xr)
+  zdim <- dim(Xr)
+  n <- zdim[1]
+  p <- zdim[2]
   
   Xu <- .matrix(Xu)
-  m <- nrow(Xu)
+  m <- dim(Xu)[1]
   rownam.Xu <- row.names(Xu)
 
   Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
@@ -16,10 +17,11 @@ lmr <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL) {
     else Yu <- .matrix(Yu, row = FALSE, prefix.colnam = "y")
   
   if(is.null(weights))
-    weights <- rep(1, n)
-  d <- weights / sum(weights)
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights) 
   
-  fm <- lm(Yr ~ Xr, weights = d)
+  fm <- lm(Yr ~ Xr, weights = weights)
   
   y <- Yu
   fit <- cbind(rep(1, m), Xu) %*% fm$coef
@@ -34,7 +36,7 @@ lmr <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL) {
   fit <- cbind(dat, fit)
   r <- cbind(dat, r)
   
-  zq <- ncol(y)
+  zq <- dim(y)[2]
   u <- (zq - q + 1):zq
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Yu
   

@@ -18,7 +18,7 @@ The function allows giving particular weights to the rows of the reference matri
 
 \usage{
 
-blockscal(Xr, Xu = NULL, blocks, weights = rep(1, nrow(Xr)))
+blockscal(Xr, Xu = NULL, blocks, weights = NULL)
 
 }
 
@@ -30,8 +30,7 @@ blockscal(Xr, Xu = NULL, blocks, weights = rep(1, nrow(Xr)))
 
 \item{blocks}{A list of same length as the number of blocks. Each component of the list gives the column numbers in \eqn{Xr} defining the given block. The same blocks are used for \eqn{Xu}.}
 
-\item{weights}{A vector of length \eqn{n} defining the statistical weights to apply to the observations for the column variance calculation. }
-
+\item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the training observations for the column variance calculation. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 }
 

@@ -38,8 +38,8 @@ The package was primarily dedicated to near infrared spectral (NIRS) data but ca
 \bold{------------ MULTIVARIATE FACTORIAL ANALYSES}
 \tabular{ll}{
   \code{\link{fda}} \tab Factorial discriminant analysis\cr
-  \code{\link{pca}} \tab PCA \cr
-  \code{\link{pls}} \tab PLS \cr
+  \code{\link{pca}} \tab PCA (see the available algorithms in section "Advanced functions")\cr
+  \code{\link{pls}} \tab PLS (see the available algorithms in section "Advanced functions")\cr
   \code{\link{bcoef}} \tab b-coefficients for a PLS model\cr
   \code{\link{influ.pls}} \tab Regression influence measures for a PLS model\cr
   \code{\link{scordis}}, \code{\link{lscordis}} \tab Score distances for a PCA or PLS score space\cr
@@ -134,14 +134,15 @@ The package was primarily dedicated to near infrared spectral (NIRS) data but ca
 \tabular{ll}{
   \code{\link{pca.svd}} \tab SVD algorithm \cr
   \code{\link{pca.eigen}} \tab Eigen algorithm \cr
-  \code{\link{pca.nipals}}, \code{\link{pca.nipalsna}} \tab Nipals algorithms \cr
+  \code{\link{pca.nipals}}, \code{\link{pca.nipalsna}} \tab NIPALS algorithms \cr
+  \code{\link{pca.sph}} \tab Spherical PCA algorithm (Locantore 1999) \cr
   }
 
 \eqn{-- PLS and weighted PLS algorithms}
 
 \tabular{ll}{
   \code{\link{pls.kernel}} \tab Kernel algorithm \cr
-  \code{\link{pls.nipals}} \tab Nipals algorithm \cr
+  \code{\link{pls.nipals}} \tab NIPALS algorithm \cr
   }
 
 \eqn{-- Other}

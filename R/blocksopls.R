@@ -20,8 +20,8 @@ blocksopls <- function(Xr, Yr, Xu = NULL, blocks, ncomp, ...) {
     Xu <- blocksel(Xu, blocks)$X
   ### END
   
-  n <- nrow(Xr)
-  m <- nrow(Xu)
+  n <- dim(Xr)[1]
+  m <- dim(Xu)[1]
   
   fm <- pls(
     Xr[, newblocks[[1]], drop = FALSE],

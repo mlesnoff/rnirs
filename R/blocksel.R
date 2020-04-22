@@ -1,7 +1,7 @@
 blocksel <- function(X, blocks) {
   
   X <- .matrix(X)
-  n <- nrow(X)
+  n <- dim(X)[1]
   
   nbl <- length(blocks)
   

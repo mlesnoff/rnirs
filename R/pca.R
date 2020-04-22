@@ -1,35 +1,35 @@
 pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
   
   X <- .matrix(Xr)
-  n <- nrow(X)
+  n <- dim(X)[1]
   
   fm <- algo(X, ncomp, ...)
   weights <- fm$weights
 
+  xss <- fm$xss
+  ## = variances of scores T in metric D
+  ## = eigenvalues of X'DX = Cov(X) in metric D 
   X <- scale(X, center = fm$xmeans, scale = FALSE)
-  xss <- fm$xss 
   xsstot <- sum(weights * X * X, na.rm = TRUE)
   
   pvar <- xss / xsstot
   cumpvar <- cumsum(pvar)
-  xvar <- .xvars(fm$T, weights = weights)      
   
-  z <- data.frame(ncomp = 1:ncomp, var = xvar, pvar = pvar, cumpvar = cumpvar)
+  z <- data.frame(ncomp = 1:ncomp, var = xss, pvar = pvar, cumpvar = cumpvar)
   row.names(z) <- 1:ncomp
   explvarx <- z
   
   z <- weights * fm$T * fm$T
-  contr.ind <- scale(z, center = FALSE, scale = fm$xss)
+  contr.ind <- scale(z, center = FALSE, scale = xss)
   
-  zvars <- .xvars(X, weights = weights)
-  zX <- scale(X, center = FALSE, scale = sqrt(zvars))  
-  zvars <- .xvars(fm$T, weights = weights)
-  zT <- scale(fm$T, center = FALSE, scale = sqrt(zvars))
-  cor.circle <- t(weights * zX) %*% zT  / sum(weights)
+  xvars <- .xvar(X, weights = weights)
+  zX <- scale(X, center = FALSE, scale = sqrt(xvars))  
+  zT <- scale(fm$T, center = FALSE, scale = sqrt(xss))
+  cor.circle <- t(weights * zX) %*% zT
   
   coord.var <- crossprod(
     X, 
-    sqrt(weights / sum(weights)) * scale(fm$T, center = FALSE, scale = sqrt(xss))
+    weights * scale(fm$T, center = FALSE, scale = sqrt(xss))
     )
 
   z <- coord.var^2
@@ -46,7 +46,7 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
   if(!is.null(Xu))
     Tu <- .projscor(fm, .matrix(Xu))
   
-  list(Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R,
+  list(Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, xss = fm$xss,
     xmeans = fm$xmeans, weights = fm$weights, 
     explvarx = explvarx, contr.ind = contr.ind, 
     coord.var = coord.var, contr.var = contr.var,

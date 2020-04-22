@@ -8,13 +8,13 @@
 
 CovSel: Variable selection for highly multivariate and multi-response calibration (Roger et al. 2011).
 
-Row observations can eventullay be weighted (addition to the original article). 
+Row observations can eventullay be weighted (not in the original article). 
 
 }
 
 \usage{
 
-covsel(X, Y, nvar = NULL, scaly = TRUE, weights = rep(1, nrow(X)))
+covsel(X, Y, nvar = NULL, scaly = TRUE, weights = NULL)
 
 }
 
@@ -28,7 +28,7 @@ covsel(X, Y, nvar = NULL, scaly = TRUE, weights = rep(1, nrow(X)))
 
 \item{scaly}{If \code{TRUE} (default), each column of \eqn{Y} is scaled by its standard deviation.}
 
-\item{weights}{A vector of length \eqn{n} defining the statistical weights to apply to the observations.}
+\item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 }
 

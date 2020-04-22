@@ -13,7 +13,7 @@ Calculation of dissimilarities between the row observations of a data set and a 
 \usage{
 
 dis(mu = NULL, Xr, Xu = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
-  sigma = NULL, out = c("mad", "sd", "boxplot"), cri = 3)
+  sigma = NULL, out = c("mad", "sd", "boxplot"), cri = 3, weights = NULL)
 
 }
 
@@ -32,6 +32,8 @@ dis(mu = NULL, Xr, Xu = NULL, diss = c("euclidean", "mahalanobis", "correlation"
 \item{out}{Type of summary statistics used for calculating a cutoff for detecting extreme values of dissimilarity. Possible values are "mad" (mean absolute deviation "MAD"; default), "sd" (standard deviation) or "boxplot" (boxplot statistics). For "mad" and "sd", the cutoff is given by \eqn{median(d) + cri * mad(d)} or \eqn{mean(d) + cri * sd(d)}, respectively, where \eqn{d} is the vector of dissimilarities for the reference observations \eqn{Xr}, and  \eqn{cri} a value to be specified (see below). For "boxplot", the cutoff is given by \eqn{2nd quartile(d) + 1.5 * IQR(d)}.}
 
 \item{cri}{Value used in the calculation of the "mad" or "sd" cutoff values for detecting the extreme dissimilarity values; see argument \code{out}. Default to \code{cri = 3}.}
+
+\item{weights}{Only for Mahalanobis distance and when \code{sigma = NULL}. A vector of length \eqn{n} defining the a priori weights to apply to the training observations, for the computation of the covariance matrix. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 }
 

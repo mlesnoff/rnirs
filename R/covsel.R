@@ -1,38 +1,41 @@
-covsel <- function(X, Y, nvar = NULL, scaly = TRUE, weights = rep(1, nrow(X))) {
+covsel <- function(X, Y, nvar = NULL, scaly = TRUE, weights = NULL) {
   
   X <- .matrix(X)
-  n <- nrow(X)
-  p <- ncol(X)
+  zdim <- dim(X)
+  n <- zdim[1]
+  p <- zdim[2]
   
   Y <- .matrix(Y, row = FALSE, prefix.colnam = "x")
-  q <- ncol(Y)
+  q <- dim(Y)[2]
   
   if(is.null(nvar)) nvar <- p
   
-  d <- weights / sum(weights)
-  D <- diag(d)
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
   
-  xmeans <- .xmeans(X, weights = d)
+  xmeans <- .xmean(X, weights = weights)
   X <- scale(X, center = xmeans, scale = FALSE)
   
-  ymeans <- .xmeans(Y, weights = d)
+  ymeans <- .xmean(Y, weights = weights)
   Y <- scale(Y, center = ymeans, scale = FALSE)
   
   if(scaly)
-    Y <- scale(Y, center = FALSE, scale = sqrt(colSums(d * Y * Y)))
+    Y <- scale(Y, center = FALSE, scale = sqrt(colSums(weights * Y * Y)))
   
-  xsstot <- sum(colSums(d * X * X))
-  ysstot <- sum(colSums(d * Y * Y))
+  xsstot <- sum(weights * X * X)
+  ysstot <- sum(weights * Y * Y)
   
   yss <- xss <- selvar <- vector(length = nvar)
   for(i in 1:nvar) {
     
-    z <- rowSums(crossprod(d * X, Y)^2)
+    z <- rowSums(crossprod(weights * X, Y)^2)
     selvar[i] <- which(z == max(z))
     
     u <- X[, selvar[i], drop = FALSE]
     
-    Pr <- tcrossprod(u) %*% D / sum(d * u * u)
+    Pr <- tcrossprod(u) %*% diag(weights) / sum(weights * u * u)
     # Same as:
     #Pr <- u %*% solve(t(u) %*% D %*% u) %*% t(u) %*% D
     #Pr <- u %*% t(u) %*% D / sum(d * u * u)
@@ -41,8 +44,8 @@ covsel <- function(X, Y, nvar = NULL, scaly = TRUE, weights = rep(1, nrow(X))) {
     X <- X - Pr %*% X       # The deflated X is a centered matrix (metric D)
     Y <- Y - Pr %*% Y       # The deflated Y is a centered matrix (metric D)
     
-    xss[i] <- sum(colSums(d * X * X))
-    yss[i] <- sum(colSums(d * Y * Y))
+    xss[i] <- sum(weights * X * X)
+    yss[i] <- sum(weights * Y * Y)
   
     }
 
@@ -51,7 +54,7 @@ covsel <- function(X, Y, nvar = NULL, scaly = TRUE, weights = rep(1, nrow(X))) {
   
   sel <- data.frame(sel = selvar, cumpvarx = cumpvarx, cumpvary = cumpvary)
   
-  list(sel = sel, weights = d)
+  list(sel = sel, weights = weights)
 
 }
 

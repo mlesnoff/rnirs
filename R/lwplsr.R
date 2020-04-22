@@ -59,7 +59,7 @@ lwplsr <- function(
       ...
       )
     
-    nr <- nrow(zfm$y)
+    nr <- dim(zfm$y)[1]
     z <- data.frame(
       ncompdis = rep(zncompdis, nr),
       h = rep(zh, nr)

@@ -1,16 +1,20 @@
-pca.svd <- function(X, ncomp, weights = rep(1, nrow(X))) {
+pca.svd <- function(X, ncomp, weights = NULL) {
   
   ## The function implements a SVD of sqrt(D) %*% X
   ## where D = diag(weights) and X has been centered with metric D
   
   X <- .matrix(X)
-  n <- nrow(X)
-  p <- ncol(X)
+  n <- dim(X)[1]
   
-  xmeans <- .xmeans(X, weights = weights)
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
+  
+  xmeans <- .xmean(X, weights = weights)
   X <- scale(X, center = xmeans, scale = FALSE)
   
-  z <- svd(sqrt(weights) * X, nu = ncomp, nv = ncomp)
+  z <- svd(sqrt(weights) * X, nu = 0, nv = ncomp)
   
   P <- z$v
   
@@ -19,12 +23,13 @@ pca.svd <- function(X, ncomp, weights = rep(1, nrow(X))) {
   ## = 1 / sqrt(weights) * z$u %*% diag(sv, nrow = ncomp)
 
   sv <- z$d[1:ncomp]
-  ## = norms of the scores T (in metric D)
-  ## = .xnorms(T, weights = weights)
+  ## = norms of the scores T in metric D
+  ## = .xnorm(T, weights = weights)
   ## = sqrt(colSums(weights * T * T))
 
   xss <- sv^2         
-  ## = eigenvalues of X'DX
+  ## = eigenvalues of X'DX = Cov(X) in metric D 
+  ## = variances of scores T in metric D
   ## = colSums(weights * T * T)  
    
   row.names(T) <- row.names(X)

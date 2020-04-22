@@ -1,12 +1,22 @@
-scordis <- function(fm, out = c("mad", "sd", "boxplot"), 
-  cri = 3) {
+scordis <- function(fm, out = c("mad", "sd", "boxplot"), cri = 3) {
   
   if(!is.null(fm$fm))
     fm <- fm$fm
   
-  ncomp <- ncol(fm$Tr)
+  if(is.null(fm$Tr))
+    fm$Tr <- fm$T
   
-  d <- dis(NULL, fm$Tr, fm$Tu, diss = "mahalanobis", out = out, cri = cri)
+  ncomp <- dim(fm$Tr)[2]
+  
+  if(is.null(fm$TT))
+    sigma <- fm$xss
+  else
+    sigma <- fm$TT
+  
+  S <- diag(sigma, nrow = ncomp, ncol = ncomp)
+  
+  d <- dis(mu = rep(0, ncomp), Xr = fm$Tr, Xu = fm$Tu, diss = "mahalanobis", 
+    sigma = S, out = out, cri = cri)
   
   dr <- d$dr
   dr$gh <- dr$d^2 / dr$ncomp

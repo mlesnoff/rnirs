@@ -1,9 +1,14 @@
-blockscal <- function(Xr, Xu = NULL, blocks, weights = rep(1, nrow(Xr))) {
+blockscal <- function(Xr, Xu = NULL, blocks, weights = NULL) {
   
   nbl <- length(blocks)
   
-  d <- weights / sum(weights)
+  n <- dim(Xr)[1]
 
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
+  
   newdat <- blocksel(Xr, blocks)
   Xr <- newdat$X
   newblocks <- newdat$blocks
@@ -14,7 +19,7 @@ blockscal <- function(Xr, Xu = NULL, blocks, weights = rep(1, nrow(Xr))) {
   xdisptot <- rep(NA, nbl)
   for(i in 1:nbl) {
     
-    z <- .xvars(Xr[, newblocks[[i]], drop = FALSE], weights = weights)
+    z <- .xvar(Xr[, newblocks[[i]], drop = FALSE], weights = weights)
     
     xdisptot[i] <- sqrt(sum(z))
     

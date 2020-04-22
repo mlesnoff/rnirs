@@ -3,7 +3,7 @@ plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
 
   fm <- pls(Xr, Yr, Xu, ncomp, algo, ...)
   
-  m <- nrow(fm$Tu)
+  m <- dim(fm$Tu)[1]
   rownam.Xu <- row.names(fm$Tu)
   q <- length(fm$ymeans)
   colnam.Yu <- names(fm$ymeans)

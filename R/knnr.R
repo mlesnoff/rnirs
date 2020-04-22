@@ -11,8 +11,8 @@ knnr <- function(
   
   Xr <- .matrix(Xr)
   Xu <- .matrix(Xu)
-  n <- nrow(Xr)
-  m <- nrow(Xu)
+  n <- dim(Xr)[1]
+  m <- dim(Xu)[1]
 
   if(is.null(ncompdis)) ncompdis <- 0
   ncompdis <- sort(unique(ncompdis))
@@ -54,7 +54,7 @@ knnr <- function(
       print = print
       )
     
-    nr <- nrow(zfm$y)
+    nr <- dim(zfm$y)[1]
     z <- data.frame(
       ncompdis = rep(zncompdis, nr),
       h = rep(zh, nr)

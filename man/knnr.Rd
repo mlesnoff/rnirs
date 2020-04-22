@@ -7,7 +7,7 @@
 
 \description{
 
-Functions \code{knnr} and \code{knnda} build kNN (eventually locally weighted) regression models for a quantitative (\code{knnlwr}) or qualitative (\code{knnlwda}) univariate response \eqn{y}.
+Functions \code{knnr} and \code{knnda} build kNN (eventually locally weighted) regression models for a quantitative (\code{knnr}) or qualitative (\code{knnda}) univariate response \eqn{y}.
 
 The functions use functions \code{\link{getknn}} and \code{\link{locw}}. See the code for details
 

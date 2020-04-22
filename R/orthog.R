@@ -1,15 +1,18 @@
-orthog <- function(X, Y, weights = rep(1, nrow(X))) {
+orthog <- function(X, Y, weights = NULL) {
   
   # Y is orthogonalized to X
 
   X <- .matrix(X)
-  n <- nrow(X)
+  n <- dim(X)[1]
   
   Y <- .matrix(Y, row = FALSE, prefix.colnam = "y")
   
-  d <- weights / sum(weights)
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
   
-  fm <- lm(Y ~ X, weights = d)
+  fm <- lm(Y ~ X, weights = weights)
   
   b <- coef(fm)
   
@@ -19,7 +22,7 @@ orthog <- function(X, Y, weights = rep(1, nrow(X))) {
     Yortho <- matrix(fm$residuals, ncol = 1, 
       dimnames = list(row.names(Y), colnames(Y)))
   
-  list(Y = Yortho, b = b)
+  list(Y = Yortho, b = b, weights = weights)
   
   }
 

@@ -14,7 +14,7 @@ The function uses function \code{\link{lm}}.
 
 \usage{
 
-orthog(X, Y, weights = rep(1, nrow(X)))
+orthog(X, Y, weights = NULL)
 
 }
 
@@ -24,7 +24,7 @@ orthog(X, Y, weights = rep(1, nrow(X)))
 
 \item{Y}{A \eqn{n x q} matrix or data frame to orthogonalize to \eqn{X}.}
 
-\item{weights}{A vector of length \eqn{n} defining the statistical weights to apply to the row observations.}
+\item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 }
 
@@ -49,7 +49,7 @@ Y
 
 res <- orthog(X, Y)
 res$Y
-t(res$Y) %*% X     # ===> orthogonal
+crossprod(res$Y, X)     # ===> orthogonal
 res$b
 
 # Same as:
@@ -59,14 +59,14 @@ fm$coef
 
 #### WITH WEIGHTS
 
-w <- 1:nrow(X)
+w <- 1:n
 fm <- lm(Y ~ X, weights = w)
 Y - fm$fitted.values
 fm$coef
 
 res <- orthog(X, Y, weights = w)
 res$Y
-t(res$Y) %*% diag(w) %*% X     # ===> orthogonal
+t(res$Y) %*% diag(w) %*% X       # ===> orthogonal
 res$b
 
 }

@@ -26,7 +26,7 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
       ) 
     }
   
-  m <- nrow(fm$Tu)
+  m <- dim(fm$Tu)[1]
   
   r <- y <- fit <- vector("list", ncomp)
   for(a in 1:ncomp) {

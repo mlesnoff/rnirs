@@ -1,16 +1,22 @@
-pls.nipals <- function(X, Y, ncomp, weights = rep(1, nrow(X))) {
+pls.nipals <- function(X, Y, ncomp, weights = NULL) {
   
   X <- .matrix(X)
-  n <- nrow(X)
-  zp <- ncol(X)
+  zdim <- dim(X)
+  n <- zdim[1]
+  zp <- zdim[2]
   
   Y <- .matrix(Y, row = FALSE, prefix.colnam = "y")   
-  q <- ncol(Y)
+  q <- dim(Y)[2]
   
-  xmeans <- .xmeans(X, weights = weights) 
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
+  
+  xmeans <- .xmean(X, weights = weights) 
   X <- scale(X, center = xmeans, scale = FALSE)                                     
 
-  ymeans <- .xmeans(Y, weights = weights) 
+  ymeans <- .xmean(Y, weights = weights) 
   Y <- scale(Y, center = ymeans, scale = FALSE)
   
   nam <- paste("comp", 1:ncomp, sep = "")
@@ -34,7 +40,7 @@ pls.nipals <- function(X, Y, ncomp, weights = rep(1, nrow(X))) {
     
     t <- X %*% w
     
-    tt <- sum(weights * t *t)                
+    tt <- sum(weights * t * t)                
     
     beta <- crossprod(weights * Y, t)  / tt
     

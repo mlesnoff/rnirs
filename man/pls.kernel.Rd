@@ -15,15 +15,15 @@ PLS1 and PLS2 algorithms.
 
 All algorithms center matrix \eqn{X}. Missing values are not allowed.
 
-The functions can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weight}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores, loadings and predictions.
+The functions can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores, loadings and predictions.
 
 }
 
 \usage{
 
-pls.kernel(X, Y, ncomp, weights = rep(1, nrow(X)))
+pls.kernel(X, Y, ncomp, weights = NULL)
 
-pls.nipals(X, Y, ncomp, weights = rep(1, nrow(X)))
+pls.nipals(X, Y, ncomp, weights = NULL)
 
 }
 
@@ -35,7 +35,7 @@ pls.nipals(X, Y, ncomp, weights = rep(1, nrow(X)))
 
 \item{ncomp}{The number of scores (i.e. components) to be calculated.}
 
-\item{weights}{A vector of length \eqn{n} defining the statistical weights to apply to the row observations.}
+\item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 }
 

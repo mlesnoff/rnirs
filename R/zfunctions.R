@@ -31,7 +31,7 @@
   X <- .matrix(X)
   dimnam <- dimnames(X)
   
-  y <- 1:ncol(X)
+  y <- 1:dim(X)[2]
   fun <- function(x, y, degree) 
     resid(lm(x ~ stats::poly(y, degree = degree)))
 
@@ -42,16 +42,17 @@
   
   }
 
-.dis <- function(mu, X, ...) {
+.dis <- function(mu, X, row = TRUE) {
   
   # Calculates the square of the Euclidean distances 
   # between the rows of X and vector mu
   
-  X <- .matrix(X, ...)
-  n <- nrow(X)
-  p <- ncol(X)
+  X <- .matrix(X, row = row)
+  zdim <- dim(X)
+  n <- zdim[1]
+  p <- zdim[2]
   rownam <- row.names(X)
-
+  
   X <- scale(X, center = mu, scale = FALSE)
   X <- X * X
   X <- matrix(rowSums(X), ncol = 1)
@@ -112,12 +113,12 @@
   if(!is.null(Yu)) Yu <- as.character(Yu) else Yu <- NA
   if(length(Yu) != 1) stop("Dimension of Yu must be 1x1.")
   
-  if(is.null(weights)) weights <- rep(1, n)
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
   
-  d <- weights
-  d <- d / sum(d)
-  
-  dat <- data.frame(y = Yr, w = d)
+  dat <- data.frame(y = Yr, w = weights)
   cnt <- dtaggregate(w ~ y, FUN = sum, data = dat)
 
   ind <- .findmax.ind(cnt$w)
@@ -138,21 +139,22 @@
 .knnr <- function(Xr = NULL, Yr, Xu = NULL, Yu = NULL, weights = NULL) {
   
   if(!is.matrix(Yr)) stop("Yr must be a matrix.")
-  n <- nrow(Yr)
-  q <- ncol(Yr)
-  if(is.null(colnames(Yr))) colnames(Yr) <- paste("y", 1:ncol(Yr), sep = "")
+  n <- dim(Yr)[1]
+  q <- dim(Yr)[2]
+  
+  if(is.null(colnames(Yr))) colnames(Yr) <- paste("y", 1:dim(Yr)[2], sep = "")
   colnam.Yr <- colnames(Yr)
 
   if(is.null(Yu)) Yu <- matrix(nrow = 1, ncol = q)
     else Yu <- matrix(Yu, nrow = 1, ncol = q)
   colnames(Yu) <- colnam.Yr
   
-  if(is.null(weights)) weights <- rep(1, n)
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
   
-  d <- weights
-  d <- d / sum(d)
-  
-  ymeans <- colSums(Yr * d)    # (Y * d = D %*% Y)
+  ymeans <- colSums(Yr * weights)    # (Y * d = D %*% Y)
   
   y <- Yu
   fit <- matrix(ymeans, nrow = 1) ; colnames(fit) <- colnam.Yr
@@ -162,7 +164,7 @@
   fit <- data.frame(rownum = 1, rownam = 1, fit)
   r <- data.frame(rownum = 1, rownam = 1, r)
   
-  zq <- ncol(y)
+  zq <- dim(y)[2]
   u <- (zq - q + 1):zq
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Yr
   
@@ -170,18 +172,24 @@
 
   }
 
-.mah <- function(mu, X, U = NULL, ...) {
+.mah <- function(mu, X, U = NULL, weights = NULL, row = TRUE) {
   
-  # Square of the Mahalanobis distances between
+  # Calculate the square of the Mahalanobis distances between
   # the rows of X and the vector mu 
   
-  X <- .matrix(X, ...)
-  n <- nrow(X)
-  p <- ncol(X)
+  X <- .matrix(X, row = row)
+  zdim <- dim(X)
+  n <- zdim[1]
+  p <- zdim[2]
   rownam <- row.names(X)
-  
-  if(is.null(U))
-    U <- chol(cov(X))
+
+  if(is.null(U)) {
+    if(is.null(weights))
+      S <- cov(X) * (n - 1) / n
+    else 
+      S <- .xcov(X, weights = weights)
+    U <- chol(S)
+    }
   else 
     U <- as.matrix(U)
   
@@ -202,21 +210,28 @@
   
   if(!is.matrix(X)) X <- as.matrix(X)
   
-  if(is.null(row.names(X))) row.names(X) <- 1:nrow(X)
+  if(is.null(row.names(X))) row.names(X) <- 1:dim(X)[1]
   
-  if(is.null(colnames(X))) colnames(X) <- paste(prefix.colnam, 1:ncol(X), sep = "")
+  if(is.null(colnames(X))) colnames(X) <- paste(prefix.colnam, 1:dim(X)[2], sep = "")
   
   X
   
   }
 
-.nipals <- function(X, weights = rep(1, nrow(X)), 
+.nipals <- function(X, weights = NULL, 
   tol = .Machine$double.eps^0.5, maxit = 100) {
   
   ## Find p such as ||X - t'p|| = min, with ||p|| = 1
   ## t = X %*% p
   
-  t <- X[, which.max(.xvars(X, weights = weights))]
+  n <- dim(X)[1]
+
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
+  
+  t <- X[, which.max(.xvar(X, weights = weights))]
   ztol <- 1
   iter <- 1
     
@@ -229,15 +244,13 @@
     ## Regression of X' on p
     zt <- X %*% p
       
-    ztol <- .xnorms(t - zt, weights = weights)
+    ztol <- .xnorm(t - zt)
     t <- zt
     iter <- iter + 1
     
     }
 
-  sv <- .xnorms(t, weights = weights)
-  ## = norm of the score t
-  ## = sqrt(sum(weight * t * t))
+  sv <- .xnorm(t, weights = weights)
   
   list(t = c(t), p = c(p), sv = sv, niter = iter)
   
@@ -251,7 +264,7 @@
   T <- scale(.matrix(X), center = fm$xmeans, scale = FALSE) %*% fm$R
     
   rownam <- row.names(X)
-  colnam <- paste("comp", 1:ncol(T), sep = "")
+  colnam <- paste("comp", 1:dim(T)[2], sep = "")
   
   dimnames(T) <- list(rownam, colnam)
   
@@ -287,36 +300,43 @@
 
   }
 
-.xmeans <- function(X, weights = NULL, ...) {
+.xmean <- function(X, weights = NULL, row = FALSE) {
   
-  X <- .matrix(X, ...)
+  X <- .matrix(X, row = row)
+  n <- dim(X)[1]
   
   if(is.null(weights))
-    weights <- rep(1, nrow(X))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
   
-  colSums(weights * X) / sum(weights)   
+  colSums(weights * X)   
   
   }
 
-.xnorms <- function(X, weights = NULL, ...) {
+.xnorm <- function(X, weights = NULL, row = FALSE) {
   
-  X <- .matrix(X, ...)
+  X <- .matrix(X, row = row)
+  n <- dim(X)[1]
   
-  if(is.null(weights))
-    weights <- rep(1, nrow(X))
+  if(is.null(weights)) 
+    weights <- rep(1, n)
   
   sqrt(colSums(weights * X * X))
   
   }
 
-.xvars <- function(X, weights = NULL, ...) {
+.xvar <- function(X, weights = NULL, row = FALSE) {
   
-  X <- .matrix(X, ...)
+  X <- .matrix(X, row = row)
+  n <- dim(X)[1]
   
   if(is.null(weights))
-    weights <- rep(1, nrow(X))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
   
-  xmeans <- .xmeans(X, weights = weights)
+  xmeans <- .xmean(X, weights = weights)
   X <- scale(X, center = xmeans, scale = FALSE)
   
   colSums(weights * X * X)  / sum(weights)
@@ -324,36 +344,83 @@
   
   }
 
-.xcor <- function(X, weights = NULL, ...) {
+.xcor <- function(X, weights = NULL, row = FALSE) {
 
-  X <- .matrix(X, ...)
+  X <- .matrix(X, row = row)
+  n <- dim(X)[1]
   
   if(is.null(weights))
-    weights <- rep(1, nrow(X))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
   
-  xmeans <- .xmeans(X, weights = weights)
-  xvars <- .xvars(X, weights = weights)
+  xmeans <- .xmean(X, weights = weights)
+  xvars <- .xvar(X, weights = weights)
   
   X <- scale(X, center = xmeans, scale = sqrt(xvars))
   
-  crossprod(weights * X, X) / sum(weights)
+  crossprod(weights * X, X)
   
   }
 
-.xcov <- function(X, weights = NULL, ...) {
+.xcov <- function(X, weights = NULL, row = FALSE) {
   
-  X <- .matrix(X, ...)
+  X <- .matrix(X, row = row)
+  n <- dim(X)[1]
   
   if(is.null(weights))
-    weights <- rep(1, nrow(X))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
   
-  xmeans <- .xmeans(X, weights = weights)
+  xmeans <- .xmean(X, weights = weights)
   X <- scale(X, center = xmeans, scale = FALSE)
   
-  crossprod(sqrt(weights) * X) / sum(weights)
+  crossprod(sqrt(weights) * X)
   
   }
 
+.xmedspa <- function(X, delta = 1e-6) {
+  
+  X <- .matrix(X, row = FALSE)
+  
+  ##### COPY OF FUNCTION 'spatial.median' AVAILABLE IN THE SCRIPT PcaLocavntore.R
+  ##### OF PACKAGE rrcov v.1.4-3 on R CRAN (V. Todorov, 2016)
+
+  x <- X
+  
+  dime = dim(x)
+  n=dime[1]
+  p=dime[2]
+  delta1=delta*sqrt(p)
+  mu0=apply(x,2,median)
+  h=delta1+1
+  tt=0
+  while(h>delta1){
+    tt=tt+1
+    TT=matrix(mu0,n,p,byrow=TRUE)
+    U=(x-TT)^2
+    w=sqrt(apply(U,1,sum))
+    w0=median(w)
+    ep=delta*w0
+
+    z=(w<=ep)
+    w[z]=ep
+    w[!z]=1/w[!z]
+    w=w/sum(w)
+    x1=x
+    for(i in 1:n)
+      x1[i,]=w[i]*x[i,]
+    mu=apply(x1,2,sum)
+    h=sqrt(sum((mu-mu0)^2))
+    mu0=mu
+    }
+
+  ##### END
+  
+  mu0
+    
+}
 
 
 

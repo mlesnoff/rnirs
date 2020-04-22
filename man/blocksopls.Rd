@@ -98,7 +98,7 @@ blocksopls(Xr, Yr, Xu, blocks, ncomp)
 
 ############# Syntax with weights
 
-w <- rep(1, n)
+w <- rep(1 / n, n)
 #w <- 1:n
 blocksopls(Xr, Yr, Xu, blocks, ncomp, weights = w)
 

@@ -1,13 +1,18 @@
-pca.eigen <- function(X, ncomp, weights = rep(1, nrow(X))) {
+pca.eigen <- function(X, ncomp, weights = NULL) {
   
   ## Eigen decomposition of t(X) %*% D %*% X
   ## where D = diag(weights) and X has been centered with metric D
   
   X <- .matrix(X)
   n <- nrow(X)
-  p <- ncol(X)
+  n <- dim(X)[1]
   
-  xmeans <- .xmeans(X, weights = weights)
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
+  
+  xmeans <- .xmean(X, weights = weights)
   X <- scale(X, center = xmeans, scale = FALSE)
 
   z <- eigen(crossprod(sqrt(weights) * X))
@@ -17,12 +22,13 @@ pca.eigen <- function(X, ncomp, weights = rep(1, nrow(X))) {
   T <- X %*% P
   
   xss <- z$values[1:ncomp]
-  ## = eigenvalues of X'DX
-  ## = colSums(weights * T * T)
+  ## = eigenvalues of X'DX = Cov(X) in metric D 
+  ## = variances of scores T in metric D
+  ## = colSums(weights * T * T)  
   
   sv <- sqrt(xss)
-  ## = norms of the scores T (in metric D)
-  ## = .xnorms(T, weights = weights)
+  ## = norms of the scores T in metric D
+  ## = .xnorm(T, weights = weights)
   ## = sqrt(colSums(weights * T * T))
    
   row.names(T) <- row.names(X)

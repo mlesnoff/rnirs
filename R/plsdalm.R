@@ -18,7 +18,7 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   lev <- levels(Yr)      
   
   Xu <- .matrix(Xu)
-  m <- nrow(Xu)
+  m <- dim(Xu)[1]
   rownam.Xu <- row.names(Xu)
 
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS

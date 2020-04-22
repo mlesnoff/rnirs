@@ -35,6 +35,8 @@ locw <- function(
     
     ind <- listnn[[i]]
     
+    #if(length(ind == 0)) next
+    
     if(weighted) dots$weights <- listw[[i]]
     param <- c(
       list(

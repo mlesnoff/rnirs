@@ -35,7 +35,9 @@ lscordis(fm, ...)
 
 \details{
 
-The "standardized" variable \eqn{dstand} calculated as \eqn{dstand = d / cutoff-value} is an  indicator of extreme value. SD is considered extreme if \eqn{dstand > 1}. The Winisi GH is also provided (extreme if GH > 3).
+The "standardized" variable \eqn{dstand} calculated as \eqn{dstand = d / cutoff-value} is an  indicator of extreme value. SD is considered extreme if \eqn{dstand > 1}. 
+
+The Winisi GH is also provided ("extreme" if GH > 3).
 
 }
 

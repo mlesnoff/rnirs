@@ -1,7 +1,7 @@
 pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...) {
 
   X <- .matrix(Xr)
-  n <- nrow(X)
+  n <- dim(X)[1]
   
   Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
 
@@ -24,7 +24,7 @@ pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...) {
   if(!is.null(Xu))
     Tu <- .projscor(fm, .matrix(Xu))
   
-  list(Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, C = fm$C,
+  list(Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, C = fm$C, TT = fm$TT,
     xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights, 
     explvarx = explvarx, Y = Yr)
   

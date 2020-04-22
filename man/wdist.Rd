@@ -8,7 +8,7 @@
 Calculation of weights from a vector of distances, using a (decreasing) inverse exponential function.
 }
 
-\usage{wdist(d, h = 2, c = 3)}
+\usage{wdist(d, h = 2, cri = 3)}
 
 \arguments{
 
@@ -16,7 +16,7 @@ Calculation of weights from a vector of distances, using a (decreasing) inverse 
 
 \item{h}{A positive scalar (scaling factor). Lower is \eqn{h}, sharper is the function. See Details and the examples.}
 
-\item{c}{A positive scalar used for defining outliers in the distances vector. See Details.}
+\item{cri}{A positive scalar used for defining outliers in the distances vector. See Details.}
 
 }
 
@@ -31,8 +31,8 @@ library(ggplot2)
 x1 <- sqrt(rchisq(n = 100, df = 10))
 x2 <- sqrt(rchisq(n = 10, df = 40))
 d <- c(x1, x2)
-h <- 2 ; c <- 3
-w <- wdist(d, h = h, c = c)
+h <- 2 ; cri <- 3
+w <- wdist(d, h = h, cri = cri)
 par(mfrow = c(2, 2))
 plot(d)
 hist(d, n = 50)
