@@ -43,29 +43,47 @@ You can write **??rnirs** in the R console for details.
 
 ## Installation from Github
 
-1. For the first installation and if not already done
+**Warning:** The new R base version 4.0.0 requires re-installing all the packages. The easiest way is to remove all the folders where have been installed the packages by the previous version, and then open Rstudio, going in the Package menu and re-installing them automatically with dependencies.
 
-a. For Windows, install Rtools
+**A. Only for the first installation and if not already done** 
 
-Download the Rtools.exe available at
+**1. Install Rstudio**
 
-https://cran.r-project.org/bin/windows/Rtools/
+https://rstudio.com/products/rstudio/download/ 
 
-and run it.
+**2. Install the R package devtools from CRAN.** 
 
-The Rtools site gives indications for other operating systems. 
+Package devtools is used for installing other R packages (such as rnirs) from Github.  
 
-b. Install Rstudio
-
-https://www.rstudio.com/products/rstudio/download/
-
-c. Install package **devtools**  from the CRAN. Package devtools uses Rtools for facilitating packages installations. Use the Rstudio menu or write in the R console
-
+Use the Rstudio menu or write in the R console
 ```{r}
 install.packages("devtools")
 ```
-2. Load **devtools** and install **rnirs** package. Write in the R console
 
+**3. Install Rtools**
+
+The Rtools program is required for running package devtools.
+
+Two situations:
+
+a. For R version >= 4.0.0
+
+- Download Rtools40.exe at https://cran.r-project.org/bin/windows/Rtools/ and run it.
+
+- Create a text file ".Renviron" (if not already existing) in your "Documents" folder and copy it the following line
+```{r}
+PATH="${RTOOLS40_HOME}\usr\bin;${PATH}"
+```
+
+b. For R versions <= 3.4.6
+
+Download the Rtools.exe available at https://cran.r-project.org/bin/windows/Rtools/history.html and run it.
+
+**B. After this first installation** 
+
+**Load devtools and install rnirs package** 
+
+Write in the R console
 ```{r}
 library(devtools)
 install_github("mlesnoff/rnirs", dependencies = TRUE)
@@ -78,9 +96,9 @@ Which would you like to update?"
 ```
 it is recommended to skip updates.
 
-## Installation from the Tar file rnirs_....tar.gz with Rstudio
+## Installation from the archive file rnirs_....tar.gz with Rstudio
 
-1. First, install packages from the CRAN
+A. First, install the following packages from the CRAN
 
 - **data.table**
 - **FNN**
@@ -90,7 +108,7 @@ it is recommended to skip updates.
 - **scales**
 - **signal**
 
-2. Then, install the file **rnirs_....tar.gz** (Menu "Packages", "Install", and then "Install From Package Archive Files")
+B. Then, install the file **rnirs_....tar.gz** (Menu "Packages", "Install", and then "Install From Package Archive Files")
 
 ## Usage
 
@@ -99,7 +117,9 @@ Load **rnirs**. Write in the R console
 ```{r}
 library(rnirs)
 ```
-To get an overview of the available functions, write in the R console
+**To get an overview of the available functions**
+
+Write in the R console
 
 ```{r}
 ??rnirs
