@@ -1,10 +1,10 @@
 Package: rnirs
 Type: Package
-Title: Chemometrics Methods and Locally Weighted PLS Regressions
+Title: Chemometrics Methods and Locally Weighted Regressions
 Version: 1.6-0
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
-Description: Package rnirs focuses on chemometrics methods, including locally weighted PLS regressions and discriminations. The package was initially implemented for near infrared spectral (NIRS) data, but is generic for any type of data.
+Description: Package rnirs focuses on chemometrics methods, including locally weighted PLS regression and discrimination.The package is generic for any type of data, although it was initially implemented for near infrared spectral data (NIRS).
 Depends: R (>= 3.0.0)
 VignetteBuilder: knitr
 Imports:  data.table, FNN, ggplot2, gridExtra, ptw, scales, signal 

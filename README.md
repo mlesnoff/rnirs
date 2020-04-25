@@ -1,9 +1,9 @@
 ## rnirs 1.6-0
-## Chemometrics Methods and Locally Weighted PLS Regressions 
+## Chemometrics Methods and Locally Weighted Regressions 
 
-R package focusing on chemometrics methods, including locally weighted PLS regressions and discriminations.
+R package focusing on chemometrics methods, including locally weighted PLS regression and discrimination.
 
-The package was initially implemented for near infrared spectral (NIRS) data, but is generic for any type of data.
+The package is generic for any type of data, although it was initially implemented for near infrared spectral data (NIRS).
 
 The changes in the package versions are reported in the **NEWS** file above.
 
@@ -21,12 +21,10 @@ Using Rstudio is recommended for installation and usage (https://www.rstudio.com
 * Regression
     - LMR
     - PLSR
-    - LWPLSR (use generic function "locw")
-    - kNNWR, KNN-LWPLSR
+    - KNNWR, LWPLSR, KNN-LWPLSR (wrappers using function locw)
 * Discrimination (with various DA methods)
     - PLSDA
-    - LWPLSDA (use generic function "locw")
-    - kNNWDA, KNN-LWPLSDA
+    - KNNWDA, LWPLSDA, KNN-LWPLSDA (wrappers using function locw)
 * Multiblock functions:
     - Orthogonalization of a matrix to another matrix
     - Block-selection
