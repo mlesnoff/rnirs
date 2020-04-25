@@ -14,7 +14,7 @@ Using Rstudio is recommended for installation and usage (https://www.rstudio.com
 * Data checking and summarizing
 * Data pre-processing: Detrend (poly, lowess, als), SNV, Derivation (Savitsky-Golay, Finite difference)
 * Multivariate factorial analyses: 
-    - PCA (Usual/Robust)
+    - PCA (Usual and Robust)
     - PLS
     - FDA
 * Variable selection: CovSel
