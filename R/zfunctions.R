@@ -96,6 +96,35 @@
   ind
   }
 
+.fweights <- function(x, nam = "huber", a = 1.345) {
+  
+  switch(
+    
+    nam,
+    
+    bisquare = ifelse(abs(x) < a, (1 - (x / a)^2)^2, 0),
+    
+    cauchy = ifelse(abs(x) < a, 1 / (1 + (x / a)^2), 0),
+    
+    epan = ifelse(abs(x) < a, 1 - (x / a)^2, 0),
+    
+    gauss = ifelse(abs(x) < a, exp(-(x / a)^2), 0),
+    
+    huber =  ifelse(abs(x) < a, 1, a / abs(x)),
+    
+    invexp =  ifelse(abs(x) < a, 1 / exp(abs(x / a)), 0),
+    
+    talworth = ifelse(abs(x) < a, 1, 0),
+    
+    trian = ifelse(abs(x) < a, 1 - abs(x / a), 0),
+    
+    tricube = ifelse(abs(x) < a, (1 - abs(x / a)^3)^3, 0)
+
+    )
+
+  }
+
+
 .knnda <- function(Xr = NULL, Yr, Xu = NULL, Yu = NULL, weights = NULL) {
 
   colnam.Yr <- colnames(Yr)
@@ -272,32 +301,60 @@
   
   }
 
-.wkern <- function(x, nam = "huber", a = 1.345) {
+.simpp.hub <- function(X, nrep) {
   
-  switch(
+  X <- .matrix(X)
+  zdim <- dim(X)
+  n <- zdim[1]
+  p <- zdim[2]
+  
+  tX <- t(X)
+  P <- tX
+  if(nrep > 0) {
+  
+    for(j in 1:nrep) {
+      
+      K <- 2 * n
+      s1 <- sample(1:n, size = K, replace = TRUE)
+      s2 <- sample(1:n, size = K, replace = TRUE)
+      u <- which(s1 - s2 != 0)
+      s1 <- s1[u][1:n]
+      s2 <- s2[u][1:n]
+      
+      zP <- tX[, s1] - tX[, s2]
+      
+      P <- cbind(P, zP)
+      
+      }
     
-    nam,
-    
-    bisquare = ifelse(abs(x) < a, (1 - (x / a)^2)^2, 0),
-    
-    cauchy = ifelse(abs(x) < a, 1 / (1 + (x / a)^2), 0),
-    
-    epan = ifelse(abs(x) < a, 1 - (x / a)^2, 0),
-    
-    gauss = ifelse(abs(x) < a, exp(-(x / a)^2), 0),
-    
-    huber =  ifelse(abs(x) < a, 1, a / abs(x)),
-    
-    invexp =  ifelse(abs(x) < a, 1 / exp(abs(x / a)), 0),
-    
-    talworth = ifelse(abs(x) < a, 1, 0),
-    
-    trian = ifelse(abs(x) < a, 1 - abs(x / a), 0),
-    
-    tricube = ifelse(abs(x) < a, (1 - abs(x / a)^3)^3, 0)
+    }
+  
+  P <- scale(P, center = FALSE, scale = .xnorm(P)) 
+  attributes(P)["scaled:scale"] <- NULL
+  
+  P
 
+  }
+
+.stahel <- function(X, P, scal = c("mad", "sd")) {
+
+  scal <- switch(
+    match.arg(scal),
+    mad = mad,
+    sd = sd
     )
-
+  
+  T <- X %*% P
+  
+  mu <- apply(T, 2, median)
+  s <- apply(T, 2, scal)
+  
+  T <- scale(T, center = mu, scale = s)
+  
+  r <- apply(abs(T), 1, max)
+  
+  r
+  
   }
 
 .xmean <- function(X, weights = NULL, row = FALSE) {

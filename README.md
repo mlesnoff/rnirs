@@ -1,16 +1,11 @@
-## rnirs 1.5-3
-## Locally Weighted PLS Regression and Discrimination
+## rnirs 1.6-0
+## Chemometrics Methods and Locally Weighted PLS Regressions 
 
-R package focusing on locally weighted prediction methods
+R package focusing on chemometrics methods, including locally weighted PLS regressions and discriminations.
 
-- Regression for quantitative responses
-- Discrimination for qualitative responses 
+The package was initially implemented for near infrared spectral (NIRS) data, but is generic for any type of data.
 
-The prediction models can use dimension reduction methods (e.g. partial least squares) or other methods.
-
-The package can handle many types of data, although it was primarily dedicated to near infrared spectral (NIRS) data.
-
-The changes in the successive versions of the package are reported in the **NEWS** file above.
+The changes in the package versions are reported in the **NEWS** file above.
 
 Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
@@ -18,15 +13,20 @@ Using Rstudio is recommended for installation and usage (https://www.rstudio.com
 
 * Data checking and summarizing
 * Data pre-processing: Detrend (poly, lowess, als), SNV, Derivation (Savitsky-Golay, Finite difference)
-* Multivariate factorial analyses: PCA, PLS, FDA
+* Multivariate factorial analyses: 
+    - PCA (Usual/Robust)
+    - PLS
+    - FDA
 * Variable selection: CovSel
-* Global predictive methods
-    - Quantitative regressions: PLSR, LMR
-    - Discrimination: PLSDA with various DA methods
-* Locally weighted predictive methods
-    - Quantitative regressions: kNN-LWPLSR, kNN weighted regressions
-    - Discrimination: kNN-LWPLSDA with various DA methods, kNN weighted discrimination
-    - Generic function **locw** for implementing any locally weighted models
+* Regression
+    - LMR
+    - PLSR
+    - LWPLSR (use generic function "locw")
+    - kNNWR, KNN-LWPLSR
+* Discrimination (with various DA methods)
+    - PLSDA
+    - LWPLSDA (use generic function "locw")
+    - kNNWDA, KNN-LWPLSDA
 * Multiblock functions:
     - Orthogonalization of a matrix to another matrix
     - Block-selection

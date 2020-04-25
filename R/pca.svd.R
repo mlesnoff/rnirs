@@ -37,7 +37,7 @@ pca.svd <- function(X, ncomp, weights = NULL) {
   
   colnames(T) <- colnames(P) <- paste("comp", 1:ncomp, sep = "")
   
-  list(T = T, P = P, R = P, sv = sv, xss = xss, 
+  list(T = T, P = P, R = P, sv = sv, xss = xss,
     xmeans = xmeans, weights = weights)
 
   }

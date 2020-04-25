@@ -1,5 +1,17 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-0
+
+- New functions:
+
+  pca.cr (Robust PCA Croux & Ruiz-Gazen algorithm))
+
+  pca.rob (Robust PCA algorithm)
+
+  Auxiliary functions: 
+    .simpp.hub (PP simulation)
+    .stahel (Stahel-Donoho outlyingness)
+
 ##----------------- Version 1.5-3
 
 - For better consistency between the functions using row weighting (argument "weights"),
@@ -7,11 +19,11 @@ the weights are now automaticaly "normalized" to sum to 1 before the next comput
 
 - New functions:
 
-  pca.sph (Robust PCA)
+  pca.sph (Robust spherical PCA algorithm)
 
   Auxiliary functions: 
-    .medspa (script from rrcov v.1.4-3 on R CRAN, V. Todorov, 2016)
-    .ellips
+    .xmedspa (script from rrcov v.1.4-3 on R CRAN, V. Todorov, 2016)
+    .ellips (computation of ellipsoids)
 
 - Argument "c" in wdist has been renamed "cri".
 

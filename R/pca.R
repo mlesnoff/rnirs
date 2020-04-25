@@ -6,11 +6,16 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
   fm <- algo(X, ncomp, ...)
   weights <- fm$weights
 
+  X <- scale(X, center = fm$xmeans, scale = FALSE)
+  
   xss <- fm$xss
   ## = variances of scores T in metric D
   ## = eigenvalues of X'DX = Cov(X) in metric D 
-  X <- scale(X, center = fm$xmeans, scale = FALSE)
+  
   xsstot <- sum(weights * X * X, na.rm = TRUE)
+  ## = sum of the variances of the columns
+  ## = trace of Cov(X)
+  ## = sum(diag(crossprod(weights * X, X)))
   
   pvar <- xss / xsstot
   cumpvar <- cumsum(pvar)
