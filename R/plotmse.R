@@ -1,39 +1,64 @@
-plotmse <- function(obj, nam = "rmsep", group = NULL, scale.x.cont = TRUE,
-  col = NULL) {
+plotmse <- function(obj, nam = "rmsep", group = NULL,  col = NULL,
+  legend = TRUE, legend.title = NULL, ncol = 1, lwd = 1.8, ...) {
   
-  z <- obj
+  obj <- obj[, c("ncomp", nam)]
   
-  j <- which(nam == colnames(z))
-  
+  fg <- "grey70"
+    
+  plot(obj[, 1:2], 
+    xlab = "Nb. components", ylab = toupper(nam),
+    type = "n",
+    xaxt = "n", las = 1, fg = fg,
+    ...
+    )
+  labs <- u <- 0:max(z$ncomp)
+  labs[1 + seq(1, max(z$ncomp), by = 2)] <- NA
+  axis(side = 1, at = u, labels = labs, fg = fg) 
+      
   if(is.null(group)) {
     
-    p <- ggplot(data = z, aes(x = z[, "ncomp"], y = z[, j]))
     if(is.null(col))
-      p <- p + geom_line() 
-    else
-      p <- p + geom_line(col = col) 
-    if(scale.x.cont)
-      p <- p + scale_x_continuous(breaks = min(z[, "ncomp"]):max(z[, "ncomp"]))
-    p <- p + labs(x = "Nb. components", y = toupper(nam))
-    
-    } else {
-      
-      u <- obj[, group]
-      if(is.numeric(u) | is.character(u)) u <- as.factor(u) 
-      z$group <- u
+      col <- "#045a8d"
 
-      p <- ggplot(data = z, aes(x = z[, "ncomp"], y = z[, j]))
-      if(is.null(col)) {
-        p <- p + geom_line(aes(group = group, col = group))
-        p <- p + scale_colour_discrete(name = group)
-        }
-      else
-        p <- p + geom_line(aes(group = group), col = col)
-      if(scale.x.cont)
-        p <- p + scale_x_continuous(breaks = min(z[, "ncomp"]):max(z[, "ncomp"]))
-      p <- p + labs(x = "Nb. components", y = toupper(nam))
+    lines(obj[, 1:2], col = col, lwd = lwd)
+    
+    }
+  
+  else {
+  
+    if(!is.factor(group))
+      group <- as.factor(as.character(group))
+    
+    levs <- levels(group)
+    nlev <- length(levs)
+    
+    if(!is.null(col)){
+      if(length(col) == 1)
+        col <- rep(col, nlev)
       }
-  
-  p
-  
+    else
+      #col <- 1:nlev #rep("grey70", nlev)
+      col <- palette.colors(n = nlev, palette = "ggplot2", recycle = TRUE)
+      #col <- heat.colors(n = nlev, alpha = 1, rev = FALSE)
+      #col <- terrain.colors(n = nlev, alpha = 1, rev = FALSE)
+   
+    for(i in 1:nlev) {
+      lines(obj[group == levs[i], 1:2], col = col[i], lwd = lwd)
+      }
+    
+    if(legend) {
+      
+      if(is.null(legend.title))
+        legend.title <- "Group"
+      
+      legend("topright", legend = levs,
+        box.col = fg, ncol = ncol,
+        #text.width = 2 * max(strwidth(group)),      
+        #text.width = strwidth("1,000,00000000"),
+        col = col, lty = 1, xjust = 1, yjust = 1,
+        title = legend.title)
+      }
+    
+    }
+    
   }

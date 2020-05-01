@@ -26,8 +26,6 @@ Let \eqn{d} be a vector of distances. Preliminary weights are calculated by \eqn
 
 \examples{
 
-library(ggplot2)
-
 x1 <- sqrt(rchisq(n = 100, df = 10))
 x2 <- sqrt(rchisq(n = 10, df = 40))
 d <- c(x1, x2)
@@ -40,7 +38,7 @@ plot(w, ylim = c(0, 1)) ; abline(h = 1, lty = 2)
 plot(d, w, ylim = c(0, 1)) ; abline(h = 1, lty = 2)
 par(mfrow = c(1, 1))
 
-d <- 0:15
+d <- seq(0, 15, by = .5)
 h <- c(.5, 1, 1.5, 2.5, 5, 10, Inf)
 for(i in 1:length(h)) {
   w <- wdist(d, h = h[i])
@@ -49,10 +47,8 @@ for(i in 1:length(h)) {
   }
 res$h <- as.factor(res$h)
 headm(res)
-p <- ggplot(data = res, aes(x = d, y = w, col = h))
-p <- p + xlab("Distance") + ylab("Weight")
-p <- p + geom_line(aes())
-p
+plotxy(res[, c("d", "w")], asp = 0, group = res$h, pch = 16)
+
 
 }
 

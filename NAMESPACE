@@ -6,18 +6,10 @@ import(grDevices)
 
 import(data.table)
 import(FNN)
-import(ggplot2)
-import(gridExtra)
 
 importFrom("data.table", "data.table", "rbindlist", "setDF")
 
 importFrom("FNN", "knn")
-
-# does not work
-#importFrom("ggplot2", "geom_point", , "geom_hline", "geom_vline", "ggplot", "labs", 
-#  "scale_colour_brewer", "scale_colour_manual")
-
-importFrom("scales", "seq_gradient_pal", "hue_pal")
 
 importFrom("signal", "sgolayfilt")
 

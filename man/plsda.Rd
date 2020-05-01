@@ -92,16 +92,16 @@ headm(fm$fit)
 headm(fm$r)
 
 z <- err(fm, ~ ncomp)
-plotmse(z, nam = "errp")
 z[z$errp == min(z$errp), ]
+plotmse(z, nam = "errp")
 
 ## Same with plsdalm (faster)
 
 ncomp <- 20
 fm <- plsdalm(Xr, yr, Xu, yu, ncomp = ncomp)
 z <- err(fm, ~ ncomp)
-plotmse(z, nam = "errp")
 z[z$errp == min(z$errp), ]
+plotmse(z, nam = "errp")
 
 ######## PLS-LDA
 
@@ -109,8 +109,8 @@ ncomp <- 20
 fm <- plsda(Xr, yr, Xu, yu, ncomp, da = daprob)
 
 z <- err(fm, ~ ncomp)
-plotmse(z, nam = "errp")
 z[z$errp == min(z$errp), ]
+plotmse(z, nam = "errp")
 
 ######## PLS-QDA
 
@@ -119,10 +119,8 @@ fm <- plsda(Xr, yr, Xu, yu, ncomp, da = daprob,
   lda = FALSE)
 
 z <- err(fm, ~ ncomp)
-z
+z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp")
-z <- z[z$errp == min(z$errp), ]
-z
 
 ######## PLS-KNNDA
 
@@ -131,8 +129,8 @@ fm <- plsda(Xr, yr, Xu, yu, ncomp, da = knnda,
   diss = "mahalanobis", k = 3)
   
 z <- err(fm, ~ ncomp + k)
-plotmse(z, nam = "errp", group = "k")
 z[z$errp == min(z$errp), ]
+plotmse(z, nam = "errp", group = z$k)
 
 }
 

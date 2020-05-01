@@ -81,8 +81,6 @@ Venables, W. N. and Ripley, B. D. (2002) Modern Applied Statistics with S. Fourt
 
 \examples{
 
-library(ggplot2)
-
 data(datcass)
 data(datforages)
 
@@ -150,12 +148,9 @@ fm <- knnr(
 z <- mse(fm, ~ ncompdis + h + k)
 z
 z[z$rmsep == min(z$rmsep), ]
-u <- z
 
-u$group <- paste(u$ncompdis, u$h)
-p <- ggplot(data = u, aes(x = k, y = rmsep))
-p <- p + geom_point(aes(colour = as.factor(group)), size = 2)
-p
+group <- paste("ncompdis=", u$ncompdis, ", h=", u$h, sep = "")
+plotxy(z[, c("k", "rmsep")], asp = 0, group = group, pch = 16)
 
 ######################## knnda
 
@@ -200,11 +195,8 @@ z <- err(fm, ~ ncompdis + h + k)
 z
 z[z$err == min(z$errp), ]
 
-u <- z
-u$group <- paste(u$ncompdis, u$h)
-p <- ggplot(data = u, aes(x = k, y = errp))
-p <- p + geom_point(aes(colour = as.factor(group)), size = 2)
-p
+group <- paste("ncompdis=", u$ncompdis, ", h=", u$h, sep = "")
+plotxy(z[, c("k", "errp")], asp = 0, group = group, pch = 16)
 
 }
 

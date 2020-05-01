@@ -21,7 +21,7 @@ In some cases, the observed error rate \eqn{r} is erratic, making difficult inte
 \usage{
 selncomp.wold(obj, nam = "rmsep", alpha = .01, 
   typ = c("raw", "integral", "smooth"), 
-  correct = TRUE, digits = 3, plot = TRUE, title = NULL, ...
+  correct = TRUE, digits = 3, plot = TRUE, ...
   )
   }
 
@@ -41,8 +41,6 @@ selncomp.wold(obj, nam = "rmsep", alpha = .01,
 
 \item{plot}{Logical indicating is a plot is dobservedn. Default to \code{TRUE}.}
 
-\item{title}{Optional title for the plot. Default to \code{NULL}.}
-
 \item{...}{Other arguments to pass in function \code{\link{lowess}}.}
 
 }
@@ -59,8 +57,6 @@ data(datcass)
 
 Xr <- datcass$Xr
 yr <- datcass$yr
-
-Xr <- detrend(Xr)
 
 n <- nrow(Xr)
 segm <- segmcvkfold(n = n, K = 5, typ = "random", nrep = 1)

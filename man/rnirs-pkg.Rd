@@ -160,8 +160,8 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 \bold{------------ GRAPHICS}
 
 \tabular{ll}{
-  \code{\link{plotxy}} \tab 2d scatter plot (e.g. for PCA or PLS scores or loadings)\cr
-  \code{\link{plotmse}} \tab Plot error rates of prediction models\cr 
+  \code{\link{plotxy}} \tab 2d scatter plot\cr
+  \code{\link{plotmse}} \tab Plotting error rates of prediction models\cr 
   \code{\link{plotsp}}, \code{\link{plotsp1}} \tab Plotting spectra (or more generally row observations) of a data set\cr
   }
 

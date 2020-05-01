@@ -102,10 +102,7 @@ A. First, install the following packages from the CRAN
 
 - **data.table**
 - **FNN**
-- **ggplot2**
-- **gridExtra** 
 - **ptw**
-- **scales**
 - **signal**
 
 B. Then, install the file **rnirs_....tar.gz** (Menu "Packages", "Install", and then "Install From Package Archive Files")

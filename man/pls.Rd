@@ -102,9 +102,9 @@ barplot(100 * z$pvar, names.arg = paste("comp", z$ncomp),
 
 comp <- c(1, 2)
 #comp <- c(2, 3)
-plotxy(fm$Tr[, comp])
+plotxy(fm$Tr[, comp], zeroes = TRUE)
 
-plotxy(fm$Tr[, comp], label = TRUE)
+plotxy(fm$Tr[, comp], zeroes = TRUE, labels = TRUE)
 
 ### Contributions of the individuals (in proportions)
 
@@ -113,11 +113,11 @@ colSums(fm$contr.ind)
 
 ### Loadings
 
-plotxy(fm$P, label = TRUE, origin = c(0, 0))
+plotxy(fm$P, zeroes = TRUE, label = TRUE)
 
 ### Coordonates of the variables
 
-plotxy(fm$coord.var, label = TRUE, origin = c(0, 0))
+plotxy(fm$coord.var, zeroes = TRUE, label = TRUE)
 
 ### Contributions of the variables (in proportions)
 
@@ -128,23 +128,19 @@ colSums(fm$contr.var)
 
 fm$cor.circle
 
-comp <- c(1, 2)
-#comp <- c(2, 3)
-z <- fm$cor.circle[, comp]
-plotxy(z, label = TRUE, origin = c(0, 0), circle = TRUE)
+plotxy(fm$cor.circle, zeroes = TRUE, labels = TRUE, circle = TRUE, ylim = c(-1, 1))
 
 ### Projection of Xu on the score space Tr ==> Scores Tu
 
 fm <- pca(Xr, Xu, ncomp = ncomp)
-fm$Tr
-fm$Tu
+Tr <- fm$Tr
+Tu <- fm$Tu
 
-res <- rbind(fm$Tr, fm$Tu)
-group <- c(rep("Reference", nrow(fm$Tr)), 
-  rep("Unknown", nrow(fm$Tu)))
-comp <- c(1, 2)
-#comp <- c(2, 3)
-plotxy(res[, comp], group = group, label = TRUE, origin = c(0, 0)) 
+T <- rbind(Tr, Tu)
+row.names(T) <- 1:nrow(T)
+group <- c(rep("Reference", nrow(Tr)), rep("Unknown", nrow(Tu)))
+plotxy(T, group = group, pch = 16, zeroes = TRUE)
+plotxy(T, group = group, labels = TRUE, zeroes = TRUE)
 
 
 ##################### PLS

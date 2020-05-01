@@ -122,8 +122,6 @@ Sicard, E. Sabatier, R., 2006. Theoretical framework for local PLS1 regression a
 
 \examples{
 
-library(ggplot2)
-
 data(datcass)
 data(datforages)
 
@@ -140,7 +138,7 @@ Xu <- detrend(Xu)
 dim(Xr)
 dim(Xu)
 
-## A kNN-LWPLSR model where:
+###### A kNN-LWPLSR model where:
 ## The dissimilarities between the observations are defined
 ## by the Mahalanobis distances calculated in a global PLS score space
 ## of ncompdis = 10 components.
@@ -150,7 +148,7 @@ dim(Xu)
 ncompdis <- 10
 h <- c(2, Inf)
 k <- c(100, Inf)
-ncomp <- 20
+ncomp <- 15
 fm <- lwplsr(
   Xr, yr,
   Xu, yu,
@@ -169,10 +167,10 @@ headm(z)
 z[z$rmsep == min(z$rmsep), ]
 
 u <- z
-u$group <- paste("h=", u$h, ", k=", u$k, sep = "")
-plotmse(u, group = "group")
+group <- paste("h=", u$h, ", k=", u$k, sep = "")
+plotmse(u, group = group)
 
-## An approach for decreasing the calculation time
+###### An approach for decreasing the calculation time
 ## (and in some cases increasing the results stability 
 ## and decreasing the error rates) is to replace matrices Xr and Xu 
 ## by global PLSR score matrices Tr and Tu
@@ -182,7 +180,7 @@ zfm <- pls(Xr, yr, Xu, ncomp = 25) # calculation of the new data
 ncompdis <- 10
 h <- c(2, Inf)
 k <- c(100, Inf)
-ncomp <- 20
+ncomp <- 15
 fm <- lwplsr(
   zfm$Tr, yr,
   zfm$Tu, yu,
@@ -197,8 +195,8 @@ headm(z)
 z[z$rmsep == min(z$rmsep), ]
 
 u <- z
-u$group <- paste("h=", u$h, ", k=", u$k, sep = "")
-plotmse(u, group = "group")
+group <- paste("h=", u$h, ", k=", u$k, sep = "")
+plotmse(u, group = group)
 
 
 ############################# lwplsda
@@ -218,7 +216,7 @@ headm(Xu)
 table(yr)
 table(yu)
 
-## A kNN-LWPLSDA model (with dalm) where:
+###### A kNN-LWPLSDA model (with dalm) where:
 ## The dissimilarities between the observations are defined
 ## by the Mahalanobis distances calculated from a global PLS score space
 ## of ncompdis = 10 components.
@@ -245,9 +243,9 @@ headm(fm$r)
 
 z <- err(fm, ~ ncompdis + h + k + ncomp)
 z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp", group = "k")
+plotmse(z, nam = "errp", group = z$k)
 
-## Same using lwplsdalm (faster)
+###### Same using lwplsdalm (faster)
 
 ncompdis <- 10
 h <- 2
@@ -264,7 +262,7 @@ fm <- lwplsdalm(
 
 z <- err(fm, ~ ncompdis + h + k + ncomp)
 z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp", group = "k")
+plotmse(z, nam = "errp", group = z$k)
 
 ## Same models but changing the DA method ==> LDA
 
@@ -284,7 +282,7 @@ fm <- lwplsda(
 
 z <- err(fm, ~ ncompdis + h + k + ncomp)
 z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp", group = "k")
+plotmse(z, nam = "errp", group = z$k)
 
 ############################# OBJECTS RETURNED BY THE FUNCTIONS
 
@@ -318,13 +316,13 @@ fm <- lwplsr(
 names(fm)
 fm[c("y", "fit", "r")]
 
-### Object fm$fm 
+###### Object fm$fm 
 ### = list of the outputs for each predicted observation 
 ### Length of the list = nrow(Xu)
 
 names(fm$fm)
 
-### Observation i
+###### Observation i
 i <- 1
 #i <- 2
 #i <- 3
@@ -339,7 +337,7 @@ fm$fm[[1]]$fm
 # b-coefficients of this PLS model
 bcoef(fm$fm[[1]])
 
-### Score and orthogonal distances for the PLS models
+###### Score and orthogonal distances for the PLS models
 
 lscordis(fm)
 lodis(fm, Xr, Xu)

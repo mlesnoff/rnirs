@@ -67,8 +67,6 @@ Lesnoff, M., Metz, M., Roger, J.M.. Comparison of locally weighted PLS strategie
 
 \examples{
 
-library(ggplot2)
-
 data(datcass)
 data(datforages)
 
@@ -116,7 +114,7 @@ head(fm$r)
 
 z <- mse(fm, ~ ncomp + k)
 z[z$rmsep == min(z$rmsep), ]
-plotmse(z, group = "k")
+plotmse(z, group = z$k)
 
 ## Without weighting "2"
 
@@ -137,7 +135,7 @@ fm <- locw(
 
 z <- mse(fm, ~ ncomp + k)
 z[z$rmsep == min(z$rmsep), ]
-plotmse(z, group = "k")
+plotmse(z, group = z$k)
 
 
 ############################# QUALITATIVE RESPONSE
@@ -166,7 +164,7 @@ table(yu)
 ncompdis <- 10
 h <- 2
 k <- 50
-ncomp <- 15
+ncomp <- 10
 z <- pls(Xr, dummy(yr), Xu, ncomp = ncompdis)
 resn <- getknn(z$Tr, z$Tu, k = k, diss = "mahalanobis")
 listnn <- resn$listnn
@@ -188,7 +186,7 @@ head(fm$r)
 
 z <- err(fm, ~ ncomp + k)
 z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp", group = "k")
+plotmse(z, nam = "errp", group = z$k)
 
 ## A locally weighted PLSDA (non parametric) model 
 ## on preliminary calculated global scores
@@ -216,7 +214,7 @@ fm <- locw(
 
 z <- err(fm, ~ ncomp + k)
 z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp", group = "k")
+plotmse(z, nam = "errp", group = z$k)
 
 ############################# OBJECTS RETURNED BY THE FUNCTION
 
@@ -251,13 +249,13 @@ fm <- locw(
 names(fm)
 fm[c("y", "fit", "r")]
 
-### Object fm$fm 
+########### Object fm$fm 
 ### = list of the outputs for each predicted observation 
 ### Length of the list = nrow(Xu)
 
 names(fm$fm)
 
-### Observation i
+########### Observation i
 i <- 1
 #i <- 2
 #i <- 3
@@ -272,7 +270,7 @@ fm$fm[[1]]$fm
 # b-coefficients of this PLS model
 bcoef(fm$fm[[1]])
 
-### Score and orthogonal distances for the PLS models
+########### Score and orthogonal distances for the PLS models
 
 lscordis(fm)
 lodis(fm, Xr, Xu)

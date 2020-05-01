@@ -8,7 +8,7 @@
 
 \description{
 
-Calculation and plotting of prediction error rates for models with quantitative (MSEP, RMSEP, etc.) or qualitative (classification error rate) response. 
+Calculation and plotting of prediction error rates (RMSEP, SEP, etc. or classification error rate)  for models with quantitative or qualitative responses. 
 
 Note: In function \code{mse}, The \eqn{R2} rate is calculated by \eqn{R2 = 1 - MSEP(fitted model) / MSEP(no model)}. For predictions over CV or Test sets, and/or for non linear models, it can be different from the square of the correlation coefficient between the observed values and prediction. 
 
@@ -22,8 +22,8 @@ mse(fm, formula = ~ 1, nam = NULL, digits = 3)
 
 err(fm, formula = ~ 1, nam = NULL, digits = 4)
 
-plotmse(obj, nam = "rmsep", group = NULL, scale.x.cont = TRUE,
-  col = NULL)
+plotmse(obj, nam = "rmsep", group = NULL,  col = NULL,
+  legend = TRUE, legend.title = NULL, ncol = 1, lwd = 1.8, ...)
 
 }
 
@@ -31,9 +31,9 @@ plotmse(obj, nam = "rmsep", group = NULL, scale.x.cont = TRUE,
 
 \item{fm}{An object containing at least data frames \code{y} (data) and \code{fit} (predictions). See for instance objects \code{y} and \code{fit} returned by function \code{\link{plsr}}.}
 
-\item{formula}{A right-hand-side formula defing the aggregation levels on which is calculated the error rate.}
+\item{formula}{A right-hand-side formula defing the aggregation levels on which are calculated the error rates.}
 
-\item{nam}{For \code{mse}: Name (character string) of the column to consider in \code{fm$y} for calulating the prediction error rate. If \code{NULL} (default), the last column of \code{fm$y} is considered. For \code{plotmse}: Name (character string) of the column to plot in \code{obj}. Default is \code{nam = "rmsep"}.}
+\item{nam}{For \code{mse}: Name (character string) of the column to consider in \code{fm$y} for calulating the prediction error rate. If \code{NULL} (default), the last column of \code{fm$y} is considered. For \code{plotmse}: Name (character string) of the column to plot in \code{obj}. Default to \code{nam = "rmsep"}.}
 
 \item{digits}{The number of digits for the numerical outputs.}
 
@@ -41,11 +41,9 @@ plotmse(obj, nam = "rmsep", group = NULL, scale.x.cont = TRUE,
 
 \item{obj}{Data frame returned by \code{\link{mse}} or \code{\link{err}}.}
 
-\item{group}{Name (character string) of column of \code{obj} defining the groups of observations to be plotted with different colors (default is \code{NULL}).}
+\item{group}{A vector of length equal to the number of rows of \code{obj} defining the groups of rows to be plotted with different colors (default is \code{NULL}).}
 
-\item{scale.x.cont}{Logical. If \code{TRUE} (default), the xlab-scale is numbered with a step of 1.}
-
-\item{col}{Defines the color of the lines representing the error rate.}
+\item{col}{A color, or a vector of colors (of length equal to the number of groups), defining the color(s) of the lines representing the error rates.}
 
 }
 

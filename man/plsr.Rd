@@ -74,7 +74,7 @@ plsr(Xr, Yr, Xu, ncomp = ncomp)[c("y", "fit", "r")]
 
 plsr(Xr, Yr[, 1], Xu, Yu[, 1], ncomp = ncomp)[c("y", "fit", "r")]
 
-## b-coefficients for the model with ncomp components
+#### b-coefficients for the model with ncomp components
 
 b <- bcoef(fm)
 b
@@ -82,7 +82,7 @@ b
 cbind(rep(1, nrow(Xu)), Xu) %*% b
 fm$fit[fm$fit$ncomp == ncomp, ]
 
-## mse and plotmse
+#### mse and plotmse
 
 ncomp <- 3
 fm <- plsr(Xr, Yr, Xu, Yu, ncomp = ncomp)

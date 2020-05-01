@@ -117,7 +117,7 @@ A list of outputs, such as:
 
 \item{sv}{The singular values (vector of length \eqn{ncomp}).}
 
-\item{xss}{The eigenvalues (\code{sv^2}, vector of length \eqn{ncomp}).}
+\item{xss}{The eigenvalues (\code{= sv^2}; vector of length \eqn{ncomp}).}
 
 \item{xmeans}{The centering vector of \eqn{X} (length \eqn{p}).}
 

@@ -7,7 +7,6 @@ mse <- function(fm, formula = ~ 1, nam = NULL, digits = 3) {
   
   if(is.null(nam)) nam <- names(y)[ncol(y)] 
   
-  # warning: y and fit must have the same "nam"
   y$e <- y[, nam] - fit[, nam]
   
   y$e2 <- y$e^2

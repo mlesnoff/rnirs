@@ -4,42 +4,44 @@
 
 \title{2d scatter plot}
 
-\description{2d scatter plot (e.g. for PCA or PLS scores or loadings).}
+\description{2d scatter plot.}
 
 \usage{
-plotxy(X, label = FALSE, group = NULL, 
-  origin = colMeans(X[, 1:2]),
-  alpha = 1/5, pal = NULL, labpal = NULL, 
-  circle = FALSE, ellipse = FALSE, ...)
+plotxy(X, asp = 1, col = NULL, 
+  group = NULL, legend = TRUE, legend.title = NULL, ncol = 1,
+  zeroes = FALSE, circle = FALSE, ellipse = FALSE,
+  labels = FALSE,
+  ...)
 }
 
 \arguments{
 
 \item{X}{A \eqn{n x p} matrix or data frame. If \eqn{p > 2}, only the first two columns are considered.}
 
-\item{label}{Logical indicating if the row names (instead of points) are plotted (default to \code{FALSE}).}
+\item{asp}{Scalar. Giving the aspect ratio y/x. See \code{\link{plot.default}}.}
+
+\item{col}{A color, or a vector of colors (of length equal to the number of groups), defining the color(s) of the points.}
 
 \item{group}{A vector of length \eqn{n} defining groups of observations to be plotted with different colors (default to \code{NULL}).}
 
-\item{origin}{A two-components numeric vector defining the coordonates of the origin of the central horizontal and vertical axes to be plotted. If \code{NULL}, no central axes are plotted.}
+\item{legend}{Only if there are groups. Logical indicationg is a legend is drawn for groups (Default to \code{FALSE}).}
 
-\item{alpha}{A value between 0 and 1 defining the transparency of the points (see http://ggplot2.tidyverse.org/reference/geom_point.html). A value \code{alpha = 1} means no transparency. The transparency option is useful when \code{n} is large. Ignored if \code{group} is not \code{NULL}.} 
+\item{legend.title}{Character string indicationg a title for the legend.}
 
-\item{pal}{A vector defining the palette of the colors to use for the groups. See the examples. If the vector is of length 1, the function expects the name of a Brewer pallette (http://ggplot2.tidyverse.org/reference/scale_brewer.html ; http://colorbrewer2.org). Ignored if \code{group} is \code{NULL}.}
+\item{ncol}{Number of columns drawn in the legend box.}
 
-\item{labpal}{The label (legend) of the palette of colors in the graph. Ignored if \code{group} is \code{NULL}.}
+\item{zeroes}{Logical indicationg if an horizontal and vertical lines are drawn at coordonates (0, 0) (Default to \code{FALSE}).}
 
-\item{circle}{Logical indicating if a correlation circle is plotted  (default to \code{FALSE}).}
+\item{circle}{Logical indicating if a correlation circle (see examples in \code{\link{pls}}) is plotted  (default to \code{FALSE}).}
 
-\item{ellipse}{Only considered if \code{group} is not \code{NULL}. Logical indicating if a Gaussian  ellipse is plotted for each group (default to \code{FALSE}).}
+\item{ellipse}{Logical indicating if a Gaussian  ellipse is plotted (default to \code{FALSE}). If there are groups, an ellipse is drawn for each group.}
 
-\item{...}{Other arguments to pass in \code{\link{geom_point}}. Ignored if \code{group} is not \code{NULL}.}
+\item{labels}{Logical indicating if the row names of \code{FALSE} (instead of points) are plotted (default to \code{FALSE}).}
+
+\item{...}{Other arguments to pass in functions \code{\link{plot}}, \code{\link{points}}, \code{\link{axis}} and \code{\link{text}}.}
 
 }
 
-\details{
-Function \code{\link{plotxy}} uses package \code{ggplot2} available on CRAN.
-}
 
 \examples{
 
@@ -48,48 +50,28 @@ data(datcass)
 Xr <- datcass$Xr
 yr <- datcass$yr
 Xu <- datcass$Xu
-
-Xr <- detrend(Xr, method = "lowess")
-Xu <- detrend(Xu, method = "lowess")
+yu <- datcass$yu
 
 ncomp <- 5
-res <- pls(Xr, yr, Xu, ncomp = ncomp)
-names(res)
-Tr <- res$Tr
-Tu <- res$Tu
+fm <- pca(Xr, Xu, ncomp = ncomp)
+names(fm)
+Tr <- fm$Tr
+Tu <- fm$Tu
 headm(Tr)
 headm(Tu)
 
-comp <- c(1, 2)
-#comp <- c(3, 4)
-plotxy(Tr[, comp]) 
-plotxy(Tr[, comp], alpha = 1) 
-plotxy(Tr[, comp], col = "red", alpha = 1) 
+par(mfrow = c(1, 2))
+plotxy(Tr[, 1:2])
+plotxy(Tr[, 3:4])
+par(mfrow = c(1, 1))
 
-plotxy(Tr[, comp], origin = NULL) 
-plotxy(Tr[, comp], origin = c(1, 1)) 
+T <- rbind(Tr, Tu)
+group <- c(rep("Reference", nrow(Tr)), rep("Unknown", nrow(Tu)))
+plotxy(T, group = group)
 
-res <- rbind(Tr, Tu)
-typ <- c(rep("Training", nrow(Tr)), rep("Test", nrow(Tu)))
-typ <- factor(typ, levels = c("Training", "Test"))
-comp <- c(1, 2)
-#comp <- c(3, 4)
-plotxy(res[, comp], group = typ, origin = c(0, 0)) 
-
-pal <- c("grey50", "red")
-#pal <- c("#fc9272", "#a50f15") # (Reds)
-plotxy(res[, comp], group = typ, origin = c(0, 0), 
-  pal = pal, labpal = "Type of \ndata") 
-
-# http://ggplot2.tidyverse.org/reference/scale_brewer.html
-# http://colorbrewer2.org
-pal <- "Dark2"
-#pal <- "Set1"
-plotxy(res[, comp], group = typ, origin = NULL, 
-  pal = pal)   
-
-plotxy(res[, comp], group = typ, origin = c(0, 0), 
-  pal = "Dark2", ellipse = TRUE)
+windows(width = 7, height = 6)
+plotxy(T, zeroes = TRUE, group = group, pch = 16, ellipse = TRUE,
+  xlab = "Component 1", ylab = "Component 2")
 
 }
 

@@ -1,70 +1,89 @@
-plotxy <- function(X, label = FALSE, group = NULL, 
-  origin = colMeans(X[, 1:2]),
-  alpha = 1/5, pal = NULL, labpal = NULL, 
-  circle = FALSE, ellipse = FALSE, ...) {
+plotxy <- function(X, asp = 1, col = NULL, 
+  group = NULL, legend = TRUE, legend.title = NULL, ncol = 1,
+  zeroes = FALSE, circle = FALSE, ellipse = FALSE,
+  labels = FALSE,
+  ...) {
   
   X <- as.data.frame(X[, 1:2])
-
-  if(!is.null(group))
-    if(!is.factor(group)) 
-      group <- as.factor(group)
+  rownam <- row.names(X)
+  
+  fg <- "grey70"
+  
+  plot(X, 
+    type = "n", xaxt = "n",
+    las = 1, fg = fg,
+    asp = asp,
+    ...
+    )
+  axis(side = 1, fg = fg, asp = asp, ...)
+  
+  if(zeroes)
+    abline(h = 0, v = 0, lty = 2, col = "grey")
+      
+  if(circle)
+    lines(.ellips(diag(2), c(0, 0), 1)$X, col = "grey")
   
   if(is.null(group)) {
     
-    p <- ggplot() 
+    if(is.null(col))
+      col <- "#045a8d"
     
-    if(!label)
-      p <- p + geom_point(data = X, aes(X[, 1], X[, 2]),
-        alpha = alpha, ...)
+    if(!labels)
+      points(X, col = col, ...)
     else
-      p <- p + geom_label(data = X, aes(X[, 1], X[, 2]),
-        label = rownames(X), label.size = 1, ...)
+      text(X[, 1], X[, 2], rownam, col = col)
     
-    if(circle) {
-      z <- seq(-pi, pi, length = 300)
-      z <- data.frame(x = sin(z), y = cos(z))
-      p <- p + geom_path(data = z, aes(z[, 1], z[, 2]), inherit.aes = FALSE) 
-      p <- p + coord_fixed()
+    if(ellipse)
+      lines(.ellips(cov(X), .xmean(X), sqrt(qchisq(.95, df = 2)))$X, col = "grey")
+  
+    }
+  else {
+      
+    if(!is.factor(group))
+      group <- as.factor(as.character(group))
+    
+    levs <- levels(group)
+    nlev <- length(levs)
+    
+    if(!is.null(col)){
+      if(length(col) == 1)
+        col <- rep(col, nlev)
       }
-   
+    else
+      col <- palette.colors(n = nlev, palette = "ggplot2", recycle = TRUE)
+    
+    for(i in 1:nlev) {
+      
+      z <- X[group == levs[i], , drop = FALSE]
+      zrownam <- row.names(z)
+      
+      if(!labels)
+        points(z, col = col[i], ...)
+      else
+        text(z[, 1], z[, 2], zrownam, col = col[i], ...)
+      
+      if(ellipse)
+        lines(.ellips(cov(z), .xmean(z), sqrt(qchisq(.95, df = 2)))$X, col = col[i])
+
+      }
+
+    if(legend) {
+      
+      if(is.null(legend.title))
+        legend.title <- "Group"
+      
+      pch <- list(...)$pch
+      if(is.null(pch))
+        pch <- 1
+
+      legend("topright", legend = levs,
+        box.col = fg, ncol = ncol,
+        col = col, pch = pch, xjust = 1, yjust = 1,
+        title = legend.title)
+      
+      }
+    
     }
   
-  if(!is.null(group)) {
-    
-    nlev <- length(unique(group))
-    
-    if(is.null(pal))
-      pal <- hue_pal()(nlev) #"Dark2" #palette("default")[1:nlev]
-    
-    if(is.null(labpal)) labpal <- "Group"
-
-    p <- ggplot()
-    
-    if(!label)
-      p <- p + geom_point(data = X, aes(X[, 1], X[, 2], col = group), ...)
-    else
-      p <- p + geom_label(data = X, aes(X[, 1], X[, 2], col = group),
-        label = rownames(X), label.size = 1, ...)
-    
-    if(length(pal) == 1)
-      p <- p + scale_colour_brewer(palette = pal, name = labpal)
-    else
-      p <- p + scale_colour_manual(values = pal, name = labpal)
-    
-    if(ellipse) 
-      p <- p + stat_ellipse(data = X, aes(X[, 1], X[, 2], col = group),
-        type = "norm", level = 0.95)
-    
-    }
-    
-  palette("default")
-    
-  if(!is.null(origin)) {
-    p <- p + geom_vline(xintercept = origin[1], col = "gray")
-    p <- p + geom_hline(yintercept = origin[2], col = "gray")
-    }
-  p <- p + xlab(colnames(X)[1]) + ylab(colnames(X)[2])
-
-  p
   
   }

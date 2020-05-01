@@ -36,26 +36,13 @@ fitcv(X, Y, fun, segm, print = FALSE, ...)
 
 data(datcass)
 
-n <- 10
-p <- 6
-set.seed(1)
-X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
-y1 <- 100 * rnorm(n)
-y2 <- 100 * rnorm(n)
-Y <- cbind(y1, y2)
-set.seed(NULL)
-
-Xr <- X[1:8, ] ; Yr <- Y[1:8, ] 
-Xu <- X[9:10, ] ; Yu <- Y[9:10, ] 
-
-
-################ Cross-validation of a PLSR model
-
 Xr <- datcass$Xr
 yr <- datcass$yr
 
 Xr <- detrend(Xr)
 headm(Xr)
+
+################ Cross-validation of a PLSR model
 
 n <- nrow(Xr)
 segm <- segmcvkfold(n = n, K = 5, typ = "random", nrep = 3)   # = Repeated random K-fold CV
@@ -75,12 +62,14 @@ headm(fm$r)
 z <- mse(fm, ~ ncomp)
 headm(z)
 z[z$rmsep == min(z$rmsep), ]
+plotmse(z)
+plotmse(z, nam = "r2", ylim = c(0, 1))
+abline(h = 1, lty = 2, col = "grey")
 
 z <- mse(fm, ~ ncomp + rep)
 headm(z)
-plotmse(z, group = "rep")
-
-plotmse(z, nam = "r2", group = "rep")
+plotmse(z, group = z$rep)
+plotmse(z, group = z$rep, legend = FALSE, col = "grey")
 
 ################ Example of CV of an ad'hoc predictive function (e.g. using locw)
 
@@ -119,7 +108,7 @@ headm(fm$fit)
 z <- mse(fm, ~ k + ncomp)
 headm(z)
 z[z$rmsep == min(z$rmsep), ]
-plotmse(z)
+plotmse(z, group = z$k)
 
 }
 

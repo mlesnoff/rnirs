@@ -52,8 +52,6 @@ Saporta, G., 2011. Probabilités analyse des données et statistique. Editions T
 
 data(iris)
 
-library(ggplot2)
-
 Xr <- iris[, 1:4]
 yr <- iris[, 5]
 
@@ -75,12 +73,8 @@ fm$P
 # in transformed scale
 fm$explvar
 
-p <- plotxy(fm$Tr, group = yr)
-p <- p + geom_point(
-  data = data.frame(fm$Tc), aes(x = comp1, y = comp2),
-  pch = 8, cex = 4, col = "blue"
-  )
-p
+plotxy(fm$Tr, group = yr, ellipse = TRUE)
+points(fm$Tc, pch = 8, col = "blue")
 
 # Object Tcenters is the projection of the class centers in the score space
 fm <- fda(Xr, yr)

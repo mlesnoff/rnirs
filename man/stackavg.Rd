@@ -53,12 +53,12 @@ yr <- datcass$yr
 Xu <- datcass$Xu
 yu <- datcass$yu
 
-ncomp <- 30
+ncomp <- 25
 fm <- plsr(Xr, yr, Xu, yu, ncomp = ncomp)
 
 z <- mse(fm, ~ ncomp)
-plotmse(z)
 z[z$rmsep == min(z$rmsep), ]
+plotmse(z)
 
 w <- ifelse(fm$y$ncomp >= 5 & fm$y$ncomp <= 20, 1, 0)
 zfm <- stackavg(fm$fit, fm$y, formula = ~ rownum + rownam, weights = w)
@@ -82,8 +82,8 @@ yu <- datforages$yu
 ncomp <- 20
 fm <- plsdalm(Xr, yr, Xu, yu, ncomp = ncomp)
 z <- err(fm, ~ ncomp)
-plotmse(z, nam = "errp")
 z[z$errp == min(z$errp), ]
+plotmse(z, nam = "errp")
 
 w <- ifelse(fm$y$ncomp >= 8 & fm$y$ncomp <= 20, 1, 0)
 zfm <- stackavg.cla(fm$fit, fm$y, formula = ~ rownum + rownam, weights = w)
