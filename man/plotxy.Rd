@@ -80,8 +80,6 @@ plotxy(Tr, group = group, col = col, legend = FALSE, pch = 16)
 
 ############## FICTIVE PCA EXAMPLE
 
-dev.off()
-
 n <- 10 ; p <- 6
 set.seed(1)
 X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
@@ -113,8 +111,10 @@ plotxy(fm$cor.circle, zeroes = TRUE, labels = TRUE, circle = TRUE, ylim = c(-1, 
 Xr <- datcass$Xr
 fm <- pca(Xr, ncomp = 4)
 
-windows(width = 7, height = 6)
-plotxy(Tr)
+## Do as below (removing comments '#'):
+
+#windows(width = 7, height = 6)
+#plotxy(Tr)
 
 #dev.off()
 
