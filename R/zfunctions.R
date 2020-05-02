@@ -5,7 +5,7 @@
   
   eps <- 1e-8
   fun <- function(x, lambda, p, eps, maxit) asysm(x, lambda, p, eps, maxit)
-  zX <- t(apply(X, MARGIN = 1, FUN = fun, 
+  X <- X - t(apply(X, MARGIN = 1, FUN = fun, 
     lambda = lambda, p = p, eps = eps, maxit = maxit))
 
   dimnames(X) <- dimnam
@@ -19,7 +19,7 @@
   dimnam <- dimnames(X)
   
   fun <- function(x, f, iter) lowess(x, f = f, iter = iter)$y
-  zX <- t(apply(X, MARGIN = 1, FUN = fun, f = f, iter = iter))
+  X <- X - t(apply(X, MARGIN = 1, FUN = fun, f = f, iter = iter))
   
   dimnames(X) <- dimnam
   X
