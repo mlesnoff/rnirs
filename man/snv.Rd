@@ -28,16 +28,15 @@ data(datcass)
 
 X <- datcass$Xu
 
-center <- TRUE
-#center <- FALSE
-zX <- snv(X, center = center)
+z <- snv(X)
+#z <- snv(X, center = FALSE)
 
 headm(X)
-headm(zX)
+headm(z)
 
 par(mfrow = c(1, 2))
 plotsp(X, main = "Signal")
-plotsp(zX, main = "Corrected signal")
+plotsp(z, zeroes = TRUE, main = "Corrected signal")
 par(mfrow = c(1, 1))
 
 }

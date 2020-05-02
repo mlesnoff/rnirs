@@ -23,7 +23,7 @@ mse(fm, formula = ~ 1, nam = NULL, digits = 3)
 err(fm, formula = ~ 1, nam = NULL, digits = 4)
 
 plotmse(obj, nam = "rmsep", group = NULL,  col = NULL,
-  legend = TRUE, legend.title = NULL, ncol = 1, lwd = 1.8, ...)
+  legend = TRUE, legend.title = NULL, ncol = 1, ...)
 
 }
 
@@ -44,6 +44,14 @@ plotmse(obj, nam = "rmsep", group = NULL,  col = NULL,
 \item{group}{A vector of length equal to the number of rows of \code{obj} defining the groups of rows to be plotted with different colors (default is \code{NULL}).}
 
 \item{col}{A color, or a vector of colors (of length equal to the number of groups), defining the color(s) of the lines representing the error rates.}
+
+\item{legend}{Only if there are groups. Logical indicationg is a legend is drawn for groups (Default to \code{FALSE}).}
+
+\item{legend.title}{Character string indicationg a title for the legend.}
+
+\item{ncol}{Number of columns drawn in the legend box.}
+
+\item{...}{Other arguments to pass in functions \code{\link{plot}} or \code{\link{lines}}}.
 
 }
 

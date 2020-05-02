@@ -124,11 +124,8 @@ z <- mse(fm, ~ ncompdis + h + k)
 z
 z[z$rmsep == min(z$rmsep), ]
 
-u <- z
-u$group <- paste(u$ncompdis, u$h)
-p <- ggplot(data = u, aes(x = k, y = rmsep))
-p <- p + geom_point(aes(colour = as.factor(group)), size = 2)
-p
+group <- paste("ncompdis=", z$ncompdis, ", h=", z$h, sep = "")
+plotxy(z[, c("k", "rmsep")], asp = 0, group = group, pch = 16)
 
 ## Same but where :
 ## The dissimilarities between the observations are defined
@@ -149,7 +146,7 @@ z <- mse(fm, ~ ncompdis + h + k)
 z
 z[z$rmsep == min(z$rmsep), ]
 
-group <- paste("ncompdis=", u$ncompdis, ", h=", u$h, sep = "")
+group <- paste("ncompdis=", z$ncompdis, ", h=", z$h, sep = "")
 plotxy(z[, c("k", "rmsep")], asp = 0, group = group, pch = 16)
 
 ######################## knnda
@@ -195,7 +192,7 @@ z <- err(fm, ~ ncompdis + h + k)
 z
 z[z$err == min(z$errp), ]
 
-group <- paste("ncompdis=", u$ncompdis, ", h=", u$h, sep = "")
+group <- paste("ncompdis=", z$ncompdis, ", h=", z$h, sep = "")
 plotxy(z[, c("k", "errp")], asp = 0, group = group, pch = 16)
 
 }

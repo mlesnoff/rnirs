@@ -58,7 +58,7 @@ degree <- 1
 z <- detrend(X, method = "poly", degree = degree)
 headm(z)
 par(mfrow = c(1, 2))
-plotsp(z, main = "Corrected signal")
+plotsp(z, zeroes = TRUE, main = "Corrected signal")
 plotsp(X - z, main = "Baseline")
 par(mfrow = c(1, 1))
 
@@ -67,7 +67,7 @@ par(mfrow = c(1, 1))
 z <- detrend(X, method = "lowess", f = .5)
 headm(z)
 par(mfrow = c(1, 2))
-plotsp(z, main = "Corrected signal")
+plotsp(z, zeroes = TRUE, main = "Corrected signal")
 plotsp(X - z, main = "Baseline")
 par(mfrow = c(1, 1))
 
@@ -76,7 +76,7 @@ par(mfrow = c(1, 1))
 lambda <- 1e7 ; p <- .05
 z <- detrend(X, method = "als", lambda = lambda, p = p)
 par(mfrow = c(1, 2))
-plotsp(z, main = "Corrected signal")
+plotsp(z, zeroes = TRUE, main = "Corrected signal")
 plotsp(X - z, main = "Baseline")
 par(mfrow = c(1, 1))
 

@@ -18,10 +18,10 @@ plotxy <- function(X, asp = 1, col = NULL,
   axis(side = 1, fg = fg, asp = asp, ...)
   
   if(zeroes)
-    abline(h = 0, v = 0, lty = 2, col = "grey")
+    abline(h = 0, v = 0, lty = 2, col = fg)
       
   if(circle)
-    lines(.ellips(diag(2), c(0, 0), 1)$X, col = "grey")
+    lines(.ellips(diag(2), c(0, 0), 1)$X, col = fg)
   
   if(is.null(group)) {
     

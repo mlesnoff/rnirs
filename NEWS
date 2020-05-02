@@ -3,7 +3,11 @@
 ##----------------- Version 1.6-1
 
 - Removing the dependence of package rnirs to packages ggplot2, gridExtra and scales.
-Functions plotxy and plotmse use now basic R functions for graphics. 
+Functions plotxy and plotmse use now basic R functions for graphics.
+
+- Functions plotsp and plotsp1 have been simplified.
+
+- Small bug corrceted in .detrend.lowess and .detrend.als
 
 ##----------------- Version 1.6-0
 

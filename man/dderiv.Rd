@@ -34,7 +34,7 @@ headm(zX)
 
 par(mfrow = c(1, 2))
 plotsp(X, main = "Signal")
-plotsp(zX, main = "Corrected signal")
+plotsp(zX, main = "Corrected signal", zeroes = TRUE)
 par(mfrow = c(1, 1))
 
 }

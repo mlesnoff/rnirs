@@ -38,14 +38,14 @@ The function uses function \code{\link{sgolayfilt}}.
 X <- datcass$Xu
 
 m <- 1 ; n <- 11 ; p <- 3
-zX <- savgol(X, m, n, p)
+z <- savgol(X, m, n, p)
 
 headm(X)
-headm(zX)
+headm(z)
 
 par(mfrow = c(1, 2))
 plotsp(X, main = "Signal")
-plotsp(zX, main = "Corrected signal")
+plotsp(z, zeroes = TRUE, main = "Corrected signal")
 par(mfrow = c(1, 1))
 
 }

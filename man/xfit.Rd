@@ -40,7 +40,7 @@ Xr_approx <- xfit(fm$Tr, fm$P, fm$xmeans)
 headm(Xr_approx)
 
 s <- sample(1:nrow(Xr), size = 1)
-plotsp(Xr[s, , drop = FALSE], col = "red")
+plotsp(Xr[s, , drop = FALSE], col = "red", zeroes = TRUE)
 plotsp(Xr_approx[s, , drop = FALSE], col = "blue", add = TRUE, lty = 2)
 
 ## Approximation of Xu
@@ -49,7 +49,7 @@ Xu_approx <- xfit(fm$Tu, fm$P, fm$xmeans)
 headm(Xu_approx)
 
 s <- sample(1:nrow(Xu), size = 1)
-plotsp(Xu[s, , drop = FALSE], col = "red")
+plotsp(Xu[s, , drop = FALSE], col = "red", zeroes = TRUE)
 plotsp(Xu_approx[s, , drop = FALSE], col = "blue", add = TRUE, lty = 2)
 
 }

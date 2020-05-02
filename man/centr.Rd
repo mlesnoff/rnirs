@@ -51,8 +51,8 @@ headm(u)
 headm(v)
 
 par(mfrow = c(1, 2))
-plotsp(u, col = 1:4, main = "Mean spectra per group")
-plotsp(v, col = 1:4, main = "Median spectra per group")
+plotsp(u, col = 1:4, main = "Mean")
+plotsp(v, col = 1:4, main = "Median")
 par(mfrow = c(1, 1))
 
 x <- Xr[1:20, ]

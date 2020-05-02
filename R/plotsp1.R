@@ -1,23 +1,24 @@
-plotsp1 <- function(X, coord.fixed = FALSE, col = "blue", main = "Row", ...) {
+plotsp1 <- function(X, col = NULL, zeroes = FALSE, ...) {
 
   X <- .matrix(X)
   n <- nrow(X)
+  
+  if(is.null(col)) 
+    col <- "#045a8d"
   
   a <- ""
   i <- 1
   while(a == "") {
     
     a <- readLines(n = 1)
-    
-    if(!is.null(main)) zmain <- paste(main, i)
-    else zmain <- NULL
-    
-    if(!coord.fixed)
-      plotsp(X[i, , drop = FALSE], col = col, main = zmain, ...)
-    else
-      plotsp(X, rownum = i, col = col, main = zmain, ...)
+
+    z<- X[i, , drop = FALSE]
+    plotsp(z, col = col, ...)
+    text(x = min(as.numeric(colnames(z))), y = max(z), pos = 4, labels = i, cex = 1.2)
       
-    
+    if(zeroes)
+      abline(h = 0, lty = 2, col = "grey70")
+  
     i <- i + 1
     if(i > nrow(X)) a <- "stop"
   
