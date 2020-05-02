@@ -5,7 +5,7 @@ Version: 1.6-1
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Description: Package rnirs focuses on chemometrics methods, including locally weighted PLS regression and discrimination.The package is generic for any type of data, although it was initially implemented for near infrared spectral data (NIRS).
-Depends: R (>= 3.0.0)
+Depends: R (>= 3.5.0)
 VignetteBuilder: knitr
 Imports:  data.table, FNN, ptw, signal 
 Suggests: knitr, rmarkdown
