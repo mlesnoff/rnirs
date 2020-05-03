@@ -15,7 +15,7 @@ pca.nipalsna <- function(X, ncomp,
   cmeans <- xmeans
   nr <- n
   nc <- p
-  xss <- rep(NA, length = ncomp)
+  eigs <- rep(NA, length = ncomp)
 
   ##################### START PACKAGE "nipals"
   
@@ -105,7 +105,7 @@ pca.nipalsna <- function(X, ncomp,
 
   ##################### END
   
-  xss <- TotalSS * R2
+  eigs <- TotalSS * R2
   
   sv <- eig
   
@@ -115,7 +115,7 @@ pca.nipalsna <- function(X, ncomp,
   colnames(scores) <- colnames(loadings) <- paste("comp", 1:ncomp, sep = "")
 
   list(T = scores, P = loadings, R = loadings,
-    sv = sv, xss = xss, xmeans = xmeans, weights = rep(1, n), iter = iter)
+    sv = sv, eigs = eigs, xmeans = xmeans, weights = rep(1, n), iter = iter)
 
   }
 

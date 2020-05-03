@@ -30,11 +30,11 @@ Algorithms for (centered) PCA of a matrix \eqn{X}.
 
 - \code{pca.cr}: Croux & Ruiz-Gazen (CR) PCA algorithm using projection pursuit (PP) method (Croux & Ruiz-Gazen 2005). In the CR algorithm, the 1st loading vector is choosen within the \eqn{n} data observations (rows of \eqn{X}). The next loadings are choosen in the same way after subsequent deflation of matrix \eqn{X}. One of the possible improvements  of the algorithm is to simulate (randomly) additionnal candidate PP directions. In function \code{pca.cr}, this is done when argument \code{nrep > 0}. In such a case, the function simulates \eqn{nrep * n} additional PP directions to the \eqn{n} initial ones, by using the method of Hubert et al. (2005): random couples of observations are sampled and, for each couple, the direction passes through the two data points of the couple (see functions \code{.simpp.hub} in file \code{zfunctions.R}).
 
-- \code{pca.rob}: Robust PCA using an algorithm built in the same philosophy (but with differences) as the ROBPCA method (Hubert et al. 2005, 2009). The algorithm is in the three following steps. 
+- \code{pca.rob}: Robust PCA using an algorithm following a similar philosophy (but with differences) as the ROBPCA method (Hubert et al. 2005, 2009). The algorithm is in the three following steps. 
 
-Step 1 intends to detect multivariate outliers (potentially with bad leverages) that will receive a weight 0 in the second step. In function \code{pca.rob}, two possibles detection methods can be used: (a) the Stahel-Donoho outlyingness (Maronna and Yohai, 1995) using PP such as in ROBPCA (see functions \code{.simpp.hub} and \code{.stahel} in file \code{zfunctions.R}), (b) the Mahalanobis distance to center (score distance SD) after a spherical PCA. Depending arguments \code{cri} and \code{alpha} in the function, the outliers are either the \eqn{(1 - alpha)} proportion of the observations with the highest outlyingness (or SD) (by default \eqn{alpha = .75} in Hubert et al. 2005, 2009), or the observations having an outlyingness (or SD robustly centered and scaled by median and MAD) > \eqn{cri}, where \eqn{cri} is a cutoff value. 
+Step 1 intends to detect multivariate outliers (potentially with bad leverages) that will receive a weight \eqn{w1 = 0} in the second step. The non-outliers receive a weight \eqn{w1 = 1}. The detection method uses the Stahel-Donoho outlyingness (Maronna and Yohai, 1995) using PP directions simulated as in ROBPCA (see functions \code{.simpp.hub} and \code{.stahel} in file \code{zfunctions.R}). The outliers in Step 1 are the \eqn{(1 - alpha)} proportion of the observations with the highest outlyingness (by default \eqn{alpha = .75} like in Hubert et al. 2005, 2009). 
 
-Step 2 starts by calculating a (first) robust score space, by doing a weighted PCA using weights \eqn{w1}. Then scores and orthogonal distances (SD and OD) of the observations are then calculated in this score space, and respective weights (\eqn{w2} for SD and \eqn{w3} for OD) are calculated by a decreasing function (see \code{\link{wdist}}).
+Step 2 starts by calculating a (first) robust score space, by doing a weighted PCA using weights \eqn{w1}. Then scores and orthogonal distances (SD and OD) of all the observations are then calculated in this score space, and respective weights (\eqn{w2} for SD and \eqn{w3} for OD) are calculated by a decreasing function (see \code{\link{wdist}}).
 
 Step 3 consists in the weighted PCA of \eqn{X} with weights \eqn{w = w2 * w3}, giving the second and final robust score space.
 
@@ -62,8 +62,7 @@ pca.sph(X, ncomp, weights = NULL)
 
 pca.cr(X, ncomp, obj = c("mad", "sd"), nrep = 0)
 
-pca.rob(X, ncomp, w1 = c("pp", "sph"), 
-  nrep = 1, ncomp.sph = 10, cri = 2.5, alpha = NULL, h = 2)
+pca.rob(X, ncomp, nrep = 1, alpha = .75, h = 2)
 
 }
 

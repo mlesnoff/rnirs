@@ -29,14 +29,14 @@ pca.sph <- function(X, ncomp, weights = NULL) {
   sv <- sv[u]
   zT <- zT[, u]
 
-  xss <- sv^2 
+  eigs <- sv^2 
   
   row.names(zT) <- row.names(T) <- row.names(X)
   row.names(P) <- colnames(X)
   
   colnames(zT) <- colnames(T) <- colnames(P) <- paste("comp", 1:ncomp, sep = "")
   
-  list(T = T, P = P, R = P, sv = sv, xss = xss, 
+  list(T = T, P = P, R = P, sv = sv, eigs = eigs, 
     xmeans = xmeans, weights = weights, zT = zT)
 
   }

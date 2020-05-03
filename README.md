@@ -1,4 +1,4 @@
-## rnirs 1.6-2
+## rnirs 1.6-3
 ## Chemometrics Methods and Locally Weighted Regressions 
 
 R package focusing on chemometrics methods, including locally weighted PLS regression and discrimination.

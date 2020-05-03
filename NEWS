@@ -1,5 +1,11 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-3
+
+- Simplification and improvement of function pca.rob. Some arguments have been removed.
+
+- Object xss have been renamed eigs in all the PCA functions.
+
 ##----------------- Version 1.6-2
 
 - Simplification of functions dis, scordis, odis, lscordis, lodis. Standardized distances

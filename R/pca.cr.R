@@ -49,13 +49,13 @@ pca.cr <- function(X, ncomp, obj = c("mad", "sd"), nrep = 0) {
   T <- T[, u, drop = FALSE]
   sv <- sv[u]  
   
-  xss <- sv^2         
+  eigs <- sv^2         
    
   row.names(T) <- row.names(X)
   row.names(P) <- colnames(X)
   colnames(P) <- colnames(T) <- paste("comp", 1:ncomp, sep = "") 
   
-  list(T = T, P = P, R = P, sv = sv, xss = xss, 
+  list(T = T, P = P, R = P, sv = sv, eigs = eigs, 
     xmeans = xmeans, weights = rep(1 / n, n), ndir = ndir)
   
   }

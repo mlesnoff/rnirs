@@ -27,7 +27,7 @@ pca.svd <- function(X, ncomp, weights = NULL) {
   ## = .xnorm(T, weights = weights)
   ## = sqrt(colSums(weights * T * T))
 
-  xss <- sv^2         
+  eigs <- sv^2         
   ## = eigenvalues of X'DX = Cov(X) in metric D 
   ## = variances of scores T in metric D
   ## = colSums(weights * T * T)  
@@ -37,7 +37,7 @@ pca.svd <- function(X, ncomp, weights = NULL) {
   
   colnames(T) <- colnames(P) <- paste("comp", 1:ncomp, sep = "")
   
-  list(T = T, P = P, R = P, sv = sv, xss = xss,
+  list(T = T, P = P, R = P, sv = sv, eigs = eigs,
     xmeans = xmeans, weights = weights)
 
   }
