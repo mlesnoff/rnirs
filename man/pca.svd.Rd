@@ -86,19 +86,11 @@ pca.rob(X, ncomp, nrep = 1, alpha = .75, h = 2)
 
 \item{obj}{The objective scale function to maximize with the PP scores. Possible values are "mad" (default; = MAD) or "sd" (standard deviation, corresponding to the usual PCA objective). }
 
-\item{nrep}{In the original CR algorithm, the starting considered PP directions are the \eqn{n} observations (rows of \eqn{X}). If \code{nrep > 0}, a number of \eqn{nrep * n}  additionnal PP directions are randomly simulated (see section Description). Default to \code{nrep = 0} (no additionnal simulation). This the same argument for step 1 of function \code{pca.rob} below, but default is set to \code{nrep = 1}
-
-}
+\item{nrep}{In the original CR algorithm, the starting considered PP directions are the \eqn{n} observations (rows of \eqn{X}). If \code{nrep > 0}, a number of \eqn{nrep * n}  additionnal PP directions are randomly simulated (see section Description). Default to \code{nrep = 0} (no additionnal simulation). This same argument is used for step 1 of function \code{pca.rob} below, but default is set to \code{nrep = 1}.}
 
 \bold{Specific arguments of} \code{pca.rob}
 
-\item{w1}{Method used in step 1 for computing weights \eqn{w1} (see section Description). Possible values are "pp" (PP, default) or "sph" (spherical PCA).}
-
-\item{ncomp.sph}{Used in step 1 if \code{w1 = "sph"}. The number of components considered in the spherical PCA for defining the score space (see section Description). Default to \code{min(10, ncol(X))}.}
-
-\item{cri}{Used in step 1 if \code{alpha = NULL}. The cutoff value for defining outliers (see section Description). Default to \code{cri = 2.5}.}
-
-\item{alpha}{Used in step 1 if not \code{NULL}. The outliers are the \eqn{(1 - alpha)} proportion of the observations with the highest outlyingness (or SD). Default to \code{NULL} (argument \code{cri} is used instead).}
+\item{alpha}{Used in step 1, default to \code{alpha = .75}. The outliers are the \eqn{(1 - alpha)} proportion of the observations with the highest outlyingness.}
 
 \item{h}{Used in step 2. A scalar defining the shape of the decreasing weight function. See function \code{\link{wdist}}.}
 
