@@ -39,7 +39,7 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
     for(i in 1:nclas) {
     
       if(diss %in% c("euclidean", "correlation"))
-        zd <- dis(centers[i, ], Xu, diss = diss)$dr$d
+        zd <- dis(Xu, mu = centers[i, ], diss = diss)$dr$d
   
       if(diss == "mahalanobis") {
         
@@ -61,7 +61,7 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
           }
         ### END
         
-        zd <- .mah(centers[i, ], Xu, U)
+        zd <- .mah(Xu, centers[i, ], U)
         
         }
     

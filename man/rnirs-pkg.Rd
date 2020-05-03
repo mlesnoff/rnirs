@@ -173,7 +173,7 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
   \code{\link{pinv}} \tab Moore-Penrose pseudo-inverse \cr
   \code{\link{dummy}} \tab Table of dummy variables \cr
   \code{\link{matdis}} \tab Dissimilarity matrix (between observations)\cr
-  \code{\link{dis}}  \tab Dissimilarities between a given vector and row observations  \cr
+  \code{\link{dis}}  \tab Dissimilarities between row observations of a matrix and a given vector  \cr
   \code{\link{wdist}} \tab Weights for distances \cr
   \code{\link{sampclas}} \tab Within-class sampling\cr
   \code{\link{getknn}} \tab Knn selection \cr

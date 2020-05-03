@@ -42,7 +42,7 @@
   
   }
 
-.dis <- function(mu, X, row = TRUE) {
+.dis <- function(X, mu, row = TRUE) {
   
   # Calculates the square of the Euclidean distances 
   # between the rows of X and vector mu
@@ -201,7 +201,7 @@
 
   }
 
-.mah <- function(mu, X, U = NULL, weights = NULL, row = TRUE) {
+.mah <- function(X, mu, U = NULL, weights = NULL, row = TRUE) {
   
   # Calculate the square of the Mahalanobis distances between
   # the rows of X and the vector mu 
@@ -227,7 +227,7 @@
   zX <- X %*% Uinv
   zmu <- mu %*% Uinv
   
-  .dis(zmu, zX)
+  .dis(zX, zmu)
   
   }
 

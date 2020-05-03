@@ -1,4 +1,4 @@
-lodis <- function(fm, Xr, Xu, ...) {
+lodis <- function(fm, Xr, Xu) {
   
   fm <- fm$fm
   
@@ -18,11 +18,8 @@ lodis <- function(fm, Xr, Xu, ...) {
     
     s <- fm[[i]]$nn
     
-    z <- odis(
-      fm[[i]], 
-      Xr[s, , drop = FALSE], 
-      Xu[j, , drop = FALSE], ...
-      )
+    z <- odis(fm[[i]], 
+      Xr[s, , drop = FALSE], Xu[j, , drop = FALSE])
     
     z$dr$rownum <- s
     z$dr$rownam <- rownam[s]

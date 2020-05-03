@@ -1,4 +1,4 @@
-odis <- function(fm, Xr, Xu = NULL, out = c("mad", "sd", "boxplot"), cri = 3) {
+odis <- function(fm, Xr, Xu = NULL) {
     
   if(!is.null(fm$fm))
     fm <- fm$fm
@@ -19,15 +19,13 @@ odis <- function(fm, Xr, Xu = NULL, out = c("mad", "sd", "boxplot"), cri = 3) {
   E <- X - tcrossprod(fm$Tr, fm$P)
   
   d <- sqrt(rowSums(E * E))
-  cut <- switch(
-    out, 
-    mad = median(d) + cri * mad(d), 
-    sd = mean(d) + cri * sd(d),
-    boxplot = {z <- fivenum(d) ; z <- z[4] + 1.5 * diff(z[c(2, 4)])}
-    )
+
+  zmed <- median(d)
+  zmad <- mad(d)
+  dstand <- abs(d - zmed) / zmad 
   
-  dr <- data.frame(rownum = 1:n, rownam = rownam, ncomp = rep(ncomp, n), d = d)
-  dr$dstand <- dr$d / cut
+  dr <- data.frame(rownum = 1:n, rownam = rownam, ncomp = rep(ncomp, n), 
+    d = d, dstand = dstand)
   rownames(dr) <- 1:n
   
   ### NEW OBSERVATIONS
@@ -46,14 +44,16 @@ odis <- function(fm, Xr, Xu = NULL, out = c("mad", "sd", "boxplot"), cri = 3) {
     
     d <- sqrt(rowSums(Eu * Eu))
     
-    du <- data.frame(rownum = 1:m, rownam = rownam, ncomp = rep(ncomp, m), d = d)
-    du$dstand <- du$d / cut
+    dstand <- abs(d - zmed) / zmad 
+    
+    du <- data.frame(rownum = 1:m, rownam = rownam, ncomp = rep(ncomp, m), 
+      d = d, dstand = dstand)
     rownames(du) <- 1:m
     
     }
   
   ### END
 
-  list(dr = dr, du = du, cut = cut)
+  list(dr = dr, du = du)
 
-}
+  }

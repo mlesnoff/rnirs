@@ -1,9 +1,8 @@
-dis <- function(mu = NULL, Xr, Xu = NULL, 
+dis <- function( Xr, Xu = NULL, mu = NULL, 
   diss = c("euclidean", "mahalanobis", "correlation"), sigma = NULL, 
-  out = c("mad", "sd", "boxplot"), cri = 3, weights = NULL) {
+  weights = NULL) {
   
   diss <- match.arg(diss)
-  out <- match.arg(out)
   
   X <- .matrix(Xr)
   zdim <- dim(X)
@@ -15,7 +14,7 @@ dis <- function(mu = NULL, Xr, Xu = NULL,
     mu <- .xmean(X, weights = weights)
 
   if(diss == "euclidean")
-    d <- sqrt(.dis(mu, X))
+    d <- sqrt(.dis(X, mu))
 
   if(diss == "mahalanobis") {
       
@@ -29,7 +28,7 @@ dis <- function(mu = NULL, Xr, Xu = NULL,
       }
     
     U <- chol(sigma)
-    d <- sqrt(.mah(mu, X, U))
+    d <- sqrt(.mah(X, mu, U))
       
     }
   
@@ -40,19 +39,17 @@ dis <- function(mu = NULL, Xr, Xu = NULL,
       d <- sqrt(.5 * (1 - rho))
       } 
     else 
-      d <- sqrt(.dis(mu, X))
+      d <- sqrt(.dis(X, mu))
     
     }
 
-  cut <- switch(
-    out, 
-    mad = median(d) + cri * mad(d), 
-    sd = mean(d) + cri * sd(d),
-    boxplot = {z <- fivenum(d) ; z <- z[4] + 1.5 * diff(z[c(2, 4)])}
-    )
+  d <- c(d)
+  zmed <- median(d)
+  zmad <- mad(d)
+  dstand <- abs(d - zmed) / zmad 
   
-  dr <- data.frame(rownum = 1:n, rownam = rownam, ncomp = rep(p, n), d = c(d))
-  dr$dstand <- dr$d / cut
+  dr <- data.frame(rownum = 1:n, rownam = rownam, 
+    ncomp = rep(p, n), d = d, dstand = dstand)
   
   ### NEW OBSERVATIONS
   
@@ -65,9 +62,9 @@ dis <- function(mu = NULL, Xr, Xu = NULL,
     
     d <- switch(diss,
       
-      euclidean = sqrt(.dis(mu, Xu)),
+      euclidean = sqrt(.dis(Xu, mu)),
 
-      mahalanobis = sqrt(.mah(mu, Xu, U)),
+      mahalanobis = sqrt(.mah(Xu, mu, U)),
       
       correlation = {
         if(p > 1) {
@@ -75,19 +72,22 @@ dis <- function(mu = NULL, Xr, Xu = NULL,
           sqrt(.5 * (1 - rho))
           } 
         else 
-          sqrt(.dis(mu, Xu))
+          sqrt(.dis(Xu, mu))
         }
       
       )
     
-    du <- data.frame(rownum = 1:m, rownam = rownam, ncomp = rep(p, m), d = c(d))
-    du$dstand <- du$d / cut
+    d <- c(d)
+    dstand <- abs(d - zmed) / zmad 
+      
+    du <- data.frame(rownum = 1:m, rownam = rownam,
+      ncomp = rep(p, m), d = d, dstand = dstand)
     
     }
 
   ### END
 
-  list(dr = dr, du = du, cut = cut)
+  list(dr = dr, du = du)
   
   }
 

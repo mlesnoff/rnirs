@@ -1,4 +1,4 @@
-scordis <- function(fm, out = c("mad", "sd", "boxplot"), cri = 3) {
+scordis <- function(fm) {
   
   if(!is.null(fm$fm))
     fm <- fm$fm
@@ -15,8 +15,7 @@ scordis <- function(fm, out = c("mad", "sd", "boxplot"), cri = 3) {
   
   S <- diag(sigma, nrow = ncomp, ncol = ncomp)
   
-  d <- dis(mu = rep(0, ncomp), Xr = fm$Tr, Xu = fm$Tu, diss = "mahalanobis", 
-    sigma = S, out = out, cri = cri)
+  d <- dis(fm$Tr, fm$Tu, rep(0, ncomp), "mahalanobis", S)
   
   dr <- d$dr
   dr$gh <- dr$d^2 / dr$ncomp
@@ -27,7 +26,7 @@ scordis <- function(fm, out = c("mad", "sd", "boxplot"), cri = 3) {
     du$gh <- du$d^2 / du$ncomp
     }
 
-  list(dr = dr, du = du, cut = d$cut)
+  list(dr = dr, du = du)
   
   }
 

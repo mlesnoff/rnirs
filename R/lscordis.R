@@ -1,4 +1,4 @@
-lscordis <- function(fm, ...) {
+lscordis <- function(fm) {
   
   fm <- fm$fm
   
@@ -8,7 +8,7 @@ lscordis <- function(fm, ...) {
   
   for(i in 1:nmod) {
     
-    z <- scordis(fm[[i]], ...)
+    z <- scordis(fm[[i]])
     
     z$dr$rownum <- fm[[i]]$nn
     

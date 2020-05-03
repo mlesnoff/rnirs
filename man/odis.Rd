@@ -15,9 +15,9 @@
 
 \usage{
 
-odis(fm, Xr, Xu = NULL, out = c("mad", "sd", "boxplot"), cri = 3)
+odis(fm, Xr, Xu = NULL)
 
-lodis(fm, Xr, Xu, ...)
+lodis(fm, Xr, Xu)
 
 }
 
@@ -27,19 +27,13 @@ lodis(fm, Xr, Xu, ...)
 
 \item{Xr}{The matrix or data frame of reference (= training) observations that was used for building the preliminary model \code{fm}.}
 
-\item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations (\eqn{Xu} is not used in the calculation of the cutoff that defines the extreme distance values).}
-
-\item{out}{Type of summary statistics used for detecting extreme OD values. Possible values are "mad" (mean absolute deviation "MAD"; default), "sd" (standard deviation) or "boxplot" (boxplot statistics). For "mad" and "sd", the cutoff is given by \eqn{median(d) + cri * mad(d)} or \eqn{mean(d) + cri * sd(d)}, respectively, where \eqn{d} is the vector of dissimilarities for the reference observations \eqn{Xr} and \eqn{cri} a constant (argument \code{cri}; default = 3). For "boxplot", the cutoff is given by \eqn{2nd quartile(d) + 1.5 * IQR(d)}.}
-
-\item{cri}{Value used in the calculation of the "mad" or "sd" cutoff values for detecting the extreme distance values; see argument \code{out}.}
-
-\item{...}{For \code{lodis}, optional arguments to pass in code{odis}.}
+\item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations (\eqn{Xu} is not used in the calculation of the median and MAD used for calculating the standardized distances; see Details).}
 
 }
 
 \details{
 
-The "standardized" variable \eqn{dstand} calculated as \eqn{dstand = d / cutoff-value} is an  indicator of extreme value. OD is considered extreme if \eqn{dstand > 1}.
+A "standardized" dissimilarity is also given, calculated as \eqn{abs(d - median(d)) / mad(d)} where \eqn{d} is the distance. A value higher than 2.5 or 3 may be considered as extreme.
 
 }
 
