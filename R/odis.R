@@ -6,8 +6,6 @@ odis <- function(fm, Xr, Xu = NULL) {
   if(is.null(fm$Tr))
     fm$Tr <- fm$T
   
-  out <- match.arg(out)
-  
   X <- .matrix(Xr)
   n <- dim(X)[1]
   rownam <- row.names(X)

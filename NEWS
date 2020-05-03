@@ -3,9 +3,9 @@
 ##----------------- Version 1.6-2
 
 - Simplification of functions dis, scordis, odis, lscordis, lodis. Standardized distances
-are calculated in a more direct way. Some argimentrs have been removed.
+are calculated in a more direct way. Arguments cri and out have been removed.
 
-- Order of argiments in .dis and .mah have changed.
+- Order of arguments in .dis and .mah have changed.
 
 ##----------------- Version 1.6-1
 
