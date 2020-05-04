@@ -134,8 +134,6 @@ pca.sph(X, ncomp = 3)
 
 pca.cr(X, ncomp = 3)
 
-pca.rob(X, ncomp = 3)
-
 ######## WITH MISSING DATA
 
 X2 <- X
