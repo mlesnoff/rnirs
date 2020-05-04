@@ -4,6 +4,8 @@
 
 - Modification of cutoff calculation in scordis and odis. Cutoff calculations have been removed from function dis.
 
+- Function pca.rob has been temporarily removed.
+
 
 ##----------------- Version 1.6-3
 

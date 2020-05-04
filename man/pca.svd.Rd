@@ -5,7 +5,6 @@
 \alias{pca.nipalsna}
 \alias{pca.sph}
 \alias{pca.cr}
-\alias{pca.rob}
 \encoding{latin1}
 
 \title{PCA algorithms}
@@ -30,16 +29,6 @@ Algorithms for (centered) PCA of a matrix \eqn{X}.
 
 - \code{pca.cr}: Croux & Ruiz-Gazen (CR) PCA algorithm using projection pursuit (PP) method (Croux & Ruiz-Gazen 2005). In the CR algorithm, the 1st loading vector is choosen within the \eqn{n} data observations (rows of \eqn{X}). The next loadings are choosen in the same way after subsequent deflation of matrix \eqn{X}. One of the possible improvements  of the algorithm is to simulate (randomly) additionnal candidate PP directions. In function \code{pca.cr}, this is done when argument \code{nrep > 0}. In such a case, the function simulates \eqn{nrep * n} additional PP directions to the \eqn{n} initial ones, by using the method of Hubert et al. (2005): random couples of observations are sampled and, for each couple, the direction passes through the two data points of the couple (see functions \code{.simpp.hub} in file \code{zfunctions.R}).
 
-- \code{pca.rob}: Robust PCA using an algorithm following a similar philosophy (but with differences) as the ROBPCA method (Hubert et al. 2005, 2009). The algorithm is in the three following steps. 
-
-Step 1 intends to detect multivariate outliers (potentially with bad leverages) that will receive a weight \eqn{w1 = 0} in the second step. The non-outliers receive a weight \eqn{w1 = 1}. The detection method uses the Stahel-Donoho outlyingness (Maronna and Yohai, 1995) using PP directions simulated as in ROBPCA (see functions \code{.simpp.hub} and \code{.stahel} in file \code{zfunctions.R}). The outliers in Step 1 are the \eqn{(1 - alpha)} proportion of the observations with the highest outlyingness (by default \eqn{alpha = .75} like in Hubert et al. 2005, 2009). 
-
-Step 2 starts by calculating a (first) robust score space, by doing a weighted PCA using weights \eqn{w1}. Then scores and orthogonal distances (SD and OD) of all the observations are then calculated in this score space, and respective weights (\eqn{w2} for SD and \eqn{w3} for OD) are calculated by a decreasing function (see \code{\link{wdist}}).
-
-Step 3 consists in the weighted PCA of \eqn{X} with weights \eqn{w = w2 * w3}, giving the second and final robust score space.
-
-Instead of step2-3, ROBPCA (Hubert et al. 2005) uses successive spectral decompositions of minimum covariance determinant (MCD) estimations of robust covariance matrices, and parametric distribution hypotheses for defining SD and OD cutoffs.
-
 \bold{Argument} \code{weights}
 
 Some of the functions above can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. For instance, function \code{pca.svd} implements a SVD of \eqn{D^(1/2) X}, where D = diag(weights) and X has been centered with metric \eqn{D}. Function \code{pca.eignenw} implements an eigen decomposition of \eqn{X' D X}.
@@ -61,8 +50,6 @@ pca.nipalsna(X, ncomp, gramschmidt = TRUE,
 pca.sph(X, ncomp, weights = NULL)
 
 pca.cr(X, ncomp, obj = c("mad", "sd"), nrep = 0)
-
-pca.rob(X, ncomp, nrep = 1, alpha = .75, h = 2)
 
 }
 
@@ -87,12 +74,6 @@ pca.rob(X, ncomp, nrep = 1, alpha = .75, h = 2)
 \item{obj}{The objective scale function to maximize with the PP scores. Possible values are "mad" (default; = MAD) or "sd" (standard deviation, corresponding to the usual PCA objective). }
 
 \item{nrep}{In the original CR algorithm, the starting considered PP directions are the \eqn{n} observations (rows of \eqn{X}). If \code{nrep > 0}, a number of \eqn{nrep * n}  additionnal PP directions are randomly simulated (see section Description). Default to \code{nrep = 0} (no additionnal simulation). This same argument is used for step 1 of function \code{pca.rob} below, but default is set to \code{nrep = 1}.}
-
-\bold{Specific arguments of} \code{pca.rob}
-
-\item{alpha}{Used in step 1, default to \code{alpha = .75}. The outliers are the \eqn{(1 - alpha)} proportion of the observations with the highest outlyingness.}
-
-\item{h}{Used in step 2. A scalar defining the shape of the decreasing weight function. See function \code{\link{wdist}}.}
 
 }
 
