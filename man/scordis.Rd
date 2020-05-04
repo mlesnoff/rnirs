@@ -29,9 +29,15 @@ lscordis(fm)
 
 \details{
 
-A "standardized" dissimilarity is also given, calculated as \eqn{abs(d - median(d)) / mad(d)} where \eqn{d} is the distance. A value higher than 2.5 or 3 may be considered as extreme.
+Column \code{dstand} in the output is a "standardized" SD defined as \eqn{SD / cutoff} where the \eqn{cutoff} is calculated such as in Hubert et al. (2005 p.66). A value \code{dstand > 1} may be considered as extreme.
 
 The Winisi GH is also provided ("extreme" if GH > 3).
+
+}
+
+\references{
+
+M. Hubert, P. J. Rousseeuw, K. Vanden Branden (2005). ROBPCA: a new approach to robust principal components analysis. Technometrics, 47, 64-79.
 
 }
 

@@ -42,14 +42,9 @@ dis <- function( Xr, Xu = NULL, mu = NULL,
       d <- sqrt(.dis(X, mu))
     
     }
-
-  d <- c(d)
-  zmed <- median(d)
-  zmad <- mad(d)
-  dstand <- abs(d - zmed) / zmad 
   
   dr <- data.frame(rownum = 1:n, rownam = rownam, 
-    ncomp = rep(p, n), d = d, dstand = dstand)
+    ncomp = rep(p, n), d = c(d))
   
   ### NEW OBSERVATIONS
   
@@ -76,12 +71,9 @@ dis <- function( Xr, Xu = NULL, mu = NULL,
         }
       
       )
-    
-    d <- c(d)
-    dstand <- abs(d - zmed) / zmad 
       
     du <- data.frame(rownum = 1:m, rownam = rownam,
-      ncomp = rep(p, m), d = d, dstand = dstand)
+      ncomp = rep(p, m), d = c(d))
     
     }
 

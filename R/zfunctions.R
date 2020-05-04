@@ -441,7 +441,7 @@
   
   X <- .matrix(X, row = FALSE)
   
-  ##### COPY OF FUNCTION 'spatial.median' AVAILABLE IN THE SCRIPT PcaLocavntore.R
+  ##### COPY OF FUNCTION 'spatial.median' AVAILABLE IN THE SCRIPT PcaLocantore.R
   ##### OF PACKAGE rrcov v.1.4-3 on R CRAN (V. Todorov, 2016)
 
   x <- X

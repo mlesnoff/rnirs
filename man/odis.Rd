@@ -33,7 +33,7 @@ lodis(fm, Xr, Xu)
 
 \details{
 
-A "standardized" dissimilarity is also given, calculated as \eqn{abs(d - median(d)) / mad(d)} where \eqn{d} is the distance. A value higher than 2.5 or 3 may be considered as extreme.
+Column \code{dstand} in the output is a "standardized" OD defined as \eqn{OD / cutoff} where the \eqn{cutoff} is calculated such as in Hubert et al. (2005 p.66) (except that MCD location and scale estimates have been replaced by median and MAD). A value \code{dstand > 1} may be considered as extreme.
 
 }
 

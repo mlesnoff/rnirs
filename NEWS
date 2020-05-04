@@ -2,9 +2,15 @@
 
 ##----------------- Version 1.6-3
 
+- Modification of cutoff calculation in scordis and odis. Cutoff calculations have been removed from function dis.
+
+
+##----------------- Version 1.6-3
+
 - Simplification and improvement of function pca.rob. Some arguments have been removed.
 
 - Object xss have been renamed eigs in all the PCA functions.
+
 
 ##----------------- Version 1.6-2
 
@@ -12,6 +18,7 @@
 are calculated in a more direct way. Arguments cri and out have been removed.
 
 - Order of arguments in .dis and .mah have changed.
+
 
 ##----------------- Version 1.6-1
 
@@ -21,6 +28,7 @@ Functions plotxy and plotmse use now basic R functions for graphics.
 - Functions plotsp and plotsp1 have been simplified.
 
 - Small bug corrceted in .detrend.lowess and .detrend.als
+
 
 ##----------------- Version 1.6-0
 
@@ -33,6 +41,7 @@ Functions plotxy and plotmse use now basic R functions for graphics.
   Auxiliary functions: 
     .simpp.hub (PP simulation)
     .stahel (Stahel-Donoho outlyingness)
+
 
 ##----------------- Version 1.5-3
 

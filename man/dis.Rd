@@ -33,12 +33,6 @@ dis(Xr, Xu = NULL, mu = NULL, diss = c("euclidean", "mahalanobis", "correlation"
 
 }
 
-\details{
-
-A "standardized" dissimilarity is also given, calculated as \eqn{abs(d - median(d)) / mad(d)} where \eqn{d} is the dissimilarity. A value higher than 2.5 or 3 may be considered as extreme.
-
-}
-
 \value{
 
 A list of outputs, such as:

@@ -17,10 +17,10 @@ odis <- function(fm, Xr, Xu = NULL) {
   E <- X - tcrossprod(fm$Tr, fm$P)
   
   d <- sqrt(rowSums(E * E))
-
-  zmed <- median(d)
-  zmad <- mad(d)
-  dstand <- abs(d - zmed) / zmad 
+  
+  z <- d^(2/3)
+  cutoff <- (median(z) + mad(z) * qnorm(p = .975))^(3/2)
+  dstand <- d / cutoff 
   
   dr <- data.frame(rownum = 1:n, rownam = rownam, ncomp = rep(ncomp, n), 
     d = d, dstand = dstand)
@@ -38,11 +38,11 @@ odis <- function(fm, Xr, Xu = NULL) {
     Tu <- .projscor(fm, Xu)
     Xu <- scale(Xu, center = fm$xmeans, scale = FALSE)
     
-    Eu <- Xu - tcrossprod(Tu, fm$P)
+    E <- Xu - tcrossprod(Tu, fm$P)
     
-    d <- sqrt(rowSums(Eu * Eu))
+    d <- sqrt(rowSums(E * E))
     
-    dstand <- abs(d - zmed) / zmad 
+    dstand <- d / cutoff 
     
     du <- data.frame(rownum = 1:m, rownam = rownam, ncomp = rep(ncomp, m), 
       d = d, dstand = dstand)
@@ -52,6 +52,6 @@ odis <- function(fm, Xr, Xu = NULL) {
   
   ### END
 
-  list(dr = dr, du = du)
+  list(dr = dr, du = du, cutoff = cutoff)
 
   }

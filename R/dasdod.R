@@ -72,12 +72,10 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
         res.sd <- scordis(fm)$du
         res.od <- odis(fm, Xr[u, ], Xu)$du
         
-        ## TO BE MODIFIED: USE THE NEW dstand AS BELOW
         if(typcut == "overall") {
           zsd <- res.sd$d / ncompcla[i]
           zod <- res.od$d
           }
-        ## END
         
         if(typcut == "class") {
           zsd <- res.sd$dstand
