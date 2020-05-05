@@ -56,6 +56,7 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 \tabular{ll}{
   \code{\link{pca.sph}} \tab Spherical (Locantore 1999) \cr
   \code{\link{pca.cr}} \tab Croux & Ruiz-Gazen (2005) \cr
+  \code{\link{pca.rob}} \tab Robust (PP + WPCA) \cr
   }
 
 \bold{------------ PLS}
