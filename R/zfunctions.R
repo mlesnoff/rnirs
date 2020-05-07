@@ -85,15 +85,15 @@
   
   }
 
-.findmax.ind <- function(x, seed = NULL) {
-  ind <- which(x == max(x))
-  n <- length(ind)
+.findmax <- function(x, seed = NULL) {
+  x <- which.max(x)
+  n <- length(x)
   if(n > 1) {
     set.seed(seed = seed)
-    ind <- ind[sample(1:n, 1)]
+    x <- x[sample(1:n, 1)]
     set.seed(seed = NULL)
     }
-  ind
+  x
   }
 
 .fweights <- function(x, nam = "huber", a = 1.345) {
@@ -150,7 +150,7 @@
   dat <- data.frame(y = Yr, w = weights)
   cnt <- dtaggregate(w ~ y, FUN = sum, data = dat)
 
-  ind <- .findmax.ind(cnt$w)
+  ind <- .findmax(cnt$w)
   fit <- lev[ind]
   
   y <- Yu

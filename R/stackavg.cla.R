@@ -44,7 +44,7 @@ stackavg.cla <- function(fit, y = NULL, formula = ~ 1, nam = NULL, weights = NUL
     
     }
   
-  z <- apply(res[, dum.colnam], FUN = .findmax.ind, MARGIN = 1) 
+  z <- apply(res[, dum.colnam], FUN = .findmax, MARGIN = 1) 
   z <- sapply(z, FUN = function(x) lev[x])
   res <- data.frame(res, z, stringsAsFactors = FALSE)
   names(res)[ncol(res)] <- nam
@@ -80,7 +80,7 @@ stackavg.cla <- function(fit, y = NULL, formula = ~ 1, nam = NULL, weights = NUL
       names(res)[ncol(res)] <- dum.colnam[i]
       }
     
-    z <- apply(res[, dum.colnam], FUN = .findmax.ind, MARGIN = 1) 
+    z <- apply(res[, dum.colnam], FUN = .findmax, MARGIN = 1) 
     z <- sapply(z, FUN = function(x) lev[x])
     res <- data.frame(res, z, stringsAsFactors = FALSE)
     names(res)[ncol(res)] <- nam

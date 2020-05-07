@@ -1,5 +1,11 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-6
+
+- Function dasdod have been simplified. Some arguments have been removed.
+
+
+
 ##----------------- Version 1.6-5
 
 - Function pca.rob has been added.

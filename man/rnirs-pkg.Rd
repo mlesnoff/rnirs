@@ -109,10 +109,10 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 
 \tabular{ll}{
   \code{\link{dalm}} \tab DA using multivariate linear regression\cr
-  \code{\link{dadis}} \tab DA using the dissimilarity to class centers\cr
   \code{\link{daglm}} \tab DA using generalized linear models\cr
-  \code{\link{dasdod}} \tab DA using a Simca index\cr
   \code{\link{daprob}} \tab Probablistic DA (parametric and non-parametric LDA and QDA)\cr
+  \code{\link{dadis}} \tab DA using the dissimilarity to class centers\cr
+  \code{\link{dasdod}} \tab DA using a Simca index\cr
   }
 
 \eqn{Global (eventually weighted)}

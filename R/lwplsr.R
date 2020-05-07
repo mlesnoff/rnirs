@@ -25,6 +25,10 @@ lwplsr <- function(
   names(param) <- c("ncompdis", "h", "k")
   npar <- nrow(param)
   
+  cri <- list(...)$cri
+  if(is.null(cri))
+    cri <- 3
+  
   r <- fit <- y <- vector(mode = "list", length = npar)
   for(i in 1:npar) {
     
@@ -44,7 +48,7 @@ lwplsr <- function(
         zresn <- getknn(z$T, .projscor(z, Xu), k = zk, diss = diss)
         }
     
-    zlistw <- lapply(zresn$listd, wdist, h = zh)
+    zlistw <- lapply(zresn$listd, wdist, h = zh, cri = cri)
     
     zfm <- locw(
       Xr, Yr,

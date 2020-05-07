@@ -1,12 +1,8 @@
 dasdod <- function(Xr, Yr, Xu, Yu = NULL, 
-  ncomp.pls = NULL, ncompcla, 
-  nmin = 5,
-  typcut = c("overall", "class"), cri = 3, 
+  ncomp, nmin = 5, theta = 0.5, 
   ...){
   
   if(nmin < 2) stop("\nArgument nmin must be >= 2.\n\n")
-  
-  typcut <- match.arg(typcut)
   
   Xr <- .matrix(Xr)
   n <- nrow(Xr)
@@ -29,86 +25,65 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
   if(!is.null(Yu)) 
     Yu <- as.character(Yu) else Yu <- rep(NA, m)
   
-  if(length(ncompcla) == 1) 
-    ncompcla <- rep(ncompcla, nclas)
+  if(length(ncomp) == 1) 
+    ncomp <- rep(ncomp, nclas)
 
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
     fit <- rep(lev, m)
-    pvarcla <- ncompcla <- d <- od.stand <- sd.stand <- NULL
+    pvarcla <- ncomp <- tabd <- odstand <- sdstand <- od <- sd <- NULL
     }
   ### END
   
   else {
-    
-    if(!is.null(ncomp.pls)) {
-      fm <- pls.kernel(Xr, dummy(Yr), ncomp = ncomp.pls)
-      Xr <- fm$T
-      Xu <- .projscor(fm, Xu)
-      }
       
-    pvarcla <- vector(length = nclas)
+    pvarcla <- cutod <- cutsd <- vector(length = nclas)
+    od <- sd <- matrix(nrow = m, ncol = nclas)
     
     for(i in 1:nclas) {
       
-      u <- which(Yr == lev[i])
-      zn <- length(u)
+      s <- which(Yr == lev[i])
+      ns <- length(s)
       
-      if(zn < nmin) {
+      if(ns < nmin) {
         
-        zod <- zsd <- rep(NA, m)
+        od[, i] <- sd[, i] <- rep(NA, m)
+        cutod[i] <- cutsd[i] <- NA
       
         }
       
       else {
       
-        ncompcla[i] <- min(ncompcla[i], zn - 1, p - 1)
+        ncomp[i] <- min(ncomp[i], ns - 1, p - 1)
         
-        fm <- pca(Xr[u, ], Xu, ncomp = ncompcla[i], ...)
+        fm <- pca(Xr[s, ], Xu, ncomp = ncomp[i], ...)
         
         z <- fm$explvar
-        pvarcla[i] <- z$cumpvar[z$ncomp == ncompcla[i]]
+        pvarcla[i] <- z$cumpvar[dim(z)[1]]
         
-        res.sd <- scordis(fm)$du
-        res.od <- odis(fm, Xr[u, ], Xu)$du
+        z <- scordis(fm)
+        sd[, i] <- z$du$d
+        cutsd[i] <- z$cutoff
         
-        if(typcut == "overall") {
-          zsd <- res.sd$d / ncompcla[i]
-          zod <- res.od$d
-          }
-        
-        if(typcut == "class") {
-          zsd <- res.sd$dstand
-          zod <- res.od$dstand
-          }
+        z <- odis(fm, Xr[s, ], Xu)
+        od[, i] <- z$du$d
+        cutod[i] <- z$cutoff
       
         }
-      
-      if(i == 1) sd <- zsd else sd <- cbind(sd, zsd)
-      if(i == 1) od <- zod else od <- cbind(od, zod)
-    
+
       }
     
-    if(typcut == "overall") {
-      cut <- median(sd, na.rm = TRUE) + cri * mad(sd, na.rm = TRUE)
-      sd.stand <- sd / cut
-      cut <- median(od, na.rm = TRUE) + cri * mad(od, na.rm = TRUE)
-      od.stand <- od / cut
-      }
-  
-    if(typcut == "class") {
-      sd.stand <- sd
-      od.stand <- od
-      }
-      
-    theta <- .5
-    colnames(od.stand) <- colnames(sd.stand) <- lev
-    d <- sqrt(theta * sd.stand^2 + (1 - theta) * od.stand^2)
-  
-    # if ex-aequos, the first is selected
-    z <- apply(d, FUN = function(x) which.min(x), MARGIN = 1) 
+    sdstand <- scale(sd, center = FALSE, scale = cutsd)
+    odstand <- scale(od, center = FALSE, scale = cutod)
+    
+    tabd <- sqrt(theta * sdstand^2 + (1 - theta) * odstand^2)
+    
+    z <- apply(-tabd, FUN = .findmax, MARGIN = 1) 
     fit <- sapply(z, FUN = function(x) lev[x])
   
+    rownames(tabd) <- rownames(odstand) <- rownames(sdstand) <- rownames(od) <- rownames(sd) <- rownam.Xu
+    colnames(tabd) <- colnames(odstand) <- colnames(sdstand) <- colnames(od) <- colnames(sd) <- lev
+    
     }
 
   dat <- data.frame(
@@ -125,7 +100,8 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
   
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Yr
   
-  list(y = y, fit = fit, r = r, d = d, sd.stand = sd.stand, od.stand = od.stand, ni = ni, 
-    ncompcla = ncompcla, pvarcla = pvarcla)
+  list(y = y, fit = fit, r = r, tabd = tabd, sd = sd, od = od,
+    sdstand = sdstand, odstand = odstand, cutsd = cutsd, cutod = cutod, 
+    ncomp = ncomp, pvarcla = pvarcla, ni = ni)
     
   }

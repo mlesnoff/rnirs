@@ -32,7 +32,7 @@ pls.kernel <- function(X, Y, ncomp, weights = NULL) {
   # = t(D %*% X) %*% Y = t(X) %*% D %*% Y
   
   for(a in 1:ncomp) {
-    
+  
     if(q == 1) w <- XY
       else {
         w <- XY %*% svd(t(XY), nu = 1, nv = 0)$u
