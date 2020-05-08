@@ -1,75 +1,74 @@
-fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL) {
+fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL, ...) {
   
-  Xr <- .matrix(Xr)
-  n <- nrow(Xr)
-  p <- ncol(Xr)
+  X <- .matrix(Xr)
+  n <- nrow(X)
+  p <- ncol(X)
   
-  Yr <- as.factor(Yr)
+  Y <- as.factor(Yr)
 
-  Xr <- scale(Xr, center = TRUE, scale = FALSE) # scale returns a matrix
-  xmeans <- attr(Xr, "scaled:center")
+  X <- scale(X, center = TRUE, scale = FALSE)
+  xmeans <- attr(X, "scaled:center")
   
-  nclas <- length(unique(Yr))
+  nclas <- length(unique(Y))
   if(is.null(ncomp)) ncomp <- nclas - 1
   ncomp <- min(ncomp, p, nclas - 1)
   
-  W <- matW(Xr, Yr)$W
-  z <- matB(Xr, Yr)
+  W <- matW(X, Y)$W
+  z <- centr(X, Y)
   Xcenters <- z$centers
-  Xc <- z$Xc
+  ni <- z$ni
   
-  # Compromise max p'Bp / p'Wp
-  # i.e. to max p'Bp with constraint p'Wp = 1
-  # ==> p are the eigenvectors of W^(-1)B
-  # W^(-1)B * p = lambda * p   (lambda = mu in Saporta p.446)
-  
-  # Approach by PCA of the centers matrix (Xc) in metric W^(-1)
+  # Approach by row-weighted PCA (with weights ni/n) of the centers matrix (Xcenters)
+  # in metric W^(-1) (column-weigting, i.e. weighting of the variables, by tU)
   # ==> Cholesky decomposition of W^(-1) = U'U
-  # and SVD of Zc = Xc * t(U)
+  # and row-weighted (ni/n) SVD of Zcenters = Xcenters * t(U)
   
+  ## X = centered matrix
+  ## W^(-1) = t(U) %*% U
+  ## Zcenters = Xcenters %*% t(U)
+  ## Pz = Loadings of row-weighted (ni/n) PCA of Zcenters
+  ## Tcenters = Zcenters %*% Pz =  Xcenters %*% tU %*% Pz
+  
+  ## Coefficients of linear discriminants: 
+  ## P = "LD" of lda(MASS) = Loadings for X in metric W(^-1)
+  ## P = t(U) %*% Pz
+  
+  ## Z = X %*% t(U)
+  ## T = Z %*% Pz = X %*% t(U) %*% Pz = X %*% P
+
   # Use of the unbiased estimate of W
   W <- W * n / (n - nclas)
   
   Winv <- solve(W)
   U <- chol(Winv)
   tU <- t(U) 
-  
-  # Transformed data  
-  Zr <- Xr %*% tU
-  Zc <- Xc %*% tU
+
   Zcenters <- Xcenters %*% tU
+
+  zfm <- pca(Zcenters, ncomp = nclas - 1, weights = ni, ...)
+  Pz <- zfm$P
+  Tcenters <- Zcenters %*% Pz
+  explvar <- zfm$explvar
   
-  # PCA of Zc (==> loadings for Z)
-  u <- pca(Zc, ncomp = nclas - 1)
-  Pz <- u$P
-  explvar <- u$explvar
-  
-  # Coefficients of linear discriminants: 
-  # P = "LD" of lda(MASS) = Loadings for X
   P <- tU %*% Pz[, 1:ncomp, drop = FALSE]
   
-  # Scores
-  Tr <- Xr %*% P               # = Zr %*% Pz
-  Tcenters <- Xcenters %*% P   # = Zcenters %*% Pz
+  T <- X %*% P
 
-  Zu <- Tu <- NULL
+  Tu <- NULL
   if(!is.null(Xu)) {
     
     Xu <- .matrix(Xu)
     Xu <- scale(Xu, center = xmeans, scale = FALSE)
     m <- nrow(Xu)
     
-    Zu <- Xu %*% tU
-    
-    Tu <- Xu %*% P             # = Zu %*% Pz
+    Tu <- Xu %*% P
 
     }  
   
   list(
-    Tr = Tr, Tu = Tu, Tcenters = Tcenters,
+    Tr = T, Tu = Tu, Tcenters = Tcenters,
     P = P, R = P, Pz = Pz,
-    Zr = Zr, Zcenters = Zcenters, Zu = Zu,
-    explvar = explvar, W = W
+    explvar = explvar, W = W, ni = ni
     )
 
 }

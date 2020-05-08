@@ -13,10 +13,7 @@ centr <- function(X, Y = NULL, FUN = mean, ...) {
 
   centers <- as.matrix(aggregate(X ~ Y, FUN = FUN, ...)[, -1])
   rownames(centers) <- lev
-  
-  Xc <- X
-  for(i in 1:n) Xc[i, ] <- centers[zy[i], ]
 
-  list(centers = centers, ni = ni, Xc = Xc)
+  list(centers = centers, ni = ni)
 
   }

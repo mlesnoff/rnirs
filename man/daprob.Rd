@@ -29,7 +29,7 @@ daprob(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
 
 \item{dens}{A function returning the probability density of the observation conditionnally to the class. Default to \code{\link{dmnorm}}.}
 
-\item{lda}{Logical, only considered if \code{dens = dmnorm}. If \code{TRUE} (default), a LDA is implemented, orherwise a QDA is implemented.}
+\item{lda}{Logical, only considered if \code{dens = dmnorm}. If \code{TRUE} (default), a gaussian LDA is implemented, otherwise a gaussian QDA is implemented.}
 
 \item{prior}{The prior probabilities of class membership. Possible values are "proportional" (default; probablities are set equal to the observed proportions of the classes in \code{Yr}), "uniform" (probablities are set equal for all the classes), or a vector of values defining the probabilities for each class.}
 

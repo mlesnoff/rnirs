@@ -4,7 +4,8 @@ knnda <- function(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
   stor = TRUE,
-  print = TRUE
+  print = TRUE,
+  ...
   ) {
 
   diss <- match.arg(diss)
@@ -47,7 +48,7 @@ knnda <- function(
         zresn <- getknn(z$T, .projscor(z, Xu), k = zk, diss = diss)
         }
     
-    zlistw <- lapply(zresn$listd, wdist, h = zh)
+    zlistw <- lapply(zresn$listd, wdist, h = zh, ...)
     
     zfm <- locw(
       Xr, Yr,

@@ -4,7 +4,8 @@ knnr <- function(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
   stor = TRUE,
-  print = TRUE
+  print = TRUE,
+  ...
   ) {
 
   diss <- match.arg(diss)

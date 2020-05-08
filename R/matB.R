@@ -14,14 +14,11 @@ matB <- function(X, y) {
   zy <- as.numeric(y)
   
   centers <- centr(X, y)$centers
-  
-  Xc <- X
-  for(i in 1:n) Xc[i, ] <- centers[zy[i], ]
 
-  B <- cov(Xc) * (n - 1) / n
+  B <- .xcov(centers, weights = ni)
 
   colnames(B) <- rownames(B) <- colnames(centers)
 
-  list(B = B, Xc = Xc, ni = ni, centers = centers)
+  list(B = B, ni = ni, centers = centers)
   
   }

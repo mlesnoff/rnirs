@@ -1,9 +1,15 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-7
+
+- Functions fda, centers and matB have been made faster.
+
+- Code cleaning in discrimination functions.
+
+
 ##----------------- Version 1.6-6
 
 - Function dasdod have been simplified. Some arguments have been removed.
-
 
 
 ##----------------- Version 1.6-5

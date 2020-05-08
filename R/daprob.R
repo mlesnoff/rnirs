@@ -2,8 +2,9 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
   lda = TRUE, prior = c("proportional", "uniform"), ...){
   
   .dens <- match.fun(FUN = dens)
-
-  if(is.character(prior)) prior <- match.arg(prior)
+  
+  dots <- list(...)
+  namdot <- names(dots)
 
   Xr <- .matrix(Xr)
   n <- nrow(Xr)
@@ -36,23 +37,24 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
 
     if(is.character(prior))
       prior <- switch(
-        prior, 
+        match.arg(prior), 
         proportional = ni / sum(ni), 
         uniform = rep(1 / nclas, nclas)
         )
-    
-    if(lda)
-      W <- matW(Xr, Yr)$W * n / (n - nclas)
-    
+
+    if(identical(.dens, dmnorm) & lda)  
+        W <- matW(Xr, Yr)$W * n / (n - nclas)
+    else
+        W <- NULL
+
     ds <- matrix(nrow = m, ncol = nclas)
     for(i in 1:nclas) {
-
-      if(identical(.dens, dmnorm) & lda)
-        fm <- .dens(Xr[Yr == lev[i], , drop = FALSE], Xu, 
-          sigma = W, ...)
-      else
-        fm <- .dens(Xr[Yr == lev[i], , drop = FALSE], Xu, ...)
       
+      zdots <- c(list(Xr = Xr[Yr == lev[i], , drop = FALSE], Xu = Xu), dots)
+      zdots$sigma <- W
+    
+      fm <- do.call(.dens, zdots) 
+
       ds[, i] <- fm$fit$fit
         
       }
@@ -68,8 +70,7 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
     
     posterior <- z / rowSums(z)
   
-    # if ex-aequos, the first is selected
-    z <- apply(posterior, FUN = function(x) which.max(x), MARGIN = 1) 
+    z <- apply(posterior, FUN = .findmax, MARGIN = 1) 
     fit <- sapply(z, FUN = function(x) lev[x])
     
     colnames(posterior) <- colnames(prior) <- colnames(ds) <- lev

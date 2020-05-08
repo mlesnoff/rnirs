@@ -33,9 +33,19 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
   else {
   
     centers <- centr(Xr, Yr)$centers
-    if(diss == "mahalanobis" & is.null(sigma))
-      Wi <- matW(Xr, Yr)$Wi
-  
+    
+    if(diss == "mahalanobis") {
+      
+      if(is.null(sigma))
+        Wi <- matW(Xr, Yr)$Wi
+      else{
+        sigma <- as.matrix(sigma)
+        Wi <- vector(length = nclas, mode = "list")
+        for(i in 1:nclas)
+          Wi[[i]] <- sigma
+        }
+      }
+        
     for(i in 1:nclas) {
     
       if(diss %in% c("euclidean", "correlation"))
@@ -43,21 +53,12 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
   
       if(diss == "mahalanobis") {
         
-        ### CASE WHERE ni[i]=1
-        if(is.null(sigma)) {
-           
-          if(ni[i] > 1) zsigma <- Wi[[i]] * (ni[i] - 1) / ni[i]
-          else zsigma <- Wi[[i]]
-          
-          }
-        else zsigma <- as.matrix(sigma)
-        ### END
-        
-        ### IF SIGMA IS SINGULAR ==> THE OPTION IS TO REPLACE SIGMA BY DIAG(SIGMA)
-        U <- tryCatch(chol(zsigma), error = function(e) e)
+        ### IF SIGMA IS SINGULAR 
+        ### ==> THE OPTION IS TO REPLACE SIGMA BY DIAG(SIGMA)
+        U <- tryCatch(chol(Wi[[i]]), error = function(e) e)
         if(inherits(U, "error")) {
-          zsigma <- diag(diag(zsigma), nrow = p)
-          U <- sqrt(zsigma)
+          Wi[[i]] <- diag(diag(Wi[[i]]), nrow = p)
+          U <- sqrt(Wi[[i]])
           }
         ### END
         
@@ -65,7 +66,10 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
         
         }
     
-      if(i == 1) d <- zd else d <- cbind(d, zd)
+      if(i == 1) 
+        d <- zd 
+      else 
+        d <- cbind(d, zd)
     
       }
 
@@ -73,8 +77,7 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
   
   colnames(d) <- lev
   
-  # if ex-aequos, the first is selected
-  z <- apply(d, FUN = function(x) which.min(x), MARGIN = 1) 
+  z <- apply(-d, FUN = .findmax, MARGIN = 1) 
   fit <- sapply(z, FUN = function(x) lev[x])
   
   }

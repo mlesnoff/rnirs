@@ -46,7 +46,7 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
     # if ex-aequos, the first is selected
     fit <- dummyfit
     fit <- fit[, (ncol(fit) - nclas + 1):ncol(fit)]
-    fit <- apply(fit, FUN = function(x) which.max(x), MARGIN = 1)
+    fit <- apply(fit, FUN = .findmax, MARGIN = 1) 
     fit <- sapply(fit, FUN = function(x) lev[x])
     
     if (!is.null(Yu))

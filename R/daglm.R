@@ -43,8 +43,7 @@ daglm <- function(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit")){
     colnames(z) <- lev
     dummyfit <- z
   
-    # if ex-aequos, the first is selected
-    z <- apply(dummyfit, FUN = function(x) which.max(x), MARGIN = 1) 
+    z <- apply(dummyfit, FUN = .findmax, MARGIN = 1) 
     fit <- sapply(z, FUN = function(x) lev[x])
   
     }
