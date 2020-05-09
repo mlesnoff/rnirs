@@ -4,6 +4,8 @@
 
 - Functions fda, centers and matB have been made faster.
 
+- Argument theta in function dasdod has been removed (this parameter is automatically varied in the function).
+
 - Code cleaning in discrimination functions.
 
 
