@@ -25,7 +25,8 @@ knnr(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
   stor = TRUE,
-  print = TRUE
+  print = TRUE,
+  ...
   ) 
 
 knnda(
@@ -34,7 +35,8 @@ knnda(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = Inf, k,
   stor = TRUE,
-  print = TRUE
+  print = TRUE,
+  ...
   )
 
 }
@@ -60,6 +62,8 @@ knnda(
 \item{stor}{Logical (default to \code{TRUE}). See \code{\link{locw}}.}
 
 \item{print}{Logical (default = \code{TRUE}). If \code{TRUE}, fitting information are printed.}
+
+\item{...}{Optionnal arguments to pass in function \code{\link{wdist}}.}
 
 }
 

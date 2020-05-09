@@ -5,12 +5,12 @@
 \title{Factorial discriminant analysis}
 
 \description{
-Function \code{fda} fits a factorial discriminant analysis (FDA). The function maximizes the compromise \eqn{p'Bp / p'Wp}, i.e. \eqn{max p'Bp} with constraint \eqn{p'Wp = 1}. Vectors \eqn{p} (linear discrimant coefficients "LD") are the eigenvectors of \eqn{W^(-1)B}, i.e. \eqn{W^(-1)B * p = lambda * p}. 
+Function \code{fda} fits a factorial discriminant analysis (FDA). The function maximizes the compromise \eqn{p'Bp / p'Wp}, i.e. \eqn{max p'Bp} with constraint \eqn{p'Wp = 1}. Vectors \eqn{p} are the linear discrimant coefficients "LD". 
 
-Basically, the function undertakes a PCA on the \eqn{n x p} matrix \eqn{Xc} of the class centers with the metric \eqn{W^(-1)}: the first step of the calculation is a Cholesky decomposition \eqn{W^(-1) = U'U} and the second step a SVD of the transformed centers data \eqn{Z = Xc * U'}.
+Basically, the function fits a PCA on the \eqn{n x p} matrix \eqn{Xc} of the class centers with the metric \eqn{W^(-1)}: the first step of the calculation is a Cholesky decomposition \eqn{W^(-1) = U'U} and the second step a row-weighted (class proportion) SVD of the transformed centers data \eqn{Z = Xc * U'}.
 }
 
-\usage{fda(Xr, Yr, Xu = NULL, ncomp = NULL)}
+\usage{fda(Xr, Yr, Xu = NULL, ncomp = NULL, ...)}
 
 \arguments{
 
@@ -21,6 +21,8 @@ Basically, the function undertakes a PCA on the \eqn{n x p} matrix \eqn{Xc} of t
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations to be projected in the calculated reference FDA score space (\eqn{Xu} is not used in the calculation of this score space). Default to \code{NULL}.}
 
 \item{ncomp}{The maximum number of components to consider (\eqn{ncomp <= min(p, nb. classes - 1)}).}
+
+\item{...}{Optionnal arguments to pass in function \code{\link{pca}}.}
 
 }
 

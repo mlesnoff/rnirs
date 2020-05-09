@@ -43,8 +43,6 @@ matW(X, y)
 matB(X, y)
   
 matB(X, y)$B
-Xc <- matB(X, y)$Xc
-(n - 1) / n * cov(Xc)
 
 matW(X, y)$W + matB(X, y)$B
 (n - 1) / n * cov(X)
