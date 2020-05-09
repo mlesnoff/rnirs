@@ -1,6 +1,5 @@
 dasdod <- function(Xr, Yr, Xu, Yu = NULL, 
-  ncomp, nmin = 5, theta = 0.5, 
-  ...){
+  ncomp, nmin = 5,  ...){
   
   if(nmin < 2) stop("\nArgument nmin must be >= 2.\n\n")
   
@@ -31,7 +30,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
     fit <- rep(lev, m)
-    pvarcla <- ncomp <- tabd <- odstand <- sdstand <- od <- sd <- NULL
+    pvarcla <- ncomp <- index <- odstand <- sdstand <- od <- sd <- NULL
     }
   ### END
   
@@ -76,23 +75,32 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
     sdstand <- scale(sd, center = FALSE, scale = cutsd)
     odstand <- scale(od, center = FALSE, scale = cutod)
     
-    tabd <- sqrt(theta * sdstand^2 + (1 - theta) * odstand^2)
+    rownames(odstand) <- rownames(sdstand) <- rownames(od) <- rownames(sd) <- rownam.Xu
+    colnames(odstand) <- colnames(sdstand) <- colnames(od) <- colnames(sd) <- lev
     
-    z <- apply(-tabd, FUN = .findmax, MARGIN = 1) 
-    fit <- sapply(z, FUN = function(x) lev[x])
-  
-    rownames(tabd) <- rownames(odstand) <- rownames(sdstand) <- rownames(od) <- rownames(sd) <- rownam.Xu
-    colnames(tabd) <- colnames(odstand) <- colnames(sdstand) <- colnames(od) <- colnames(sd) <- lev
+    attr(odstand,"scaled:scale") <- attr(sdstand,"scaled:scale") <- NULL 
     
     }
-
-  dat <- data.frame(
-    rownum = 1:m,
-    rownam = rownam.Xu
-    )  
+  
+  theta <- seq(0, 1, by = .1)
+  ntheta <- length(theta)
+  index <- vector(length = ntheta, mode = "list")
+  for(i in 1:ntheta)
+    index[[i]] <- data.frame(sqrt(theta[i] * sdstand^2 + (1 - theta[i]) * odstand^2))
+  index <- setDF(rbindlist(index))
+  colnames(index) <- lev
+  
+  z <- apply(-index, FUN = .findmax, MARGIN = 1) 
+  fit <- sapply(z, FUN = function(x) lev[x])  
   
   y <- Yu
   r <- as.numeric(y != fit)
+  
+  dat <- data.frame(
+    rownum = rep((1:m), ntheta),
+    rownam = rep(rownam.Xu, ntheta),
+    theta = sort(rep(theta, m))
+    )  
   
   y <- cbind(dat, y, stringsAsFactors = FALSE)
   fit <- cbind(dat, fit, stringsAsFactors = FALSE)
@@ -100,7 +108,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
   
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Yr
   
-  list(y = y, fit = fit, r = r, tabd = tabd, sd = sd, od = od,
+  list(y = y, fit = fit, r = r, index = index, sd = sd, od = od,
     sdstand = sdstand, odstand = odstand, cutsd = cutsd, cutod = cutod, 
     ncomp = ncomp, pvarcla = pvarcla, ni = ni)
     
