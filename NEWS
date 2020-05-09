@@ -1,5 +1,11 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-8
+
+- Meaning of parameter theta in functions dasdod has been modified (multiplies OD instead of SD).
+
+
+
 ##----------------- Version 1.6-7
 
 - Functions fda, centers and matB have been made faster.

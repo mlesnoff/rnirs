@@ -86,7 +86,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
   ntheta <- length(theta)
   index <- vector(length = ntheta, mode = "list")
   for(i in 1:ntheta)
-    index[[i]] <- data.frame(sqrt(theta[i] * sdstand^2 + (1 - theta[i]) * odstand^2))
+    index[[i]] <- data.frame(sqrt((1 - theta[i]) * sdstand^2 + theta[i] * odstand^2))
   index <- setDF(rbindlist(index))
   colnames(index) <- lev
   
