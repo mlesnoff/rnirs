@@ -7,20 +7,20 @@ pinv <- function(X, tol = sqrt(.Machine$double.eps)) {
   
   if (!is.matrix(X)) X <- as.matrix(X)
   
-  Xsvd <- svd(X)
+  fm <- svd(X)
   
-  if (is.complex(X)) Xsvd$u <- Conj(Xsvd$u)
+  if (is.complex(X)) fm$u <- Conj(fm$u)
   
-  Positive <- Xsvd$d > max(tol * Xsvd$d[1L], 0)
+  Positive <- fm$d > max(tol * fm$d[1L], 0)
   
   if (all(Positive)) 
-    Xplus <- Xsvd$v %*% (1/Xsvd$d * t(Xsvd$u))
+    Xplus <- fm$v %*% (1/fm$d * t(fm$u))
     else if (!any(Positive)) 
       Xplus <- array(0, dim(X)[2L:1L])
       else
-        Xplus <- Xsvd$v[, Positive, drop = FALSE] %*% ((1/Xsvd$d[Positive]) * t(Xsvd$u[, Positive, drop = FALSE]))
+        Xplus <- fm$v[, Positive, drop = FALSE] %*% ((1/fm$d[Positive]) * t(fm$u[, Positive, drop = FALSE]))
 
-  list(Xplus = Xplus, rank = sum(Positive), Xsvd = Xsvd)
+  list(Xplus = Xplus, rank = sum(Positive), fm = fm)
   
   
   }

@@ -1,5 +1,11 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-9
+
+- Default value of argument prior in function daprob has changed.
+
+
+
 ##----------------- Version 1.6-8
 
 - Meaning of parameter theta in functions dasdod has been modified (multiplies OD instead of SD).

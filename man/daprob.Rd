@@ -13,7 +13,7 @@ For each observation to predict, the function calculates the posterior probabili
 \usage{
 
 daprob(Xr, Yr, Xu, Yu = NULL, dens = dmnorm, 
-  lda = TRUE, prior = c("proportional", "uniform"), ...)
+  lda = TRUE, prior = c("uniform", "proportional"), ...)
 
 }
 
@@ -31,7 +31,7 @@ daprob(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
 
 \item{lda}{Logical, only considered if \code{dens = dmnorm}. If \code{TRUE} (default), a gaussian LDA is implemented, otherwise a gaussian QDA is implemented.}
 
-\item{prior}{The prior probabilities of class membership. Possible values are "proportional" (default; probablities are set equal to the observed proportions of the classes in \code{Yr}), "uniform" (probablities are set equal for all the classes), or a vector of values defining the probabilities for each class.}
+\item{prior}{The prior probabilities of class membership. Possible values are "uniform" (default; probabilities are set equal for all the classes), "proportional" (probabilities are set equal to the observed proportions of the classes in \code{Yr}), or a vector of values defining the probabilities for each class.}
 
 \item{...}{Optionnal arguments to pass in function defined in \code{dens}.}
 

@@ -1,5 +1,5 @@
 daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm, 
-  lda = TRUE, prior = c("proportional", "uniform"), ...){
+  lda = TRUE, prior = c("uniform", "proportional"), ...){
   
   .dens <- match.fun(FUN = dens)
   
@@ -38,8 +38,8 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
     if(is.character(prior))
       prior <- switch(
         match.arg(prior), 
-        proportional = ni / sum(ni), 
-        uniform = rep(1 / nclas, nclas)
+        uniform = rep(1 / nclas, nclas),
+        proportional = ni / sum(ni) 
         )
 
     if(identical(.dens, dmnorm) & lda)  
