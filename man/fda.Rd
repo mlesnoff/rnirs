@@ -56,7 +56,7 @@ And other outputs ("z" outputs relate on transformed data; see the code).
 
 \references{
 
-Saporta, G., 2011. Probabilités analyse des données et statistique. Editions Technip, Paris, France.
+Saporta G., 2011. Probabilités analyse des données et statistique. Editions Technip, Paris, France.
 
 }
 
