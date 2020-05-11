@@ -12,10 +12,13 @@ Function \code{fda} uses an eigen decomposition of \eqn{W^(-1)B} (if \eqn{W} is 
 
 }
 
-\usage{fda(Xr, Yr, Xu = NULL, ncomp = NULL, pseudo = FALSE)}
+\usage{
 
-\usage{fda(Xr, Yr, Xu = NULL, ncomp = NULL, ...)}
+fda(Xr, Yr, Xu = NULL, ncomp = NULL, pseudo = FALSE)
 
+fda.svd(Xr, Yr, Xu = NULL, ncomp = NULL, ...)
+
+}
 
 \arguments{
 
