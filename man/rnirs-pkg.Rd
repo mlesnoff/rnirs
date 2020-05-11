@@ -74,7 +74,7 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 \bold{------------ FDA}
 
 \tabular{ll}{
-  \code{\link{fda}} \tab Factorial discriminant analysis\cr
+  \code{\link{fda}}, \code{\link{fda.svd}} \tab Factorial discriminant analysis\cr
   }
 
 \bold{------------ AUXILLIARY FUNCTIONS FOR PCA, PLS, FDA}

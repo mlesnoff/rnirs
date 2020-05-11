@@ -1,4 +1,5 @@
-fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL, ...) {
+fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL, 
+  pseudo = FALSE) {
   
   X <- .matrix(Xr)
   n <- nrow(X)
@@ -10,49 +11,44 @@ fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL, ...) {
   xmeans <- attr(X, "scaled:center")
   
   nclas <- length(unique(Y))
-  if(is.null(ncomp)) ncomp <- nclas - 1
+  
+  if(is.null(ncomp)) 
+    ncomp <- nclas - 1
+  
   ncomp <- min(ncomp, p, nclas - 1)
   
-  W <- matW(X, Y)$W
-  z <- centr(X, Y)
-  Xcenters <- z$centers
+  z <- matB(X, Y)
+  B <- z$B
+  centers <- z$centers
   ni <- z$ni
   
-  # Approach by row-weighted PCA (with weights ni/n) of the centers matrix (Xcenters)
-  # in metric W^(-1) (column-weigting, i.e. weighting of the variables, by tU)
-  # ==> Cholesky decomposition of W^(-1) = U'U
-  # and row-weighted (ni/n) SVD of Zcenters = Xcenters * t(U)
-  
-  ## X = centered matrix
-  ## W^(-1) = t(U) %*% U
-  ## Zcenters = Xcenters %*% t(U)
-  ## Pz = Loadings of row-weighted (ni/n) PCA of Zcenters
-  ## Tcenters = Zcenters %*% Pz =  Xcenters %*% tU %*% Pz
-  
-  ## Coefficients of linear discriminants: 
-  ## P = "LD" of lda(MASS) = Loadings for X in metric W(^-1)
-  ## P = t(U) %*% Pz
-  
-  ## Z = X %*% t(U)
-  ## T = Z %*% Pz = X %*% t(U) %*% Pz = X %*% P
-
-  # Use of the unbiased estimate of W
+  W <- matW(X, Y)$W
   W <- W * n / (n - nclas)
   
-  Winv <- solve(W)
-  U <- chol(Winv)
-  tU <- t(U) 
-
-  Zcenters <- Xcenters %*% tU
-
-  zfm <- pca(Zcenters, ncomp = nclas - 1, weights = ni, ...)
-  Pz <- zfm$P
-  Tcenters <- Zcenters %*% Pz
-  explvar <- zfm$explvar
+  if(!pseudo)
+    Winv <- solve(W)
+  else
+    Winv <- pinv(W)$Xplus
   
-  P <- tU %*% Pz[, 1:ncomp, drop = FALSE]
+  fm <- eigen(Winv %*% B)
+  P <- fm$vectors[, 1:(nclas - 1), drop = FALSE]
+  eigs <- fm$values[1:(nclas - 1)]
+  P <- Re(P)
+  eigs <- Re(eigs)
+  
+  norm.P <- sqrt(diag(t(P) %*% W %*% P))
+  P <- scale(P, center = FALSE, scale = norm.P)
+  attr(P,"scaled:scale") <- NULL
+  ## Same as: P %*% diag(1 / norm.P)
+  colnames(P) <- paste("comp", 1:ncomp, sep = "")
+  row.names(P) <- colnames(W)
   
   T <- X %*% P
+  
+  Tcenters <- centers %*% P
+  
+  explvar <- data.frame(ncomp = 1:ncomp, var = eigs, pvar = eigs / sum(eigs))
+  explvar$cumpvar <- cumsum(explvar$pvar)
 
   Tu <- NULL
   if(!is.null(Xu)) {
@@ -67,10 +63,10 @@ fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL, ...) {
   
   list(
     Tr = T, Tu = Tu, Tcenters = Tcenters,
-    P = P, R = P, Pz = Pz,
+    P = P, R = P,
     explvar = explvar, W = W, ni = ni
     )
 
-}
+  }
 
 

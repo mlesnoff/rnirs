@@ -1,16 +1,21 @@
 \name{fda}
 \alias{fda}
+\alias{fda.svd}
 \encoding{latin1}
 
 \title{Factorial discriminant analysis}
 
 \description{
-Function \code{fda} fits a factorial discriminant analysis (FDA). The function maximizes the compromise \eqn{p'Bp / p'Wp}, i.e. \eqn{max p'Bp} with constraint \eqn{p'Wp = 1}. Vectors \eqn{p} are the linear discrimant coefficients "LD". 
+Functions \code{fda} and s \code{fda.svd} fit a factorial discriminant analysis (FDA). The functions maximize the compromise \eqn{p'Bp / p'Wp}, i.e. \eqn{max p'Bp} with constraint \eqn{p'Wp = 1}. Vectors \eqn{p} are the linear discrimant coefficients "LD".
 
-Basically, the function fits a PCA on the \eqn{n x p} matrix \eqn{Xc} of the class centers with the metric \eqn{W^(-1)}: the first step of the calculation is a Cholesky decomposition \eqn{W^(-1) = U'U} and the second step a row-weighted (class proportion) SVD of the transformed centers data \eqn{Z = Xc * U'}.
+Function \code{fda} uses an eigen decomposition of \eqn{W^(-1)B} (if \eqn{W} is singular, W^(-1) can be replaced by a pseudo-inverse, with argument \code{pseudo}), and function \code{fda.svd} a weighted SVD decomposition of the matrix of the class centers. See the code for details.
+
 }
 
+\usage{fda(Xr, Yr, Xu = NULL, ncomp = NULL, pseudo = FALSE)}
+
 \usage{fda(Xr, Yr, Xu = NULL, ncomp = NULL, ...)}
+
 
 \arguments{
 
@@ -22,7 +27,9 @@ Basically, the function fits a PCA on the \eqn{n x p} matrix \eqn{Xc} of the cla
 
 \item{ncomp}{The maximum number of components to consider (\eqn{ncomp <= min(p, nb. classes - 1)}).}
 
-\item{...}{Optionnal arguments to pass in function \code{\link{pca}}.}
+\item{pseudo}{For function \code{fda}. Logical indicating if matrix \eqn{W} has to be inverted by pseudo-inverse. Default to \code{FALSE}.}
+
+\item{...}{For function \code{fda.svd}. Optionnal arguments to pass in function \code{\link{pca}}.}
 
 }
 

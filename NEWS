@@ -1,5 +1,11 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-10
+
+- Fonction fda has been renamed to fda.svd (FDA using SVD),
+a new function fda (using eigen decomposition) has been created.
+
+
 ##----------------- Version 1.6-9
 
 - Default value of argument prior in function daprob has changed.
