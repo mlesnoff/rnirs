@@ -29,6 +29,7 @@ fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL,
     Winv <- solve(W)
   else
     Winv <- pinv(W)$Xplus
+    #Winv <- pinv2(W, ncomp = 30)$Xplus
   
   fm <- eigen(Winv %*% B)
   P <- fm$vectors[, 1:(nclas - 1), drop = FALSE]

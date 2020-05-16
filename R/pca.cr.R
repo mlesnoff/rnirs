@@ -1,4 +1,4 @@
-pca.cr <- function(X, ncomp, obj = c("mad", "sd"), nrep = 0) {
+pca.cr <- function(X, ncomp, obj = c("mad", "sd"), nsim = 0) {
   
   X <- .matrix(X)
   zdim <- dim(X)
@@ -11,9 +11,7 @@ pca.cr <- function(X, ncomp, obj = c("mad", "sd"), nrep = 0) {
     sd = sd
     )
   
-  pp <- .simpp.hub
-  #pp <- .simpp.sph
-  #pp <- .simpp.avg
+  simpp <- .simpp.hub
   
   xmeans <- .xmedspa(X)
   X <- scale(X, center = xmeans, scale = FALSE)
@@ -25,7 +23,7 @@ pca.cr <- function(X, ncomp, obj = c("mad", "sd"), nrep = 0) {
   
   for(a in 1:ncomp) {
     
-    zP <- pp(X, nrep = nrep)
+    zP <- simpp(X, nsim = nsim, seed = 1)
     ndir[a] <- dim(zP)[2]
     
     zT <- X %*% zP

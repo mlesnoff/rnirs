@@ -56,7 +56,8 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 \tabular{ll}{
   \code{\link{pca.sph}} \tab Spherical (Locantore 1999) \cr
   \code{\link{pca.cr}} \tab Croux & Ruiz-Gazen (2005) \cr
-  \code{\link{pca.rob}} \tab Robust (PP + WPCA) \cr
+  \code{\link{pca.rob}} \tab Robust (Stahel-Donoho + OD + WPCA) \cr
+  \code{\link{stahel}} \tab Stahel-Donoho outlyingness \cr
   }
 
 \bold{------------ PLS}
@@ -80,11 +81,10 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 \bold{------------ AUXILLIARY FUNCTIONS FOR PCA, PLS, FDA}
 
 \tabular{ll}{
+  \code{\link{bcoef}} \tab b-coefficients for a PLS model\cr
   \code{\link{scordis}}, \code{\link{lscordis}} \tab Score distances for a score space\cr
   \code{\link{odis}}, \code{\link{lodis}} \tab Orthogonal distances for a score space\cr
   \code{\link{xfit}} \tab Matrix Approximation from multivariate scores and loadings \cr
-  \code{\link{bcoef}} \tab b-coefficients for a PLS model\cr
-  \code{\link{influ.pls}} \tab Regression influence measures for a PLS model\cr
   }
 
 \bold{------------ REGRESSION}

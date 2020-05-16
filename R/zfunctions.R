@@ -96,35 +96,6 @@
   x
   }
 
-.fweights <- function(x, nam = "huber", a = 1.345) {
-  
-  switch(
-    
-    nam,
-    
-    bisquare = ifelse(abs(x) < a, (1 - (x / a)^2)^2, 0),
-    
-    cauchy = ifelse(abs(x) < a, 1 / (1 + (x / a)^2), 0),
-    
-    epan = ifelse(abs(x) < a, 1 - (x / a)^2, 0),
-    
-    gauss = ifelse(abs(x) < a, exp(-(x / a)^2), 0),
-    
-    huber =  ifelse(abs(x) < a, 1, a / abs(x)),
-    
-    invexp =  ifelse(abs(x) < a, 1 / exp(abs(x / a)), 0),
-    
-    talworth = ifelse(abs(x) < a, 1, 0),
-    
-    trian = ifelse(abs(x) < a, 1 - abs(x / a), 0),
-    
-    tricube = ifelse(abs(x) < a, (1 - abs(x / a)^3)^3, 0)
-
-    )
-
-  }
-
-
 .knnda <- function(Xr = NULL, Yr, Xu = NULL, Yu = NULL, weights = NULL) {
 
   colnam.Yr <- colnames(Yr)
@@ -301,31 +272,54 @@
   
   }
 
-.simpp.hub <- function(X, nrep) {
+.resid.pls <- function(fm, Y, ncomp = NULL) {
+  
+  Y <- .matrix(Y, row = FALSE, prefix.colnam = "y")
+  
+  zdim <- dim(fm$T) 
+  n <-zdim[1]
+  
+  if(is.null(ncomp))
+    ncomp <- zdim[2]
+
+  ymeans <- fm$ymeans
+  Ymeans <- matrix(rep(ymeans, n), nrow = n, byrow = TRUE)
+
+  T <- fm$T[, 1:ncomp, drop = FALSE]
+  B <- t(fm$C)[1:ncomp, , drop = FALSE]
+  
+  fit <- Ymeans + T %*% B
+  
+  r <- Y - fit 
+  
+  list(y = Y, fit = fit, r = r)
+  
+  }
+
+.simpp.hub <- function(X, nsim = 1000, seed = NULL) {
   
   X <- .matrix(X)
   zdim <- dim(X)
   n <- zdim[1]
   p <- zdim[2]
   
-  tX <- t(X)
-  P <- tX
-  if(nrep > 0) {
-  
-    for(j in 1:nrep) {
+  P <- tX <- t(X)
+  if(nsim > 0) {
+    
+    zP <- matrix(nrow = p, ncol = nsim)
+    
+    set.seed(seed = seed)
+    s1 <- sample(1:n, size = 2 * nsim, replace = TRUE)
+    s2 <- sample(1:n, size = 2 * nsim, replace = TRUE)
+    u <- which(s1 - s2 != 0)
+    s1 <- s1[u][1:nsim]
+    s2 <- s2[u][1:nsim]
+    set.seed(seed = NULL)
+    
+    for(j in 1:nsim)
+      zP[, j] <- tX[, s1[j]] - tX[, s2[j]]
       
-      K <- 2 * n
-      s1 <- sample(1:n, size = K, replace = TRUE)
-      s2 <- sample(1:n, size = K, replace = TRUE)
-      u <- which(s1 - s2 != 0)
-      s1 <- s1[u][1:n]
-      s2 <- s2[u][1:n]
-      
-      zP <- tX[, s1] - tX[, s2]
-      
-      P <- cbind(P, zP)
-      
-      }
+    P <- cbind(P, zP)
     
     }
   

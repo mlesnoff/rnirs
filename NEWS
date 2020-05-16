@@ -1,8 +1,17 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-11
+
+- Fonction influ.pls has been temporarely removed.
+
+- New function: stahel (Stahel-Donoho outlyingness)
+
+- Changes in functions pca.cr and pca.rob: argument "nrep" has been replaced by "nsim". 
+
+
 ##----------------- Version 1.6-10
 
-- Fonction fda has been renamed to fda.svd (FDA using SVD),
+- Fonction fda has been renamed to fda.svd (FDA using SVD), and
 a new function fda (using eigen decomposition) has been created.
 
 

@@ -1,16 +1,13 @@
 \name{pls}
 \alias{pls}
 \alias{pca}
-\alias{influ.pls}
 \encoding{latin1}
 
 \title{PCA or PLS}
 
 \description{
 
-Functions \code{pca} and \code{pls} fit PCA and PLS1 or PLS2, respectively.
-
-Functions \code{influ.pls} calculates regression influence measures (e.g. Cook's distance) of the observations, conditinonnally to the \eqn{ncomp} scores computed in the PLS.
+Functions \code{pca} and \code{pls} fit PCA, and PLS1 or PLS2, respectively.
 
 }
 
@@ -18,8 +15,6 @@ Functions \code{influ.pls} calculates regression influence measures (e.g. Cook's
 pca(Xr, Xu = NULL, ncomp, algo = pca.svd, ...)
 
 pls(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...)
-
-influ.pls(fm, ncomp = NULL)
 }
 
 \arguments{
@@ -30,19 +25,15 @@ influ.pls(fm, ncomp = NULL)
 
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations to be projected in the calculated reference score space (\eqn{Xu} is not used in the calculation of this score space). Default to \code{NULL}.}
 
-\item{ncomp}{In \code{pca} and \code{pls}: The number of PCA or PLS scores (i.e. components) to be calculated. In \code{influ.pls}: The number of scores considered in the calculation of the regression infleunce measures. If \code{NULL} (default), this is the total number of scores of the PLS model.}
+\item{ncomp}{The number of PCA or PLS scores (i.e. components) to be calculated.}
 
 \item{algo}{A function (algorithm) implementing a PCA (default to \code{\link{pca.svd}}) or a PLS (default to \code{\link{pls.kernel}}).}
-
-\item{fm}{In \code{influ.pls}: The PLS model, output of functions \code{pls}, \code{\link{plsr}}) or \code{\link{plsda}}).}
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 
 }
 
 \value{
-
-- For \code{pca} and \code{pls}:
 
 A list of outputs (see examples), such as:
 
@@ -55,17 +46,6 @@ A list of outputs (see examples), such as:
 \item{explvar}{Proportions of \eqn{Xr-}variance explained by the Xr-score space.}
 
 And other outputs: See the examples and function defined in \code{algo}.
-
-- For \code{influ.pls}:
-
-\item{r}{The raw (i.e. crude) residuals.}
-
-\item{rstud.int}{The internally studentized residuals.}
-
-\item{r.press}{The PRESS (i.e. deleted) residuals.}
-
-\item{cook}{The Cook's distances.}
-
 }
 
 
@@ -155,9 +135,6 @@ fm$P
 
 fm$explvarx
 
-### Influence regression measure
-
-influ.pls(fm)
 
 ### Projection of Xu on the score space Tr ==> Scores Tu
 
