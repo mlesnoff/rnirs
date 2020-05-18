@@ -20,8 +20,8 @@ pca.sph <- function(X, ncomp, weights = NULL) {
   z <- svd(sqrt(weights) * zX, nu = 0, nv = ncomp)
   P <- z$v
   zT <- zX %*% P
-  sv <- apply(zT, MARGIN = 2, FUN = mad)
   T <- X %*% P
+  sv <- apply(T, MARGIN = 2, FUN = mad)
   
   u <- rev(order(sv))
   P <- P[, u]

@@ -16,7 +16,7 @@
 \usage{
 
 plotsp(X,
-  col = NULL, zeroes = FALSE, labels = FALSE, 
+  type = "l", col = NULL, zeroes = FALSE, labels = FALSE, 
   blocks = NULL, add = FALSE,
   ...)
 
@@ -27,6 +27,8 @@ plotsp1(X, col = NULL, zeroes = FALSE, ...)
 \arguments{
 
 \item{X}{A  \eqn{n x p} matrix or data frame of observations (usually spectra).}
+
+\item{type}{1-character string giving the type of plot desired. Default value to \code{"l"} (lines). See \code{\link{plot.default}} for other options.}
 
 \item{col}{A color, or a vector of colors (of length n), defining the color(s) of the lines representing the rows.}
 
@@ -82,13 +84,15 @@ plotsp(X, blocks = blocks)
 
 \donttest{
 
+## Scrolling plot of the loadings 
+
+## (After running the code, 
+## type Enter in the R console for starting the scrolling,
+## and type any character in the R console) 
+
 fm <- pca(X, ncomp = 50)
 P <- fm$P
 
-# Scrolling plot of the loadings 
-# (After running the code, 
-# type Enter in the R console for starting the scrolling,
-# and type any character in the R console) 
 plotsp1(t(P), main = "Loadings", ylab = "Value")
 
 }

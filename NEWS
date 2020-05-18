@@ -4,6 +4,10 @@
 
 - Default values of argument "nsim" in functions stahel and pca.rob has changed.
 
+- Argument "type" has been added in plotsp.
+
+- Correction of a small bug in pca.sph (sv calculation).
+
 
 ##----------------- Version 1.6-11
 

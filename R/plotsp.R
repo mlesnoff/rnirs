@@ -1,5 +1,5 @@
 plotsp <- function(X,
-  col = NULL, zeroes = FALSE, labels = FALSE, 
+  type = "l", col = NULL, zeroes = FALSE, labels = FALSE, 
   blocks = NULL, add = FALSE,
   ...) {
   
@@ -36,13 +36,13 @@ plotsp <- function(X,
   if(is.null(dots$ylab)) 
     dots$ylab <- "y-value" 
   
-  .flines <- function(X, colnam, col, labels = FALSE, ...) {
+  .flines <- function(X, colnam, type, col, labels = FALSE, ...) {
     
     m <- dim(X)[1]
     
     for(i in 1:m) {
       
-      lines(x = colnam, y = X[i, ], col = col[i], ...)
+      lines(x = colnam, y = X[i, ], type = type, col = col[i], ...)
       
       if(labels) {
         z <- p # round(.99 * p)
@@ -67,7 +67,7 @@ plotsp <- function(X,
     }
   
   if(is.null(blocks))
-      .flines(X, colnam, col, labels, ...) 
+      .flines(X, colnam, type, col, labels, ...) 
   else {
     
     k <- length(blocks)
@@ -77,7 +77,7 @@ plotsp <- function(X,
       if(i == k)
         zlabels <- labels 
       
-      .flines(X[, blocks[[i]], drop = FALSE], colnam[blocks[[i]]], col, zlabels, ...)
+      .flines(X[, blocks[[i]], drop = FALSE], colnam[blocks[[i]]], type, col, zlabels, ...)
       
       }
     
