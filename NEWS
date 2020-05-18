@@ -1,10 +1,19 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-12
+
+- Default values of argument "nsim" in functions stahel and pca.rob has changed.
+
+
 ##----------------- Version 1.6-11
 
 - Fonction influ.pls has been temporarely removed.
 
-- New function: stahel (Stahel-Donoho outlyingness)
+- New functions: 
+
+  stahel (Stahel-Donoho outlyingness)
+  
+  .resid.pls in zfinctions.R
 
 - Changes in functions pca.cr and pca.rob: argument "nrep" has been replaced by "nsim". 
 

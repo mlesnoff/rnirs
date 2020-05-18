@@ -58,7 +58,7 @@ pca.sph(X, ncomp, weights = NULL)
 
 pca.cr(X, ncomp, obj = c("mad", "sd"), nsim = 0)
 
-pca.rob(X, ncomp, nsim = 1000, alpha = .75)
+pca.rob(X, ncomp, nsim = 3000, alpha = .75)
 
 }
 
@@ -82,7 +82,7 @@ pca.rob(X, ncomp, nsim = 1000, alpha = .75)
 
 \item{obj}{The objective scale function to maximize with the PP scores. Possible values are "mad" (default; = MAD) or "sd" (standard deviation, corresponding to the usual PCA objective). }
 
-\item{nsim}{A number of randomly simulated PP directions considered in addition to the\eqn{n} data observations (rows of \eqn{X}). Default to \code{nsim = 0} (no additionnal simulation) for the C-R algorithm, and to \code{nsim = 1000} for Step 1 of \code{pca.rob} (Stahel-Donoho outlyingness calculation).}
+\item{nsim}{A number of randomly simulated PP directions considered in addition to the\eqn{n} data observations (rows of \eqn{X}). Default to \code{nsim = 0} (no additionnal simulation) for the C-R algorithm, and to \code{nsim = 3000} for Stahel-Donoho outlyingness calculation in Step 1 of \code{pca.rob}.}
 
 \item{alpha}{For \code{pca.rob}. Used in Step 1, default to \code{alpha = .75}. The Step1-outliers are the \eqn{(1 - alpha)} proportion of the observations with the highest outlyingness.}
 

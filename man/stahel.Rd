@@ -14,7 +14,7 @@ Outlyingness are calculated from the projections of the \eqn{n} data observation
 
 \usage{
 
-stahel(X, scale = TRUE, nsim = 1000)
+stahel(X, scale = TRUE, nsim = 3000)
 
 }
 
@@ -24,7 +24,7 @@ stahel(X, scale = TRUE, nsim = 1000)
 
 \item{scale}{If \code{TRUE} (default), matrix is preliminary robustly centered and scaled (by column-wise medians and MADs, respectively).}
 
-\item{nsim}{A number of randomly simulated directions considered in addition to the\eqn{n} data observations (rows of \eqn{X}). Default to \code{nsim = 1000}.}
+\item{nsim}{A number of randomly simulated directions considered in addition to the\eqn{n} data observations (rows of \eqn{X}).}
 
 }
 
