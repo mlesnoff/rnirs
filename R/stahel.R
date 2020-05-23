@@ -1,4 +1,4 @@
-stahel <- function(X, scale = TRUE, nsim = 3000) {
+stahel <- function(X, scale = TRUE, nsim = 1000) {
   
   simpp <- .simpp.hub
   

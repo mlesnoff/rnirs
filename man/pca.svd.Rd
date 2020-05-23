@@ -26,9 +26,9 @@ Algorithms for (centered) PCA of a matrix \eqn{X}.
 
 \bold{Robust PCA}
 
-- \code{pca.sph}: Spherical PCA (see Locantore et al. 1990, Daszykowski et al. 2007). The spatial median (used for centering) is calculated by function \code{.xmedspa} in file \code{zfunctions.R} that uses the fast code of rrcov v.1.4-3 available on R CRAN (V. Todorov, 2016).
+- \code{pca.sph}: Spherical PCA (see Locantore et al. 1990, Maronna 2005 p. 267, Daszykowski et al. 2007). The spatial median (used for centering) is calculated by function \code{.xmedspa} in file \code{zfunctions.R} that uses the fast code of rrcov v.1.4-3 available on R CRAN (V. Todorov, 2016).
 
-- \code{pca.cr}: Croux & Ruiz-Gazen (C-R) PCA algorithm using projection pursuit (PP) method (Croux & Ruiz-Gazen 2005). In the C-R algorithm, the 1st loading vector is choosen within the \eqn{n} data observations (rows of \eqn{X}). The next loadings are choosen in the same way after subsequent deflation of matrix \eqn{X}. One of the possible extension  of the algorithm is to simulate random additionnal candidate PP directions. In function \code{pca.cr}, this is done when argument \code{nsim > 0}. In such a case, the function simulates \eqn{nsim} additional PP directions to the \eqn{n} initial ones, by using the method of Hubert et al. (2005): random couples of observations are sampled and, for each couple, the direction passes through the two data points of the couple (see functions \code{.simpp.hub} in file \code{zfunctions.R}).
+- \code{pca.cr}: Croux & Ruiz-Gazen (C-R) PCA algorithm using projection pursuit (PP) method (Croux & Ruiz-Gazen 2005). The observations (robustly centered) are projected on loading vectors that are selected for maxizing a given (usually robust) "projection index". The 1st loading vector is choosen within the \eqn{n} data observations (rows of \eqn{X}). The next loadings are choosen in the same way after subsequent deflation of matrix \eqn{X}. One of the possible extension  of the algorithm is to simulate random additionnal candidate PP directions. In function \code{pca.cr}, this is done when argument \code{nsim > 0}. In such a case, the function simulates \eqn{nsim} additional PP directions to the \eqn{n} initial ones, by using the method of Hubert et al. (2005): random couples of observations are sampled and, for each couple, the direction passes through the two data points of the couple (see functions \code{.simpp.hub} in file \code{zfunctions.R}).
 
 - \code{pca.rob}: Robust PCA using projection pursuit (PP) and row-weighted PCA. The algorithm is in the same spirit (but different) as the ROBPCA method (Hubert et al. 2005, 2009). The algorithm consists in the two following steps. 
 
@@ -56,7 +56,7 @@ pca.nipalsna(X, ncomp, gramschmidt = TRUE,
   
 pca.sph(X, ncomp, weights = NULL)
 
-pca.cr(X, ncomp, obj = c("mad", "sd"), nsim = 0)
+pca.cr(X, ncomp, obj = mad, nsim = 0)
 
 pca.rob(X, ncomp, nsim = 3000, alpha = .75)
 
@@ -80,7 +80,7 @@ pca.rob(X, ncomp, nsim = 3000, alpha = .75)
 
 \bold{Specific arguments of} \code{pca.cr}
 
-\item{obj}{The objective scale function to maximize with the PP scores. Possible values are "mad" (default; = MAD) or "sd" (standard deviation, corresponding to the usual PCA objective). }
+\item{obj}{The objective function (projection index) to maximize with the PP scores. Default to \code{obj = mad}. }
 
 \item{nsim}{A number of randomly simulated PP directions considered in addition to the\eqn{n} data observations (rows of \eqn{X}). Default to \code{nsim = 0} (no additionnal simulation) for the C-R algorithm, and to \code{nsim = 3000} for Stahel-Donoho outlyingness calculation in Step 1 of \code{pca.rob}.}
 
@@ -119,6 +119,8 @@ Hubert, M., Rousseeuw, P., Verdonck, T., 2009. Robust PCA for skewed data and it
 N. Locantore, J.S. Marron, D.G. Simpson, N. Tripoli, J.T. Zhang, K.L. Cohen, Robust principal component analysis for functional data, Test 8 (1999) 1–7
 
 Maronna, R.A., Yohai, V.J., 1995. The Behavior of the Stahel-Donoho Robust Multivariate Estimator. Journal of the American Statistical Association 90, 330-341. https://doi.org/10.1080/01621459.1995.10476517
+
+Maronna, R., 2005. Principal Components and Orthogonal Regression Based on Robust Scales, Technometrics, 47:3, 264-273, DOI: 10.1198/004017005000000166
 
 Tenenhaus, M., 1998. La régression PLS: théorie et pratique. Editions Technip, Paris, France.
 

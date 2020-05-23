@@ -9,7 +9,7 @@ scordis <- function(fm) {
   ncomp <- dim(fm$Tr)[2]
   
   if(is.null(fm$TT))
-    sigma <- fm$eigs
+    sigma <- fm$eig
   else
     sigma <- fm$TT
   

@@ -4,18 +4,25 @@ headm <- function(X) {
   
   else {
     
-    n <- nrow(X)
-    p <- ncol(X)
+    zdim <- dim(X)
+    n <- zdim[1]
+    p <- zdim[2]
     
     nmax <- 6
     pmax <- 6
     
+    cla <- class(X)
+    
+    if("AsIs" %in% cla) {
+      X <- as.matrix(X)
+      class(X) <- "matrix"
+      }
+
     X <- X[1:min(n, nmax), 1:min(p, pmax), drop = FALSE]
     
     rownam <- row.names(X)
     colnam <- colnames(X)
-  
-    cla <- class(X)
+    
     if(is.matrix(X)){
       
       if(is.null(rownam))
@@ -26,11 +33,10 @@ headm <- function(X) {
       
       }
     
-    
-    X <- data.frame(X)
-    
+    X <- as.data.frame(X)
+
     row.names(X) <- rownam
-    names(X) <- colnam
+    colnames(X) <- colnam
   
     if(p > pmax)
       X <- cbind(X, OtherVariables = rep(".", nrow(X)))

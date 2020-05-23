@@ -1,15 +1,9 @@
-pca.cr <- function(X, ncomp, obj = c("mad", "sd"), nsim = 0) {
+pca.cr <- function(X, ncomp, obj = mad, nsim = 0) {
   
   X <- .matrix(X)
   zdim <- dim(X)
   n <- zdim[1]
   p <- zdim[2]
-  
-  obj <- switch(
-    match.arg(obj),
-    mad = mad,
-    sd = sd
-    )
   
   simpp <- .simpp.hub
   
@@ -47,13 +41,13 @@ pca.cr <- function(X, ncomp, obj = c("mad", "sd"), nsim = 0) {
   T <- T[, u, drop = FALSE]
   sv <- sv[u]  
   
-  eigs <- sv^2         
+  eig <- sv^2         
    
   row.names(T) <- row.names(X)
   row.names(P) <- colnames(X)
   colnames(P) <- colnames(T) <- paste("comp", 1:ncomp, sep = "") 
   
-  list(T = T, P = P, R = P, sv = sv, eigs = eigs, 
+  list(T = T, P = P, R = P, sv = sv, eig = eig, 
     xmeans = xmeans, weights = rep(1 / n, n), ndir = ndir)
   
   }

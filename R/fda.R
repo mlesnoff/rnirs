@@ -33,9 +33,9 @@ fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL,
   
   fm <- eigen(Winv %*% B)
   P <- fm$vectors[, 1:(nclas - 1), drop = FALSE]
-  eigs <- fm$values[1:(nclas - 1)]
+  eig <- fm$values[1:(nclas - 1)]
   P <- Re(P)
-  eigs <- Re(eigs)
+  eig <- Re(eig)
   
   norm.P <- sqrt(diag(t(P) %*% W %*% P))
   P <- scale(P, center = FALSE, scale = norm.P)
@@ -48,7 +48,7 @@ fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL,
   
   Tcenters <- centers %*% P
   
-  explvar <- data.frame(ncomp = 1:ncomp, var = eigs, pvar = eigs / sum(eigs))
+  explvar <- data.frame(ncomp = 1:ncomp, var = eig, pvar = eig / sum(eig))
   explvar$cumpvar <- cumsum(explvar$pvar)
 
   Tu <- NULL

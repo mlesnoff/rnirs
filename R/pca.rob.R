@@ -1,17 +1,20 @@
-pca.rob <- function(X, ncomp, nsim = 3000, alpha = .75) {
+pca.rob <- function(X, ncomp, nsim = 1000, alpha = .75, w2 = FALSE) {
   
-  d <- stahel(X, scale = TRUE, nsim = nsim)
+  d <- stahel(X, nsim = nsim)
   cutoff <- quantile(d, alpha)
-  w1 <- ifelse(d < cutoff, 1, 0)
+  w1 <- ifelse(d > cutoff, 0, 1)
   
   fm <- pca.svd(X, ncomp = ncomp, weights = w1)
   
-  z <- odis(fm, X)
-  d <-  z$dr$d
-  cutoff <- z$cutoff
-  w2 <- ifelse(d < cutoff, 1, 0)
+  if(w2) {
   
-  fm <- pca.svd(X, ncomp = ncomp, weights = w2)
+    z <- odis(fm, X)
+    odstand <-  z$dr$dstand
+    w2 <- ifelse(odstand > 1, 0, 1)
+    
+    fm <- pca.svd(X, ncomp = ncomp, weights = w2)
+    
+    }
   
   fm
 

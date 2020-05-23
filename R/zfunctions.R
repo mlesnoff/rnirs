@@ -54,8 +54,7 @@
   rownam <- row.names(X)
   
   X <- scale(X, center = mu, scale = FALSE)
-  X <- X * X
-  X <- matrix(rowSums(X), ncol = 1)
+  X <- matrix(rowSums(X * X), ncol = 1)
 
   row.names(X) <- rownam
   

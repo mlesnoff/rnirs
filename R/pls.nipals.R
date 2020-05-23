@@ -42,7 +42,7 @@ pls.nipals <- function(X, Y, ncomp, weights = NULL) {
     
     tt <- sum(weights * t * t)                
     
-    beta <- crossprod(weights * Y, t)  / tt
+    c <- crossprod(weights * Y, t)  / tt
     
     p <- crossprod(weights * X, t) / tt
     
@@ -51,7 +51,7 @@ pls.nipals <- function(X, Y, ncomp, weights = NULL) {
     T[, a] <- t
     W[, a] <- w
     P[, a] <- p
-    C[, a] <- beta
+    C[, a] <- c
     
     TT[a] <- tt
 

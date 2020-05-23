@@ -101,7 +101,7 @@ Xr <- snv(Xr)
 Xu <- snv(Xu)
 
 ncomp <- 15
-fm <- dasdod(Xr, yr, Xu, yu, ncomp = ncomp, algo = pca.sph)
+fm <- dasdod(Xr, yr, Xu, yu, ncomp = ncomp, algo = pca.svd)
 names(fm)
 head(fm$y)
 head(fm$fit)

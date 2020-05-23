@@ -20,24 +20,28 @@ pca.sph <- function(X, ncomp, weights = NULL) {
   z <- svd(sqrt(weights) * zX, nu = 0, nv = ncomp)
   P <- z$v
   zT <- zX %*% P
+  zeig <- z$d[1:ncomp]^2
+  ## = apply(zT, 2, sd)^2 * (n - 1) / n
+  zxsstot <- sum(weights * zX * zX, na.rm = TRUE)
+  
   T <- X %*% P
   sv <- apply(T, MARGIN = 2, FUN = mad)
+  eig <- sv^2 
   
-  u <- rev(order(sv))
-  P <- P[, u]
-  T <- T[, u]
-  sv <- sv[u]
-  zT <- zT[, u]
-
-  eigs <- sv^2 
+  ## Here the order of loadings/scores follows zeig
+  ## But an alternative: Could be re-ordered following eig (as in PCA-CR)
+  ## u <- rev(order(sv))
+  ## P <- P[, u]
+  ## T <- T[, u]
+  ## sv <- sv[u]
   
-  row.names(zT) <- row.names(T) <- row.names(X)
+  row.names(T) <- row.names(X)
   row.names(P) <- colnames(X)
   
-  colnames(zT) <- colnames(T) <- colnames(P) <- paste("comp", 1:ncomp, sep = "")
+  colnames(T) <- colnames(P) <- paste("comp", 1:ncomp, sep = "")
   
-  list(T = T, P = P, R = P, sv = sv, eigs = eigs, 
-    xmeans = xmeans, weights = weights, zT = zT)
+  list(T = T, P = P, R = P, sv = sv, eig = eig, zT = zT, zeig = zeig,
+    zxsstot = zxsstot, xmeans = xmeans, weights = weights)
 
   }
 

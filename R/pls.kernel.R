@@ -48,17 +48,17 @@ pls.kernel <- function(X, Y, ncomp, weights = NULL) {
     
     tt <- sum(weights * t * t)     
     
-    beta <- crossprod(XY, r) / tt
+    c <- crossprod(XY, r) / tt
     
     p <- crossprod(Xd, t) / tt 
     
-    XY <- XY - tcrossprod(p, beta) * tt  
+    XY <- XY - tcrossprod(p, c) * tt  
     
     T[, a] <- t
     P[, a] <- p
     W[, a] <- w
     R[, a] <- r
-    C[, a] <- beta
+    C[, a] <- c
     
     TT[a] <- tt
     

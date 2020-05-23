@@ -38,7 +38,7 @@ pca.nipals <- function(X, ncomp, weights = NULL,
     
     }
     
-  eigs <- sv^2         
+  eig <- sv^2         
   ## = eigenvalues of X'DX = Cov(X) in metric D 
   ## = variances of scores T in metric D
   ## = colSums(weights * T * T)  
@@ -47,7 +47,7 @@ pca.nipals <- function(X, ncomp, weights = NULL,
   row.names(P) <- colnames(X)
   colnames(P) <- colnames(T) <- paste("comp", 1:ncomp, sep = "") 
   
-  list(T = T, P = P, R = P, sv = sv, eigs = eigs, 
+  list(T = T, P = P, R = P, sv = sv, eig = eig, 
     xmeans = xmeans, weights = weights, niter = niter)
 
   }

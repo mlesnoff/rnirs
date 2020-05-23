@@ -1,5 +1,12 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-13
+
+- Modifications in functions stahel and pca.rob. Some arguments or default values have changed. 
+
+- Outputs "eigs" in PCA functions has been renamed to "eig".
+
+
 ##----------------- Version 1.6-12
 
 - Default values of argument "nsim" in functions stahel and pca.rob has changed.
