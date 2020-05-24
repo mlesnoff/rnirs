@@ -171,6 +171,10 @@
 
   }
 
+.kurt <- function(x) {
+  mean(((x - mean(x)) / sd(x))^4) - 3
+  }
+
 .mah <- function(X, mu, U = NULL, weights = NULL, row = TRUE) {
   
   # Calculate the square of the Mahalanobis distances between
