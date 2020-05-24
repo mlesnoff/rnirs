@@ -6,6 +6,8 @@
 
 - Outputs "eigs" in PCA functions has been renamed to "eig".
 
+- Correction of eigen-values output in function pca.nipalsna.
+
 
 ##----------------- Version 1.6-12
 
