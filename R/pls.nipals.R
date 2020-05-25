@@ -17,7 +17,7 @@ pls.nipals <- function(X, Y, ncomp, weights = NULL) {
   X <- .center(X, xmeans)
 
   ymeans <- .xmean(Y, weights = weights) 
-  Y <- .center(X, ymeans)
+  Y <- .center(Y, ymeans)
   
   nam <- paste("comp", 1:ncomp, sep = "")
   T <- matrix(nrow = n, ncol = ncomp, dimnames = list(row.names(X), nam))           

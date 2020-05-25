@@ -1,7 +1,9 @@
 pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
   
   X <- .matrix(Xr)
-  n <- dim(X)[1]
+  zdim <- dim(X)
+  n <- zdim[1]
+  p <- zdim[2]
   
   fm <- algo(X, ncomp, ...)
   weights <- fm$weights
