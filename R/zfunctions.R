@@ -1,5 +1,5 @@
 .center <- function(X, center) 
-  t((t(X) - center))
+  t((t(X) - c(center)))
 
 .detrend.als <- function(X, lambda = 1e+07, p = 0.001, maxit = 25) {
   
@@ -303,7 +303,7 @@
   }
 
 .scale = function(X, center, scale) 
-  t((t(X) - center) / scale)
+  t((t(X) - c(center)) / c(scale))
 
 .simpp.hub <- function(X, nsim = 1000, seed = NULL) {
   
@@ -431,14 +431,20 @@
   n=dime[1]
   p=dime[2]
   delta1=delta*sqrt(p)
-  mu0=apply(x,2,median)
+  
+  #mu0=apply(x,2,median)
+  mu0=matrixStats::colMedians(x)
+  
   h=delta1+1
   tt=0
   while(h>delta1){
     tt=tt+1
     TT=matrix(mu0,n,p,byrow=TRUE)
     U=(x-TT)^2
-    w=sqrt(apply(U,1,sum))
+    
+    #w=sqrt(apply(U,1,sum))
+    w=sqrt(matrixStats::rowSums2(U))
+    
     w0=median(w)
     ep=delta*w0
 
@@ -449,7 +455,10 @@
     x1=x
     for(i in 1:n)
       x1[i,]=w[i]*x[i,]
-    mu=apply(x1,2,sum)
+    
+    #mu=apply(x1,2,sum)
+    mu=matrixStats::colSums2(x1)
+    
     h=sqrt(sum((mu-mu0)^2))
     mu0=mu
     }

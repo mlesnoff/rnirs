@@ -28,8 +28,8 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
   contr.ind <- .scale(z, center = rep(0, ncomp), eig)
   
   xvars <- .xvar(X, weights = weights)
-  zX <- .scale(X, center = rep(0, p), sqrt(xvars))  
-  zT <- .scale(fm$T, center = rep(0, ncomp), sqrt(eig))
+  zX <- .scale(X, rep(0, p), sqrt(xvars))  
+  zT <- .scale(fm$T, rep(0, ncomp), sqrt(eig))
   cor.circle <- t(weights * zX) %*% zT
   
   coord.var <- crossprod(

@@ -1,5 +1,5 @@
 pca.cr <- function(X, ncomp, obj = mad, nsim = 0) {
-  
+
   X <- .matrix(X)
   zdim <- dim(X)
   n <- zdim[1]
@@ -13,6 +13,20 @@ pca.cr <- function(X, ncomp, obj = mad, nsim = 0) {
   P <- matrix(nrow = p, ncol = ncomp)
   ndir <- NULL
   
+  nam <- as.character(substitute(obj))
+  if(nam %in% c("mad", "sd", "var")) {
+    if(nam == "mad") obj <- stats::mad
+    if(nam == "sd") obj <- stats::sd
+    if(nam == "var") obj <- stats::var
+    fun <- switch(nam,
+      mad = matrixStats::colMads,
+      sd = matrixStats::colSds,
+      var = matrixStats::colVars
+      )
+    }
+    else
+      fun <- function(X) apply(X, 2, obj)
+  
   simpp <- .simpp.hub
   
   for(a in 1:ncomp) {
@@ -21,7 +35,7 @@ pca.cr <- function(X, ncomp, obj = mad, nsim = 0) {
     ndir[a] <- dim(zP)[2]
     
     zT <- X %*% zP
-    objval <- apply(zT, 2, obj)
+    objval <- fun(zT)
     
     zp <- zP[, which.max(objval)]
     

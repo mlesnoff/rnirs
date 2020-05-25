@@ -6,8 +6,7 @@ stahel <- function(X, scale = TRUE, nsim = 1000) {
     X <- .scale(X, zmu, zs)
     }
   
-  simpp <- .simpp.hub
-  P <- simpp(X, nsim = nsim, seed = 1)
+  P <- .simpp.hub(X, nsim = nsim, seed = 1)
 
   T <- X %*% P
 

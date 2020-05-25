@@ -11,6 +11,8 @@ importFrom("data.table", "data.table", "rbindlist", "setDF")
 
 importFrom("FNN", "knn")
 
+importFrom("matrixStats", "colMads", "colMedians", "colMins", "colSds", "colVars", "rowMaxs", "rowSums2")
+
 importFrom("signal", "sgolayfilt")
 
 importFrom("ptw", "asysm")

@@ -12,10 +12,10 @@ dis <- function( Xr, Xu = NULL, mu = NULL,
   
   if(is.null(mu)) 
     mu <- .xmean(X, weights = weights)
-
+  
   if(diss == "euclidean")
     d <- sqrt(.dis(X, mu))
-
+      
   if(diss == "mahalanobis") {
       
     if(is.null(sigma)) {
@@ -28,6 +28,7 @@ dis <- function( Xr, Xu = NULL, mu = NULL,
       }
     
     U <- chol(sigma)
+    
     d <- sqrt(.mah(X, mu, U))
       
     }

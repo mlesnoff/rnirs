@@ -18,7 +18,7 @@ kenston <- function(X, m, diss = c("euclidean", "mahalanobis", "correlation")) {
   for(i in 1:(m - 2)) {
     
     # minimal dissimilarities of the candidates to the already selected obs.
-    u <- apply(D[s, candidates, drop = TRUE], MARGIN = 2, FUN = min)
+    u <- matrixStats::colMins(D[s, candidates, drop = TRUE])
     
     # selection of the maximal value of these mininal dissimilarities
     zs <- as.numeric(names(u[u == max(u)]))[1] 

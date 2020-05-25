@@ -15,7 +15,7 @@ dkern.gauss <- function(Xr, Xu, H = NULL, hs = NULL, a = .5) {
   if(is.null(H)) {
     if(!is.null(hs)) H <- diag(rep(hs, p), nrow = p)
       else {
-        z <- apply(Xr, MARGIN = 2, sd)
+        z <- matrixStats::colSds(Xr)
         z <- a * n^(-1/(p + 4)) * z               # a = .9, 1.06
         H <- diag(z, nrow = p)
         #e <- eigen(cov(Xr))

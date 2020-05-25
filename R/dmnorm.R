@@ -17,7 +17,7 @@ dmnorm <- function(Xr = NULL, Xu, mu = NULL, sigma = NULL, diag = FALSE) {
   if(is.null(sigma)) 
     sigma <- switch(as.character(diag),
       "FALSE" = cov(Xr),
-      "TRUE"  = diag(apply(Xr, MARGIN = 2, var), nrow = p)
+      "TRUE"  = diag(matrixStats::colVars(Xr), nrow = p)
       ) 
   else
     sigma <- as.matrix(sigma)

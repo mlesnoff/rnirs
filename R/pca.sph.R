@@ -26,7 +26,7 @@ pca.sph <- function(X, ncomp, weights = NULL) {
   zxsstot <- sum(weights * zX * zX, na.rm = TRUE)
   
   T <- X %*% P
-  sv <- apply(T, MARGIN = 2, FUN = mad)
+  sv <- matrixStats::colMads(T)
   eig <- sv^2 
   
   ## Here the order of loadings/scores follows zeig

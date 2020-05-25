@@ -38,7 +38,7 @@ fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL,
   eig <- Re(eig)
   
   norm.P <- sqrt(diag(t(P) %*% W %*% P))
-  P <- .scale(P, center = rep(0, ncomp), norm.P)
+  P <- .scale(P, rep(0, ncomp), norm.P)
   ## = Same as: P %*% diag(1 / norm.P)
   colnames(P) <- paste("comp", 1:ncomp, sep = "")
   row.names(P) <- colnames(W)

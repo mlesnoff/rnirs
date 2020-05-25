@@ -21,10 +21,16 @@ Using Rstudio is recommended for installation and usage (https://www.rstudio.com
 * Regression
     - LMR
     - PLSR
-    - KNNWR, LWPLSR, KNN-LWPLSR (wrappers using function locw)
+    - Wrappers using function locw
+        - KNNWR  
+        - LWPLSR
+        - KNN-LWPLSR
 * Discrimination (with various DA methods)
     - PLSDA
-    - KNNWDA, LWPLSDA, KNN-LWPLSDA (wrappers using function locw)
+    - Wrappers using function locw
+        - KNNWDA 
+        - LWPLSDA
+        - KNN-LWPLSDA 
 * Multiblock functions:
     - Orthogonalization of a matrix to another matrix
     - Block-selection
@@ -102,6 +108,7 @@ A. First, install the following packages from the CRAN
 
 - **data.table**
 - **FNN**
+- **matrixStats**
 - **ptw**
 - **signal**
 
