@@ -12,7 +12,7 @@ pca.svd <- function(X, ncomp, weights = NULL) {
     weights <- weights / sum(weights)
   
   xmeans <- .xmean(X, weights = weights)
-  X <- scale(X, center = xmeans, scale = FALSE)
+  X <- .center(X, xmeans)
   
   z <- svd(sqrt(weights) * X, nu = 0, nv = ncomp)
   

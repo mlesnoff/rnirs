@@ -16,13 +16,13 @@ covsel <- function(X, Y, nvar = NULL, scaly = TRUE, weights = NULL) {
     weights <- weights / sum(weights)
   
   xmeans <- .xmean(X, weights = weights)
-  X <- scale(X, center = xmeans, scale = FALSE)
+  X <- .center(X, xmeans)
   
   ymeans <- .xmean(Y, weights = weights)
-  Y <- scale(Y, center = ymeans, scale = FALSE)
+  Y <- .center(Y, ymeans)
   
   if(scaly)
-    Y <- scale(Y, center = FALSE, scale = sqrt(colSums(weights * Y * Y)))
+    Y <- .scale(Y, rep(0, q), sqrt(colSums(weights * Y * Y)))
   
   xsstot <- sum(weights * X * X)
   ysstot <- sum(weights * Y * Y)

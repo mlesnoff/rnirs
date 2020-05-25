@@ -14,10 +14,10 @@ pls.nipals <- function(X, Y, ncomp, weights = NULL) {
     weights <- weights / sum(weights)
   
   xmeans <- .xmean(X, weights = weights) 
-  X <- scale(X, center = xmeans, scale = FALSE)                                     
+  X <- .center(X, xmeans)
 
   ymeans <- .xmean(Y, weights = weights) 
-  Y <- scale(Y, center = ymeans, scale = FALSE)
+  Y <- .center(X, ymeans)
   
   nam <- paste("comp", 1:ncomp, sep = "")
   T <- matrix(nrow = n, ncol = ncomp, dimnames = list(row.names(X), nam))           

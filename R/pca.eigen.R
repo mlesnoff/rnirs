@@ -13,7 +13,7 @@ pca.eigen <- function(X, ncomp, weights = NULL) {
     weights <- weights / sum(weights)
   
   xmeans <- .xmean(X, weights = weights)
-  X <- scale(X, center = xmeans, scale = FALSE)
+  X <- .center(X, xmeans)
 
   z <- eigen(crossprod(sqrt(weights) * X))
   

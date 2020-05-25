@@ -72,13 +72,11 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
 
       }
     
-    sdstand <- scale(sd, center = FALSE, scale = cutsd)
-    odstand <- scale(od, center = FALSE, scale = cutod)
+    sdstand <- .scale(sd, rep(0, nclas), cutsd)
+    odstand <- .scale(od, rep(0, nclas), cutod)
     
     rownames(odstand) <- rownames(sdstand) <- rownames(od) <- rownames(sd) <- rownam.Xu
     colnames(odstand) <- colnames(sdstand) <- colnames(od) <- colnames(sd) <- lev
-    
-    attr(odstand,"scaled:scale") <- attr(sdstand,"scaled:scale") <- NULL 
     
     }
   

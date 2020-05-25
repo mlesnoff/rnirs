@@ -12,7 +12,7 @@ pca.nipals <- function(X, ncomp, weights = NULL,
     weights <- weights / sum(weights)
   
   xmeans <- .xmean(X, weights = weights)
-  X <- scale(X, center = xmeans, scale = FALSE)
+  X <- .center(X, xmeans)
   
   sv <- vector(length = ncomp)
   T <- matrix(nrow = n, ncol = ncomp)

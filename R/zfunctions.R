@@ -1,3 +1,6 @@
+.center <- function(X, center) 
+  t((t(X) - center))
+
 .detrend.als <- function(X, lambda = 1e+07, p = 0.001, maxit = 25) {
   
   X <- .matrix(X)
@@ -53,7 +56,7 @@
   p <- zdim[2]
   rownam <- row.names(X)
   
-  X <- scale(X, center = mu, scale = FALSE)
+  X <- .center(X, mu)
   X <- matrix(rowSums(X * X), ncol = 1)
 
   row.names(X) <- rownam
@@ -264,7 +267,7 @@
   ## fm = Output of functions pca or pls, 
   ## or of the PCA or PLS algorithm functions
 
-  T <- scale(.matrix(X), center = fm$xmeans, scale = FALSE) %*% fm$R
+  T <- .center(.matrix(X), fm$xmeans) %*% fm$R
     
   rownam <- row.names(X)
   colnam <- paste("comp", 1:dim(T)[2], sep = "")
@@ -299,6 +302,9 @@
   
   }
 
+.scale = function(X, center, scale) 
+  t((t(X) - center) / scale)
+
 .simpp.hub <- function(X, nsim = 1000, seed = NULL) {
   
   X <- .matrix(X)
@@ -326,32 +332,10 @@
     
     }
   
-  P <- scale(P, center = FALSE, scale = .xnorm(P)) 
-  attributes(P)["scaled:scale"] <- NULL
+  P <- .scale(P, center = rep(0, dim(P)[2]), .xnorm(P)) 
   
   P
 
-  }
-
-.stahel <- function(X, P, scal = c("mad", "sd")) {
-
-  scal <- switch(
-    match.arg(scal),
-    mad = mad,
-    sd = sd
-    )
-  
-  T <- X %*% P
-  
-  mu <- apply(T, 2, median)
-  s <- apply(T, 2, scal)
-  
-  T <- scale(T, center = mu, scale = s)
-  
-  r <- apply(abs(T), 1, max)
-  
-  r
-  
   }
 
 .xmean <- function(X, weights = NULL, row = FALSE) {
@@ -391,7 +375,7 @@
     weights <- weights / sum(weights)
   
   xmeans <- .xmean(X, weights = weights)
-  X <- scale(X, center = xmeans, scale = FALSE)
+  X <- .center(X, xmeans)
   
   colSums(weights * X * X)  / sum(weights)
   
@@ -411,7 +395,7 @@
   xmeans <- .xmean(X, weights = weights)
   xvars <- .xvar(X, weights = weights)
   
-  X <- scale(X, center = xmeans, scale = sqrt(xvars))
+  X <- .scale(X, xmeans, sqrt(xvars))
   
   crossprod(weights * X, X)
   
@@ -428,7 +412,7 @@
     weights <- weights / sum(weights)
   
   xmeans <- .xmean(X, weights = weights)
-  X <- scale(X, center = xmeans, scale = FALSE)
+  X <- .center(X, xmeans)
   
   crossprod(sqrt(weights) * X)
   
@@ -439,7 +423,7 @@
   X <- .matrix(X, row = FALSE)
   
   ##### COPY OF FUNCTION 'spatial.median' AVAILABLE IN THE SCRIPT PcaLocantore.R
-  ##### OF PACKAGE rrcov v.1.4-3 on R CRAN (V. Todorov, 2016)
+  ##### OF PACKAGE rrcov v.1.4-3 on R CRAN (Thanks to V. Todorov, 2016)
 
   x <- X
   

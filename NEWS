@@ -1,5 +1,13 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-14
+
+- Package matrixStats (available on CRAN) has been added in the dependencies for make faster some parts of the functions. It must now be installed for using rnirs.
+
+- Function base::scale (used internally) has been replaced by functions .center and .scale (faster) available in zfunctions.R. 
+
+
+
 ##----------------- Version 1.6-13
 
 - Modifications in functions stahel and pca.rob. Some arguments or default values have changed. 

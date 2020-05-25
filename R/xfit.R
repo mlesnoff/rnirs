@@ -6,9 +6,7 @@ xfit <- function(T, P, xmeans = NULL) {
   X <- tcrossprod(T, P)
   
   if(!is.null(xmeans))
-    X <- scale(X, center = -xmeans, scale = FALSE)
-  
-  attributes(X)["scaled:center"] <- NULL
+    X <- .center(X, -xmeans)
 
   X
   

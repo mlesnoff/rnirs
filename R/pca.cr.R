@@ -5,15 +5,15 @@ pca.cr <- function(X, ncomp, obj = mad, nsim = 0) {
   n <- zdim[1]
   p <- zdim[2]
   
-  simpp <- .simpp.hub
-  
   xmeans <- .xmedspa(X)
-  X <- scale(X, center = xmeans, scale = FALSE)
+  X <- .center(X, xmeans)
   
   sv <- vector(length = ncomp)
   T <- matrix(nrow = n, ncol = ncomp)
   P <- matrix(nrow = p, ncol = ncomp)
   ndir <- NULL
+  
+  simpp <- .simpp.hub
   
   for(a in 1:ncomp) {
     

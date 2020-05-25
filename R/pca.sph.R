@@ -1,8 +1,9 @@
 pca.sph <- function(X, ncomp, weights = NULL) {
   
   X <- .matrix(X)
-  n <- nrow(X)
-  p <- ncol(X)
+  zdim <- dim(X)
+  n <- zdim[1]
+  p <- zdim[2]
   
   if(is.null(weights))
     weights <- rep(1 / n, n)
@@ -10,11 +11,11 @@ pca.sph <- function(X, ncomp, weights = NULL) {
     weights <- weights / sum(weights)
   
   xmeans <- .xmedspa(X, delta = .001)
-  X <- scale(X, center = xmeans, scale = FALSE)
+  X <- .center(X, xmeans)
   
   tX <- t(X)
   xnorms <- .xnorm(tX)
-  tX <- scale(tX, center = FALSE, scale = xnorms)
+  tX <- .scale(tX, center = rep(0, n), xnorms)
   zX <- t(tX)
   
   z <- svd(sqrt(weights) * zX, nu = 0, nv = ncomp)

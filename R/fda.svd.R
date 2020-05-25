@@ -6,8 +6,8 @@ fda.svd <- function(Xr, Yr, Xu = NULL, ncomp = NULL, ...) {
   
   Y <- as.factor(Yr)
 
-  X <- scale(X, center = TRUE, scale = FALSE)
-  xmeans <- attr(X, "scaled:center")
+  xmeans <- colMeans(X)
+  X <- .center(X, xmeans)
   
   nclas <- length(unique(Y))
   
@@ -58,8 +58,7 @@ fda.svd <- function(Xr, Yr, Xu = NULL, ncomp = NULL, ...) {
   Tu <- NULL
   if(!is.null(Xu)) {
     
-    Xu <- .matrix(Xu)
-    Xu <- scale(Xu, center = xmeans, scale = FALSE)
+    Xu <- .center(.matrix(Xu), xmeans)
     m <- nrow(Xu)
     
     Tu <- Xu %*% P

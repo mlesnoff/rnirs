@@ -6,9 +6,9 @@
 
 \description{
 
-The function computes the Stahel-Donoho outlyingness (Maronna and Yohai, 1995) for a matrix \eqn{X}.
+The function computes the Stahel-Donoho outlyingness (Maronna & Yohai 1995, Hubert et al. 2005, Daszykowski et al. 2007) for a matrix \eqn{X}.
 
-Outlyingness are calculated from the projections of the \eqn{n} data observations (rows of \eqn{X}) on a set of directions. The set of directions consists in the \eqn{n} data directions eventually completed by a number \eqn{nsim} of directions. The \eqn{nsim} directions are simulated as proposed in Hubert et al. (2005): random couples of observations are sampled in matrix \eqn{X} and, for each couple, the direction passes through the two observations of the couple (see functions \code{.simpp.hub} in file \code{zfunctions.R}).
+Outlyingness are calculated from the projections of the \eqn{n} data observations (rows of \eqn{X}) on a set of directions. The set of directions consists in the \eqn{n} data directions eventually completed by a number \eqn{nsim} of directions. In the function, the \eqn{nsim} directions are simulated as proposed in Hubert et al. (2005): random couples of observations are sampled in matrix \eqn{X} and, for each couple, the direction passes through the two observations of the couple (see functions \code{.simpp.hub} in file \code{zfunctions.R}).
 
 }
 

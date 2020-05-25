@@ -9,7 +9,7 @@ snv <- function(X, center = TRUE, scale = TRUE) {
   if(scale) xscales <- .xvar(X)^.5 
     else xscales <- rep(1, n)
   
-  X <- t(scale(X, center = xmeans, scale = xscales))
+  X <- t(.scale(X, xmeans, xscales))
   
   X
   

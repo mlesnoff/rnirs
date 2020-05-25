@@ -7,7 +7,7 @@ pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...) {
 
   fm <- algo(X, Yr, ncomp, ...)
   
-  X <- scale(X, center = fm$xmeans, scale = FALSE)
+  X <- .center(X, fm$xmeans)
   
   xss <- colSums(fm$P * fm$P) * fm$TT
   xsstot <- sum(fm$weights * X * X, na.rm = TRUE)

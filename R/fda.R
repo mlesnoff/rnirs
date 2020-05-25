@@ -7,9 +7,9 @@ fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL,
   
   Y <- as.factor(Yr)
 
-  X <- scale(X, center = TRUE, scale = FALSE)
-  xmeans <- attr(X, "scaled:center")
-  
+  xmeans <- colMeans(X)
+  X <- .center(X, xmeans)
+
   nclas <- length(unique(Y))
   
   if(is.null(ncomp)) 
@@ -32,15 +32,14 @@ fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL,
     #Winv <- pinv2(W, ncomp = 30)$Xplus
   
   fm <- eigen(Winv %*% B)
-  P <- fm$vectors[, 1:(nclas - 1), drop = FALSE]
-  eig <- fm$values[1:(nclas - 1)]
+  P <- fm$vectors[, 1:ncomp, drop = FALSE]
+  eig <- fm$values[1:ncomp]
   P <- Re(P)
   eig <- Re(eig)
   
   norm.P <- sqrt(diag(t(P) %*% W %*% P))
-  P <- scale(P, center = FALSE, scale = norm.P)
-  attr(P,"scaled:scale") <- NULL
-  ## Same as: P %*% diag(1 / norm.P)
+  P <- .scale(P, center = rep(0, ncomp), norm.P)
+  ## = Same as: P %*% diag(1 / norm.P)
   colnames(P) <- paste("comp", 1:ncomp, sep = "")
   row.names(P) <- colnames(W)
   
@@ -54,8 +53,7 @@ fda <- function(Xr, Yr, Xu = NULL, ncomp = NULL,
   Tu <- NULL
   if(!is.null(Xu)) {
     
-    Xu <- .matrix(Xu)
-    Xu <- scale(Xu, center = xmeans, scale = FALSE)
+    Xu <- .center(.matrix(Xu), xmeans)
     m <- nrow(Xu)
     
     Tu <- Xu %*% P

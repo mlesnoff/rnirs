@@ -10,7 +10,7 @@ odis <- function(fm, Xr, Xu = NULL) {
   n <- dim(X)[1]
   rownam <- row.names(X)
   
-  X <- scale(X, center = fm$xmeans, scale = FALSE)
+  X <- .center(X, fm$xmeans)
   
   ncomp <- dim(fm$Tr)[2]
 
@@ -36,7 +36,7 @@ odis <- function(fm, Xr, Xu = NULL) {
     rownam <- row.names(Xu)
     
     Tu <- .projscor(fm, Xu)
-    Xu <- scale(Xu, center = fm$xmeans, scale = FALSE)
+    Xu <- .center(Xu, fm$xmeans)
     
     E <- Xu - tcrossprod(Tu, fm$P)
     

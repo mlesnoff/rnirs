@@ -6,7 +6,7 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
   fm <- algo(X, ncomp, ...)
   weights <- fm$weights
 
-  X <- scale(X, center = fm$xmeans, scale = FALSE)
+  X <- .center(X, fm$xmeans)
   
   eig <- fm$eig
   ## = variances of scores T in metric D
@@ -25,20 +25,20 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
   explvarx <- z
   
   z <- weights * fm$T * fm$T
-  contr.ind <- scale(z, center = FALSE, scale = eig)
+  contr.ind <- .scale(z, center = rep(0, ncomp), eig)
   
   xvars <- .xvar(X, weights = weights)
-  zX <- scale(X, center = FALSE, scale = sqrt(xvars))  
-  zT <- scale(fm$T, center = FALSE, scale = sqrt(eig))
+  zX <- .scale(X, center = rep(0, p), sqrt(xvars))  
+  zT <- .scale(fm$T, center = rep(0, ncomp), sqrt(eig))
   cor.circle <- t(weights * zX) %*% zT
   
   coord.var <- crossprod(
     X, 
-    weights * scale(fm$T, center = FALSE, scale = sqrt(eig))
+    weights * .scale(fm$T,  rep(0, ncomp), sqrt(eig))
     )
 
   z <- coord.var^2
-  contr.var <- scale(z, center = FALSE, scale = colSums(z))
+  contr.var <- .scale(z, rep(0, ncomp), colSums(z))
   
   row.names(contr.ind) <- row.names(X)
   

@@ -9,7 +9,7 @@ pca.nipalsna <- function(X, ncomp,
   p <- ncol(X)
   
   xmeans <- colMeans(X, na.rm = TRUE)
-  X <- scale(X, center = xmeans, scale = FALSE)
+  X <- .center(X, xmeans)
   
   x <- X
   cmeans <- xmeans
