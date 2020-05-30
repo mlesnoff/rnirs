@@ -302,7 +302,7 @@
   
   }
 
-.scale = function(X, center, scale) 
+.scale = function(X, center = rep(0, dim(X)[2]), scale) 
   t((t(X) - c(center)) / c(scale))
 
 .simpp.hub <- function(X, nsim = 1000, seed = NULL) {
@@ -318,8 +318,8 @@
     zP <- matrix(nrow = p, ncol = nsim)
     
     set.seed(seed = seed)
-    s1 <- sample(1:n, size = 2 * nsim, replace = TRUE)
-    s2 <- sample(1:n, size = 2 * nsim, replace = TRUE)
+    s1 <- sample(1:n, size = 50 * nsim, replace = TRUE)
+    s2 <- sample(1:n, size = 50 * nsim, replace = TRUE)
     u <- which(s1 - s2 != 0)
     s1 <- s1[u][1:nsim]
     s2 <- s2[u][1:nsim]

@@ -56,8 +56,10 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 \tabular{ll}{
   \code{\link{pca.sph}} \tab Spherical (Locantore 1999) \cr
   \code{\link{pca.cr}} \tab Croux & Ruiz-Gazen (2005) \cr
-  \code{\link{pca.rob}} \tab Robust (Stahel-Donoho + OD + WPCA) \cr
-  \code{\link{stahel}} \tab Stahel-Donoho outlyingness \cr
+  \code{\link{pca.rob}} \tab Robust (WPCA) \cr
+  \code{\link{out.stah}} \tab Outlyingness measure (Stahel-Donoho) \cr
+  \code{\link{out.eucl}} \tab Outlyingness measure (From Euclidean distance) \cr
+  \code{\link{out.pca}} \tab Outlyingness measure (From PCA scores) \cr
   }
 
 \bold{------------ PLS}

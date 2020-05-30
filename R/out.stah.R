@@ -1,4 +1,6 @@
-stahel <- function(X, scale = TRUE, nsim = 1000) {
+out.stah <- function(X, scale = TRUE, nsim = 1000) {
+  
+  X <- .matrix(X, row = FALSE)
   
   if(scale) {
     zmu <- matrixStats::colMedians(X)
@@ -9,7 +11,7 @@ stahel <- function(X, scale = TRUE, nsim = 1000) {
   P <- .simpp.hub(X, nsim = nsim, seed = 1)
 
   T <- X %*% P
-
+  
   mu <- matrixStats::colMedians(T)
   s <- matrixStats::colMads(T)
   T <- .scale(T, mu, s)

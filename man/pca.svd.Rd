@@ -14,7 +14,7 @@
 
 Algorithms for (centered) PCA of a matrix \eqn{X}.
 
-\bold{Usual PCA}
+\bold{------------------------- Usual PCA}
 
 - \code{pca.svd}: SVD decomposition, using function \code{\link{svd}}. 
 
@@ -24,19 +24,27 @@ Algorithms for (centered) PCA of a matrix \eqn{X}.
 
 - \code{pca.nipalsna}: NIPALS allowing missing data in \eqn{X} (\code{NA} are not allowed in the other algorithms). The core of \code{pca.nipals} uses the code of function \code{nipals} of package \code{nipals} v.0.7 (K. Wright, 2020) available on CRAN.
 
-\bold{Robust PCA}
+\bold{------------------------- Robust PCA}
 
-- \code{pca.sph}: Spherical PCA (see Locantore et al. 1990, Maronna 2005, Daszykowski et al. 2007). The spatial median used for centering matrix \eqn{X} is calculated by function \code{.xmedspa} (available in file \code{zfunctions.R}). This function uses the fast code of rrcov v.1.4-3 available on R CRAN (Thanks to V. Todorov, 2016).
+- \code{pca.sph}: 
 
-- \code{pca.cr}: Croux & Ruiz-Gazen (C-R) PCA algorithm using projection pursuit (PP) method (Croux & Ruiz-Gazen 2005). The observations are robustly centered and projected to specific "PP" directions (see below) in the variables' space. The final PCA loading vectors are the directions that maximize a given "projection index" (usually a robust spread measure such as MAD). The 1st loading vector is choosen within the \eqn{n} data observations (rows of \eqn{X}). The next loadings are choosen in the same way after subsequent deflation of matrix \eqn{X}. One possible extension  of the algorithm is to randomly simulate additionnal candidate PP directions to the row observations. In function \code{pca.cr}, this is done when argument \code{nsim > 0}. In such a case, the function simulates \eqn{nsim} additional PP directions to the \eqn{n} initial ones, as proposed in Hubert et al. (2005): random couples of observations are sampled and, for each couple, the direction passes through the two observations of the couple (see functions \code{.simpp.hub} in file \code{zfunctions.R}).
+Spherical PCA (see Locantore et al. 1990, Maronna 2005, Daszykowski et al. 2007). The spatial median used for centering matrix \eqn{X} is calculated by function \code{.xmedspa} (available in file \code{zfunctions.R}). This function uses the fast code of rrcov v.1.4-3 available on R CRAN (Thanks to V. Todorov, 2016).
 
-- \code{pca.rob}: Robust PCA combining projection pursuit (PP) and row-weighted PCA. The algorithm is in the same spirit (but quite different) as the ROBPCA method (Hubert et al. 2005, 2009). The algorithm is built in the two following steps, the second step being facultative (argument \code{w2}). 
+- \code{pca.cr}: 
 
-Step 1 intends to detect multivariate outliers that have potentially bad leverages. Such outliers receive a weight \eqn{w1 = 0} in a first row-weighted PCA (the non-outliers receive a weight \eqn{w1 = 1}). The Stahel-Donoho outlyingness (Maronna and Yohai, 1995) is computed for the rows of matrix \eqn{X} (see function \code{\link{stahel}}). The leverage outliers are the \eqn{(1 - alpha)} proportion of the observations with the highest outlyingness (by default \eqn{alpha = .75} as in Hubert et al. 2005, 2009). 
+Croux & Ruiz-Gazen (C-R) PCA algorithm using projection pursuit (PP) method (Croux & Ruiz-Gazen 2005). The observations are robustly centered, and projected to specific "PP" directions (see below) of the spaned by the variables (\eqn{X} columns). The PCA loading vectors are the directions (within these PP directions) that maximize a given "projection index", usually a robust spread measure such as MAD. The 1st loading vector is choosen within the \eqn{n} directions corresponding the observations (rows of \eqn{X}). The next loading vector is choosen in \eqn{n} directions corresponding the rows of the deflated matrix \eqn{X}). And so on.
 
-In Step2 (facultative), orthogonal distances ("OD", "X-residuals") of all the observations are calculated from the first robust score space. OD outliers are detected based on a parametric cutoff (see \code{\link{odis}}), and receive a weight \eqn{w2 = 0} in a second row-weighted PCA (non-outliers receive a weight \eqn{w2 = 1}). This second PCA gives the final robust score space.
+A possible extension  of the algorithm is to randomly simulate additionnal candidate PP directions to the \eqn{n} row observations. In function \code{pca.cr}, this is done when argument \code{nsim > 0}. In such a case, the function simulates \eqn{nsim} additional PP directions to the \eqn{n} initial ones, as proposed in Hubert et al. (2005): random couples of observations are sampled in \eqn{X} and, for each couple, the direction passes through the two observations of the couple (see functions \code{.simpp.hub} in file \code{zfunctions.R}).
 
-\bold{Argument} \code{weights}
+- \code{pca.rob}: 
+
+Robust PCA combining outlyingness measures and PCA in which rows of matrix \eqn{X} receive specific weights (WPCA). The algorithm is in the same spirit (but quite different) as the ROBPCA method (Hubert et al. 2005, 2009). It is built in the two following steps, the second step being facultative (logical argument \code{wod}) and not run in the default version of the function. 
+
+Step 1 intends to detect and remove multivariate \eqn{X-}outliers that have potentially bad leverages. First, the Stahel-Donoho outlyingness (Maronna and Yohai, 1995)  is computed for each of the rows of matrix \eqn{X} (see \code{\link{out.stah}}). Noting \eqn{alpha} a proportion (by default in the function, \eqn{alpha = .75},  as in Hubert et al. 2005, 2009), the  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w1 = 0} (the other receive a weight \eqn{w1 = 1}). Then, a robust Euclidean outlyingness (see \code{\link{out.eucl}}) is calculated. The  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w2 = 0} (the other receive a weight \eqn{w2 = 1}). The final weight for Step 1 is \eqn{w = w1 * w2}), which is used for a first weighted PCA.  
+
+Step2 (facultative) intends to detect orthogonal "outliers". The orthogonal distance (say "OD" or "X-residuals") of each of the \eqn{n} observations is calculated from the robust score space computed in Step 1. Observations with OD higher than a given cutoff (based on a parametric hypothesis, see \code{\link{odis}}) receive a weight \eqn{w = 0} (the others receive a weight \eqn{w = 1}). This weight is used in a second and final weighted PCA.
+
+\bold{------------------------- Argument} \code{weights}
 
 Some of the functions above can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. For instance, function \code{pca.svd} implements a SVD of \eqn{D^(1/2) X}, where D = diag(weights) and X has been centered with metric \eqn{D}. Function \code{pca.eignenw} implements an eigen decomposition of \eqn{X' D X}.
 
@@ -58,7 +66,7 @@ pca.sph(X, ncomp, weights = NULL)
 
 pca.cr(X, ncomp, obj = mad, nsim = 0)
 
-pca.rob(X, ncomp, nsim = 1000, alpha = .75, w2 = FALSE)
+pca.rob(X, ncomp, nsim = 1000, alpha = .75, wod = FALSE)
 
 }
 
@@ -82,11 +90,11 @@ pca.rob(X, ncomp, nsim = 1000, alpha = .75, w2 = FALSE)
 
 \item{obj}{The objective function (projection index) to maximize with the PP scores. Default to \code{obj = mad}. }
 
-\item{nsim}{A number of randomly simulated PP directions considered in addition to the\eqn{n} data observations (rows of \eqn{X}). Default to \code{nsim = 0} (no additionnal simulation) for the C-R algorithm, and to \code{nsim = 1000} for Stahel-Donoho outlyingness calculation in Step 1 of \code{pca.rob}.}
+\item{nsim}{See \code{\link{out.stah}}. A number of randomly simulated PP directions considered in addition to the\eqn{n} data observations (rows of \eqn{X}). Default to \code{nsim = 0} (no additionnal simulation) for the C-R algorithm, and to \code{nsim = 1000} for Stahel-Donoho outlyingness calculation in Step 1 of \code{pca.rob}.}
 
 \item{alpha}{For \code{pca.rob}. Used in Step 1, default to \code{alpha = .75}. The Step1-outliers are the \eqn{(1 - alpha)} proportion of the observations with the highest outlyingness.}
 
-\item{w2}{For \code{pca.rob}. If \code{FALSE} (default),  Step 2 is not implemented (faster but less robust).}
+\item{wod}{For \code{pca.rob}. If \code{FALSE} (default),  Step 2 is not implemented (faster but can be less robust).}
 
 }
 

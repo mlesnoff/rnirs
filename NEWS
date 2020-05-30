@@ -1,5 +1,18 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-15
+
+- Improvement of function pca.rob.
+
+- Function stahel has been renamed to out.stah.
+
+- New functions: 
+
+    out.pca (Outlyinness from PCA)
+  
+    out.eucl (Outlyinness from Euclidean distance)
+
+
 ##----------------- Version 1.6-14
 
 - Package matrixStats (available on CRAN) has been added in the dependencies.

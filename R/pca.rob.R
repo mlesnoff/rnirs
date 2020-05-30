@@ -1,18 +1,24 @@
-pca.rob <- function(X, ncomp, nsim = 1000, alpha = .75, w2 = FALSE) {
+pca.rob <- function(X, ncomp, nsim = 1000, alpha = .75, wod = FALSE) {
   
-  d <- stahel(X, nsim = nsim)
-  cutoff <- quantile(d, alpha)
-  w1 <- ifelse(d > cutoff, 0, 1)
-
-  fm <- pca.svd(X, ncomp = ncomp, weights = w1)
-
-  if(w2) {
+  X <- .matrix(X)
+  n <- dim(X)[1]
   
-    z <- odis(fm, X)
-    odstand <-  z$dr$dstand
-    w2 <- ifelse(odstand > 1, 0, 1)
-    
-    fm <- pca.svd(X, ncomp = ncomp, weights = w2)
+  r <- out.stah(X, nsim = nsim)
+  w1 <- .talworth(r, quantile(r, alpha))
+  
+  r <- out.eucl(X)
+  w2 <- .talworth(r, quantile(r, alpha))
+  
+  w <- sqrt(w1 * w2)
+
+  fm <- pca.svd(X, ncomp = ncomp, weights = w)
+
+  if(wod) {
+  
+    d <- odis(fm, X)$dr$dstand
+    w <- .talworth(d, 1) 
+   
+    fm <- pca.svd(X, ncomp = ncomp, weights = w)
     
     }
 
