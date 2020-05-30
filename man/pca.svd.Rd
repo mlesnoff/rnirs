@@ -3,18 +3,13 @@
 \alias{pca.eigen}
 \alias{pca.nipals}
 \alias{pca.nipalsna}
-\alias{pca.sph}
-\alias{pca.cr}
-\alias{pca.rob}
 \encoding{latin1}
 
 \title{PCA algorithms}
 
 \description{
 
-Algorithms for (centered) PCA of a matrix \eqn{X}.
-
-\bold{------------------------- Usual PCA}
+Algorithms for usual (centered) PCA of a matrix \eqn{X}.
 
 - \code{pca.svd}: SVD decomposition, using function \code{\link{svd}}. 
 
@@ -22,31 +17,11 @@ Algorithms for (centered) PCA of a matrix \eqn{X}.
 
 - \code{pca.nipals}: NIPALS. 
 
-- \code{pca.nipalsna}: NIPALS allowing missing data in \eqn{X} (\code{NA} are not allowed in the other algorithms). The core of \code{pca.nipals} uses the code of function \code{nipals} of package \code{nipals} v.0.7 (K. Wright, 2020) available on CRAN.
+- \code{pca.nipalsna}: NIPALS allowing missing data in \eqn{X} (\code{NA} are not allowed in the other algorithms). The core of \code{pca.nipals} uses the code of function \code{nipals} of package \code{nipals} v.0.7 (Thanks to K. Wright, 2020) available on CRAN.
 
-\bold{------------------------- Robust PCA}
+\bold{Argument} \code{weights}
 
-- \code{pca.sph}: 
-
-Spherical PCA (see Locantore et al. 1990, Maronna 2005, Daszykowski et al. 2007). The spatial median used for centering matrix \eqn{X} is calculated by function \code{.xmedspa} (available in file \code{zfunctions.R}). This function uses the fast code of rrcov v.1.4-3 available on R CRAN (Thanks to V. Todorov, 2016).
-
-- \code{pca.cr}: 
-
-Croux & Ruiz-Gazen (C-R) PCA algorithm using projection pursuit (PP) method (Croux & Ruiz-Gazen 2005). The observations are robustly centered, and projected to specific "PP" directions (see below) of the spaned by the variables (\eqn{X} columns). The PCA loading vectors are the directions (within these PP directions) that maximize a given "projection index", usually a robust spread measure such as MAD. The 1st loading vector is choosen within the \eqn{n} directions corresponding the observations (rows of \eqn{X}). The next loading vector is choosen in \eqn{n} directions corresponding the rows of the deflated matrix \eqn{X}). And so on.
-
-A possible extension  of the algorithm is to randomly simulate additionnal candidate PP directions to the \eqn{n} row observations. In function \code{pca.cr}, this is done when argument \code{nsim > 0}. In such a case, the function simulates \eqn{nsim} additional PP directions to the \eqn{n} initial ones, as proposed in Hubert et al. (2005): random couples of observations are sampled in \eqn{X} and, for each couple, the direction passes through the two observations of the couple (see functions \code{.simpp.hub} in file \code{zfunctions.R}).
-
-- \code{pca.rob}: 
-
-Robust PCA combining outlyingness measures and PCA in which rows of matrix \eqn{X} receive specific weights (WPCA). The algorithm is in the same spirit (but quite different) as the ROBPCA method (Hubert et al. 2005, 2009). It is built in the two following steps, the second step being facultative (logical argument \code{wod}) and not run in the default version of the function. 
-
-Step 1 intends to detect and remove multivariate \eqn{X-}outliers that have potentially bad leverages. First, the Stahel-Donoho outlyingness (Maronna and Yohai, 1995)  is computed for each of the rows of matrix \eqn{X} (see \code{\link{out.stah}}). Noting \eqn{alpha} a proportion (by default in the function, \eqn{alpha = .75},  as in Hubert et al. 2005, 2009), the  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w1 = 0} (the other receive a weight \eqn{w1 = 1}). Then, a robust Euclidean outlyingness (see \code{\link{out.eucl}}) is calculated. The  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w2 = 0} (the other receive a weight \eqn{w2 = 1}). The final weight for Step 1 is \eqn{w = w1 * w2}), which is used for a first weighted PCA.  
-
-Step2 (facultative) intends to detect orthogonal "outliers". The orthogonal distance (say "OD" or "X-residuals") of each of the \eqn{n} observations is calculated from the robust score space computed in Step 1. Observations with OD higher than a given cutoff (based on a parametric hypothesis, see \code{\link{odis}}) receive a weight \eqn{w = 0} (the others receive a weight \eqn{w = 1}). This weight is used in a second and final weighted PCA.
-
-\bold{------------------------- Argument} \code{weights}
-
-Some of the functions above can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. For instance, function \code{pca.svd} implements a SVD of \eqn{D^(1/2) X}, where D = diag(weights) and X has been centered with metric \eqn{D}. Function \code{pca.eignenw} implements an eigen decomposition of \eqn{X' D X}.
+Functions above (except \code{pca.nipalsna}) can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. For instance, function \code{pca.svd} implements a SVD of \eqn{D^(1/2) X}, where D = diag(weights) and X has been centered with metric \eqn{D}. Function \code{pca.eignenw} implements an eigen decomposition of \eqn{X' D X}.
 
 }
 
@@ -62,12 +37,6 @@ pca.nipals(X, ncomp, weights = NULL,
 pca.nipalsna(X, ncomp, gramschmidt = TRUE,
   tol = .Machine$double.eps^0.5, maxit = 100)
   
-pca.sph(X, ncomp, weights = NULL)
-
-pca.cr(X, ncomp, obj = mad, nsim = 0)
-
-pca.rob(X, ncomp, nsim = 1000, alpha = .75, wod = FALSE)
-
 }
 
 \arguments{
@@ -85,16 +54,6 @@ pca.rob(X, ncomp, nsim = 1000, alpha = .75, wod = FALSE)
 \item{tol}{Tolerance for testing convergence of the NIPALS iterations for each principal component.}
 
 \item{maxit}{Maximum number of NIPALS iterations for each principal component.}
-
-\bold{Specific arguments of} \code{pca.cr}
-
-\item{obj}{The objective function (projection index) to maximize with the PP scores. Default to \code{obj = mad}. }
-
-\item{nsim}{See \code{\link{out.stah}}. A number of randomly simulated PP directions considered in addition to the\eqn{n} data observations (rows of \eqn{X}). Default to \code{nsim = 0} (no additionnal simulation) for the C-R algorithm, and to \code{nsim = 1000} for Stahel-Donoho outlyingness calculation in Step 1 of \code{pca.rob}.}
-
-\item{alpha}{For \code{pca.rob}. Used in Step 1, default to \code{alpha = .75}. The Step1-outliers are the \eqn{(1 - alpha)} proportion of the observations with the highest outlyingness.}
-
-\item{wod}{For \code{pca.rob}. If \code{FALSE} (default),  Step 2 is not implemented (faster but can be less robust).}
 
 }
 
@@ -118,19 +77,7 @@ A list of outputs, such as:
 
 \references{
 
-Daszykowski, M., Kaczmarek, K., Vander Heyden, Y., Walczak, B., 2007. Robust statistics in data analysis - A review. Chemometrics and Intelligent Laboratory Systems 85, 203-219. https://doi.org/10.1016/j.chemolab.2006.06.016
-
 Gabriel, R. K., 2002. Le biplot - Outil d'exploration de données multidimensionnelles. Journal de la Société Française de la Statistique, 143, 5-55.
-
-Hubert, M., Rousseeuw, P.J., Vanden Branden, K., 2005. ROBPCA: A New Approach to Robust Principal Component Analysis. Technometrics 47, 64-79. https://doi.org/10.1198/004017004000000563
-
-Hubert, M., Rousseeuw, P., Verdonck, T., 2009. Robust PCA for skewed data and its outlier map. Computational Statistics & Data Analysis 53, 2264-2274. https://doi.org/10.1016/j.csda.2008.05.027
-
-N. Locantore, J.S. Marron, D.G. Simpson, N. Tripoli, J.T. Zhang, K.L. Cohen, Robust principal component analysis for functional data, Test 8 (1999) 1–7
-
-Maronna, R.A., Yohai, V.J., 1995. The Behavior of the Stahel-Donoho Robust Multivariate Estimator. Journal of the American Statistical Association 90, 330-341. https://doi.org/10.1080/01621459.1995.10476517
-
-Maronna, R., 2005. Principal Components and Orthogonal Regression Based on Robust Scales, Technometrics, 47:3, 264-273, DOI: 10.1198/004017005000000166
 
 Tenenhaus, M., 1998. La régression PLS: théorie et pratique. Editions Technip, Paris, France.
 
@@ -152,12 +99,6 @@ pca.svd(X, ncomp = 3)
 pca.eigen(X, ncomp = 3)
 
 pca.nipals(X, ncomp = 3)
-
-pca.sph(X, ncomp = 3)
-
-pca.cr(X, ncomp = 3)
-
-pca.rob(X, ncomp = 3)
 
 ######## WITH MISSING DATA
 
