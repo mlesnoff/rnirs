@@ -9,6 +9,10 @@ The changes in the package versions are reported in the **NEWS** file above.
 
 Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
+You can install and update the package directly from GitHub (see below), or by asking the .tar.gz or zip installation file to the author (see Contact section at the end). 
+
+If you use package **rnris** and like it, do not hesitate to mark a star on this GithHub web-page. You may also register as watchers for receiving alerts for some important updates. For both of these operations, you need to be connected on your account.
+
 ## Main features 
 
 * Data checking and summarizing
@@ -76,7 +80,7 @@ a. For R version >= 4.0.0
 
 - Download Rtools40.exe at https://cran.r-project.org/bin/windows/Rtools/ and run it.
 
-- Create a text file ".Renviron" (if not already existing) in your "Documents" folder and copy it the following line
+- Create a text file ".Renviron" (if not already existing) in your "My Documents" folder and copy it the following line
 ```{r}
 PATH="${RTOOLS40_HOME}\usr\bin;${PATH}"
 ```
