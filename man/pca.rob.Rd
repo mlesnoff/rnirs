@@ -12,11 +12,11 @@ Algorithms for robust (centered) PCA of a matrix \eqn{X}.
 
 - \code{pca.rob}: 
 
-Robust PCA combining outlyingness measures and weighted PCA (WPCA), where rows of matrix \eqn{X} receive weights depending on outlyingness. The algorithm is in the same spirit (but quite different) as the ROBPCA method (Hubert et al. 2005, 2009). It is built in the two following steps. The second step is facultative (argument \code{wod}) and not run in the default version of the function. 
+Robust PCA combining outlyingness measures and weighted PCA (WPCA), where rows of matrix \eqn{X} receive weights depending on outlyingness. The algorithm is in the same spirit (but quite different) as the ROBPCA method (Hubert et al. 2005, 2009). It is built in the two following steps. Note that the second step is facultative (argument \code{step2}). 
 
-Step 1 intends to detect and remove multivariate \eqn{X-}outliers that have potentially bad leverages. First, the Stahel-Donoho outlyingness (Maronna and Yohai, 1995)  is computed for each of the rows of matrix \eqn{X} (see \code{\link{out.stah}}). Noting \eqn{alpha} a proportion (by default in the function, \eqn{alpha = .75},  as in Hubert et al. 2005, 2009), the  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w1 = 0} (the other receive a weight \eqn{w1 = 1}). Then, a robust Euclidean outlyingness (see \code{\link{out.eucl}}) is calculated. The  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w2 = 0} (the other receive a weight \eqn{w2 = 1}). The final weight for Step 1 is \eqn{w = w1 * w2}), which is used for a first weighted PCA.  
+Step 1 intends to detect and remove multivariate \eqn{X-}outliers that have potentially bad leverages. First, the Stahel-Donoho outlyingness (Maronna and Yohai, 1995) is computed for each of the rows of matrix \eqn{X} (see \code{\link{out.stah}}). Noting \eqn{alpha} a proportion (by default in the function, \eqn{alpha = .75},  as in Hubert et al. 2005, 2009), the  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w1 = 0} (the other receive a weight \eqn{w1 = 1}). Then, a robust Euclidean outlyingness (see \code{\link{out.eucl}}) is calculated. The  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w2 = 0} (the other receive a weight \eqn{w2 = 1}). The final weight for Step 1 is \eqn{w = w1 * w2}), which is used for a first weighted PCA.  
 
-Step2 (facultative) intends to detect orthogonal "outliers". The orthogonal distance (say "OD" or "X-residuals") of each of the \eqn{n} observations is calculated from the robust score space computed in Step 1. Observations with OD higher than a given cutoff (based on a parametric hypothesis, see \code{\link{odis}}) receive a weight \eqn{w = 0} (the others receive a weight \eqn{w = 1}). This weight is used in a second and final weighted PCA.
+Step2 (facultative) intends to detect outliers in the robust score space computed in Step 1. The score and orthogonal distances, standardized by given cutoffs (see \code{\link{scordis}} and \code{\link{odis}}), of each of the \eqn{n} observations are calculated from this score space. An outlyingness is computed by \eqn{(.5 * SD.stand^2 + .5 * OD.stand^2)^.5}. The  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w = 0} (the other receive a weight \eqn{w = 1}), and a new weighted PCA is fitted.
 
 - \code{pca.sph}: 
 
@@ -37,7 +37,7 @@ Some of the functions above can give a priori weights to the observations (rows 
 
 \usage{
 
-pca.rob(X, ncomp, nsim = 1500, alpha = .75, wod = FALSE)
+pca.rob(X, ncomp, nsim = 1500, alpha = .75, step2 = TRUE)
 
 pca.cr(X, ncomp, obj = mad, nsim = 0)
 
@@ -55,7 +55,7 @@ pca.sph(X, ncomp, weights = NULL)
 
 \item{alpha}{For \code{pca.rob}. Proportion \eqn{1 - alpha} is used for hard rejection of outliers in Step 1 (default to \code{alpha = .75}).}
 
-\item{wod}{For \code{pca.rob}. If \code{FALSE} (default),  Step 2 is not implemented (faster but can be less robust).}
+\item{step2}{For \code{pca.rob}. If \code{TRUE} (default), Step 2 is implemented.}
 
 \item{obj}{For \code{pca.cr}. The objective function (projection index) to maximize with the PP scores. Default to \code{obj = mad}. }
 
