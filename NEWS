@@ -1,8 +1,13 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-16
+
+- Modification of function pca.rob.
+
+
 ##----------------- Version 1.6-15
 
-- Improvement of function pca.rob.
+- Modification of function pca.rob.
 
 - Function stahel has been renamed to out.stah.
 

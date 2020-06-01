@@ -1,4 +1,4 @@
-out.stah <- function(X, scale = TRUE, nsim = 1000) {
+out.stah <- function(X, scale = TRUE, nsim = 1500) {
   
   X <- .matrix(X, row = FALSE)
   

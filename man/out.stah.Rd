@@ -28,7 +28,7 @@ Outlyingness is calculated from a given PCA space. A PCA is preliminary fitted w
 
 \usage{
 
-out.stah(X, scale = TRUE, nsim = 1000)
+out.stah(X, scale = TRUE, nsim = 1500)
 
 out.eucl(X, scale = TRUE)
 

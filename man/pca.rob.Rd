@@ -37,7 +37,7 @@ Some of the functions above can give a priori weights to the observations (rows 
 
 \usage{
 
-pca.rob(X, ncomp, nsim = 1000, alpha = .75, wod = FALSE)
+pca.rob(X, ncomp, nsim = 1500, alpha = .75, wod = FALSE)
 
 pca.cr(X, ncomp, obj = mad, nsim = 0)
 
