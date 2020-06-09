@@ -1,4 +1,6 @@
-lscordis <- function(fm) {
+lscordis <- function(fm, typcut = c("param", "mad", "boxplot")) {
+  
+  typcut <- match.arg(typcut)
   
   fm <- fm$fm
   
@@ -8,7 +10,7 @@ lscordis <- function(fm) {
   
   for(i in 1:nmod) {
     
-    z <- scordis(fm[[i]])
+    z <- scordis(fm[[i]], typcut = typcut)
     
     z$dr$rownum <- fm[[i]]$nn
     
