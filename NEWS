@@ -6,7 +6,7 @@
 
 - Modification of functions scordis and odis: new argument "typcut".
 
-- Modification of function pca.rob (in step2).
+- Modification of functions pca.rob (in step2) and out.pca.
 
 
 ##----------------- Version 1.6-16

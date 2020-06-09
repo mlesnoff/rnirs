@@ -1,6 +1,7 @@
 \name{pls.kernel}
 \alias{pls.kernel}
 \alias{pls.nipals}
+\alias{pls.rannar}
 \encoding{latin1}
 
 \title{PLS algorithms}
@@ -11,7 +12,9 @@ PLS1 and PLS2 algorithms.
 
 \code{pls.nipals} implements the NIPALS algorithm (e.g. Tenenhaus 1998, Wold 2002). 
 
-\code{pls.kernel} implements the "improved kernel algorithm #1" proposed by Dayal and MacGregor (1997). This algorithm is stable and fast (Andersson 2009), and returns the same results as the NIPALS. 
+\code{pls.kernel} implements the "improved kernel algorithm #1" proposed by Dayal and MacGregor (1997). This algorithm is stable and fast (Andersson 2009), and returns the same results as NIPALS. 
+
+\code{pls.rannar} implements a kernel algorithm proposed by Rannar et al. (1994) for "wide" matrices, i.e.  with low number of rows and very large number of columns (p >> n; e.g. p = 20000). In such a situation, this algorithm is faster than the others (but becomes much slower in other situations). If the algorithm convergences, it returns the same results as NIPALS (Note: discrepancies can be observed if too many PLS components are requested compared to the low number of observations).
 
 All algorithms center matrix \eqn{X}. Missing values are not allowed.
 
@@ -24,6 +27,8 @@ The functions can give a priori weights to the observations (rows of \eqn{X}), w
 pls.kernel(X, Y, ncomp, weights = NULL)
 
 pls.nipals(X, Y, ncomp, weights = NULL)
+
+pls.rannar(X, Y, ncomp, weights = NULL)
 
 }
 
@@ -66,7 +71,9 @@ Dayal, B.S., MacGregor, J.F., 1997. Improved PLS algorithms. Journal of Chemomet
 
 Kim, S., Kano, M., Nakagawa, H., Hasebe, S., 2011. Estimation of active pharmaceutical ingredients content using locally weighted partial least squares and statistical wavelength selection. Int. J. Pharm., 421, 269-274.
 
-Lesnoff, M., Metz, M., Roger, J.M., 2020. Comparison of locally weighted PLS strategies for regression and discrimination on agronomic NIR Data. Journal of Chemometrics. e3209
+Lesnoff, M., Metz, M., Roger, J.M., 2020. Comparison of locally weighted PLS strategies for regression and discrimination on agronomic NIR Data. Journal of Chemometrics. e3209. https://onlinelibrary.wiley.com/doi/abs/10.1002/cem.3209
+
+Rannar, S., Lindgren, F., Geladi, P., Wold, S., 1994. A PLS kernel algorithm for data sets with many variables and fewer objects. Part 1: Theory and algorithm. Journal of Chemometrics 8, 111-125. https://doi.org/10.1002/cem.1180080204
 
 Schaal, S., Atkeson, C., Vijayamakumar, S. 2002. Scalable techniques from nonparametric statistics for the real time robot learning. Applied Intell., 17, 49-60.
 
@@ -96,6 +103,7 @@ pls.kernel(X, Y, ncomp = 3)
 pls.kernel(X, Y, ncomp = 3)$T
 
 pls.kernel(X, Y, ncomp = 3, weights = 1:n)$T
+
 pls.nipals(X, Y, ncomp = 3, weights = 1:n)$T
 
 }

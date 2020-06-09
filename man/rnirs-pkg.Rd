@@ -70,8 +70,9 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 \eqn{Algorithms}
 
 \tabular{ll}{
-  \code{\link{pls.kernel}} \tab Kernel (faster) \cr
+  \code{\link{pls.kernel}} \tab Kernel (Dayal & McGregor 1997) \cr
   \code{\link{pls.nipals}} \tab NIPALS \cr
+  \code{\link{pls.rannar}} \tab Kernel for wide matrices (Rannar et al. 1994) \cr
   }
 
 \bold{------------ FDA}

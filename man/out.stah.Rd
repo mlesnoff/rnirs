@@ -32,7 +32,7 @@ out.stah(X, scale = TRUE, nsim = 1500)
 
 out.eucl(X, scale = TRUE)
 
-out.pca(X, ncomp, algo = pca.rob, ...)
+out.pca(fm, X, ...)
 
 }
 
@@ -44,11 +44,9 @@ out.pca(X, ncomp, algo = pca.rob, ...)
 
 \item{nsim}{For \code{out.stah}. A number of randomly simulated directions considered in addition to the \eqn{n} data observations (rows of \eqn{X}).}
 
-\item{algo}{For \code{out.pca}. The algorithm function used for fitting the PCA.}
+\item{fm}{For \code{out.pca}. The PCA model from wich is calculated the outlyingness.}
 
-\item{ncomp}{For \code{out.pca}. The number of PCA scores (i.e. components) to be calculated.}
-
-\item{...}{For \code{out.pca}. Optional arguments to pass in the function defined in \code{algo}.}
+\item{...}{For \code{out.pca}. Optional arguments to pass in functions \code{\link{scordis}} and  \code{\link{odis}}.}
 
 }
 
@@ -81,7 +79,9 @@ X
 
 out.stah(X)
 out.eucl(X)
-out.pca(X, ncomp = 2)
+
+fm <- pca.rob(X, ncomp = 2)
+out.pca(fm, X)
 
 }
 
