@@ -8,6 +8,8 @@
 
 - Modification of functions pca.rob (in step2) and out.pca.
 
+- New function: pls.rannar (PLS algorithm for wied matrices) 
+
 
 ##----------------- Version 1.6-16
 
