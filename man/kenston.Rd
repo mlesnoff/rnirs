@@ -6,9 +6,15 @@
 
 \description{
 
-Sampling row observations of a data set with the Kennard-Stone (KS) algorithm (1969). 
+Sampling row observations of a data set with the Kennard-Stone (KS) algorithm (Kennard & Stone, 1969). 
 
-At the end, the KS algorithm provides a segmentation of the data set in two parts: one with higher variability (the selected KS samples) and one with lower variability (the non selected KS samples). Function \code{kenston} returns the part with higher variability (this may be the opposite in other softwares). The selected samples can be used as validation or test set for calibrating a robust model or estimating a robust RMSEP.
+The KS algorithm provides a segmentation of the data set in two parts. These two parts do not have the same probability distribution. One part (the selected KS samples) has higher variability and the other part has lower variability (the non-selected KS samples). Function \code{kenston} returns the part with higher variability (this may be the opposite in other softwares). 
+
+The selected KS samples may be used as training set, but it is preferable using them as:
+
+- validation set for calibrating a model that is robust for predictions, 
+
+- or test set for a robust (i.e. more realistic in extrapolation situations) RMSEP estimation.
 
 }
 

@@ -7,7 +7,7 @@ matdis <- function(X, diss = c("euclidean", "mahalanobis", "correlation"),
   n <- dim(X)[1]
   rownam <- row.names(X)
 
-  if(diss == "euclidean") D <- as.matrix(dist(X))
+  if(diss == "euclidean") D <- sqrt(as.matrix(.dist(X)))
     
   if(diss == "mahalanobis") {
   
@@ -19,7 +19,7 @@ matdis <- function(X, diss = c("euclidean", "mahalanobis", "correlation"),
     U <- chol(S)
     X <- X %*% solve(U) 
     
-    D <- as.matrix(dist(X))
+    D <- sqrt(as.matrix(.dist(X)))
     
     }
   

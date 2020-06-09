@@ -1,10 +1,12 @@
-odis <- function(fm, Xr, Xu = NULL) {
+odis <- function(fm, Xr, Xu = NULL, typcut = c("param", "mad", "boxplot")) {
     
   if(!is.null(fm$fm))
     fm <- fm$fm
   
   if(is.null(fm$Tr))
     fm$Tr <- fm$T
+  
+  typcut <- match.arg(typcut)
   
   X <- .matrix(Xr)
   n <- dim(X)[1]
@@ -18,8 +20,20 @@ odis <- function(fm, Xr, Xu = NULL) {
   
   d <- sqrt(rowSums(E * E))
   
-  z <- d^(2/3)
-  cutoff <- (median(z) + mad(z) * qnorm(p = .975))^(3/2)
+  cutoff <- switch(
+    typcut, 
+    param = {
+      z <- d^(2/3)
+      (median(z) + mad(z) * qnorm(p = .975))^(3/2)
+      },
+    mad = median(d) + 2.5 * mad(d),
+    boxplot = {
+      z <- fivenum(d)
+      z <- z[4] + 1.5 * diff(z[c(2, 4)])
+      max(d[d <= z])
+      }
+    )  
+  
   dstand <- d / cutoff 
   
   dr <- data.frame(rownum = 1:n, rownam = rownam, ncomp = rep(ncomp, n), 

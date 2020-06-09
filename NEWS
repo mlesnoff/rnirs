@@ -2,6 +2,15 @@
 
 ##----------------- Version 1.6-16
 
+- Functions kenston and matdis have been made faster.
+
+- Modification of functions scordis and odis: new argument "typcut".
+
+- Modification of function pca.rob (in step2).
+
+
+##----------------- Version 1.6-16
+
 - Modification of function pca.rob.
 
 

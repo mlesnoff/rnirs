@@ -65,6 +65,18 @@
   
   }
 
+.dist <- function(X) {
+  
+  ## Calculates a matrix of squared distances
+  ## = Symetric matrix of the squared Euclidean distances between the rows of X
+  
+  n <- dim(X)[1]
+  
+  sq <- matrixStats::rowSums2(X * X)
+  pmax(outer(sq, sq, "+") - 2 * tcrossprod(X), 0)
+  
+  }
+
 .ellips <- function(shape, center = rep(0, ncol(shape)), radius = 1) {
   
   # The generated ellipse is: (x - mu)' * S^(-1) * (x - mu) <= r^2  
@@ -86,6 +98,28 @@
   list(X = X, V = V, d = d)
   
   }
+
+.eigpow <- function(X, tol = .Machine$double.eps^0.5, maxit = 30) {
+  
+    ztol <- 1
+    iter <- 1
+    
+    v <- X[, which.max(.xvar(X))]
+    
+    while(ztol > tol & iter <= maxit) {
+      
+      zv <- X %*% v
+      zv <- zv / sqrt(sum(zv * zv))
+
+      ztol <- .xnorm(v - zv)
+      v <- zv
+      iter <- iter + 1
+
+      }      
+    
+    list(v = c(v), niter = iter)
+  
+    }  
 
 .findmax <- function(x, seed = NULL) {
   x <- which.max(x)
