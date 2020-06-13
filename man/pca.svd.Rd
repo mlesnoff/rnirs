@@ -21,7 +21,7 @@ Algorithms for usual (centered) PCA of a matrix \eqn{X}.
 
 \bold{Argument} \code{weights}
 
-Functions above (except \code{pca.nipalsna}) can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. For instance, function \code{pca.svd} implements a SVD of \eqn{D^(1/2) X}, where D = diag(weights) and X has been centered with metric \eqn{D}. Function \code{pca.eignenw} implements an eigen decomposition of \eqn{X' D X}.
+Functions above (except \code{pca.nipalsna}) can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. For instance, function \code{pca.svd} implements a SVD of \eqn{D^(1/2) X}, where D = diag(weights) and X has been centered with metric \eqn{D}. Function \code{pca.eignen} implements an eigen decomposition of \eqn{X' D X}.
 
 }
 
@@ -29,7 +29,7 @@ Functions above (except \code{pca.nipalsna}) can give a priori weights to the ob
 
 pca.svd(X, ncomp, weights = NULL)
 
-pca.eigen(X, ncomp, weights = NULL)
+pca.eigen(X, ncomp, weights = NULL, kernel = FALSE)
 
 pca.nipals(X, ncomp, weights = NULL,
   tol = .Machine$double.eps^0.5, maxit = 100)
@@ -46,6 +46,8 @@ pca.nipalsna(X, ncomp, gramschmidt = TRUE,
 \item{ncomp}{The number of PCA scores (i.e. components) to be calculated.}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+
+\item{kernel}{For \code{pca.eigen}. If  \code{TRUE}, the diagonalization is done on the kernel XX' (instead of the covariance matrix X'X). This is a faster algorithm for wide matrices, i.e. where \eqn{p >> n} (Wu et al. 1997). Default to \code{FALSE}.}
 
 \bold{Specific arguments of} \code{pca.nipalsna}
 
@@ -82,6 +84,8 @@ Gabriel, R. K., 2002. Le biplot - Outil d'exploration de données multidimension
 Tenenhaus, M., 1998. La régression PLS: théorie et pratique. Editions Technip, Paris, France.
 
 Wright, K., 2018. Package nipals: Principal Components Analysis using NIPALS with Gram-Schmidt Orthogonalization. https://cran.r-project.org/
+
+Wu, W., Massart, D.L., de Jong, S., 1997. The kernel PCA algorithms for wide data. Part I: Theory and algorithms. Chemometrics and Intelligent Laboratory Systems 36, 165-172. https://doi.org/10.1016/S0169-7439(97)00010-5
 
 }
 

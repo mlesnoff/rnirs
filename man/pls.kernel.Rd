@@ -10,7 +10,7 @@
 
 PLS1 and PLS2 algorithms.
 
-\code{pls.nipals} implements the NIPALS algorithm (e.g. Tenenhaus 1998, Wold 2002). 
+\code{pls.nipals} implements the NIPALS algorithm (e.g. Tenenhaus 1998, Wold 2002). However, for PLS2, the usual NIPALS iterative part is replaced by the direct calculation of the weights vector \eqn{w} by SVD decomposition of matrix \eqn{X'Y} (Hoskuldsson 1988 p.213).  
 
 \code{pls.kernel} implements the "improved kernel algorithm #1" proposed by Dayal and MacGregor (1997). This algorithm is stable and fast (Andersson 2009), and returns the same results as NIPALS. 
 
@@ -68,6 +68,8 @@ A list of outputs, such as:
 Andersson, M., 2009. A comparison of nine PLS1 algorithms. Journal of Chemometrics 23, 518-529.
 
 Dayal, B.S., MacGregor, J.F., 1997. Improved PLS algorithms. Journal of Chemometrics 11, 73-85.
+
+Hoskuldsson, A., 1988. PLS regression methods. Journal of Chemometrics 2, 211-228. https://doi.org/10.1002/cem.1180020306
 
 Kim, S., Kano, M., Nakagawa, H., Hasebe, S., 2011. Estimation of active pharmaceutical ingredients content using locally weighted partial least squares and statistical wavelength selection. Int. J. Pharm., 421, 269-274.
 

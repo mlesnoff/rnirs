@@ -1,5 +1,10 @@
 ## News for package rnirs
 
+##----------------- Version 1.6-18
+
+- Add of the kernel decomposition in pca.eigen (faster for wide matrices).
+
+
 ##----------------- Version 1.6-17
 
 - Functions kenston and matdis have been made faster.

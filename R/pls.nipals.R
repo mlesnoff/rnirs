@@ -48,6 +48,8 @@ pls.nipals <- function(X, Y, ncomp, weights = NULL) {
     
     X <- X - tcrossprod(t, p)
     
+    Y <- Y - tcrossprod(t, c)
+    
     T[, a] <- t
     W[, a] <- w
     P[, a] <- p
