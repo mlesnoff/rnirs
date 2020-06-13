@@ -27,7 +27,7 @@ pls(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...)
 
 \item{ncomp}{The number of PCA or PLS scores (i.e. components) to be calculated.}
 
-\item{algo}{A function (algorithm) implementing a PCA (default to \code{\link{pca.eigen}}) or a PLS (default to \code{\link{pls.kernel}}).}
+\item{algo}{A function (algorithm) implementing a PCA (default to \code{\link{pca.eigen}}; for wide matrices, set argument \code{kernel = TRUE} if \eqn{n} is not too large, or use \code{\link{pca.svd}} instead) or a PLS (default to \code{\link{pls.kernel}}).}
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 
