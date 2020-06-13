@@ -11,7 +11,7 @@ pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, ...) {
   
   w <- w1 * w2
 
-  fm <- pca.svd(X, ncomp = ncomp, weights = w)
+  fm <- pca.eigen(X, ncomp = ncomp, weights = w, ...)
   
   if(step2) {
     

@@ -1,4 +1,4 @@
-pca <- function(Xr, Xu = NULL, ncomp, algo = pca.svd, ...) {
+pca <- function(Xr, Xu = NULL, ncomp, algo = pca.eigen, ...) {
   
   X <- .matrix(Xr)
   zdim <- dim(X)

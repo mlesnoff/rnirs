@@ -12,7 +12,7 @@ Functions \code{pca} and \code{pls} fit PCA, and PLS1 or PLS2, respectively.
 }
 
 \usage{
-pca(Xr, Xu = NULL, ncomp, algo = pca.svd, ...)
+pca(Xr, Xu = NULL, ncomp, algo = pca.eigen, ...)
 
 pls(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...)
 }
@@ -27,7 +27,7 @@ pls(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...)
 
 \item{ncomp}{The number of PCA or PLS scores (i.e. components) to be calculated.}
 
-\item{algo}{A function (algorithm) implementing a PCA (default to \code{\link{pca.svd}}) or a PLS (default to \code{\link{pls.kernel}}).}
+\item{algo}{A function (algorithm) implementing a PCA (default to \code{\link{pca.eigen}}) or a PLS (default to \code{\link{pls.kernel}}).}
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 
