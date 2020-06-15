@@ -1,7 +1,9 @@
 pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, ...) {
     
   X <- .matrix(X)
-  n <- dim(X)[1]
+  zdim <- dim(X)
+  n <- zdim[1]
+  p <- zdim[2]
   
   r <- out.stah(X, nsim = nsim)
   w1 <- .talworth(r, quantile(r, alpha))
@@ -11,7 +13,7 @@ pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, ...) {
   
   w <- w1 * w2
 
-  fm <- pca.eigen(X, ncomp = ncomp, weights = w, ...)
+  fm <- pca.eigen(X, ncomp = ncomp, weights = w, kernel = (n < p))
   
   if(step2) {
     
