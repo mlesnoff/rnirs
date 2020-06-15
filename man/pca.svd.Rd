@@ -27,7 +27,7 @@ Functions above (except \code{pca.nipalsna}) can give a priori weights to the ob
 
 \usage{
 
-pca.svd(X, ncomp, weights = NULL)
+pca.svd(X, ncomp, weights = NULL, kernel = FALSE)
 
 pca.eigen(X, ncomp, weights = NULL, kernel = FALSE)
 
@@ -47,7 +47,7 @@ pca.nipalsna(X, ncomp, gramschmidt = TRUE,
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
-\item{kernel}{For \code{pca.eigen}. If  \code{TRUE}, the diagonalization is done on the kernel XX' (instead of the covariance matrix X'X). This is a faster algorithm for wide matrices, i.e. where \eqn{p >> n} (Wu et al. 1997). Default to \code{FALSE}.}
+\item{kernel}{For \code{pca.svd} and \code{pca.eigen}. If  \code{TRUE} (default is \code{FALSE}), the kernel versions are used (see Wu et al. 1997). This can be faster when \eqn{n < p}. In particular, for wide matrices (\eqn{n << p}) and \eqn{n} not too large, it is recommended using  \code{eigen(..., kernel = TRUE)}.}
 
 \bold{Specific arguments of} \code{pca.nipalsna}
 
@@ -71,7 +71,7 @@ A list of outputs, such as:
 
 \item{sv}{The singular values (vector of length \eqn{ncomp}).}
 
-\item{eigs}{The eigenvalues (\code{= sv^2}; vector of length \eqn{ncomp}).}
+\item{eig}{The eigenvalues (\code{= sv^2}; vector of length \eqn{ncomp}).}
 
 \item{xmeans}{The centering vector of \eqn{X} (length \eqn{p}).}
 

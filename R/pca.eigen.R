@@ -1,10 +1,10 @@
 pca.eigen <- function(X, ncomp, weights = NULL, kernel = FALSE) {
   
+  ## For Kernel = FALSE
   ## Eigen decomposition of t(X) %*% D %*% X
   ## where D = diag(weights) and X has been centered with metric D
   
   X <- .matrix(X)
-  n <- nrow(X)
   n <- dim(X)[1]
   
   if(is.null(weights))
@@ -18,21 +18,25 @@ pca.eigen <- function(X, ncomp, weights = NULL, kernel = FALSE) {
   if(!kernel) {
     res <- eigen(crossprod(sqrt(weights) * X), symmetric = TRUE)
     P <- res$vectors[, 1:ncomp, drop = FALSE]
+    eig <- res$values[1:ncomp]
+    sv <- sqrt(eig)
     }
   else {
     res <- eigen(tcrossprod(sqrt(weights) * X), symmetric = TRUE) # 
-    z <- 1 /  sqrt(res$values[1:ncomp])
-    P <- crossprod(sqrt(weights) * X, res$vectors[, 1:ncomp, drop = FALSE]) %*% diag(z)
+    eig <- res$values[1:ncomp]
+    sv <- sqrt(eig)
+    P <- crossprod(sqrt(weights) * X, 
+      .scale(res$vectors[, 1:ncomp, drop = FALSE], scale = sv))
     }
 
   T <- X %*% P
   
-  eig <- res$values[1:ncomp]
+  ## eig
   ## = eigenvalues of X'DX = Cov(X) in metric D 
   ## = variances of scores T in metric D
   ## = colSums(weights * T * T)  
   
-  sv <- sqrt(eig)
+  ## sv
   ## = norms of the scores T in metric D
   ## = .xnorm(T, weights = weights)
   ## = sqrt(colSums(weights * T * T))

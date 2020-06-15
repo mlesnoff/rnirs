@@ -1,6 +1,7 @@
-pca.svd <- function(X, ncomp, weights = NULL) {
+pca.svd <- function(X, ncomp, weights = NULL, kernel = FALSE) {
   
-  ## The function implements a SVD of sqrt(D) %*% X
+  ## For Kernel = FALSE
+  ## SVD of sqrt(D) %*% X
   ## where D = diag(weights) and X has been centered with metric D
   
   X <- .matrix(X)
@@ -14,15 +15,20 @@ pca.svd <- function(X, ncomp, weights = NULL) {
   xmeans <- .xmean(X, weights = weights)
   X <- .center(X, xmeans)
   
-  z <- svd(sqrt(weights) * X, nu = 0, nv = ncomp)
-  
-  P <- z$v
+  if(!kernel) {
+    res <- svd(sqrt(weights) * X, nu = 0, nv = ncomp)
+    P <- res$v
+    }
+  else {
+    res <- svd(t(sqrt(weights) * X), nu = ncomp, nv = 0)
+    P <- res$u
+    }
   
   T <- X %*% P
   ## If weights > 0
-  ## = 1 / sqrt(weights) * z$u %*% diag(sv, nrow = ncomp)
+  ## = 1 / sqrt(weights) * res$u %*% diag(sv, nrow = ncomp)
 
-  sv <- z$d[1:ncomp]
+  sv <- res$d[1:ncomp]
   ## = norms of the scores T in metric D
   ## = .xnorm(T, weights = weights)
   ## = sqrt(colSums(weights * T * T))

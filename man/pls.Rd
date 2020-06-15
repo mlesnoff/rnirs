@@ -7,12 +7,12 @@
 
 \description{
 
-Functions \code{pca} and \code{pls} fit PCA, and PLS1 or PLS2, respectively.
+Functions \code{pca} and \code{pls} fit PCA, PLS1 or PLS2 models, respectively.
 
 }
 
 \usage{
-pca(Xr, Xu = NULL, ncomp, algo = pca.eigen, ...)
+pca(Xr, Xu = NULL, ncomp, algo = NULL, ...)
 
 pls(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...)
 }
@@ -27,7 +27,7 @@ pls(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...)
 
 \item{ncomp}{The number of PCA or PLS scores (i.e. components) to be calculated.}
 
-\item{algo}{A function (algorithm) implementing a PCA (default to \code{\link{pca.eigen}}; for wide matrices, set argument \code{kernel = TRUE} if \eqn{n} is not too large, or use \code{\link{pca.svd}} instead) or a PLS (default to \code{\link{pls.kernel}}).}
+\item{algo}{For \code{pca}, a function (algorithm) implementing a PCA. If \code{NULL} (default), the function is \code{\link{pca.eigen}} in which argument \code{kernel} depends on  the values of \eqn{n} and  \eqn{p} (see the code). For \code{pls}, a function implementing a PLS (default to \code{\link{pls.kernel}}).}
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 

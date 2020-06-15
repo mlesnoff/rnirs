@@ -1,11 +1,15 @@
-pca <- function(Xr, Xu = NULL, ncomp, algo = pca.eigen, ...) {
+pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   
   X <- .matrix(Xr)
   zdim <- dim(X)
   n <- zdim[1]
   p <- zdim[2]
   
-  fm <- algo(X, ncomp, ...)
+  if(is.null(algo))
+    fm <- pca.eigen(X, ncomp, kernel = (n < p), ...)
+  else
+    fm <- algo(X, ncomp, ...)
+  
   weights <- fm$weights
 
   X <- .center(X, fm$xmeans)

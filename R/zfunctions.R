@@ -1,4 +1,4 @@
-.center <- function(X, center) 
+.center <- function(X, center = matrixStats::colMeans2(X)) 
   t((t(X) - c(center)))
 
 .detrend.als <- function(X, lambda = 1e+07, p = 0.001, maxit = 25) {
