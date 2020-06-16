@@ -65,15 +65,29 @@
   
   }
 
-.dist <- function(X) {
+.dist <- function(X, Y = NULL) {
   
-  ## Calculates a matrix of squared distances
-  ## = Symetric matrix of the squared Euclidean distances between the rows of X
+  ## Calculates squared Euclidean distances
   
-  n <- dim(X)[1]
+  ## X = n x p
+  ## Y = m x p
+  ## ----- Y == NULL
+  ## ==> n x n symetric matrix of the squared distances between the rows of X
+  ## ----- Y != NULL
+  ## ==> n x m matrix of the squared distances between the rows of X and the rows of Y
   
-  sq <- matrixStats::rowSums2(X * X)
-  pmax(outer(sq, sq, "+") - 2 * tcrossprod(X), 0)
+  X <- .matrix(X)
+  
+  if(is.null(Y)) {
+    sq <- matrixStats::rowSums2(X * X)
+    pmax(outer(sq, sq, "+") - 2 * tcrossprod(X), 0)
+    }
+  else {
+    Y <- .matrix(Y)
+    sqx <- matrixStats::rowSums2(X * X)
+    sqy <- matrixStats::rowSums2(Y * Y)
+    pmax(outer(sqx, sqy, "+") - 2 * tcrossprod(X, Y), 0)
+    }
   
   }
 
