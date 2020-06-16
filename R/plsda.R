@@ -17,14 +17,12 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
     fm$C <- matrix(NA, nrow = 1, ncol = ncomp)
     fm$ymeans <- rep(NA, nrow(Xu))
     }
-  else {
-    Yrdummy <- dummy(Yr)
+  else 
     fm <- do.call(
       pls, 
-      c(list(Xr = Xr, Yr = Yrdummy, Xu = Xu, ncomp = ncomp,
+      c(list(Xr = Xr, Yr = dummy(Yr), Xu = Xu, ncomp = ncomp,
         algo = algo), dots.algo)
       ) 
-    }
   
   m <- dim(fm$Tu)[1]
   

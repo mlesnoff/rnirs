@@ -34,7 +34,7 @@
   exp(-.5 * .dist(X, Y) / sigma^2)
   }
 
-.kpol <- function(X, Y = NULL, degree = 1, scale = 1, offset = 0) {
+.kpoly <- function(X, Y = NULL, degree = 1, scale = 1, offset = 0) {
   
   if(is.null(Y))
     K <- (scale * tcrossprod(X) + offset)

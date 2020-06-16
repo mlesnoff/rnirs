@@ -61,7 +61,7 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
     xmeans = fm$xmeans, weights = fm$weights, 
     explvarx = explvarx, contr.ind = contr.ind, 
     coord.var = coord.var, contr.var = contr.var,
-    cor.circle = cor.circle) 
+    cor.circle = cor.circle, T.ortho = TRUE) 
   
   }
 

@@ -6,12 +6,15 @@ plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
   m <- dim(fm$Tu)[1]
   rownam.Xu <- row.names(fm$Tu)
   q <- length(fm$ymeans)
-  colnam.Yu <- names(fm$ymeans)
+  colnam.Y <- names(fm$ymeans)
   
   if(is.null(Yu)) 
     Yu <- matrix(nrow = m, ncol = q)
   else {
-    if(q == 1) row <- FALSE else row <- TRUE
+    if(q == 1)
+      row <- FALSE 
+    else 
+      row <- TRUE
     Yu <- .matrix(Yu, row = row)
     }
 
@@ -44,7 +47,7 @@ plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,
   
   zq <- ncol(y)
   u <- (zq - q + 1):zq
-  names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Yu
+  names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Y
 
   list(y = y, fit = fit, r = r, fm = fm)
 

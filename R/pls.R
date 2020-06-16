@@ -3,9 +3,9 @@ pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...) {
   X <- .matrix(Xr)
   n <- dim(X)[1]
   
-  Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
+  Y <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
 
-  fm <- algo(X, Yr, ncomp, ...)
+  fm <- algo(X, Y, ncomp, ...)
   
   X <- .center(X, fm$xmeans)
   
@@ -26,7 +26,7 @@ pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...) {
   
   list(Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, C = fm$C, TT = fm$TT,
     xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights, 
-    explvarx = explvarx, Y = Yr, niter = fm$niter)
+    explvarx = explvarx, Y = Y, niter = fm$niter)
   
   }
 
