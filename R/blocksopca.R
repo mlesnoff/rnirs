@@ -1,8 +1,17 @@
-blocksopca <- function(Xr, Xu = NULL, blocks, ncomp, ...) {
+blocksopca <- function(Xr, Xu = NULL, blocks, colblocks = NULL, ncomp, ...) {
   
+  if(!is.null(colblocks)) {
+    lev <- levels(as.factor(colblocks))
+    nlev <- length(lev)
+    blocks <- vector(mode = "list", length = nlev)
+    for(i in 1:nlev)
+      blocks[[i]] <- which(colblocks == lev[i])  
+    }
+
   nbl <- length(blocks)
   
-  if(length(ncomp) == 1) ncomp <- rep(ncomp, nbl)
+  if(length(ncomp) == 1) 
+    ncomp <- rep(ncomp, nbl)
   
   zblocks <- data.frame(numcol = 1:sum(ncomp), bl = rep(1:nbl, ncomp))
   
@@ -20,7 +29,7 @@ blocksopca <- function(Xr, Xu = NULL, blocks, ncomp, ...) {
     Xu <- blocksel(Xu, blocks)$X
   ### END
   
-  m <- nrow(Xu)
+  m <- dim(Xu)[1]
   
   fm <- pca(
     Xr[, newblocks[[1]], drop = FALSE],
@@ -49,7 +58,8 @@ blocksopca <- function(Xr, Xu = NULL, blocks, ncomp, ...) {
 
     }
   
-  if(nullXu) Tu <- NULL
+  if(nullXu)
+    Tu <- NULL
   
   list(Tr = Tr, Tu = Tu, blocks = blocks)  
 

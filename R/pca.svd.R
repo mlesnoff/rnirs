@@ -15,7 +15,7 @@ pca.svd <- function(X, ncomp, weights = NULL, kernel = FALSE) {
   xmeans <- .xmean(X, weights = weights)
   X <- .center(X, xmeans)
   
-  if(!kernel) {
+  if(!kern) {
     res <- svd(sqrt(weights) * X, nu = 0, nv = ncomp)
     P <- res$v
     }
@@ -44,7 +44,7 @@ pca.svd <- function(X, ncomp, weights = NULL, kernel = FALSE) {
   colnames(T) <- colnames(P) <- paste("comp", 1:ncomp, sep = "")
   
   list(T = T, P = P, R = P, sv = sv, eig = eig,
-    xmeans = xmeans, weights = weights)
+    xmeans = xmeans, weights = weights, T.ortho = TRUE)
 
   }
 

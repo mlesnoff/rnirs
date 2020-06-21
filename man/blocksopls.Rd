@@ -7,23 +7,21 @@
 
 \description{
 
-Functions \code{blocksopca} and \code{blocksopls} implement dimension reduction of pre-selected blocks of variables (= set of columns) of a reference (= training) matrix and eventually a new (= test) matrix, by sequential orthogonalization-PCA or -PLS (SO-PCA and SO-PLS), respectively. 
+Functions \code{blocksopca} and \code{blocksopls} implement dimension reduction of pre-selected blocks of variables (= set of columns) of a reference (= training) matrix and eventually a new (= test) matrix, by sequential orthogonalization-PCA or -PLS (said "SO-PCA" and "SO-PLS"), respectively. 
 
-SO-PLS is for instance described in Menichelli et al. (2014), Biancolillo et al. (2015) and Biancolillo (2016). SO-PCA uses the same approach but replacing PLS by PCA (in such case, response variables \eqn{Y} are not required). The block reduction consists in calculating latent variables (= scores) for each block, each block being sequentially orthogonalized to the information computed from the previous blocks.
+SO-PLS is described for instance in Menichelli et al. (2014), Biancolillo et al. (2015) and Biancolillo (2016). SO-PCA uses the same approach but replacing PLS by PCA (in such case, response variables \eqn{Y} are not required). The block reduction consists in calculating latent variables (= scores) for each block, each block being sequentially orthogonalized to the information computed from the previous blocks.
 
-The scores calculated for the different blocks of the reference matrix are concatenated into a new output matrix (= concatenation of the blocks of scores). The same is done for the eventual test matrix.
+The scores calculated for the different blocks of the reference matrix are concatenated into a new output matrix. The same is done for the eventual test matrix.
 
-These output matrices can be used in LMR, PLSR or PLSDA (or any other models) for \eqn{Y-}predictions, see examples.
-
-The function allows giving particular weights to the rows of the reference matrix in the calculations (argument \code{weights} to specify within the optional arguments "\code{...}").
+The function allows giving a priori weights to the rows of the reference matrix in the calculations (argument \code{weights} to specify within the optional arguments "\code{...}").
 
 }
 
 \usage{
 
-blocksopca(Xr, Xu = NULL, blocks, ncomp, ...)
+blocksopca(Xr, Xu = NULL, blocks, colblocks = NULL, ncomp, ...)
 
-blocksopls(Xr, Yr, Xu = NULL, blocks, ncomp, ...)
+blocksopls(Xr, Yr, Xu = NULL, blocks, colblocks = NULL, ncomp, ...)
 
 }
 
@@ -36,6 +34,8 @@ blocksopls(Xr, Yr, Xu = NULL, blocks, ncomp, ...)
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations, which receives the same block-scaling as \eqn{Xr} (\eqn{Xu} is not used in the calculation of the block score spaces). Default to \code{NULL}.}
 
 \item{blocks}{A list of same length as the number of blocks. Each component of the list gives the column numbers in \eqn{Xr} defining the given block. The same blocks are used for \eqn{Xu}.}
+
+\item{colblocks}{Alternative to using argument \code{blocks}. A numeric vector of length \eqn{p} giving the index of the block for each of the columns of \eqn{Xr} (the same vector is used for \eqn{Xu}). Default to \code{NULL} (argument \code{blocks} is used instead).}
 
 \item{ncomp}{A vector of same length as the number of blocks defining the number of scores to calculate for each block, or a single number. In this last case, the same number of scores is used for all the blocks.}
 
@@ -88,19 +88,18 @@ Yu <- Y[9:10, ]
 n <- nrow(Xr)
 m <- nrow(Xu)
 
-
 blocks <- list(1:4, 5:7, 9:ncol(X))
 blocks
 
 ncomp <- 2
 
-blocksopls(Xr, Yr, Xu, blocks, ncomp)
+blocksopls(Xr, Yr, Xu, blocks, ncomp = ncomp)
 
 ############# Syntax with weights
 
 w <- rep(1 / n, n)
 #w <- 1:n
-blocksopls(Xr, Yr, Xu, blocks, ncomp, weights = w)
+blocksopls(Xr, Yr, Xu, blocks, ncomp = ncomp, weights = w)
 
 ############# Syntax for a SO-PLSR
 
@@ -117,14 +116,14 @@ Xu <- detrend(Xu, method = "lowess")
 
 blocks <- list(1:500, 501:1050)
 ncomp <- c(10, 5)
-zfm <- blocksopls(Xr, yr, Xu, blocks = blocks, ncomp = ncomp)
+zfm <- blocksopls(Xr, yr, Xu, blocks, ncomp = ncomp)
 fm <- lmr(zfm$Tr, yr, zfm$Tu, yu)
 headm(fm$fit)
 mse(fm)
 plot(fm$fit$y1, fm$y$y1)
 abline(0, 1)
 
-zfm <- blocksopls(Xr, yr, Xu, blocks = blocks, ncomp = ncomp)
+zfm <- blocksopls(Xr, yr, Xu, blocks, ncomp = ncomp)
 zncomp <- ncol(zfm$Tr)
 fm <- plsr(zfm$Tr, yr, zfm$Tu, yu, ncomp = zncomp)
 headm(fm$fit)
@@ -155,7 +154,7 @@ table(yu)
 
 blocks <- list(1:350, 351:700)
 ncomp <- 10
-zfm <- blocksopls(Xr, dummy(yr), Xu, blocks = blocks, ncomp = ncomp)
+zfm <- blocksopls(Xr, dummy(yr), Xu, blocks, ncomp = ncomp)
 fm <- daprob(zfm$Tr, yr, zfm$Tu, yu)
 headm(fm$fit)
 err(fm)

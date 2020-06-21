@@ -2,6 +2,23 @@
 
 ##----------------- Version 1.6-18
 
+- New functions:
+
+  kpca
+  
+  kernel functions: kpol, krbf
+  
+  pcr
+  
+  pls.bidiag2
+  
+
+- New argument "colblocks" in functions blocscal, blockpls, blocksopca, blocksopls. 
+
+
+
+##----------------- Version 1.6-18
+
 - Internal modification of function pca (the default algorithm is now pca.eigen).
 
 - Add of the argument "kernel" in pca.svd and pca.eigen (faster for wide matrices).

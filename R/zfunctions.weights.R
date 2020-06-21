@@ -28,34 +28,4 @@
 .tricube <- function(x, a = 1)
   c(ifelse(abs(x) < a, (1 - abs(x / a)^3)^3, 0))
 
-############## KERNELS
-
-.krbf <- function(X, Y = NULL, sigma = 1) {
-  exp(-.5 * .dist(X, Y) / sigma^2)
-  }
-
-.kpoly <- function(X, Y = NULL, degree = 1, scale = 1, offset = 0) {
-  
-  if(is.null(Y))
-    K <- (scale * tcrossprod(X) + offset)
-  else
-    K <- (scale * tcrossprod(X, Y) + offset)
-  
-  if(degree > 1) {
-    zK <- K
-    for(i in 1:(degree - 1))
-      K <- K * zK
-    }
-  
-  K  
-    
-  }
-
-
-
-
-
-
-
-
 

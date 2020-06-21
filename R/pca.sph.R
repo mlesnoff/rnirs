@@ -42,7 +42,7 @@ pca.sph <- function(X, ncomp, weights = NULL) {
   colnames(T) <- colnames(P) <- paste("comp", 1:ncomp, sep = "")
   
   list(T = T, P = P, R = P, sv = sv, eig = eig, zT = zT, zeig = zeig,
-    zxsstot = zxsstot, xmeans = xmeans, weights = weights)
+    zxsstot = zxsstot, xmeans = xmeans, weights = weights, T.ortho = TRUE)
 
   }
 

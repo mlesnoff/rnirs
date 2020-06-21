@@ -1,28 +1,28 @@
-kpca <- function(Xr, Xu = NULL, ncomp, kernel = NULL, ...) {
+kpca <- function(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
   
   X <- .matrix(Xr)
-  zdim <- dim(X)
-  n <- zdim[1]
-  p <- zdim[2]
+  n <- dim(X)[1]
   
-  .k <- kernel
-  if(is.null(.k))
-    .k <- .krbf
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
   
-  K <- .k(X, ...)
-  Kc <- t(t(K - colSums(K) / n) -  rowSums(K) / n) + sum(K) / n^2
-  #J <- matrix(1, nrow = n, ncol = n) / n
-  #Kc <- K - J %*% K - K %*% J + J %*% K %*% J
+  K <- kern(X, ...)
+  tK <- t(K)
+  zK <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + sum(weights * t(weights * tK))
+  Kd <- sqrt(weights) * t(sqrt(weights) * t(zK))
+
+  res <- eigen(Kd)
   
-  res <- eigen(Kc / n)
-  
+  A <- res$vectors[, 1:ncomp]
   eig <- res$values[1:ncomp]
   sv <- sqrt(eig)
   xsstot <- sum(res$values)
-
-  A <- .scale(res$vectors[, 1:ncomp, drop = FALSE], scale = sv)
   
-  T <- Kc %*% A
+  Pr <- sqrt(weights) * .scale(A, scale = sv)
+
+  T <- zK %*% Pr
   
   z <- data.frame(ncomp = 1:ncomp, var = eig, pvar = eig / xsstot)
   z$cumpvar <- cumsum(z$pvar)
@@ -33,21 +33,23 @@ kpca <- function(Xr, Xu = NULL, ncomp, kernel = NULL, ...) {
   if(!is.null(Xu)) {
     
     Xu <- .matrix(Xu)
-    m <- dim(Xu)[1]
     
-    Ku <- .k(Xu, X, ...)
+    Ku <- kern(Xu, X, ...)
+    zKu <- t(t(Ku - colSums(weights * t(Ku))) - colSums(weights * tK)) + sum(weights * t(weights * tK))
+
+    Tu <- zKu %*% Pr
     
-    Kuc <- t(t(Ku - rowSums(Ku) / n) - rowSums(K) / n) + sum(K) / (n * n) 
-    #Ju <- matrix(1, nrow = m, ncol = n) / n
-    #Kuc <- Ku - Ju %*% K - Ku %*% J + Ju %*% K %*% J
-    
-    Tu <- Kuc %*% A
+    row.names(Tu) <- row.names(Xu)
+    colnames(Tu) <-  paste("comp", 1:ncomp, sep = "")
     
     }
   
+  row.names(A) <- row.names(T) <- row.names(X)
+  colnames(T) <- colnames(A) <-  paste("comp", 1:ncomp, sep = "")
+  
   list(Tr = T, Tu = Tu, A = A, 
     eig = eig, sv = sv, explvarx = explvarx, values = res$values,
-    weights = rep(1 / n, n), T.ortho = TRUE) 
+    weights = weights, T.ortho = TRUE) 
   
   }
 

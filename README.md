@@ -1,4 +1,4 @@
-## rnirs 1.6-18
+## rnirs 1.7-0
 ## Chemometrics Method and Locally Weighted Regressions 
 
 R package focusing on chemometrics methods, including locally weighted PLS regression and discrimination.
@@ -11,31 +11,31 @@ Using Rstudio is recommended for installation and usage (https://www.rstudio.com
 
 You can install and update the package directly from GitHub (see below), or by asking the .tar.gz or zip installation file to the author (see Contact section at the end). 
 
-If you use package **rnris** and like it, do not hesitate to mark a star on this GithHub web-page. You may also register as watchers for receiving alerts for some important updates. For both of these operations, you need to be connected on your account.
+If you use package **rnris** and like it, do not hesitate to **mark a star** on this GithHub web-page. You may also register as watchers for receiving alerts for some important updates. For both of these operations, you need to be connected on your account.
 
 ## Main features 
 
 * Data checking and summarizing
 * Data pre-processing: Detrend (poly, lowess, als), SNV, Derivation (Savitsky-Golay, Finite difference)
 * Multivariate factorial analyses 
-    - PCA: Usual, Robust
+    - PCA
+        - Usual
+        - Robust
+    - Non-linear kernel PCA
     - PLS
     - FDA
 * Variable selection: CovSel
 * Regression
     - LMR
+    - PCR
     - PLSR
-    - Wrappers using function locw
-        - KNNWR  
-        - LWPLSR
-        - KNN-LWPLSR
 * Discrimination (with various DA methods)
+    - DA
     - PLSDA
-    - Wrappers using function locw
-        - KNNWDA 
-        - LWPLSDA
-        - KNN-LWPLSDA 
-* Multiblock functions:
+* Locally weighted regression and discrimination (using function locw)
+    - KNNWR/DA
+    - KNN-LWPLSR/DA
+* Multiblock
     - Orthogonalization of a matrix to another matrix
     - Block-selection
     - Block-scaling

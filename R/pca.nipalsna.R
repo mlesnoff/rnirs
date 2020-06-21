@@ -114,7 +114,7 @@ pca.nipalsna <- function(X, ncomp,
   colnames(scores) <- colnames(loadings) <- paste("comp", 1:ncomp, sep = "")
 
   list(T = scores, P = loadings, R = loadings,
-    sv = sv, eig = eig, xmeans = xmeans, weights = rep(1, n), iter = iter)
+    sv = sv, eig = eig, xmeans = xmeans, weights = rep(1, n), iter = iter, T.ortho = TRUE)
 
   }
 

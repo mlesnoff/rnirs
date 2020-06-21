@@ -1,4 +1,12 @@
-blockscal <- function(Xr, Xu = NULL, blocks, weights = NULL) {
+blockscal <- function(Xr, Xu = NULL, blocks, colblocks = NULL, weights = NULL) {
+  
+  if(!is.null(colblocks)) {
+    lev <- levels(as.factor(colblocks))
+    nlev <- length(lev)
+    blocks <- vector(mode = "list", length = nlev)
+    for(i in 1:nlev)
+      blocks[[i]] <- which(colblocks == lev[i])  
+    }
   
   nbl <- length(blocks)
   

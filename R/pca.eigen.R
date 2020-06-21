@@ -1,4 +1,4 @@
-pca.eigen <- function(X, ncomp, weights = NULL, kernel = FALSE) {
+pca.eigen <- function(X, ncomp, weights = NULL, kern = FALSE) {
   
   ## For Kernel = FALSE
   ## Eigen decomposition of t(X) %*% D %*% X
@@ -15,7 +15,7 @@ pca.eigen <- function(X, ncomp, weights = NULL, kernel = FALSE) {
   xmeans <- .xmean(X, weights = weights)
   X <- .center(X, xmeans)
 
-  if(!kernel) {
+  if(!kern) {
     res <- eigen(crossprod(sqrt(weights) * X), symmetric = TRUE)
     P <- res$vectors[, 1:ncomp, drop = FALSE]
     eig <- res$values[1:ncomp]
@@ -47,7 +47,7 @@ pca.eigen <- function(X, ncomp, weights = NULL, kernel = FALSE) {
   colnames(T) <- colnames(P) <-  paste("comp", 1:ncomp, sep = "")
   
   list(T = T, P = P, R = P, sv = sv, eig = eig, 
-    xmeans = xmeans, weights = weights)
+    xmeans = xmeans, weights = weights, T.ortho = TRUE)
 
   }
 

@@ -62,7 +62,7 @@ pca.cr <- function(X, ncomp, obj = mad, nsim = 0) {
   colnames(P) <- colnames(T) <- paste("comp", 1:ncomp, sep = "") 
   
   list(T = T, P = P, R = P, sv = sv, eig = eig, 
-    xmeans = xmeans, weights = rep(1 / n, n), ndir = ndir)
+    xmeans = xmeans, weights = rep(1 / n, n), ndir = ndir, T.ortho = FALSE)
   
   }
 

@@ -20,7 +20,7 @@ pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, ...) {
     r <- out.pca(fm, X, ...)
     w <- .talworth(r, 1)
     
-    fm <- pca.svd(X, ncomp = ncomp, weights = w)
+    fm <- pca.eigen(X, ncomp = ncomp, weights = w, kernel = (n < p))
     
     }
   

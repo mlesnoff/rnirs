@@ -6,7 +6,7 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   p <- zdim[2]
   
   if(is.null(algo))
-    fm <- pca.eigen(X, ncomp, kernel = (n < p), ...)
+    fm <- pca.eigen(X, ncomp, kern = (n < p), ...)
   else
     fm <- algo(X, ncomp, ...)
   
@@ -61,7 +61,7 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
     xmeans = fm$xmeans, weights = fm$weights, 
     explvarx = explvarx, contr.ind = contr.ind, 
     coord.var = coord.var, contr.var = contr.var,
-    cor.circle = cor.circle, T.ortho = TRUE) 
+    cor.circle = cor.circle, T.ortho = fm$T.ortho) 
   
   }
 

@@ -48,7 +48,7 @@ pca.nipals <- function(X, ncomp, weights = NULL,
   colnames(P) <- colnames(T) <- paste("comp", 1:ncomp, sep = "") 
   
   list(T = T, P = P, R = P, sv = sv, eig = eig, 
-    xmeans = xmeans, weights = weights, niter = niter)
+    xmeans = xmeans, weights = weights, niter = niter, T.ortho = TRUE)
 
   }
 
