@@ -6,7 +6,7 @@
 
 \description{
 
-Function \code{plsr} fits PLSR1 or PLSR2 models.
+Fitting PLSR1 or PLSR2 models.
 
 }
 
@@ -53,7 +53,7 @@ A list of outputs (see examples), such as:
 n <- 10
 p <- 6
 set.seed(1)
-X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
+X <- matrix(rnorm(n * p, mean = 10), ncol = p)
 y1 <- 100 * rnorm(n)
 y2 <- 100 * rnorm(n)
 Y <- cbind(y1, y2)
@@ -74,7 +74,7 @@ plsr(Xr, Yr, Xu, ncomp = ncomp)[c("y", "fit", "r")]
 
 plsr(Xr, Yr[, 1], Xu, Yu[, 1], ncomp = ncomp)[c("y", "fit", "r")]
 
-#### b-coefficients for the model with ncomp components
+####### B-COEFFICIENTS FOR THE MODEL WITH ncomp COMPONENTS
 
 b <- bcoef(fm)
 b
@@ -82,7 +82,7 @@ b
 cbind(rep(1, nrow(Xu)), Xu) %*% b
 fm$fit[fm$fit$ncomp == ncomp, ]
 
-#### mse and plotmse
+####### MSE
 
 ncomp <- 3
 fm <- plsr(Xr, Yr, Xu, Yu, ncomp = ncomp)

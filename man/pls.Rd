@@ -54,7 +54,7 @@ And other outputs: See the examples and function defined in \code{algo}.
 n <- 10
 p <- 6
 set.seed(1)
-X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
+X <- matrix(rnorm(n * p, mean = 10), ncol = p)
 y1 <- 100 * rnorm(n)
 y2 <- 100 * rnorm(n)
 Y <- cbind(y1, y2)

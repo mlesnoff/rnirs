@@ -36,16 +36,6 @@ pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, meth = pca, ...) {
      #zT <- weights * fm$Tr
      #beta <- solve(crossprod(zT, fm$Tr)) %*% crossprod(zT, Y)
      }
-
-  if(fm$T.ortho) {
-    
-    z <- coef(lm(Y ~ fm$Tr[, 1:ncomp, drop = FALSE] - 1, weights = weights))
-    beta <- matrix(z, nrow = ncomp, ncol = q)
-    ## Same as:
-    #zT <- weights * fm$Tr
-    #beta <- solve(crossprod(zT, fm$Tr)) %*% crossprod(zT, Y)
-    
-    }
   
   for(a in 1:ncomp) {
     
@@ -54,10 +44,16 @@ pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, meth = pca, ...) {
       beta <- matrix(z, nrow = a, ncol = q)
       }
     
+    colnames(beta) <- colnam.Y
+    row.names(beta) <- paste("comp", 1:ncomp, sep = "")
+    
     y[, a + 1, ] <- Yu
     fit[, a + 1, ] <- Ymeans + fm$Tu[, 1:a, drop = FALSE] %*% beta[1:a, , drop = FALSE]
 
     }    
+  
+  fm$C <- t(beta)
+  fm$ymeans <- ymeans
   
   y <- matrix(c(y), nrow = m * (ncomp + 1), ncol = q, byrow = FALSE)
   fit <- matrix(c(fit), nrow = m * (ncomp + 1), ncol = q, byrow = FALSE)

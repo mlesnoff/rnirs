@@ -1,20 +1,18 @@
 ## News for package rnirs
 
-##----------------- Version 1.6-18
+##----------------- Version 1.7-0
 
 - New functions:
 
+  pcr
+  
   kpca
   
   kernel functions: kpol, krbf
   
-  pcr
+  matpoly
   
-  pls.bidiag2
-  
-
 - New argument "colblocks" in functions blocscal, blockpls, blocksopca, blocksopls. 
-
 
 
 ##----------------- Version 1.6-18
