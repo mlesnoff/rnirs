@@ -40,7 +40,7 @@ pca.cr(X, ncomp, obj = mad, nsim = 0)
 
 pca.sph(X, ncomp, weights = NULL)
 
-pca.rob(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, ...)
+pca.rob(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, kern = NULL, ...)
 
 }
 
@@ -59,6 +59,8 @@ pca.rob(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, ...)
 \item{alpha}{For \code{pca.rob}. Proportion \eqn{1 - alpha} is used for hard rejection of outliers in Step 1 (default to \code{alpha = .70}).}
 
 \item{step2}{For \code{pca.rob}. If \code{TRUE} (default), Step 2 is implemented.}
+
+\item{kern}{For \code{pca.rob}. Used in \code{\link{pca.eigen}}.}
 
 \item{...}{For \code{pca.rob}. Optional arguments to pass in function \code{\link{out.pca}}.}
 

@@ -4,14 +4,21 @@
 
 - New functions:
 
-  pcr  (PCR)
+    kpca    : Non-linear kernel PCA
   
-  kpca  (Non-linear kernel PCA)
+    Kernel functions    : kpol, krbf
   
-  Kernel functions: kpol, krbf
+    matpoly   : Blocks for INLR regerssion model
+    
+    pcr     : PCR
+    
+    pcda    : PCDA (discrimination on principal components)
   
-  matpoly (Blocks for INLR)
   
+- Modification of function bcoef
+
+- Internal modifications (output structure) of functions pca, pls, plsr, lwplsr, lwplsda, lwplsdalm
+
 - New argument "colblocks" in functions blocscal, blockpls, blocksopca, blocksopls. 
 
 

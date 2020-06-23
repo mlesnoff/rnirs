@@ -11,6 +11,8 @@ Package rnirs focuses on chemometrics methods, including locally weighted PLS re
 
 The package was initially implemented for near infrared spectral (NIRS) data, but is generic for any type of data.
 
+See https://github.com/mlesnoff/rnirs. 
+
 }
 
 \details{
@@ -37,6 +39,12 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
   \code{\link{snv}} \tab Standard-normal-deviation transformation\cr
   }
 
+\bold{------------ DATA SAMPLING}
+\tabular{ll}{
+  \code{\link{kenston}} \tab Kennard-Stone sampling \cr
+  \code{\link{sampclas}} \tab Within-class sampling\cr
+  }
+
 \bold{------------ PCA}
 \tabular{ll}{
   \code{\link{pca}} \tab PCA with the available algorithms below\cr
@@ -54,12 +62,30 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 \eqn{Robust algorithms}
 
 \tabular{ll}{
-  \code{\link{pca.rob}} \tab Robust (WPCA) \cr
+  \code{\link{pca.rob}} \tab Robust WPCA \cr
   \code{\link{pca.cr}} \tab Croux & Ruiz-Gazen (2005) \cr
   \code{\link{pca.sph}} \tab Spherical (Locantore 1999) \cr
+  }
+
+\eqn{Outlyingness}
+
+\tabular{ll}{
   \code{\link{out.stah}} \tab Outlyingness measure (Stahel-Donoho) \cr
   \code{\link{out.eucl}} \tab Outlyingness measure (From Euclidean distance) \cr
   \code{\link{out.pca}} \tab Outlyingness measure (From PCA scores) \cr
+  }
+
+
+\bold{------------ NON-LINEAR KERNEL PCA}
+\tabular{ll}{
+  \code{\link{kca}} \tab KPCA\cr
+  }
+
+\eqn{Kernel functions}
+
+\tabular{ll}{
+  \code{\link{kpol}} \tab Polynomial \cr
+  \code{\link{krbf}} \tab Gausssian RBF \cr
   }
 
 \bold{------------ PLS}
@@ -70,9 +96,9 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 \eqn{Algorithms}
 
 \tabular{ll}{
-  \code{\link{pls.kernel}} \tab Kernel (Dayal & McGregor 1997) \cr
+  \code{\link{pls.kernel}} \tab "Improved Kernel #1" (Dayal & McGregor 1997) \cr
   \code{\link{pls.nipals}} \tab NIPALS \cr
-  \code{\link{pls.rannar}} \tab Kernel for wide matrices (Rannar et al. 1994) \cr
+  \code{\link{pls.rannar}} \tab Kernel version for wide matrices (Rannar et al. 1994) \cr
   }
 
 \bold{------------ FDA}
@@ -96,7 +122,9 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 
 \tabular{ll}{
   \code{\link{lmr}} \tab LMR\cr
+  \code{\link{pcr}} \tab PCR\cr
   \code{\link{plsr}} \tab PLSR\cr
+  \code{\link{matpoly}} \tab Blocks for INLR (Berglund & Wold 1997)\cr
   }
 
 \eqn{Locally weighted}
@@ -121,6 +149,7 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 \eqn{Global (eventually weighted)}
 
 \tabular{ll}{
+  \code{\link{pcda}} \tab PCDA (DA on principal components)\cr
   \code{\link{plsda}}, \code{\link{plsdalm}} \tab PLSDA\cr
   }
 
@@ -171,16 +200,14 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
 \bold{------------ MISCELLANEOUS}
 
 \tabular{ll}{
-  \code{\link{headm}} \tab Return the first part of a matrix or data frame \cr
-  \code{\link{kenston}} \tab Kennard-Stone sampling \cr
-  \code{\link{pinv}} \tab Moore-Penrose pseudo-inverse \cr
-  \code{\link{dummy}} \tab Table of dummy variables \cr
-  \code{\link{matdis}} \tab Dissimilarity matrix (between observations)\cr
   \code{\link{dis}}  \tab Dissimilarities between row observations of a matrix and a given vector  \cr
-  \code{\link{wdist}} \tab Weights for distances \cr
-  \code{\link{sampclas}} \tab Within-class sampling\cr
+  \code{\link{dummy}} \tab Table of dummy variables \cr
+  \code{\link{headm}} \tab Return the first part of a matrix or data frame \cr
   \code{\link{getknn}} \tab Knn selection \cr
   \code{\link{locw}} \tab Locally weighted models \cr
+  \code{\link{matdis}} \tab Dissimilarity matrix (between observations)\cr
+  \code{\link{pinv}} \tab Moore-Penrose pseudo-inverse \cr
+  \code{\link{wdist}} \tab Weights for distances \cr
   }
 
 \eqn{-- Other}
@@ -194,7 +221,7 @@ The package was initially implemented for near infrared spectral (NIRS) data, bu
   \code{\link{sourcedir}} \tab Source R functions in a directory \cr
   }
 
-\bold{See also the auxiliary functions in file} \code{zfunctions.R}.
+\bold{See also the auxiliary functions in files} \code{zfunctions.R} and \code{zfunctions.weights.R}.
 
 }
 
