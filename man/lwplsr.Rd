@@ -25,6 +25,8 @@ kNN-LWPLSDA uses the same principle, though WPLSDA is used in place of WPLSR.
 
 In functions \code{lwplsr}, \code{lwplsda} and \code{lwplsdalm}, the dissimilarities used for computing the weights can be calculated from the original \eqn{X-}data (i.e. without dimension reduction) or, when using argument \code{ncompdis}, from preliminary computed global PLS scores.  
 
+Data are internally centered before the analyses, but not scaled. If needed, the scaling has to be done by the user before using the functions.  
+
 }
 
 \usage{

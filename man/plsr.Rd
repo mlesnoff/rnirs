@@ -8,6 +8,8 @@
 
 Fitting PLSR1 or PLSR2 models.
 
+Data are internally centered before the analyses, but not scaled. If needed, the scaling has to be done by the user before using the functions.  
+
 }
 
 \usage{

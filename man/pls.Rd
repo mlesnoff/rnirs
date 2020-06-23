@@ -7,7 +7,9 @@
 
 \description{
 
-Functions \code{pca} and \code{pls} fit PCA, PLS1 or PLS2 models, respectively.
+Functions \code{pca} and \code{pls} fit PCA and PLS1 or PLS2 models, respectively.
+
+Data are internally centered before the analyses, but not scaled. If needed, the scaling has to be done by the user before using the functions.  
 
 }
 

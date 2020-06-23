@@ -9,6 +9,9 @@
 Non-linear kernel PCA (e.g. Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
 
 The function can set a priori weights to the training observations (rows of \eqn{Xr}), with argument \code{weights}.
+
+The kernel Gram matrix is internally centered before the analyses, but the data are not scaled. If needed, the scaling has to be done by the user before using the functions.  
+
 }
 
 \usage{

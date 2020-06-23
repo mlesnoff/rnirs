@@ -8,6 +8,8 @@
 
 Fitting PCR1 or PCR2 models.
 
+Data are internally centered before the analyses, but not scaled. If needed, the scaling has to be done by the user before using the functions.  
+
 }
 
 \usage{

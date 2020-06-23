@@ -78,7 +78,7 @@ See https://github.com/mlesnoff/rnirs.
 
 \bold{------------ NON-LINEAR KERNEL PCA}
 \tabular{ll}{
-  \code{\link{kca}} \tab KPCA\cr
+  \code{\link{kpca}} \tab KPCA\cr
   }
 
 \eqn{Kernel functions}
