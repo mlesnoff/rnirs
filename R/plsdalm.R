@@ -24,8 +24,8 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
     fm <- pca(Xr, Xu, ncomp = ncomp)
-    fm$C <- matrix(NA, nrow = 1, ncol = ncomp)
-    fm$ymeans <- rep(NA, nrow(Xu))
+    #fm$C <- matrix(NA, nrow = 1, ncol = ncomp)
+    #fm$ymeans <- rep(NA, nrow(Xu))
     y <- rep(as.character(Yu), ncomp)
     fit <- rep(lev, m * ncomp)
     dummyfit <- NULL
@@ -67,6 +67,6 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Yr
 
   list(y = y, fit = fit, r = r, 
-    dummyfit = dummyfit, fm = fm$fm, ni = ni)
+    dummyfit = dummyfit, ni = ni)
     
   }

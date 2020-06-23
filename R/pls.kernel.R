@@ -65,6 +65,6 @@ pls.kernel <- function(X, Y, ncomp, weights = NULL) {
     }
 
   list(T = T, P = P, W = W, C = C, R = R, TT = TT,
-    xmeans = xmeans, ymeans = ymeans, weights = weights)
+    xmeans = xmeans, ymeans = ymeans, weights = weights, T.ortho = TRUE)
   
   }

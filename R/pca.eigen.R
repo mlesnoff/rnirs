@@ -1,11 +1,12 @@
-pca.eigen <- function(X, ncomp, weights = NULL, kern = FALSE) {
-  
-  ## For Kernel = FALSE
-  ## Eigen decomposition of t(X) %*% D %*% X
-  ## where D = diag(weights) and X has been centered with metric D
+pca.eigen <- function(X, ncomp, weights = NULL, kern = NULL) {
   
   X <- .matrix(X)
-  n <- dim(X)[1]
+  zdim <- dim(X)
+  n <- zdim[1]
+  p <- zdim[2]
+  
+  if(is.null(kern))
+    kern <- (n < p)
   
   if(is.null(weights))
     weights <- rep(1 / n, n)

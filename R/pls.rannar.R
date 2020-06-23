@@ -72,6 +72,6 @@ pls.rannar <- function(X, Y, ncomp, weights = NULL) {
   R <- W %*% solve(crossprod(P, W))
   
   list(T = Tclass, P = P, W = W, C = C, R = R, TT = TT,
-    xmeans = xmeans, ymeans = ymeans, weights = weights, U = U)
+    xmeans = xmeans, ymeans = ymeans, weights = weights, U = U, T.ortho = TRUE)
   
   }

@@ -1,4 +1,4 @@
-pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, ...) {
+pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, kern = NULL, ...) {
     
   X <- .matrix(X)
   zdim <- dim(X)
@@ -13,14 +13,14 @@ pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, ...) {
   
   w <- w1 * w2
 
-  fm <- pca.eigen(X, ncomp = ncomp, weights = w, kernel = (n < p))
+  fm <- pca.eigen(X, ncomp = ncomp, weights = w, kern = kern)
   
   if(step2) {
     
     r <- out.pca(fm, X, ...)
     w <- .talworth(r, 1)
     
-    fm <- pca.eigen(X, ncomp = ncomp, weights = w, kernel = (n < p))
+    fm <- pca.eigen(X, ncomp = ncomp, weights = w, kern = kern)
     
     }
   

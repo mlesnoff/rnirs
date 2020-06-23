@@ -1,14 +1,11 @@
-pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
+pca <- function(Xr, Xu = NULL, ncomp, algo = pca.eigen, ...) {
   
   X <- .matrix(Xr)
   zdim <- dim(X)
   n <- zdim[1]
   p <- zdim[2]
   
-  if(is.null(algo))
-    fm <- pca.eigen(X, ncomp, kern = (n < p), ...)
-  else
-    fm <- algo(X, ncomp, ...)
+  fm <- algo(X, ncomp, ...)
   
   weights <- fm$weights
 
@@ -59,9 +56,8 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   
   list(Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, eig = fm$eig,
     xmeans = fm$xmeans, weights = fm$weights, 
-    explvarx = explvarx, contr.ind = contr.ind, 
-    coord.var = coord.var, contr.var = contr.var,
-    cor.circle = cor.circle, T.ortho = fm$T.ortho) 
+    explvarx = explvarx, contr.ind = contr.ind, coord.var = coord.var, 
+    contr.var = contr.var, cor.circle = cor.circle) 
   
   }
 

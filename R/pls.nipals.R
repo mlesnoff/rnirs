@@ -62,6 +62,6 @@ pls.nipals <- function(X, Y, ncomp, weights = NULL) {
   R <- W %*% solve(crossprod(P, W))
 
   list(T = T, P = P, W = W, C = C, R = R, TT = TT,
-    xmeans = xmeans, ymeans = ymeans, weights = weights)
+    xmeans = xmeans, ymeans = ymeans, weights = weights, T.ortho = TRUE)
 
   }

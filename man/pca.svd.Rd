@@ -17,19 +17,19 @@ Algorithms for usual (centered) PCA of a matrix \eqn{X}.
 
 - \code{pca.nipals}: NIPALS. 
 
-- \code{pca.nipalsna}: NIPALS allowing missing data in \eqn{X} (\code{NA} are not allowed in the other algorithms). The core of \code{pca.nipals} uses the code of function \code{nipals} of package \code{nipals} v.0.7 (Thanks to K. Wright, 2020) available on CRAN.
+- \code{pca.nipalsna}: NIPALS allowing missing data in the training data \eqn{X} (\code{NA} are not allowed in the other algorithms). The core of \code{pca.nipalsna} uses the code of function \code{nipals} of package \code{nipals} v.0.7 (Thanks to K. Wright, 2020) available on CRAN.
 
 \bold{Argument} \code{weights}
 
-Functions above (except \code{pca.nipalsna}) can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. For instance, function \code{pca.svd} implements a SVD of \eqn{D^(1/2) X}, where D = diag(weights) and X has been centered with metric \eqn{D}. Function \code{pca.eignen} implements an eigen decomposition of \eqn{X' D X}.
+Except \code{pca.nipalsna}, the functions can set a priori weights to the training observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. For instance, function \code{pca.svd} implements a SVD of \eqn{D^(1/2) X}, where D = diag(weights) and X has been centered with metric \eqn{D}. Function \code{pca.eignen} implements an eigen decomposition of \eqn{X' D X}.
 
 }
 
 \usage{
 
-pca.svd(X, ncomp, weights = NULL, kern = FALSE)
+pca.svd(X, ncomp, weights = NULL, kern = NULL)
 
-pca.eigen(X, ncomp, weights = NULL, kern = FALSE)
+pca.eigen(X, ncomp, weights = NULL, kern = NULL)
 
 pca.nipals(X, ncomp, weights = NULL,
   tol = .Machine$double.eps^0.5, maxit = 100)
@@ -47,7 +47,7 @@ pca.nipalsna(X, ncomp, gramschmidt = TRUE,
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
-\item{kern}{For \code{pca.svd} and \code{pca.eigen}. If  \code{TRUE} (default is \code{FALSE}), the kernel versions are used (see Wu et al. 1997). This can be faster when \eqn{n < p}. In particular, for wide matrices (\eqn{n << p}) and \eqn{n} not too large, it is recommended using  \code{eigen(..., kernel = TRUE)}.}
+\item{kern}{For \code{pca.svd} and \code{pca.eigen}. If \code{TRUE}, the kernel version of the algorithm (Wu et al. 1997) is used. Default to \code{TRUE} if \eqn{(n < p)} and \code{FALSE} in the other case. For wide matrices (\eqn{n << p}) and \eqn{n} not too large, the kernel version is faster.}
 
 \bold{Specific arguments of} \code{pca.nipalsna}
 

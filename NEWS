@@ -4,13 +4,13 @@
 
 - New functions:
 
-  pcr
+  pcr  (PCR)
   
-  kpca
+  kpca  (Non-linear kernel PCA)
   
-  kernel functions: kpol, krbf
+  Kernel functions: kpol, krbf
   
-  matpoly
+  matpoly (Blocks for INLR)
   
 - New argument "colblocks" in functions blocscal, blockpls, blocksopca, blocksopls. 
 
