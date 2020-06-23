@@ -1,7 +1,4 @@
 odis <- function(fm, Xr, Xu = NULL, typcut = c("param", "mad", "boxplot")) {
-    
-  if(!is.null(fm$fm))
-    fm <- fm$fm
   
   if(is.null(fm$Tr))
     fm$Tr <- fm$T

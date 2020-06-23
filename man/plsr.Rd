@@ -28,7 +28,7 @@ plsr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...)
 
 \item{ncomp}{The number of PLS scores (= components = latent variables) to consider.}
 
-\item{algo}{A function (algorithm) implementing a PLS. Default to \code{\link{pls.kernel}}.}
+\item{algo}{A function (algorithm) implementing a PLS on the training data set. Default to \code{\link{pls.kernel}}.}
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 
@@ -43,8 +43,6 @@ A list of outputs (see examples), such as:
 \item{fit}{Predictions for the test data.}
 
 \item{r}{Residuals for the test data.}
-
-\item{fm}{Output of function \code{\link{pls}}.}
 
 }
 
@@ -74,14 +72,6 @@ plsr(Xr, Yr, Xu, ncomp = ncomp)[c("y", "fit", "r")]
 
 plsr(Xr, Yr[, 1], Xu, Yu[, 1], ncomp = ncomp)[c("y", "fit", "r")]
 
-####### B-COEFFICIENTS FOR THE MODEL WITH ncomp COMPONENTS
-
-b <- bcoef(fm)
-b
-
-cbind(rep(1, nrow(Xu)), Xu) %*% b
-fm$fit[fm$fit$ncomp == ncomp, ]
-
 ####### MSE
 
 ncomp <- 3
@@ -95,6 +85,16 @@ z
 z[z$rmsep == min(z$rmsep), ]
 plotmse(z)
 
+####### B-COEFFICIENTS FOR THE MODEL WITH ncomp COMPONENTS
+
+bcoef(fm, ncomp = 2)
+
+cbind(rep(1, nrow(Xu)), Xu) %*% bcoef(fm)$b
+fm$fit[fm$fit$ncomp == ncomp, ]
+
+####### Weighted PLSR
+
+plsr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:nrow(Xr))
 
 }
 

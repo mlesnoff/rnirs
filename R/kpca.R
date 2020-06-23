@@ -47,7 +47,7 @@ kpca <- function(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
   row.names(A) <- row.names(T) <- row.names(X)
   colnames(T) <- colnames(A) <-  paste("comp", 1:ncomp, sep = "")
   
-  list(Tr = T, Tu = Tu, A = A, 
+  list(Tr = T, Tu = Tu, 
     eig = eig, sv = sv, explvarx = explvarx, values = res$values,
     weights = weights, T.ortho = TRUE) 
   

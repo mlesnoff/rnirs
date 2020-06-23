@@ -5,25 +5,21 @@
 
 \encoding{latin1}
 
-\title{kNN-LWPLSR/DA}
+\title{kNN-LWPLSR & DA}
 
 \description{
 
-Wrappers for k-nearest-neighbors locally weighted PLSR and PLSDA (kNN-LWPLSR and kNN-LWPLSDA) models: 
+Pipelines (wrappers) for k-nearest-neighbors locally weighted PLSR and PLSDA models (kNN-LWPLSR and kNN-LWPLSDA): 
 
 - Function \code{lwplsr} builds kNN-LWPLSR models 
 
-- Functions \code{lwplsda} and \code{lwplsdalm} build kNN-LWPLSDA models. 
+- Functions \code{lwplsda} and \code{lwplsdalm} build kNN-LWPLSDA models. Function \code{lwplsdalm} is a faster equivalent of \code{lwplsda(..., da = dalm, ...)}.
 
-These wrappers use functions \code{\link{getknn}}, \code{\link{locw}} and functions for PLSR (\code{\link{plsr}}) or PLSDA (\code{\link{plsda}} and \code{\link{plsdalm}}). See the code for details.
+These pipelines use functions \code{\link{getknn}}, \code{\link{locw}} and functions for PLSR (\code{\link{plsr}}) or PLSDA (\code{\link{plsda}} and \code{\link{plsdalm}}). See the code for details.
 
-Function \code{lwplsdalm} is a faster equivalent of \code{lwplsda(..., da = dalm, ...)}.
+LWPLSR is a "local"  method: i.e. a different model is built for each new observation to predict, from a training set defined by neighboring. This is a particular case of weighted PLSR (WPLSR) (e.g. Schaal et al. 2002). In WPLSR, specific a priori weights, different from the usual \eqn{1/n} of the standard PLSR, are given to all the \eqn{n} training observations. These weights are used in the calculation of (a) the PLS scores and loadings and (b) the regression of the response over the scores. The specificity of LWPLSR is that the weights depend from dissimilarities (e.g. distances) between this new observation to predict and the training observations. Note that the weights change for each new observation to predict.
 
-LWPLSR is a "local"  method (i.e. a different model is built for each new observation to predict, from a training set defined by neighboring) and a particular case of weighted PLSR (WPLSR) . In WPLSR, specific statistical weights, different from the usual \eqn{1/n} of the standard PLSR are given to all the \eqn{n} training observations. These weights are used in the calculation of (a) the PLS scores and loadings and (b) the regression of the response over the scores. The particularity of LWPLSR wihin the WPLSR models is that the weights depend from dissimilarities (e.g. distances) between this new observation to predict and the training observations. For this reason, the weights change for each new observation to predict.
-
-In the literature, the basic version of LWPLSR uses the \eqn{n} training observations for each observation to predict. This can be very time consuming, in particular for large \eqn{n}. A faster and often more efficient strategy is to preliminary select in the training set a number of \eqn{k} nearest neighbors to the observation to predict and then to apply LWPLSR only to this pre-selected neighborhood. This corresponds to kNN-LWPLSR. 
-
-In function \code{locw} (see the help page), the preliminary kNN selection step is referred to as \eqn{weighting "1"}, and the weighting of the \eqn{k} neighbors to as \eqn{weighting "2"}. 
+In the literature (Sicard & Sabatier 2006, Kim et al 2011), basic versions of LWPLSR use all the \eqn{n} training observations for each observation to predict. This can be very time consuming, in particular for large \eqn{n}. A faster and often more efficient strategy is to preliminary select in the training set a number of \eqn{k} nearest neighbors to the observation to predict (\eqn{weighting "1"} in function \code{\link{locw}}) and then to apply LWPLSR only to this pre-selected neighborhood (\eqn{weighting "2"} in \code{\link{locw}}). This corresponds to kNN-LWPLSR (Lesnoff et al. 2020). 
 
 kNN-LWPLSDA uses the same principle, though WPLSDA is used in place of WPLSR.
 
@@ -112,7 +108,7 @@ A list of outputs (see examples), such as:
 
 Kim, S., Kano, M., Nakagawa, H., Hasebe, S., 2011. Estimation of active pharmaceutical ingredients content using locally weighted partial least squares and statistical wavelength selection. Int. J. Pharm., 421, 269-274.
 
-Lesnoff, M., Metz, M., Roger, J.M.. Comparison of locally weighted PLS strategies for regression and discrimination on agronomic NIR Data. Submitted to Journal of Chemometrics.
+Lesnoff, M., Metz, M., Roger, J.-M., 2020. Comparison of locally weighted PLS strategies for regression and discrimination on agronomic NIR data. Journal of Chemometrics, e3209. https://doi.org/10.1002/cem.3209
 
 Schaal, S., Atkeson, C., Vijayamakumar, S. 2002. Scalable techniques from nonparametric statistics for the real time robot learning. Applied Intell., 17, 49-60.
 
@@ -300,44 +296,28 @@ Xr <- X
 Yr <- Y
 Xu <- X[c(1, 2, 4), ] ; Yu <- Y[c(1, 2, 4), ]
 
-ncompdis <- 3
-h <- 2
-k <- 5
-ncomp <- 2
 fm <- lwplsr(
   Xr, Yr,
   Xu, Yu,
-  ncompdis = ncompdis, diss = "mahalanobis",
-  h = h, k = k,
-  ncomp = ncomp,
+  ncompdis = 3, diss = "mahalanobis",
+  h = 2, k = 5,
+  ncomp = 2,
   print = TRUE
   )
-
 names(fm)
 fm[c("y", "fit", "r")]
 
-###### Object fm$fm 
-### = list of the outputs for each predicted observation 
-### Length of the list = nrow(Xu)
-
+## fm$fm = A list whose each component contains the model outputs 
+## for "one observation to predict x a parameter combination {ncompdis, h, k}"
 names(fm$fm)
 
-###### Observation i
+## Sub-model i
 i <- 1
 #i <- 2
 #i <- 3
-names(fm$fm[[1]])
-
-# Neighbors
-fm$fm[[1]]$nn
-
-# PLS model on the neighbors
-fm$fm[[1]]$fm
-
-# b-coefficients of this PLS model
-bcoef(fm$fm[[1]])
-
-###### Score and orthogonal distances for the PLS models
+names(fm$fm[[i]])
+fm$fm[[i]]
+bcoef(fm$fm[[i]])
 
 lscordis(fm)
 lodis(fm, Xr, Xu)

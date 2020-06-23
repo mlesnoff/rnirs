@@ -26,7 +26,7 @@ pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...) {
   
   list(Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, C = fm$C, TT = fm$TT,
     xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights, 
-    explvarx = explvarx)    
+    explvarx = explvarx, T.ortho = fm$T.ortho)    
   
   }
 

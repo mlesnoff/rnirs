@@ -250,8 +250,8 @@ names(fm)
 fm[c("y", "fit", "r")]
 
 ########### Object fm$fm 
-### = list of the outputs for each predicted observation 
-### Length of the list = nrow(Xu)
+## = list of the outputs for each predicted observation 
+## Length of the list = nrow(Xu)
 
 names(fm$fm)
 
@@ -259,16 +259,15 @@ names(fm$fm)
 i <- 1
 #i <- 2
 #i <- 3
-names(fm$fm[[1]])
+names(fm$fm[[i]])
+
+fm$fm[[i]]
 
 # Neighbors
-fm$fm[[1]]$nn
+fm$fm[[i]]$nn
 
-# PLS model on the neighbors
-fm$fm[[1]]$fm
-
-# b-coefficients of this PLS model
-bcoef(fm$fm[[1]])
+# b-coefficients of the model
+bcoef(fm$fm[[i]])
 
 ########### Score and orthogonal distances for the PLS models
 

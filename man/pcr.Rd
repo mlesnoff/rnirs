@@ -12,7 +12,7 @@ Fitting PCR1 or PCR2 models.
 
 \usage{
 
-pcr(Xr, Yr, Xu, Yu = NULL, ncomp, meth = pca, ...)
+pcr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pca.eigen, ...)
 
 }
 
@@ -28,9 +28,9 @@ pcr(Xr, Yr, Xu, Yu = NULL, ncomp, meth = pca, ...)
 
 \item{ncomp}{The number of PLS scores (= components = latent variables) to consider.}
 
-\item{meth}{A function of PCA (default to \code{\link{pca}}).}
+\item{algo}{A function (algorithm) implementing a PCA on the training data set. Default to \code{\link{pca.eigen}}.}
 
-\item{...}{Optionnal arguments to pass in the function defined in \code{meth}.}
+\item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 
 }
 
@@ -74,14 +74,6 @@ pcr(Xr, Yr, Xu, ncomp = ncomp)[c("y", "fit", "r")]
 
 pcr(Xr, Yr[, 1], Xu, Yu[, 1], ncomp = ncomp)[c("y", "fit", "r")]
 
-####### B-COEFFICIENTS FOR THE MODEL WITH ncomp COMPONENTS
-
-b <- bcoef(fm)
-b
-
-cbind(rep(1, nrow(Xu)), Xu) %*% b
-fm$fit[fm$fit$ncomp == ncomp, ]
-
 ####### MSE
 
 ncomp <- 3
@@ -95,11 +87,16 @@ z
 z[z$rmsep == min(z$rmsep), ]
 plotmse(z)
 
-####### PCR WITH A NON-LINEAR KERNEL PCA
-### (Note: b coefficients are not availbale in that case).
+####### B-COEFFICIENTS FOR THE MODEL WITH ncomp COMPONENTS
 
-fm <- pcr(Xr, Yr, Xu, Yu, ncomp = ncomp, meth = kpca, degree = 3)
+bcoef(fm, Yr, ncomp = 2)
 
+cbind(rep(1, nrow(Xu)), Xu) %*% bcoef(fm, Yr)$b
+fm$fit[fm$fit$ncomp == ncomp, ]
+
+####### Weighted PCR
+
+pcr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:nrow(Xr))
 
 
 }

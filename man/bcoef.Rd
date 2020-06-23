@@ -2,23 +2,27 @@
 \alias{bcoef}
 \encoding{latin1}
 
-\title{b-cefficients for a PLS model}
+\title{b-coefficients for a PCR or PLSR model}
 
 \description{
 
-Function \code{bcoef} returns the "b-coefficients" (= regression coefficients for the \eqn{X}-matrix), including the intercept, from a PLS or PLSR model.
+Function \code{bcoef} returns the "beta-coefficients" (= regression coefficients on the scores) and the "b-coefficients" (= regression coefficients for the \eqn{X}-matrix), including the intercept) from a PCR or PLSR model.
 
 }
 
 \usage{
 
-bcoef(fm)
+bcoef(fm, Y = NULL, ncomp = NULL)
 
 }
 
 \arguments{
 
 \item{fm}{Output  of functions \code{\link{pls}} or \code{\link{plsr}}, or of the PLS algorithm functions.}
+
+\item{Y}{Required for PCR or model with non-orthogonal scores. The training \eqn{Y}-data used to compute the PCR or PLSR model.}
+
+\item{ncomp}{The b-coefficients are calculated for the model with \code{ncomp} scores. If \code{NULL} (default), the maximal model is considered.}
 
 }
 
@@ -34,13 +38,19 @@ y2 <- 100 * rnorm(n)
 Y <- cbind(y1, y2)
 set.seed(NULL)
 
-fm <- pls(X, Y, ncomp = 3)
-#fm <- plsr(X, Y, X, ncomp = 3)
+fm <- plsr(X, Y, X, ncomp = 3)
+#fm <- pls(X, Y, ncomp = 3)
 #fm <- pls.kernel(X, Y, ncomp = 3)
-bcoef(fm)
+bcoef(fm, ncomp = 2)
 
-fm <- pls(X, Y[, 1], ncomp = 3)
-bcoef(fm)
+fm <- pcr(X, Y, X, ncomp = 3)
+#fm <- pca(X, ncomp = 3)
+#fm <- pca.eigen(X, ncomp = 3)
+bcoef(fm, Y, ncomp = 2)
+
+
+
+
 
 }
 

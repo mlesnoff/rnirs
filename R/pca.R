@@ -57,7 +57,7 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = pca.eigen, ...) {
   list(Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, eig = fm$eig,
     xmeans = fm$xmeans, weights = fm$weights, 
     explvarx = explvarx, contr.ind = contr.ind, coord.var = coord.var, 
-    contr.var = contr.var, cor.circle = cor.circle) 
+    contr.var = contr.var, cor.circle = cor.circle, T.ortho = fm$T.ortho) 
   
   }
 
