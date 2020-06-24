@@ -21,21 +21,21 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
     - SNV
     - Derivation (Savitsky-Golay, Finite difference)
 * Multivariate factorial analyses 
+    - PLS
     - PCA
     - Robust PCA
     - Non-linear kernel PCA
-    - PLS
     - FDA
 * Variable selection: CovSel
 * Regression
     - LMR
-    - PCR
     - PLSR
+    - PCR
     - INLR
 * Discrimination (with various DA methods)
     - DA
-    - PCDA
     - PLSDA
+    - PCDA
 * Locally weighted regression and discrimination (using function locw)
     - KNNWR
     - KNNWDA
