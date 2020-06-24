@@ -9,7 +9,7 @@
 
 Functions \code{pca} and \code{pls} fit PCA and PLS1 or PLS2 models, respectively.
 
-Data are internally centered before the analyses, but not scaled. If needed, the scaling has to be done by the user before using the functions.  
+Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user  has to do the scaling before using the functions (there is no argument \code{scale} in the functions).  
 
 }
 

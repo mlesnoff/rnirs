@@ -23,6 +23,8 @@ Algorithms for usual (centered) PCA of a matrix \eqn{X}.
 
 Except \code{pca.nipalsna}, the functions can set a priori weights to the training observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. For instance, function \code{pca.svd} implements a SVD of \eqn{D^(1/2) X}, where D = diag(weights) and X has been centered with metric \eqn{D}. Function \code{pca.eignen} implements an eigen decomposition of \eqn{X' D X}.
 
+Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the functions (there is no argument \code{scale} in the functions).
+
 }
 
 \usage{

@@ -20,6 +20,8 @@ All algorithms center matrix \eqn{X}. Missing values are not allowed.
 
 The functions can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores, loadings and predictions.
 
+Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the functions (there is no argument \code{scale} in the functions).
+
 }
 
 \usage{
