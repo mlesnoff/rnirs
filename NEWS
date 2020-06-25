@@ -2,6 +2,13 @@
 
 ##----------------- Version 1.7-0
 
+- New function: pca.eigenk
+
+- Structural modification of functions pca.svd, pca.eigen and pca.eigen
+
+
+##----------------- Version 1.7-0
+
 - New functions:
 
     kpca    : Non-linear kernel PCA

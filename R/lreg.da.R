@@ -14,7 +14,7 @@
   Ydummy <- dummy(Yr)
   
   if(nclas == 1) {
-    fm <- pca.eigen(Xr, ncomp = ncomp)
+    fm <- pca(Xr, ncomp = ncomp)
     fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
   else{

@@ -8,7 +8,7 @@
 
 \description{
 
-Algorithms for robust (centered) PCA of a matrix \eqn{X}.
+Algorithms for robust PCA of a matrix \eqn{X}. Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the functions (there is no argument \code{scale} available). 
 
 - \code{pca.cr}: 
 
@@ -28,12 +28,6 @@ Step 1 intends to detect and remove multivariate \eqn{X-}outliers that have pote
 
 Step2 (facultative) intends to detect outliers in the robust score space computed in Step 1. The score and orthogonal distances, standardized by given cutoffs (see \code{\link{scordis}} and \code{\link{odis}}), of each of the \eqn{n} observations are calculated from this score space. An outlyingness is computed by \eqn{(.5 * SD.stand^2 + .5 * OD.stand^2)^.5}. The  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w = 0} (the other receive a weight \eqn{w = 1}), and a new weighted PCA is fitted.
 
-\bold{Argument} \code{weights}
-
-Some of the functions above can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings.
-
-Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the functions (there is no argument \code{scale} in the functions).
-
 }
 
 \usage{
@@ -42,7 +36,7 @@ pca.cr(X, ncomp, obj = mad, nsim = 0)
 
 pca.sph(X, ncomp, weights = NULL)
 
-pca.rob(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, kern = NULL, ...)
+pca.rob(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, ...)
 
 }
 
@@ -61,8 +55,6 @@ pca.rob(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, kern = NULL, ...)
 \item{alpha}{For \code{pca.rob}. Proportion \eqn{1 - alpha} is used for hard rejection of outliers in Step 1 (default to \code{alpha = .70}).}
 
 \item{step2}{For \code{pca.rob}. If \code{TRUE} (default), Step 2 is implemented.}
-
-\item{kern}{For \code{pca.rob}. Used in \code{\link{pca.eigen}}.}
 
 \item{...}{For \code{pca.rob}. Optional arguments to pass in function \code{\link{out.pca}}.}
 
@@ -111,35 +103,11 @@ X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
 set.seed(NULL)
 X
 
-pca.svd(X, ncomp = 3)
-
-pca.eigen(X, ncomp = 3)
-
-pca.nipals(X, ncomp = 3)
-
 pca.sph(X, ncomp = 3)
 
 pca.cr(X, ncomp = 3)
 
 pca.rob(X, ncomp = 3)
-
-######## WITH MISSING DATA
-
-X2 <- X
-X2[3, 3] <- X2[1, 3] <- X2[1, 2] <- NA
-X2
-
-fm <- pca.nipalsna(X2, ncomp = 3)
-fm
-
-## Replacement of the missing data in X2
-## by their NIPALS estimates
-
-Xhat <- xfit(fm$T, fm$P, fm$xmeans)
-Xhat
-u <- which(is.na(X2))
-Xfull <- replace(X2, u, Xhat[u])
-Xfull
 
 }
 

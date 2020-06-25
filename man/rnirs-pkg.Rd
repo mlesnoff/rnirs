@@ -17,20 +17,20 @@ See https://github.com/mlesnoff/rnirs.
 
 \details{
 
-\bold{------------ DATA CHECKING}
+\bold{------------------ DATA CHECKING}
 \tabular{ll}{
   \code{\link{checkdupl}}, \code{\link{rmdupl}} \tab Find or remove duplicated row observations between two data sets\cr
   \code{\link{checkna}} \tab Find and count NA values in a data set\cr
   }
 
-\bold{------------ DATA SUMMARIZE}
+\bold{------------------ DATA SUMMARIZE}
 \tabular{ll}{
   \code{\link{centr}} \tab Centers of classes\cr
   \code{\link{dtaggregate}} \tab Summary statistics with data subsets\cr
   \code{\link{summ}} \tab Summary of the variables of a data set\cr
   }
 
-\bold{------------ DATA PREPROCESSING}
+\bold{------------------ DATA PREPROCESSING}
 \tabular{ll}{
   \code{\link{dderiv}} \tab Derivation by finite difference\cr
   \code{\link{detrend}} \tab Detrend transformation (polynom, lowess, als)\cr
@@ -39,13 +39,30 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{snv}} \tab Standard-normal-deviation transformation\cr
   }
 
-\bold{------------ DATA SAMPLING}
+\bold{------------------ DATA SAMPLING}
 \tabular{ll}{
   \code{\link{kenston}} \tab Kennard-Stone sampling \cr
   \code{\link{sampclas}} \tab Within-class sampling\cr
   }
 
-\bold{------------ PCA}
+\bold{------------------ MULTIVARIATE ANALYSES}
+
+------------ PLS
+
+\tabular{ll}{
+  \code{\link{pls}} \tab PLS with the available algorithms below\cr
+  }
+
+\eqn{Algorithms}
+
+\tabular{ll}{
+  \code{\link{pls.kernel}} \tab "Improved Kernel #1" (Dayal & McGregor 1997) \cr
+  \code{\link{pls.nipals}} \tab NIPALS \cr
+  \code{\link{pls.rannar}} \tab Kernel version for wide matrices (Rannar et al. 1994) \cr
+  }
+
+------------ PCA
+
 \tabular{ll}{
   \code{\link{pca}} \tab PCA with the available algorithms below\cr
   }
@@ -55,6 +72,7 @@ See https://github.com/mlesnoff/rnirs.
 \tabular{ll}{
   \code{\link{pca.svd}} \tab SVD \cr
   \code{\link{pca.eigen}} \tab Eigen  \cr
+  \code{\link{pca.eigenk}} \tab Eigen for wide matrices \cr
   \code{\link{pca.nipals}} \tab NIPALS \cr
   \code{\link{pca.nipalsna}} \tab NIPALS allowing missing data \cr
   }
@@ -75,8 +93,8 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{out.pca}} \tab Outlyingness measure (From PCA scores) \cr
   }
 
+------------ NON-LINEAR KERNEL PCA
 
-\bold{------------ NON-LINEAR KERNEL PCA}
 \tabular{ll}{
   \code{\link{kpca}} \tab KPCA\cr
   }
@@ -88,26 +106,13 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{krbf}} \tab Gausssian RBF \cr
   }
 
-\bold{------------ PLS}
-\tabular{ll}{
-  \code{\link{pls}} \tab PLS with the available algorithms below\cr
-  }
-
-\eqn{Algorithms}
-
-\tabular{ll}{
-  \code{\link{pls.kernel}} \tab "Improved Kernel #1" (Dayal & McGregor 1997) \cr
-  \code{\link{pls.nipals}} \tab NIPALS \cr
-  \code{\link{pls.rannar}} \tab Kernel version for wide matrices (Rannar et al. 1994) \cr
-  }
-
-\bold{------------ FDA}
+------------ FDA
 
 \tabular{ll}{
   \code{\link{fda}}, \code{\link{fda.svd}} \tab Factorial discriminant analysis\cr
   }
 
-\bold{------------ AUXILLIARY FUNCTIONS FOR PCA, PLS, FDA}
+------------ AUXILLIARY FUNCTIONS
 
 \tabular{ll}{
   \code{\link{bcoef}} \tab b-coefficients for a PLS model\cr
@@ -116,14 +121,14 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{xfit}} \tab Matrix Approximation from multivariate scores and loadings \cr
   }
 
-\bold{------------ REGRESSION}
+\bold{------------------ REGRESSION}
 
 \eqn{Global (eventually weighted)}
 
 \tabular{ll}{
-  \code{\link{lmr}} \tab LMR\cr
-  \code{\link{pcr}} \tab PCR\cr
   \code{\link{plsr}} \tab PLSR\cr
+  \code{\link{pcr}} \tab PCR\cr
+  \code{\link{lmr}} \tab LMR\cr
   \code{\link{matpoly}} \tab Blocks for INLR (Berglund & Wold 1997)\cr
   }
 
@@ -134,7 +139,7 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{lwplsr}} \tab LWPLSR, KNN-LWPLSR\cr
   }
 
-\bold{------------ DISCRIMINATION}
+\bold{------------------ DISCRIMINATION}
 
 \eqn{Methods}
 
@@ -149,8 +154,8 @@ See https://github.com/mlesnoff/rnirs.
 \eqn{Global (eventually weighted)}
 
 \tabular{ll}{
-  \code{\link{pcda}} \tab PCDA (DA on principal components)\cr
   \code{\link{plsda}}, \code{\link{plsdalm}} \tab PLSDA\cr
+  \code{\link{pcda}} \tab PCDA (DA on principal components)\cr
   }
 
 \eqn{Locally weighted}
@@ -160,12 +165,12 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{lwplsr}} \tab LWPLDA, KNN-LWPLSDA\cr
   }
 
-\bold{------------ VARIABLE SELECTION}
+\bold{------------------ VARIABLE SELECTION}
 \tabular{ll}{
   \code{\link{covsel}} \tab CovSel\cr
   }
 
-\bold{------------ MULTIBLOCK FUNCTIONS}
+\bold{------------------ MULTIBLOCK FUNCTIONS}
 
 \tabular{ll}{
   \code{\link{orthog}} \tab Orthogonalization of a matrix to another matrix\cr
@@ -175,13 +180,13 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{blocksopls}}, \code{\link{blocksopca}} \tab Block dimension reduction by SO-PLS or SO-PCA\cr
   }
 
-\bold{------------ MODEL STACKING}
+\bold{------------------ MODEL STACKING}
 \tabular{ll}{
   \code{\link{stackavg}} \tab Model stacking for regression models\cr 
   \code{\link{stackavg.cla}} \tab Model stacking for discrimination models\cr 
   }
 
-\bold{------------ CROSS-VALIDATION AND ERROR RATES}
+\bold{------------------ CROSS-VALIDATION AND ERROR RATES}
 \tabular{ll}{
   \code{\link{mse}}, \code{\link{err}} \tab Error rates of prediction models\cr 
   \code{\link{segmcvkfold}}, \code{\link{segmcvmc}} \tab Segments for cross-validation \cr
@@ -189,7 +194,7 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{fitcv}} \tab Cross-validation of a prediction model \cr
   }
 
-\bold{------------ GRAPHICS}
+\bold{------------------ GRAPHICS}
 
 \tabular{ll}{
   \code{\link{plotxy}} \tab 2d scatter plot\cr
@@ -197,7 +202,7 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{plotsp}}, \code{\link{plotsp1}} \tab Plotting spectra (or more generally row observations) of a data set\cr
   }
 
-\bold{------------ MISCELLANEOUS}
+\bold{------------------ MISCELLANEOUS}
 
 \tabular{ll}{
   \code{\link{dis}}  \tab Dissimilarities between row observations of a matrix and a given vector  \cr

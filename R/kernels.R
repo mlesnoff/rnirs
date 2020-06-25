@@ -19,6 +19,10 @@ krbf <- function(X, Y = NULL, sigma = 1) {
   exp(-.5 * .dist(X, Y) / sigma^2)
   }
 
+ktanh <- function(X, Y = NULL, scale = 1, offset = 0)
+  tanh(kpol(X, Y, degree = 1, scale, offset))
+
+
 
 
 

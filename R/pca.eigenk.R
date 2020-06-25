@@ -1,4 +1,4 @@
-pca.eigen <- function(X, ncomp, weights = NULL) {
+pca.eigenk <- function(X, ncomp, weights = NULL) {
   
   X <- .matrix(X)
   zdim <- dim(X)
@@ -13,19 +13,13 @@ pca.eigen <- function(X, ncomp, weights = NULL) {
   xmeans <- .xmean(X, weights = weights)
   X <- .center(X, xmeans)
 
-  res <- eigen(crossprod(sqrt(weights) * X), symmetric = TRUE)
-  P <- res$vectors[, 1:ncomp, drop = FALSE]
+  res <- eigen(tcrossprod(sqrt(weights) * X), symmetric = TRUE)
   eig <- res$values[1:ncomp]
   sv <- sqrt(eig)
-
-  T <- X %*% P
+  P <- crossprod(sqrt(weights) * X,
+    .scale(res$vectors[, 1:ncomp, drop = FALSE], scale = sv))
   
-  ## eig
-  ## = eigenvalues of X'DX = Cov(X) in metric D 
-  ## = variances of scores T in metric D
-  ## = colSums(weights * T * T)  
-  ## = norms^2 of the scores T in metric D
-  ## = .xnorm(T, weights = weights)^2
+  T <- X %*% P
    
   row.names(T) <- row.names(X)
   row.names(P) <- colnames(X)

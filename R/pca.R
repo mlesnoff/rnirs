@@ -1,9 +1,15 @@
-pca <- function(Xr, Xu = NULL, ncomp, algo = pca.eigen, ...) {
+pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   
   X <- .matrix(Xr)
   zdim <- dim(X)
   n <- zdim[1]
   p <- zdim[2]
+  
+  if(is.null(algo))
+    if(n < 2000 & (n < p))
+      algo <- pca.eigenk
+    else
+      algo <- pca.eigen
   
   fm <- algo(X, ncomp, ...)
   
@@ -12,8 +18,6 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = pca.eigen, ...) {
   X <- .center(X, fm$xmeans)
   
   eig <- fm$eig
-  ## = variances of scores T in metric D
-  ## = eigenvalues of X'DX = Cov(X) in metric D 
   
   xsstot <- sum(weights * X * X, na.rm = TRUE)
   ## = sum of the variances of the columns

@@ -49,9 +49,6 @@ fm <- pcr(X, Y, X, ncomp = 3)
 bcoef(fm, Y, ncomp = 2)
 
 
-
-
-
 }
 
 \keyword{datagen}

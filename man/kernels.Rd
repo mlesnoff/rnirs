@@ -1,6 +1,7 @@
 \name{kpol}
 \alias{kpol}
 \alias{krbf}
+\alias{ktanh}
 \encoding{latin1}
 
 \title{Kernel}
@@ -16,6 +17,8 @@ Functions building the Gram matrix for different kernels (e.g. Scholkopf & Smola
 kpol(X, Y = NULL, degree = 1, scale = 1, offset = 0)
 
 krbf(X, Y = NULL, sigma = 1)
+
+ktanh(X, Y = NULL, scale = 1, offset = 0)
 
 }
 

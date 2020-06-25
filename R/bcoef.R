@@ -1,12 +1,16 @@
 bcoef <- function(fm, Y = NULL, ncomp = NULL) {
   
+  if(!fm$T.ortho)
+    stop("Function bcoef is not implemented for PLS/PCA methods 
+         with non-orthogonal scores") 
+  
   if(is.null(fm$Tr))
     fm$Tr <- fm$T
   
   if(is.null(ncomp))
     ncomp <- dim(fm$Tr)[2]
   
-  if(!is.null(fm$C) & fm$T.ortho) {
+  if(!is.null(fm$C)) {
     beta <- t(fm$C)[1:ncomp, , drop = FALSE]
     colnam.Y <- row.names(fm$C)
     }
