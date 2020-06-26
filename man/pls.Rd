@@ -7,9 +7,11 @@
 
 \description{
 
-Functions \code{pls} and \code{pca} fit PLS1 or PLS2 models, and PCA models, respectively.
+Partial least squares (PLS) and principal component (PCA) analyses.
 
-Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user  has to do the scaling before using the functions (there is no argument \code{scale} in the functions).  
+Functions \code{pls} fit PLS1 or PLS2 models, and \code{pca} PCA models.
+
+Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the functions (there is no argument \code{scale} in the functions).  
 
 }
 

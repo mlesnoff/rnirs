@@ -6,14 +6,14 @@
 
 \description{
 
-Regression (PCR1 or 2) on PCA latent variables.
+Regression on PCA latent variables (scores).
 
 Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).  
 }
 
 \usage{
 
-pcr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pca.eigen, ...)
+pcr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...)
 
 }
 
@@ -29,7 +29,7 @@ pcr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pca.eigen, ...)
 
 \item{ncomp}{The number of PLS scores (= components = latent variables) to consider.}
 
-\item{algo}{A function (algorithm) implementing a PCA on the training data set. Default to \code{\link{pca.eigen}}.}
+\item{algo}{A function (algorithm) implementing a PCA. If \code{NULL} (default): if \eqn{(n < p)} and \eqn{n < 2000}, \code{\link{pca.eigenk}} is used; in the other cases, \code{\link{pca.eigen}} is used.}
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 
@@ -95,7 +95,7 @@ bcoef(fm, Yr, ncomp = 2)
 ####### Weighted PCR
 
 # fictive weights
-pcr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:n)
+pcr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:nrow(Xr))
 
 
 }

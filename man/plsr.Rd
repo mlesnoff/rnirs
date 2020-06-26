@@ -6,7 +6,7 @@
 
 \description{
 
-Regression (PLSR1 or 2) on PLS latent variables.
+Regression on PLS latent variables (scores).
 
 Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).  
 
@@ -94,7 +94,7 @@ bcoef(fm, ncomp = 2)
 ####### Weighted PLSR
 
 # fictive weights
-plsr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:n)
+plsr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:nrow(Xr))
 
 }
 
