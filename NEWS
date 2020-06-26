@@ -1,6 +1,11 @@
 ## News for package rnirs
 
-##----------------- Version 1.7-0
+##----------------- Version 1.7-2
+
+- Internal modifications of functions pca, pcr, plsr, plsda, plsdalm
+
+
+##----------------- Version 1.7-1
 
 - New function: pca.eigenk
 

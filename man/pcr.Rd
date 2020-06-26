@@ -6,7 +6,7 @@
 
 \description{
 
-Fitting PCR1 or PCR2 models.
+Regression (PCR1 or 2) on PCA latent variables.
 
 Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).  
 }
@@ -92,12 +92,10 @@ plotmse(z)
 
 bcoef(fm, Yr, ncomp = 2)
 
-cbind(rep(1, nrow(Xu)), Xu) %*% bcoef(fm, Yr)$b
-fm$fit[fm$fit$ncomp == ncomp, ]
-
 ####### Weighted PCR
 
-pcr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:nrow(Xr))
+# fictive weights
+pcr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:n)
 
 
 }

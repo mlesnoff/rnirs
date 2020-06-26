@@ -6,7 +6,7 @@
 
 \description{
 
-Fitting PLSR1 or PLSR2 models.
+Regression (PLSR1 or 2) on PLS latent variables.
 
 Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).  
 
@@ -91,12 +91,10 @@ plotmse(z)
 
 bcoef(fm, ncomp = 2)
 
-cbind(rep(1, nrow(Xu)), Xu) %*% bcoef(fm)$b
-fm$fit[fm$fit$ncomp == ncomp, ]
-
 ####### Weighted PLSR
 
-plsr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:nrow(Xr))
+# fictive weights
+plsr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:n)
 
 }
 

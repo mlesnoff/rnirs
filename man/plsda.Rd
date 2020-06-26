@@ -8,6 +8,8 @@
 
 \description{
 
+Discrimination (DA) on PLS or PCA latent variables.
+
 - Function \code{plsda} fits PLSDA models, with various DA methods.
 
 The class membership \eqn{y} (unidimensional variable) for the reference observations (= training) is firstly transformed to a table \eqn{Ydummy} containing \eqn{nclas} dummy variables (with function \code{\link{dummy}}), where \eqn{nclas} is the number of classes in \eqn{y}. Then, a PLS2 is implemented on the \eqn{X-}data and the dummy table \eqn{Ydummy} (with function \code{\link{pls}}), returning PLS2 scores finally used by the DA method.

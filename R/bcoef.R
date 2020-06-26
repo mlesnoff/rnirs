@@ -1,14 +1,10 @@
 bcoef <- function(fm, Y = NULL, ncomp = NULL) {
   
-  if(!fm$T.ortho)
-    stop("Function bcoef is not implemented for PLS/PCA methods 
-         with non-orthogonal scores") 
-  
-  if(is.null(fm$Tr))
-    fm$Tr <- fm$T
+  if(is.null(fm$T))
+    fm$T <- fm$Tr
   
   if(is.null(ncomp))
-    ncomp <- dim(fm$Tr)[2]
+    ncomp <- dim(fm$T)[2]
   
   if(!is.null(fm$C)) {
     beta <- t(fm$C)[1:ncomp, , drop = FALSE]
@@ -18,7 +14,7 @@ bcoef <- function(fm, Y = NULL, ncomp = NULL) {
     Y <- .matrix(Y, row = FALSE, prefix.colnam = "y")
     fm$ymeans <- .xmean(Y, fm$weights)
     Y <- .center(Y, fm$ymeans)
-    z <- coef(lm(Y ~ fm$Tr[, 1:ncomp, drop = FALSE] - 1, weights = fm$weights))
+    z <- coef(lm(Y ~ fm$T[, 1:ncomp, drop = FALSE] - 1, weights = fm$weights))
     beta <- matrix(z, nrow = ncomp, ncol = dim(Y)[2])
     colnam.Y <- colnames(Y)
     }

@@ -12,17 +12,15 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
       algo <- pca.eigen
   
   fm <- algo(X, ncomp, ...)
-  
-  weights <- fm$weights
 
   X <- .center(X, fm$xmeans)
   
   eig <- fm$eig
   
-  xsstot <- sum(weights * X * X, na.rm = TRUE)
+  xsstot <- sum(fm$weights * X * X, na.rm = TRUE)
   ## = sum of the variances of the columns
   ## = trace of Cov(X)
-  ## = sum(diag(crossprod(weights * X, X)))
+  ## = sum(diag(crossprod(fm$weights * X, X)))
   
   pvar <- eig / xsstot
   cumpvar <- cumsum(pvar)
@@ -31,17 +29,17 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   row.names(z) <- 1:ncomp
   explvarx <- z
   
-  z <- weights * fm$T * fm$T
+  z <- fm$weights * fm$T * fm$T
   contr.ind <- .scale(z, center = rep(0, ncomp), eig)
   
-  xvars <- .xvar(X, weights = weights)
+  xvars <- .xvar(X, fm$weights)
   zX <- .scale(X, rep(0, p), sqrt(xvars))  
   zT <- .scale(fm$T, rep(0, ncomp), sqrt(eig))
-  cor.circle <- t(weights * zX) %*% zT
+  cor.circle <- t(fm$weights * zX) %*% zT
   
   coord.var <- crossprod(
     X, 
-    weights * .scale(fm$T,  rep(0, ncomp), sqrt(eig))
+    fm$weights * .scale(fm$T,  rep(0, ncomp), sqrt(eig))
     )
 
   z <- coord.var^2

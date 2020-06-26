@@ -1,16 +1,23 @@
-.lreg <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo, ...) {
+pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...) {
+  
+  X <- .matrix(Xr)
+  zdim <- dim(X)
+  n <- zdim[1]
+  p <- zdim[2]
   
   Y <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
   q <- dim(Y)[2]
   colnam.Y <- colnames(Y)
 
-  if("Y" %in% names(formals(algo)))
-    fm <- algo(Xr, Yr, ncomp, ...)
-  else {
-    fm <- algo(Xr, ncomp, ...)
-    fm$ymeans <- .xmean(Y, weights = fm$weights)
-    }
+  if(is.null(algo))
+    if(n < 2000 & (n < p))
+      algo <- pca.eigenk
+    else
+      algo <- pca.eigen
   
+  fm <- algo(X, ncomp, ...)
+  fm$ymeans <- .xmean(Y, weights = fm$weights)
+
   Tu <- .projscor(fm, .matrix(Xu))
   
   m <- dim(Tu)[1]
@@ -34,15 +41,11 @@
   Y <- .center(Y, fm$ymeans)
   
   if(fm$T.ortho) {
-    if(!is.null(fm$C)) 
-      beta <- t(fm$C)
-    else {
-      z <- coef(lm(Y ~ fm$T[, 1:ncomp, drop = FALSE] - 1, weights = fm$weights))
-      beta <- matrix(z, nrow = ncomp, ncol = q)
-      ## Same as:
-      #zT <- fm$weights * fm$T
-      #beta <- solve(crossprod(zT, fm$T)) %*% crossprod(zT, Y)
-      }
+    z <- coef(lm(Y ~ fm$T[, 1:ncomp, drop = FALSE] - 1, weights = fm$weights))
+    beta <- matrix(z, nrow = ncomp, ncol = q)
+    ## Same as:
+    #zT <- fm$weights * fm$T
+    #beta <- solve(crossprod(zT, fm$T)) %*% crossprod(zT, Y)
     }
   
   for(a in 1:ncomp) {
@@ -76,17 +79,9 @@
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Y
 
   list(y = y, fit = fit, r = r,
-    Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, C = fm$C, eig = fm$eig, TT = fm$TT,
+    Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, eig = fm$eig,
     xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
     T.ortho = fm$T.ortho)
 
   }
-
-plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...)
-  .lreg(Xr, Yr, Xu, Yu, ncomp, algo, ...)
-
-pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pca.eigen, ...)
-  .lreg(Xr, Yr, Xu, Yu, ncomp, algo, ...)
-
-
 

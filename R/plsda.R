@@ -1,4 +1,4 @@
-.lreg.da <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo, da, ...) {
+plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ...) {
   
   dots <- list(...)
   namdot <- names(dots)
@@ -15,16 +15,11 @@
   
   if(nclas == 1) {
     fm <- pca(Xr, ncomp = ncomp)
+    fm$T <- fm$Tr
     fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
-  else{
-    if("Y" %in% names(formals(algo)))
-      fm <- do.call(algo, c(list(X = Xr, Y = Ydummy, ncomp = ncomp), dots.algo)) 
-    else {
-      fm <- do.call(algo, c(list(X = Xr, ncomp = ncomp), dots.algo))
-      fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
-      }
-    }
+  else
+    fm <- do.call(algo, c(list(X = Xr, Y = Ydummy, ncomp = ncomp), dots.algo)) 
   
   Tu <- .projscor(fm, .matrix(Xu))
   m <- dim(Tu)[1]
@@ -56,18 +51,10 @@
   r <- data.frame(dat, r, stringsAsFactors = FALSE)
 
   list(y = y, fit = fit, r = r,
-    Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, C = fm$C, eig = fm$eig, TT = fm$TT,
+    Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, C = fm$C, TT = fm$TT,
     xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
     T.ortho = fm$T.ortho, ni = ni)
 
   }
-
-plsda2 <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ...)
-  .lreg.da(Xr, Yr, Xu, Yu, ncomp, algo, da, ...)
-
-pcda2 <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pca.eigen, da = dalm, ...)
-  .lreg.da(Xr, Yr, Xu, Yu, ncomp, algo, da, ...)
-
-
 
 
