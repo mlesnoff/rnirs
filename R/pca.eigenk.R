@@ -15,6 +15,7 @@ pca.eigenk <- function(X, ncomp, weights = NULL) {
 
   res <- eigen(tcrossprod(sqrt(weights) * X), symmetric = TRUE)
   eig <- res$values[1:ncomp]
+  eig[eig < 0] <- 1e-15
   sv <- sqrt(eig)
   P <- crossprod(sqrt(weights) * X,
     .scale(res$vectors[, 1:ncomp, drop = FALSE], scale = sv))

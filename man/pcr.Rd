@@ -2,7 +2,7 @@
 \alias{pcr}
 \encoding{latin1}
 
-\title{PCR models}
+\title{PCR Models}
 
 \description{
 

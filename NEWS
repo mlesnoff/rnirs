@@ -1,5 +1,10 @@
 ## News for package rnirs
 
+##----------------- Version 1.7-3
+
+- New function: lmridge
+
+
 ##----------------- Version 1.7-2
 
 - Internal modifications of functions pca, pcr, plsr, plsda, plsdalm

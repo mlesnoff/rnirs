@@ -2,11 +2,11 @@
 \alias{lmr}
 \encoding{latin1}
 
-\title{LMR models}
+\title{Multiple Linear Regression Models}
 
 \description{
 
-Function \code{lmr} fits a linear regression model (LMR) using function \code{\link{lm}}. The row observations can eventually be weighted.
+Function \code{lmr} fits a multiple linear regression model (MLR) using function \code{\link{lm}}. The row observations can eventually be weighted.
 
 }
 

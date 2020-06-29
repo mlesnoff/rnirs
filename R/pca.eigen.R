@@ -16,6 +16,7 @@ pca.eigen <- function(X, ncomp, weights = NULL) {
   res <- eigen(crossprod(sqrt(weights) * X), symmetric = TRUE)
   P <- res$vectors[, 1:ncomp, drop = FALSE]
   eig <- res$values[1:ncomp]
+  eig[eig < 0] <- 1e-15
   sv <- sqrt(eig)
 
   T <- X %*% P

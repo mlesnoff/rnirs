@@ -1,4 +1,4 @@
-## rnirs 1.7-2
+## rnirs 1.7-3
 ## Chemometrics Method and Locally Weighted Regressions 
 
 R package focusing on chemometrics methods, including locally weighted PLS regression and discrimination.
@@ -28,7 +28,8 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
     - FDA
 * Variable selection: CovSel
 * Regression
-    - LMR
+    - Multiple Linear Regression (MLR)
+    - Linear Ridge Regression
     - PLSR
     - PCR
     - INLR
