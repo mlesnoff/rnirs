@@ -24,7 +24,7 @@ lmr <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL) {
   fm <- lm(Yr ~ Xr, weights = weights)
   
   y <- Yu
-  fit <- fm$fit
+  fit <- cbind(rep(1, m), Xu) %*% fm$coef
   r <- y - fit
   
   dat <- data.frame(
