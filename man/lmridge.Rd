@@ -28,7 +28,7 @@ lmridge(Xr, Yr, Xu, Yu = NULL, lambda, algo = NULL, weights = NULL, ...)
 
 \item{lambda}{A scalar or numeric vector defining the regularization parameter value(s).}
 
-item{algo}{A function (algorithm) implementing a PCA. If \code{NULL} (default): if \eqn{(n < p)} and \eqn{n < 2000}, \code{\link{pca.eigenk}} is used; in the other cases, \code{\link{pca.eigen}} is used.}
+\item{algo}{A function (algorithm) implementing a PCA. If \code{NULL} (default): if \eqn{(n < p)} and \eqn{n < 2000}, \code{\link{pca.eigenk}} is used; in the other cases, \code{\link{pca.eigen}} is used.}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
