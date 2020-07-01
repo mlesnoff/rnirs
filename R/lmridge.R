@@ -1,35 +1,27 @@
-lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, algo = NULL,
-  weights = NULL, ...) {
+lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, 
+                    weights = NULL) {
   
   X <- .matrix(Xr)
+  xmeans <- .xmean(X, weights)
+  X <- .center(X, xmeans)
   zdim <- dim(X)
   n <- zdim[1]
   p <- zdim[2]
-  
-  Y <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
-  q <- dim(Y)[2]
-  colnam.Y <- colnames(Y)
   
   if(is.null(weights))
     weights <- rep(1 / n, n)
   else
     weights <- weights / sum(weights)  
-
-  if(is.null(algo))
-    if(n < 2000 & (n < p))
-      algo <- pca.eigenk
-    else
-      algo <- pca.eigen
   
-  ncomp <- min(n, p)
-  fm <- algo(X, ncomp, weights = weights, ...)
+  Xu <- .center(.matrix(Xu), xmeans)
+  m <- dim(Xu)[1]
+  rownam.Xu <- row.names(Xu)
   
-  fm$ymeans <- .xmean(Y, weights = fm$weights)
-  
-  Tu <- .projscor(fm, .matrix(Xu))
-  
-  m <- dim(Tu)[1]
-  rownam.Xu <- row.names(Tu)
+  Y <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
+  q <- dim(Y)[2]
+  colnam.Y <- colnames(Y)
+  ymeans <- .xmean(Y, weights)
+  Ymeans <- matrix(rep(ymeans, m), nrow = m, byrow = TRUE)
   
   if(is.null(Yu)) 
     Yu <- matrix(nrow = m, ncol = q)
@@ -41,33 +33,56 @@ lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, algo = NULL,
     Yu <- .matrix(Yu, row = row)
     }
   
-  Ymeans <- matrix(rep(fm$ymeans, m), nrow = m, byrow = TRUE)
+  tol <- sqrt(.Machine$double.eps) 
+  if(n >= p) {
+    
+    fm <- eigen(crossprod(sqrt(weights) * X))
+    posit <- fm$values > max(tol * fm$values[1L], 0)
+    eig <- fm$values[posit]
+    V <- fm$vectors[, posit, drop = FALSE]
+    
+    } 
+  else {
+    
+    zX <- sqrt(weights) * X
+    fm <- eigen(tcrossprod(zX))
+    posit <- fm$values > max(tol * fm$values[1L], 0)
+    eig <- fm$values[posit]
+    U <- fm$vectors[, posit, drop = FALSE]
+    V <- crossprod(zX, .scale(U, scale = sqrt(eig)))
+    
+    } 
+  
+  T <- X %*% V
+  Tu <- Xu %*% V
+    
   lambda <- sort(lambda)
   nlambda <- length(lambda)
+  zlambda <- unit * lambda
+  
   r <- fit <- y <- array(dim = c(m, nlambda, q))
-  y[, 1, ] <- Yu
-  fit[, 1, ] <- Ymeans
   tr <- vector(length = nlambda)
-  beta <- vector(length = nlambda, mode = "list")
+  b <- vector(length = nlambda, mode = "list")
   
-  Y <- .center(Y, fm$ymeans)
-  
-  z <- 1 / fm$eig * t(fm$T) %*% (fm$weights * Y)
-  #z <- coef(lm(Y ~ fm$T - 1, weights = fm$weights))
-  zbeta <- matrix(z, nrow = ncomp, ncol = q)
+  tTDY <- crossprod(T, weights * Y)
   
   for(i in 1:nlambda) {
     
-    ztr <- fm$eig / (fm$eig + lambda[[i]] / n)
-    if(lambda[[i]] == 0)
-      ztr[fm$eig < 1e-10] <- 0
+    z <- 1 / (eig + zlambda[[i]] / n)
+    tr[i] <- sum(eig * z)
   
-    beta[[i]] <- ztr * zbeta
+    beta <- z * tTDY
 
     y[, i, ] <- Yu
-    fit[, i, ] <- Ymeans + Tu %*% beta[[i]]
-    tr[i] <- sum(ztr)
+    fit[, i, ] <- Ymeans + Tu %*% beta
     
+    zb <- V %*% beta
+    row.names(zb) <- colnames(X)
+    int <- ymeans - crossprod(xmeans, zb)
+    zb <- rbind(int, zb)
+    row.names(zb)[1] <- "intercept"
+    b[[i]] <- zb
+
     }
   
   y <- matrix(c(y), nrow = m * nlambda, ncol = q, byrow = FALSE)
@@ -76,6 +91,7 @@ lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, algo = NULL,
 
   dat <- data.frame(
     lambda = sort(rep(lambda, m)),
+    unit = rep(unit, nlambda * m),
     rownum = rep(1:m, nlambda),
     rownam = rep(rownam.Xu, nlambda)
     )
@@ -88,10 +104,7 @@ lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, algo = NULL,
   u <- (zq - q + 1):zq
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Y
 
-  list(y = y, fit = fit, r = r,
-    Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, eig = fm$eig,
-    xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
-    beta = beta, tr = tr)
+  list(y = y, fit = fit, r = r, b = b, tr = tr)
 
   }
 

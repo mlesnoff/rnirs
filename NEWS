@@ -2,6 +2,11 @@
 
 ##----------------- Version 1.7-3
 
+- Modification of functions pinv and lmridge
+
+
+##----------------- Version 1.7-3
+
 - New function: lmridge
 
 

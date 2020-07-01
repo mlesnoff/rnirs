@@ -27,6 +27,6 @@ bcoef <- function(fm, Y = NULL, ncomp = NULL) {
   b <- rbind(int, b)
   row.names(b)[1] <- "intercept"
   
-  list(beta = beta, b = b)
+  list(b = b, beta = beta)
   
   }

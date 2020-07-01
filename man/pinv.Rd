@@ -8,8 +8,6 @@
 
 Calculation of the Moore-Penrose (MP) pseudo-inverse of a matrix \eqn{X}.
 
-The core of \code{pinv} is the function \code{ginv} of package \code{MASS} (B. Ripley) available on CRAN.
-
 }
 
 \usage{
@@ -48,7 +46,7 @@ set.seed(NULL)
 
 pinv(X)
 
-pinv(X)$Xplus %*% y
+tcrossprod(pinv(X)$Xplus, t(y))
 lm(y ~ X - 1)
 
 }
