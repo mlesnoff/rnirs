@@ -30,7 +30,7 @@ lmridge(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, weights = NULL)
 
 \item{lambda}{A scalar or numeric vector defining the regularization parameter value(s).}
 
-\item{unit}{Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6} corresponds to a value \code{lambda = 13e-6}.}
+\item{unit}{Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6, ...} corresponds to a value \code{lambda = 12e-6}.}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
@@ -63,8 +63,6 @@ Hastie, T., Tibshirani, R., Friedman, J., 2009. The elements of statistical lear
 Hoerl, A.E., Kennard, R.W., 1970. Ridge Regression: Biased Estimation for Nonorthogonal Problems. Technometrics 12, 55-67. https://doi.org/10.1080/00401706.1970.10488634
 
 }
-
-
 
 \examples{
 
