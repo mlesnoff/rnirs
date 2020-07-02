@@ -7,15 +7,17 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
   namdot <- names(dots)
 
   Xr <- .matrix(Xr)
-  n <- nrow(Xr)
-  p <- ncol(Xr)
+  zdim <- dim(Xr)
+  n <- zdim[1]
+  p <- zdim[2]
   
   Xu <- .matrix(Xu)
-  m <- nrow(Xu)
-  rownam.Xu <- rownames(Xu)
+  m <- dim(Xu)[1]
+  rownam.Xu <- row.names(Xu)
   
-  colnam.Yr <- colnames(Yr)
-  if(is.null(colnam.Yr)) colnam.Yr <- "y1"
+  colnam.Y <- colnames(Yr)
+  if(is.null(colnam.Y)) 
+    colnam.Y <- "y1"
   
   Yr <- as.factor(Yr)
   ni <- c(table(Yr))
@@ -84,9 +86,10 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
   y <- data.frame(rownum = 1:m, rownam = rownam.Xu, y, stringsAsFactors = FALSE)
   fit <- data.frame(rownum = 1:m, rownam = rownam.Xu, fit, stringsAsFactors = FALSE)
   r <- data.frame(rownum = 1:m, rownam = rownam.Xu, r)
-  names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Yr
+  names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
   
-  list(y = y, fit = fit, r = r, posterior = posterior, ds = ds, prior = prior, ni = ni, fm = fm)
+  list(y = y, fit = fit, r = r, posterior = posterior, ds = ds, prior = prior, 
+       ni = ni, fm = fm)
 
   }
   

@@ -1,7 +1,7 @@
-pcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pca.eigen, da = dalm, ...) {
+pcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, da = dalm, ...) {
   
-  X <- .matrix(Xr)
-  zdim <- dim(X)
+  Xr <- .matrix(Xr)
+  zdim <- dim(Xr)
   n <- zdim[1]
   p <- zdim[2]
   
@@ -17,7 +17,7 @@ pcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pca.eigen, da = dalm, ...)
   nclas <- length(unique(Yr))
   
   if(is.null(algo))
-    if(n < 2000 & (n < p))
+    if(n < p)
       algo <- pca.eigenk
     else
       algo <- pca.eigen
@@ -25,12 +25,12 @@ pcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pca.eigen, da = dalm, ...)
   Ydummy <- dummy(Yr)
   
   if(nclas == 1) {
-    fm <- pca(X, ncomp = ncomp)
+    fm <- pca(Xr, ncomp = ncomp)
     fm$T <- fm$Tr
     fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
   else{
-    fm <- do.call(algo, c(list(X = X, ncomp = ncomp), dots.algo))
+    fm <- do.call(algo, c(list(X = Xr, ncomp = ncomp), dots.algo))
     fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
   

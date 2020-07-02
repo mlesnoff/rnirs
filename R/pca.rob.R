@@ -5,7 +5,7 @@ pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, ...) {
   n <- zdim[1]
   p <- zdim[2]
   
-  if(n < 2000 & (n < p))
+  if(n < p)
     algo <- pca.eigenk
   else
     algo <- pca.eigen

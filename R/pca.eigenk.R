@@ -13,12 +13,12 @@ pca.eigenk <- function(X, ncomp, weights = NULL) {
   xmeans <- .xmean(X, weights = weights)
   X <- .center(X, xmeans)
 
-  res <- eigen(tcrossprod(sqrt(weights) * X), symmetric = TRUE)
+  zX <- sqrt(weights) * X
+  res <- eigen(tcrossprod(zX), symmetric = TRUE)
   eig <- res$values[1:ncomp]
   eig[eig < 0] <- 0
   sv <- sqrt(eig)
-  P <- crossprod(sqrt(weights) * X,
-    .scale(res$vectors[, 1:ncomp, drop = FALSE], scale = sv))
+  P <- crossprod(zX, .scale(res$vectors[, 1:ncomp, drop = FALSE], scale = sv))
   
   T <- X %*% P
    

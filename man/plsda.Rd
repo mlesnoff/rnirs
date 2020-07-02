@@ -22,7 +22,9 @@ The DA method is defined in argument \code{da}. The default DA method is \code{\
 
 - Function \code{pcda} does the same as \code{plsda} but on principal component (instead of PLS) scores. The syntax is the same.
 
-Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the functions (there is no argument \code{scale} in the functions).   
+Data are internally centered (column-wise) before the analyses, but they are not scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).   
+
+Row observations can eventually be weighted.
 
 }
 
@@ -32,7 +34,7 @@ plsda(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ...)
 
 plsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,  ...)
 
-pcda(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pca.eigen, da = dalm, ...)
+pcda(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, da = dalm, ...)
 
 }
 
@@ -48,7 +50,7 @@ pcda(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pca.eigen, da = dalm, ...)
 
 \item{ncomp}{The number of PLS scores (i.e. components) to consider.}
 
-\item{algo}{A function (algorithm) implementing a PLS. Default to \code{\link{pls.kernel}} for PLSDA and \code{\link{pca.eigen}} for PCDA.}
+\item{algo}{For \eqn{plsda}, a function (algorithm) implementing a PLS (default to \code{\link{pls.kernel}}). For \eqn{pcda}, a function (algorithm) implementing a PCA. Default to \code{NULL}: if \eqn{n < p}, \code{\link{pca.eigenk}} is used; in the other case, \code{\link{pca.eigen}} is used.}
 
 \item{da}{A function defining the discriminant method used for the predictions. Default to \code{\link{dalm}}.} 
 

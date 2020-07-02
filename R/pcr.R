@@ -1,22 +1,27 @@
 pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...) {
   
-  X <- .matrix(Xr)
-  zdim <- dim(X)
+  Xr <- .matrix(Xr)
+  zdim <- dim(Xr)
   n <- zdim[1]
   p <- zdim[2]
   
-  Y <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
-  q <- dim(Y)[2]
-  colnam.Y <- colnames(Y)
+  Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
+  q <- dim(Yr)[2]
+  colnam.Y <- colnames(Yr)
 
   if(is.null(algo))
-    if(n < 2000 & (n < p))
+    if(n < p)
       algo <- pca.eigenk
     else
       algo <- pca.eigen
   
-  fm <- algo(X, ncomp, ...)
-  fm$ymeans <- .xmean(Y, weights = fm$weights)
+  fm <- algo(Xr, ncomp, ...)
+  if(!fm$T.ortho)
+    stop("This function is not implemented for algorithms providing
+      non orthogonal scores.") 
+  
+  fm$ymeans <- .xmean(Yr, fm$weights)
+  tt <- colSums(fm$weights * fm$T * fm$T)
 
   Tu <- .projscor(fm, .matrix(Xu))
   
@@ -38,22 +43,9 @@ pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...) {
   y[, 1, ] <- Yu
   fit[, 1, ] <- Ymeans
   
-  Y <- .center(Y, fm$ymeans)
-  
-  if(fm$T.ortho) {
-    z <- coef(lm(Y ~ fm$T[, 1:ncomp, drop = FALSE] - 1, weights = fm$weights))
-    beta <- matrix(z, nrow = ncomp, ncol = q)
-    ## Same as:
-    #zT <- fm$weights * fm$T
-    #beta <- solve(crossprod(zT, fm$T)) %*% crossprod(zT, Y)
-    }
+  beta <- 1 / tt * crossprod(fm$T, fm$weights * Yr)
   
   for(a in 1:ncomp) {
-    
-    if(!fm$T.ortho) {
-      z <- coef(lm(Y ~ fm$T[, 1:a, drop = FALSE] - 1, weights = fm$weights))
-      beta <- matrix(z, nrow = a, ncol = q)
-      }
     
     y[, a + 1, ] <- Yu
     fit[, a + 1, ] <- Ymeans + Tu[, 1:a, drop = FALSE] %*% beta[1:a, , drop = FALSE]

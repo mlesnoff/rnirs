@@ -1,22 +1,22 @@
 fda.svd <- function(Xr, Yr, Xu = NULL, ncomp = NULL, ...) {
   
-  X <- .matrix(Xr)
-  n <- nrow(X)
-  p <- ncol(X)
+  Xr <- .matrix(Xr)
+  n <- nrow(Xr)
+  p <- ncol(Xr)
   
-  Y <- as.factor(Yr)
+  Yr <- as.factor(Yr)
 
-  xmeans <- colMeans(X)
-  X <- .center(X, xmeans)
+  xmeans <- colMeans(Xr)
+  Xr <- .center(Xr, xmeans)
   
-  nclas <- length(unique(Y))
+  nclas <- length(unique(Yr))
   
   if(is.null(ncomp)) 
     ncomp <- nclas - 1
   ncomp <- min(ncomp, p, nclas - 1)
   
-  W <- matW(X, Y)$W
-  z <- centr(X, Y)
+  W <- matW(Xr, Yr)$W
+  z <- centr(Xr, Yr)
   centers <- z$centers
   ni <- z$ni
   
@@ -25,18 +25,18 @@ fda.svd <- function(Xr, Yr, Xu = NULL, ncomp = NULL, ...) {
   # ==> Cholesky decomposition of W^(-1) = U'U
   # and row-weighted (ni/n) SVD of Zcenters = centers * t(U)
   
-  ## X = centered matrix
+  ## Xr = centered matrix
   ## W^(-1) = t(U) %*% U
   ## Zcenters = centers %*% t(U)
   ## Pz = Loadings of row-weighted (ni/n) PCA of Zcenters
   ## Tcenters = Zcenters %*% Pz =  centers %*% tU %*% Pz
   
   ## Coefficients of linear discriminants: 
-  ## P = "LD" of lda(MASS) = Loadings for X in metric W(^-1)
+  ## P = "LD" of lda(MASS) = Loadings for Xr in metric W(^-1)
   ## P = t(U) %*% Pz
   
-  ## Z = X %*% t(U)
-  ## T = Z %*% Pz = X %*% t(U) %*% Pz = X %*% P
+  ## Z = Xr %*% t(U)
+  ## T = Z %*% Pz = Xr %*% t(U) %*% Pz = Xr %*% P
   
   W <- W * n / (n - nclas)
   
@@ -53,7 +53,7 @@ fda.svd <- function(Xr, Yr, Xu = NULL, ncomp = NULL, ...) {
   
   P <- tU %*% Pz[, 1:ncomp, drop = FALSE]
   
-  T <- X %*% P
+  Tr <- Xr %*% P
 
   Tu <- NULL
   if(!is.null(Xu)) {
@@ -66,7 +66,7 @@ fda.svd <- function(Xr, Yr, Xu = NULL, ncomp = NULL, ...) {
     }  
   
   list(
-    Tr = T, Tu = Tu, Tcenters = Tcenters,
+    Tr = Tr, Tu = Tu, Tcenters = Tcenters,
     P = P, R = P,
     explvar = explvar, W = W, ni = ni
     )

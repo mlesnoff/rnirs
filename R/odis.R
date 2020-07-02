@@ -1,7 +1,7 @@
 odis <- function(fm, Xr, Xu = NULL, typcut = c("param", "mad", "boxplot")) {
   
   if(is.null(fm$Tr))
-    fm$Tr <- fm$T
+    names(fm)[which(names(fm) == "T")] <- "Tr"
   
   typcut <- match.arg(typcut)
   

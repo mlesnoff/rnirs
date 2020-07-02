@@ -7,8 +7,8 @@ dalm <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL){
   m <- nrow(Xu)
   rownam.Xu <- row.names(Xu)
   
-  colnam.Yr <- colnames(Yr)
-  if(is.null(colnam.Yr)) colnam.Yr <- "y1"
+  colnam.Y <- colnames(Yr)
+  if(is.null(colnam.Y)) colnam.Y <- "y1"
 
   Yr <- as.factor(Yr)
   ni <- c(table(Yr))
@@ -39,9 +39,9 @@ dalm <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL){
     Xr <- cbind(rep(1, n), Xr)
     Xu <- cbind(rep(1, m), Xu)
     
-    Xr.d <- weights * Xr 
+    zXr <- weights * Xr 
     
-    beta <- solve(crossprod(Xr.d, Xr)) %*% crossprod(Xr.d, dummy(Yr))
+    beta <- solve(crossprod(zXr, Xr)) %*% crossprod(zXr, dummy(Yr))
     
     z <- Xu %*% beta
     
@@ -60,7 +60,7 @@ dalm <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL){
   y <- data.frame(rownum = 1:m, rownam = rownam.Xu, y, stringsAsFactors = FALSE)
   fit <- data.frame(rownum = 1:m, rownam = rownam.Xu, fit, stringsAsFactors = FALSE)
   r <- data.frame(rownum = 1:m, rownam = rownam.Xu, r)
-  names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Yr
+  names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
 
   list(y = y, fit = fit, r = r, dummyfit = dummyfit, ni = ni)
   

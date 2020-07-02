@@ -1,18 +1,18 @@
 scordis <- function(fm, typcut = c("param", "mad", "boxplot")) {
   
   if(is.null(fm$Tr))
-    fm$Tr <- fm$T
+    names(fm)[which(names(fm) == "T")] <- "Tr"
   
   typcut <- match.arg(typcut)
   
   ncomp <- dim(fm$Tr)[2]
   
-  if(is.null(fm$TT))
-    sigma <- fm$eig
-  else
-    sigma <- fm$TT
-  
-  S <- diag(sigma, nrow = ncomp, ncol = ncomp)
+  if(fm$T.ortho) {
+    tt <- colSums(fm$weights * fm$Tr * fm$Tr)
+    S <- diag(tt, nrow = ncomp, ncol = ncomp)
+    }
+  else 
+    S <- NULL
   
   res <- dis(fm$Tr, fm$Tu, rep(0, ncomp), "mahalanobis", S)
   

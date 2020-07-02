@@ -1,20 +1,25 @@
 \name{plsr}
 \alias{plsr}
+\alias{pcr}
 \encoding{latin1}
 
-\title{PLSR Models}
+\title{PLSR and PCR Models}
 
 \description{
 
-Regression on PLS latent variables (scores).
+Regression on PLS or PCA latent variables (scores).
 
-Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).  
+Data are internally centered (column-wise) before the analyses, but they are not scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).  
+
+Row observations can eventually be weighted.
 
 }
 
 \usage{
 
 plsr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...)
+
+pcr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...)
 
 }
 
@@ -30,7 +35,7 @@ plsr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...)
 
 \item{ncomp}{The number of PLS scores (= components = latent variables) to consider.}
 
-\item{algo}{A function (algorithm) implementing a PLS on the training data set. Default to \code{\link{pls.kernel}}.}
+\item{algo}{For \code{plsr}, a function (algorithm) implementing a PLS on the training data set. Default to \code{\link{pls.kernel}}. For \code{pcr}, a function (algorithm) implementing a PCA. Default to \code{NULL}: if \eqn{n < p}, \code{\link{pca.eigenk}} is used; in the other case, \code{\link{pca.eigen}} is used.}
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 
@@ -64,11 +69,12 @@ Xu <- X[9:10, ] ; Yu <- Y[9:10, ]
 
 ncomp <- 3
 fm <- plsr(Xr, Yr, Xu, Yu, ncomp = ncomp)
+#fm <- pcr(Xr, Yr, Xu, Yu, ncomp = ncomp)
 names(fm)
 fm$y
 fm$fit
 fm$r
-names(fm$fm)
+names(fm)
 
 plsr(Xr, Yr, Xu, ncomp = ncomp)[c("y", "fit", "r")]
 

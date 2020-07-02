@@ -1,18 +1,19 @@
-dasdod <- function(Xr, Yr, Xu, Yu = NULL, 
-  ncomp, nmin = 5,  ...){
+dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp, nmin = 5,  ...){
   
   if(nmin < 2) stop("\nArgument nmin must be >= 2.\n\n")
   
   Xr <- .matrix(Xr)
-  n <- nrow(Xr)
-  p <- ncol(Xr)
+  zdim <- dim(Xr)
+  n <- zdim[1]
+  p <- zdim[2]
   
   Xu <- .matrix(Xu)
-  m <- nrow(Xu)
+  m <- dim(Xu)[1]
   rownam.Xu <- row.names(Xu)
   
-  colnam.Yr <- colnames(Yr)
-  if(is.null(colnam.Yr)) colnam.Yr <- "y1"
+  colnam.Y <- colnames(Yr)
+  if(is.null(colnam.Y)) 
+    colnam.Y <- "y1"
   
   Yr <- as.factor(Yr)
   ni <- c(table(Yr))
@@ -104,7 +105,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL,
   fit <- cbind(dat, fit, stringsAsFactors = FALSE)
   r <- cbind(dat, r)
   
-  names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Yr
+  names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
   
   list(y = y, fit = fit, r = r, index = index, sd = sd, od = od,
     sdstand = sdstand, odstand = odstand, cutsd = cutsd, cutod = cutod, 

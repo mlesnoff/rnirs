@@ -1,9 +1,6 @@
 pca.nipalsna <- function(X, ncomp, 
   gramschmidt = TRUE, tol = .Machine$double.eps^0.5, maxit = 100) {
   
-  ##################### FUNCTION "nipals" OF PACKAGE "nipals" (K. Wright)
-  ##################### = NIPALS WITH NA VALUES
-  
   X <- .matrix(X)
   n <- nrow(X)
   p <- ncol(X)
@@ -17,7 +14,10 @@ pca.nipalsna <- function(X, ncomp,
   nc <- p
   eig <- rep(NA, length = ncomp)
 
-  ##################### START PACKAGE "nipals"
+  ##################### FUNCTION "nipals" OF PACKAGE "nipals" (K. Wright)
+  ##################### = NIPALS WITH NA VALUES
+  
+  ##################### START 
   
   x.orig <- x
   col.na.count <- apply(x, 2, function(x) sum(!is.na(x)))
@@ -104,7 +104,6 @@ pca.nipalsna <- function(X, ncomp,
   ##################### END
   
   sv <- sqrt(eig) / sqrt(n)
-  #scores <- sweep(scores, 2, eig, "/")
 
   eig <- sv^2
   

@@ -1,14 +1,15 @@
 daglm <- function(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit")){
   
   Xr <- .matrix(Xr)
-  n <- nrow(Xr)
+  n <- dim(Xr)[1]
   
   Xu <- .matrix(Xu)
-  m <- nrow(Xu)
+  m <- dim(Xu)[1]
   rownam.Xu <- row.names(Xu)
   
-  colnam.Yr <- colnames(Yr)
-  if(is.null(colnam.Yr)) colnam.Yr <- "y1"
+  colnam.Y <- colnames(Yr)
+  if(is.null(colnam.Y)) 
+    colnam.Y <- "y1"
 
   Yr <- as.factor(Yr)
   ni <- c(table(Yr))
@@ -54,7 +55,7 @@ daglm <- function(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit")){
   y <- data.frame(rownum = 1:m, rownam = rownam.Xu, y, stringsAsFactors = FALSE)
   fit <- data.frame(rownum = 1:m, rownam = rownam.Xu, fit, stringsAsFactors = FALSE)
   r <- data.frame(rownum = 1:m, rownam = rownam.Xu, r)
-  names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Yr
+  names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
 
   list(y = y, fit = fit, r = r, dummyfit = dummyfit, ni = ni)
   

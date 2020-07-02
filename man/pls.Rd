@@ -11,7 +11,9 @@ Partial least squares (PLS) and principal component (PCA) analyses.
 
 Functions \code{pls} fit PLS1 or PLS2 models, and \code{pca} PCA models.
 
-Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the functions (there is no argument \code{scale} in the functions).  
+Data are internally centered (column-wise) before the analyses, but they are not scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).  
+
+Row observations can eventually be weighted.
 
 }
 
@@ -33,7 +35,7 @@ pca(Xr, Xu = NULL, ncomp, algo = NULL, ...)
 
 \item{ncomp}{The number of PCA or PLS scores (i.e. components) to be calculated.}
 
-\item{algo}{For \code{pls}, a function implementing a PLS (default to \code{\link{pls.kernel}}). For \code{pca}, a function (algorithm) implementing a PCA. If \code{NULL} (default): if \eqn{(n < p)} and \eqn{n < 2000}, \code{\link{pca.eigenk}} is used; in the other cases, \code{\link{pca.eigen}} is used. }
+\item{algo}{For \code{pls}, a function implementing a PLS (default to \code{\link{pls.kernel}}). For \code{pca}, a function (algorithm) implementing a PCA. Default to \code{NULL}: if \eqn{n < p}, \code{\link{pca.eigenk}} is used; in the other case, \code{\link{pca.eigen}} is used. }
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 

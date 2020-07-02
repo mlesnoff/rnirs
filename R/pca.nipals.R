@@ -24,24 +24,18 @@ pca.nipals <- function(X, ncomp, weights = NULL,
     
     z <- .nipals(X, weights = weights)
   
-    X <- X - z$t %*% t(z$p)
+    X <- X - tcrossprod(z$t, z$p)
     
     P[, a] <- z$p
     T[, a] <- z$t
     
     sv[a] <- z$sv
-    ## = norms of the scores T in metric D
-    ## = .xnorm(T, weights = weights)
-    ## = sqrt(colSums(weights * T * T))
   
     niter[a] <- z$niter
     
     }
     
   eig <- sv^2         
-  ## = eigenvalues of X'DX = Cov(X) in metric D 
-  ## = variances of scores T in metric D
-  ## = colSums(weights * T * T)  
    
   row.names(T) <- row.names(X)
   row.names(P) <- colnames(X)

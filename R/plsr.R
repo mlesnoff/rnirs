@@ -1,10 +1,13 @@
 plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...) {
   
-  Y <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
-  q <- dim(Y)[2]
-  colnam.Y <- colnames(Y)
+  Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
+  q <- dim(Yr)[2]
+  colnam.Y <- colnames(Yr)
 
   fm <- algo(Xr, Yr, ncomp, ...)
+  if(!fm$T.ortho)
+    stop("This function is not implemented for algorithms providing
+      non orthogonal scores.") 
 
   Tu <- .projscor(fm, .matrix(Xu))
   
@@ -26,17 +29,9 @@ plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...) {
   y[, 1, ] <- Yu
   fit[, 1, ] <- Ymeans
   
-  Y <- .center(Y, fm$ymeans)
-  
-  if(fm$T.ortho)
-    beta <- t(fm$C)
+  beta <- t(fm$C)
   
   for(a in 1:ncomp) {
-    
-    if(!fm$T.ortho) {
-      z <- coef(lm(Y ~ fm$T[, 1:a, drop = FALSE] - 1, weights = fm$weights))
-      beta <- matrix(z, nrow = a, ncol = q)
-      }
     
     y[, a + 1, ] <- Yu
     fit[, a + 1, ] <- Ymeans + Tu[, 1:a, drop = FALSE] %*% beta[1:a, , drop = FALSE]

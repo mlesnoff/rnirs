@@ -1,20 +1,21 @@
 pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...) {
 
-  X <- .matrix(Xr)
-  n <- dim(X)[1]
+  Xr <- .matrix(Xr)
+  n <- dim(Xr)[1]
   
   Y <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
 
-  fm <- algo(X, Y, ncomp, ...)
+  fm <- algo(Xr, Y, ncomp, ...)
   
-  X <- .center(X, fm$xmeans)
+  tt <- fm$TT
+  tt.adj <- colSums(fm$P * fm$P) * tt
   
-  xss <- colSums(fm$P * fm$P) * fm$TT
-  xsstot <- sum(fm$weights * X * X, na.rm = TRUE)
+  Xr <- .center(Xr, fm$xmeans)
+  xsstot <- sum(fm$weights * Xr * Xr, na.rm = TRUE)
   
-  pvar <- xss / xsstot
+  pvar <- tt.adj / xsstot
   cumpvar <- cumsum(pvar)
-  xvar <- xss / n      
+  xvar <- tt.adj / n      
   
   z <- data.frame(ncomp = 1:ncomp, var = xvar, pvar = pvar, cumpvar = cumpvar)
   row.names(z) <- 1:ncomp

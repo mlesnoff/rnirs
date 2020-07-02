@@ -1,51 +1,50 @@
 pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   
-  X <- .matrix(Xr)
-  zdim <- dim(X)
+  Xr <- .matrix(Xr)
+  zdim <- dim(Xr)
   n <- zdim[1]
   p <- zdim[2]
   
   if(is.null(algo))
-    if(n < 2000 & (n < p))
+    if(n < p)
       algo <- pca.eigenk
     else
       algo <- pca.eigen
   
-  fm <- algo(X, ncomp, ...)
+  fm <- algo(Xr, ncomp, ...)
 
-  X <- .center(X, fm$xmeans)
+  zTT <- fm$weights * fm$T * fm$T
+  tt <- colSums(zTT)
   
-  eig <- fm$eig
-  
-  xsstot <- sum(fm$weights * X * X, na.rm = TRUE)
+  Xr <- .center(Xr, fm$xmeans)
+  xsstot <- sum(fm$weights * Xr * Xr, na.rm = TRUE)
   ## = sum of the variances of the columns
-  ## = trace of Cov(X)
-  ## = sum(diag(crossprod(fm$weights * X, X)))
+  ## = trace of Cov(Xr)
+  ## = sum(diag(crossprod(fm$weights * Xr, Xr)))
   
-  pvar <- eig / xsstot
+  pvar <- tt / xsstot
   cumpvar <- cumsum(pvar)
   
-  z <- data.frame(ncomp = 1:ncomp, var = eig, pvar = pvar, cumpvar = cumpvar)
+  z <- data.frame(ncomp = 1:ncomp, var = tt, pvar = pvar, cumpvar = cumpvar)
   row.names(z) <- 1:ncomp
   explvarx <- z
   
-  z <- fm$weights * fm$T * fm$T
-  contr.ind <- .scale(z, center = rep(0, ncomp), eig)
+  contr.ind <- .scale(zTT, center = rep(0, ncomp), tt)
   
-  xvars <- .xvar(X, fm$weights)
-  zX <- .scale(X, rep(0, p), sqrt(xvars))  
-  zT <- .scale(fm$T, rep(0, ncomp), sqrt(eig))
+  xvars <- .xvar(Xr, fm$weights)
+  zX <- .scale(Xr, rep(0, p), sqrt(xvars))  
+  zT <- .scale(fm$T, rep(0, ncomp), sqrt(tt))
   cor.circle <- t(fm$weights * zX) %*% zT
   
   coord.var <- crossprod(
-    X, 
-    fm$weights * .scale(fm$T,  rep(0, ncomp), sqrt(eig))
+    Xr, 
+    fm$weights * .scale(fm$T,  rep(0, ncomp), sqrt(tt))
     )
 
   z <- coord.var^2
   contr.var <- .scale(z, rep(0, ncomp), colSums(z))
   
-  row.names(contr.ind) <- row.names(X)
+  row.names(contr.ind) <- row.names(Xr)
   
   contr.ind <- data.frame(contr.ind)
   coord.var <- data.frame(coord.var)

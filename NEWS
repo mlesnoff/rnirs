@@ -2,6 +2,11 @@ News for package rnirs
 
 ##----------------- Version 1.7-4
 
+- Overall code cleaning and consistency modifications
+
+
+##----------------- Version 1.7-4
+
 - Modification of functions pinv and lmridge
 
 

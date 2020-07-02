@@ -10,7 +10,8 @@ blocksopls <- function(Xr, Yr, Xu = NULL, blocks, colblocks = NULL, ncomp, ...) 
   
   nbl <- length(blocks)
   
-  if(length(ncomp) == 1) ncomp <- rep(ncomp, nbl)
+  if(length(ncomp) == 1) 
+    ncomp <- rep(ncomp, nbl)
   
   zblocks <- data.frame(numcol = 1:sum(ncomp), bl = rep(1:nbl, ncomp))
   

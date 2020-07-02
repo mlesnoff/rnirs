@@ -36,7 +36,7 @@ lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
   tol <- sqrt(.Machine$double.eps) 
   if(n >= p) {
     
-    fm <- eigen(crossprod(sqrt(weights) * X))
+    fm <- eigen(crossprod(sqrt(weights) * X), symmetric = TRUE)
     posit <- fm$values > max(tol * fm$values[1L], 0)
     eig <- fm$values[posit]
     V <- fm$vectors[, posit, drop = FALSE]
@@ -45,7 +45,7 @@ lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
   else {
     
     zX <- sqrt(weights) * X
-    fm <- eigen(tcrossprod(zX))
+    fm <- eigen(tcrossprod(zX), symmetric = TRUE)
     posit <- fm$values > max(tol * fm$values[1L], 0)
     eig <- fm$values[posit]
     U <- fm$vectors[, posit, drop = FALSE]

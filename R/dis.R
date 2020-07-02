@@ -22,8 +22,8 @@ dis <- function( Xr, Xu = NULL, mu = NULL,
       
       if(is.null(weights))
         sigma <- cov(X) * (n - 1) / n
-      else 
-        sigma <- .xcov(X, weights = weights)
+      else
+        sigma <- .xcov(X, weights / sum(weights))
       
       }
     
