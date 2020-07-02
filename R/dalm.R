@@ -22,11 +22,6 @@ dalm <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL){
   else 
     Yu <- rep(NA, m)
   
-  if(is.null(weights)) 
-    weights <- rep(1 / n, n) 
-  else 
-    weights <- weights / sum(weights)
-  
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
     fit <- rep(lev, m)
@@ -35,14 +30,16 @@ dalm <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL){
   ### END
   
   else {
+    
+    if(is.null(weights))
+      weights <- rep(1 / n, n)
+    else
+      weights <- weights / sum(weights) 
   
-    Xr <- cbind(rep(1, n), Xr)
+    Ydummy <- dummy(Yr)
+    beta <- coef(lm(Ydummy ~ Xr, weights = weights))
+    
     Xu <- cbind(rep(1, m), Xu)
-    
-    zXr <- weights * Xr 
-    
-    beta <- solve(crossprod(zXr, Xr)) %*% crossprod(zXr, dummy(Yr))
-    
     z <- Xu %*% beta
     
     row.names(z) <- rownam.Xu

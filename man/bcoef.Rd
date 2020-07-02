@@ -6,21 +6,21 @@
 
 \description{
 
-Function \code{bcoef} returns the "beta-coefficients" (= regression coefficients on the scores) and the "b-coefficients" (= regression coefficients for the \eqn{X}-matrix), including the intercept) from a PCR or PLSR model.
+Function \code{bcoef} returns the "b-coefficients" (= regression coefficients for the \eqn{X}-matrix), including the intercept) from a PCR or PLSR model. 
+
+The function is implemented only for algorithms providing orthogonal scores.
 
 }
 
 \usage{
 
-bcoef(fm, Y = NULL, ncomp = NULL)
+bcoef(fm, ncomp = NULL)
 
 }
 
 \arguments{
 
 \item{fm}{Output  of functions \code{\link{pls}} or \code{\link{plsr}}, or of the PLS algorithm functions.}
-
-\item{Y}{Required for PCR or model with non-orthogonal scores. The training \eqn{Y}-data used to compute the PCR or PLSR model.}
 
 \item{ncomp}{The b-coefficients are calculated for the model with \code{ncomp} scores. If \code{NULL} (default), the maximal model is considered.}
 
@@ -44,10 +44,7 @@ fm <- plsr(X, Y, X, ncomp = 3)
 bcoef(fm, ncomp = 2)
 
 fm <- pcr(X, Y, X, ncomp = 3)
-#fm <- pca(X, ncomp = 3)
-#fm <- pca.eigen(X, ncomp = 3)
-bcoef(fm, Y, ncomp = 2)
-
+bcoef(fm, ncomp = 2)
 
 }
 

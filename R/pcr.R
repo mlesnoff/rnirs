@@ -71,7 +71,7 @@ pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...) {
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Y
 
   list(y = y, fit = fit, r = r,
-    Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, eig = fm$eig,
+    Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, beta = beta, eig = fm$eig,
     xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
     T.ortho = fm$T.ortho)
 

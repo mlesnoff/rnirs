@@ -1,10 +1,10 @@
 lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, 
                     weights = NULL) {
   
-  X <- .matrix(Xr)
-  xmeans <- .xmean(X, weights)
-  X <- .center(X, xmeans)
-  zdim <- dim(X)
+  Xr <- .matrix(Xr)
+  xmeans <- .xmean(Xr, weights)
+  Xr <- .center(Xr, xmeans)
+  zdim <- dim(Xr)
   n <- zdim[1]
   p <- zdim[2]
   
@@ -17,10 +17,10 @@ lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
   m <- dim(Xu)[1]
   rownam.Xu <- row.names(Xu)
   
-  Y <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
-  q <- dim(Y)[2]
-  colnam.Y <- colnames(Y)
-  ymeans <- .xmean(Y, weights)
+  Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
+  q <- dim(Yr)[2]
+  colnam.Y <- colnames(Yr)
+  ymeans <- .xmean(Yr, weights)
   Ymeans <- matrix(rep(ymeans, m), nrow = m, byrow = TRUE)
   
   if(is.null(Yu)) 
@@ -36,7 +36,7 @@ lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
   tol <- sqrt(.Machine$double.eps) 
   if(n >= p) {
     
-    fm <- eigen(crossprod(sqrt(weights) * X), symmetric = TRUE)
+    fm <- eigen(crossprod(sqrt(weights) * Xr), symmetric = TRUE)
     posit <- fm$values > max(tol * fm$values[1L], 0)
     eig <- fm$values[posit]
     V <- fm$vectors[, posit, drop = FALSE]
@@ -44,7 +44,7 @@ lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
     } 
   else {
     
-    zX <- sqrt(weights) * X
+    zX <- sqrt(weights) * Xr
     fm <- eigen(tcrossprod(zX), symmetric = TRUE)
     posit <- fm$values > max(tol * fm$values[1L], 0)
     eig <- fm$values[posit]
@@ -53,7 +53,7 @@ lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
     
     } 
   
-  T <- X %*% V
+  Tr <- Xr %*% V
   Tu <- Xu %*% V
     
   lambda <- sort(lambda)
@@ -64,7 +64,7 @@ lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
   tr <- vector(length = nlambda)
   b <- vector(length = nlambda, mode = "list")
   
-  tTDY <- crossprod(T, weights * Y)
+  tTDY <- crossprod(Tr, weights * Yr)
   
   for(i in 1:nlambda) {
     
@@ -77,7 +77,7 @@ lmridge <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
     fit[, i, ] <- Ymeans + Tu %*% beta
     
     zb <- V %*% beta
-    row.names(zb) <- colnames(X)
+    row.names(zb) <- colnames(Xr)
     int <- ymeans - crossprod(xmeans, zb)
     zb <- rbind(int, zb)
     row.names(zb)[1] <- "intercept"

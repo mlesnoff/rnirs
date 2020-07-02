@@ -7,8 +7,8 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   z <- namdot[namdot %in% names(formals(algo))]
   if(length(z) > 0) dots.algo <- dots[z] else dots.algo <- NULL
 
-  colnam.Yr <- colnames(Yr)
-  if(is.null(colnam.Yr)) colnam.Yr <- "y1"
+  colnam.Y <- colnames(Yr)
+  if(is.null(colnam.Y)) colnam.Y <- "y1"
     
   Yr <- as.factor(Yr)
   ni <- c(table(Yr))
@@ -62,7 +62,7 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   y <- data.frame(dat, y, stringsAsFactors = FALSE)
   fit <- data.frame(dat, fit, stringsAsFactors = FALSE)
   r <- data.frame(dat, r)
-  names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Yr
+  names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
 
   list(y = y, fit = fit, r = r,
     Tr = fm$Tr, Tu = fm$Tu, P = fm$P, R = fm$R, C = fm$C, TT = fm$TT,

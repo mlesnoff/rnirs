@@ -7,7 +7,7 @@
 
 \description{
 
-Regression on PLS or PCA latent variables (scores).
+Regression on PLS or PCA latent variables (scores). The functions are implemented only for algorithms providing orthogonal scores.
 
 Data are internally centered (column-wise) before the analyses, but they are not scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).  
 

@@ -8,6 +8,12 @@ pcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, da = dalm, ...) {
   dots <- list(...)
   namdot <- names(dots)
   
+  if(is.null(algo))
+    if(n < p)
+      algo <- pca.eigenk
+    else
+      algo <- pca.eigen
+  
   z <- namdot[namdot %in% names(formals(algo))]
   if(length(z) > 0) dots.algo <- dots[z] else dots.algo <- NULL
   
@@ -15,12 +21,6 @@ pcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, da = dalm, ...) {
   if(length(z) > 0) dots.da <- dots[z] else dots.da <- NULL
   
   nclas <- length(unique(Yr))
-  
-  if(is.null(algo))
-    if(n < p)
-      algo <- pca.eigenk
-    else
-      algo <- pca.eigen
   
   Ydummy <- dummy(Yr)
   
