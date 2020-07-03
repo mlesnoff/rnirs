@@ -23,32 +23,34 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
 * Multivariate factorial analyses 
     - PLS
     - PCA
-    - Robust PCA
-    - Non-linear kernel PCA
+        - Usual
+        - Robust
     - FDA
-* Variable selection: CovSel
+    - Non linear kernel
+        - KPCA
 * Regression
     - Multiple Linear Regression (MLR)
     - Linear Ridge Regression
     - PLSR
     - PCR
     - INLR
+    - Locally weighted (wrappers using locw)
+        - KNN-R
+        - KNN-LWPLSR
 * Discrimination (with various DA methods)
     - DA
     - PLSDA
     - PCDA
-* Locally weighted regression and discrimination (using function locw)
-    - KNNWR
-    - KNNWDA
-    - KNN-LWPLSR
-    - KNN-LWPLSDA
+    - Locally weighted (wrappers using locw)
+        - KNN-DA
+        - KNN-LWPLSDA
 * Multiblock
     - Orthogonalization of a matrix to another matrix
     - Block-selection
     - Block-scaling
     - Block-dimension reduction by PLS or PCA
     - Block-dimension reduction by SO-PLS or SO-PCA
-* Stacking
+* MOdel stacking
     - stackavg
     - stackavg.cla
 * Cross-validation
