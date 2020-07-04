@@ -1,0 +1,94 @@
+kpcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, 
+                 weights = NULL, ...) {
+  
+  Xr <- .matrix(Xr)
+  zdim <- dim(Xr)
+  n <- zdim[1]
+  p <- zdim[2]
+  
+  Xu <- .matrix(Xu)
+  m <- dim(Xu)[1]
+  rownam.Xu <- row.names(Xu)
+  
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)  
+  
+  Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
+  q <- dim(Yr)[2]
+  colnam.Y <- colnames(Yr)
+  ymeans <- .xmean(Yr, weights)
+  Ymeans <- matrix(rep(ymeans, m), nrow = m, byrow = TRUE)
+  
+  if(is.null(Yu)) 
+    Yu <- matrix(nrow = m, ncol = q)
+  else {
+    if(q == 1)
+      row <- FALSE 
+    else 
+      row <- TRUE
+    Yu <- .matrix(Yu, row = row)
+    }
+  
+  K <- kern(Xr, ...)
+  tK <- t(K)
+  zK <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + 
+    sum(weights * t(weights * tK))
+  Kd <- sqrt(weights) * t(sqrt(weights) * t(zK))
+  
+  Ku <- kern(Xu, Xr, ...)
+  zKu <- t(t(Ku - colSums(weights * t(Ku))) - colSums(weights * tK)) + 
+    sum(weights * t(weights * tK))
+  
+  fm <- eigen(Kd)
+  
+  A <- fm$vectors[, 1:ncomp, drop = FALSE]
+  eig <- fm$values[1:ncomp]  ## = colSums(weights * Tr * Tr)
+  sv <- sqrt(eig)
+  xsstot <- sum(fm$values)
+  
+  Pr <- sqrt(weights) * .scale(A, scale = sv)
+  Tr <- zK %*% Pr  
+  Tu <- zKu %*% Pr  
+
+  tTDY <- crossprod(Tr, weights * Yr)
+  beta <- 1 / eig * tTDY    
+
+  ymeans <- .xmean(Yr, weights)
+  Ymeans <- matrix(rep(ymeans, m), nrow = m, byrow = TRUE)
+  r <- fit <- y <- array(dim = c(m, ncomp + 1, q))
+  y[, 1, ] <- Yu
+  fit[, 1, ] <- Ymeans
+  
+  for(a in 1:ncomp) {
+    
+    y[, a + 1, ] <- Yu
+    fit[, a + 1, ] <- Ymeans + Tu[, 1:a, drop = FALSE] %*% beta[1:a, , drop = FALSE]
+    
+    }
+  
+  y <- matrix(c(y), nrow = m * (ncomp + 1), ncol = q, byrow = FALSE)
+  fit <- matrix(c(fit), nrow = m * (ncomp + 1), ncol = q, byrow = FALSE)
+  r <- y - fit
+
+  dat <- data.frame(
+    ncomp = sort(rep(0:ncomp, m)),
+    rownum = rep(1:m, ncomp + 1),
+    rownam = rep(rownam.Xu, ncomp + 1)
+    )
+  
+  y <- cbind(dat, y)
+  fit <- cbind(dat, fit)
+  r <- cbind(dat, r)
+  
+  zq <- ncol(y)
+  u <- (zq - q + 1):zq
+  names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Y
+  
+  cumpvar <- cumsum(eig) / xsstot
+
+  list(y = y, fit = fit, r = r, cumpvar = cumpvar, T.ortho = TRUE)
+
+  }
+

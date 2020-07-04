@@ -20,11 +20,7 @@ pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...) {
     stop("This function is not implemented for algorithms providing
       non orthogonal scores.") 
   
-  fm$ymeans <- .xmean(Yr, fm$weights)
-  tt <- colSums(fm$weights * fm$T * fm$T)
-
   Tu <- .projscor(fm, .matrix(Xu))
-  
   m <- dim(Tu)[1]
   rownam.Xu <- row.names(Tu)
   
@@ -38,12 +34,14 @@ pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...) {
     Yu <- .matrix(Yu, row = row)
     }
   
-  Ymeans <- matrix(rep(fm$ymeans, m), nrow = m, byrow = TRUE)
+  tt <- colSums(fm$weights * fm$T * fm$T)
+  beta <- 1 / tt * crossprod(fm$T, fm$weights * Yr)
+  
+  ymeans <- .xmean(Yr, fm$weights)
+  Ymeans <- matrix(rep(ymeans, m), nrow = m, byrow = TRUE)
   r <- fit <- y <- array(dim = c(m, ncomp + 1, q))
   y[, 1, ] <- Yu
   fit[, 1, ] <- Ymeans
-  
-  beta <- 1 / tt * crossprod(fm$T, fm$weights * Yr)
   
   for(a in 1:ncomp) {
     
@@ -72,7 +70,7 @@ pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...) {
 
   list(y = y, fit = fit, r = r,
     Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, beta = beta, eig = fm$eig,
-    xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
+    xmeans = fm$xmeans, ymeans = ymeans, weights = fm$weights,
     T.ortho = fm$T.ortho)
 
   }
