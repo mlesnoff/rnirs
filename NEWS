@@ -1,6 +1,19 @@
 News for package rnirs
 
-##----------------- Version 1.7-4
+##----------------- Version 1.7-6
+
+- New functions
+
+    krr       Kernel ridge regression
+    kpcr      Kernel PCR
+    kpcda     Kernel PCDA
+    kpcdalm   Kernel PCDA
+    
+    
+
+
+
+##----------------- Version 1.7-5
 
 - Overall code cleaning and consistency modifications
 

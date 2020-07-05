@@ -1,8 +1,19 @@
-plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
-  algo = pls.kernel, ...) {
+pcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
+  algo = NULL, ...) {
 
   dots <- list(...)
   namdot <- names(dots)
+  
+  Xr <- .matrix(Xr)
+  zdim <- dim(Xr)
+  n <- zdim[1]
+  p <- zdim[2]
+
+  if(is.null(algo))
+    if(n < p)
+      algo <- pca.eigenk
+    else
+      algo <- pca.eigen
   
   z <- namdot[namdot %in% names(formals(algo))]
   if(length(z) > 0) dots.algo <- dots[z] else dots.algo <- NULL
@@ -33,7 +44,7 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   else {
     
     fm <- do.call(
-      plsr, 
+      pcr, 
       c(list(Xr = Xr, Yr = dummy(Yr), Xu = Xu, 
         ncomp = ncomp, algo = algo), dots.algo)
       )
@@ -65,7 +76,7 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
 
   list(y = y, fit = fit, r = r,
-    Tr = fm$Tr, Tu = fm$Tu, P = fm$P, R = fm$R, C = fm$C, TT = fm$TT,
+    Tr = fm$Tr, Tu = fm$Tu, P = fm$P, R = fm$R, beta = beta, eig = fm$eig,
     xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
     T.ortho = fm$T.ortho, ni = ni, dummyfit = dummyfit)       
     

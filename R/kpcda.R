@@ -1,10 +1,15 @@
-plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ...) {
+kpcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, da = dalm, ...) {
+  
+  Xr <- .matrix(Xr)
+  zdim <- dim(Xr)
+  n <- zdim[1]
+  p <- zdim[2]
   
   dots <- list(...)
   namdot <- names(dots)
   
-  z <- namdot[namdot %in% names(formals(algo))]
-  if(length(z) > 0) dots.algo <- dots[z] else dots.algo <- NULL
+  z <- namdot[namdot %in% names(formals(kern))]
+  if(length(z) > 0) dots.kern <- dots[z] else dots.kern <- NULL
   
   z <- namdot[namdot %in% names(formals(da))]
   if(length(z) > 0) dots.da <- dots[z] else dots.da <- NULL
@@ -13,23 +18,24 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ..
   Ydummy <- dummy(Yr)
   
   if(nclas == 1) {
-    fm <- pca(Xr, ncomp = ncomp)
-    fm$T <- fm$Tr
+    fm <- pca(Xr, Xu, ncomp = ncomp)
     fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
-  else
-    fm <- do.call(algo, c(list(X = Xr, Y = Ydummy, ncomp = ncomp), dots.algo)) 
+  else{
+    fm <- do.call(kpca, c(list(Xr = Xr, Xu = Xu, ncomp = ncomp, 
+                               kern = kern), dots.kern))
+    fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
+    }
   
-  Tu <- .projscor(fm, .matrix(Xu))
-  m <- dim(Tu)[1]
+  m <- dim(fm$Tu)[1]
   
   r <- y <- fit <- vector("list", ncomp)
   for(a in 1:ncomp) {
     
     zfm <- do.call(
       da, 
-      c(list(Xr = fm$T[, 1:a, drop = FALSE], Yr = Yr,
-        Xu = Tu[, 1:a, drop = FALSE], Yu = Yu), dots.da)
+      c(list(Xr = fm$Tr[, 1:a, drop = FALSE], Yr = Yr,
+        Xu = fm$Tu[, 1:a, drop = FALSE], Yu = Yu), dots.da)
       )
     
     y[[a]] <- zfm$y
@@ -50,10 +56,9 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ..
   r <- data.frame(dat, r, stringsAsFactors = FALSE)
 
   list(y = y, fit = fit, r = r,
-    Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, C = fm$C, TT = fm$TT,
-    xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
-    T.ortho = fm$T.ortho, ni = ni)
+       weights = fm$weights, T.ortho = fm$T.ortho, ni = ni)
 
   }
+
 
 
