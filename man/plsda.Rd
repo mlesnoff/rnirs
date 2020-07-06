@@ -2,6 +2,7 @@
 \alias{plsda}
 \alias{plsdalm}
 \alias{pcda}
+\alias{pcdalm}
 \encoding{latin1}
 
 \title{PLSDA and PCDA}

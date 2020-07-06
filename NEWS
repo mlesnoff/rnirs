@@ -4,6 +4,7 @@ News for package rnirs
 
 - New functions
 
+    pcdalm    PCDA
     krr       Kernel ridge regression
     kpcr      Kernel PCR
     kpcda     Kernel PCDA
