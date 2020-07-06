@@ -3,7 +3,7 @@
 \docType{package}
 \encoding{latin1}
 
-\title{Tool Box for Chemometrics}
+\title{Locally Weighted Regressions, Kernel regressions and Other Methods for Chemometrics}
 
 \description{
 
@@ -217,10 +217,10 @@ with available kernel functions
 
 \bold{------------------------------------------ CROSS-VALIDATION AND ERROR RATES}
 \tabular{ll}{
-  \code{\link{mse}}, \code{\link{err}} \tab Error rates of prediction models\cr 
   \code{\link{segmcvkfold}}, \code{\link{segmcvmc}} \tab Segments for cross-validation \cr
-  \code{\link{selncomp.wold}} \tab Selection of the number of components in a PCR/PLSR or PLSDA model \cr
   \code{\link{fitcv}} \tab Cross-validation of a prediction model \cr
+  \code{\link{mse}}, \code{\link{err}} \tab Error rates of prediction models\cr 
+  \code{\link{selncomp.wold}} \tab Selection of the number of components in a PCR/PLSR or PLSDA model \cr
   }
 
 \bold{------------------------------------------ GRAPHICS}
@@ -255,7 +255,7 @@ with available kernel functions
   \code{\link{sourcedir}} \tab Source R functions in a directory \cr
   }
 
-\bold{See also the auxiliary functions in files} \code{zfunctions.R} and \code{zfunctions.weights.R}.
+\bold{See also the auxiliary functions in files} \code{zfunctions....R}.
 
 }
 

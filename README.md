@@ -1,7 +1,7 @@
 ## rnirs 1.7-6
-## Chemometrics Method and Locally Weighted Regressions 
+## Locally Weighted Regressions, Kernel regressions and Other Methods for Chemometrics 
 
-Package rnirs is a tool box for chemometrics, including spectra pre-processing and plotting, PCA and robust PCA, PLS and PC regression and discrimination, locally weighted methods, kernel methods, etc.
+Package rnirs is a tool box for chemometrics, including spectra pre-processing and plotting, PLS and PCA regression and discrimination, robust methods, locally weighted methods, kernel methods, etc.
 
 The package is generic for any type of data, although it was initially implemented for near infrared spectral data (NIRS).
 
@@ -29,18 +29,25 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
     - Non linear kernel
         - KPCA
 * Regression
-    - Multiple Linear Regression (MLR)
-    - Linear Ridge Regression
-    - PLSR
-    - PCR
-    - INLR
+    - Linear
+        - Multiple Linear Regression (MLR)
+        - Ridge Regression
+        - PLSR
+        - PCR
+    - Non linear kernel
+        - Kernel ridge regression
+        - KPCR
+        - INLR
     - Locally weighted (wrappers using locw)
         - KNN-R
         - KNN-LWPLSR
-* Discrimination (with various DA methods)
-    - DA
-    - PLSDA
-    - PCDA
+* Discrimination
+    - DA (various discrimination methods)
+    - Linear
+        - PLSDA
+        - PCDA
+    - Non linear kernel
+        - KPCDA
     - Locally weighted (wrappers using locw)
         - KNN-DA
         - KNN-LWPLSDA
