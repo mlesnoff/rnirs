@@ -5,6 +5,10 @@ pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...) {
   n <- zdim[1]
   p <- zdim[2]
   
+  Xu <- .matrix(Xu)
+  m <- dim(Xu)[1]
+  rownam.Xu <- row.names(Xu)
+
   Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
   q <- dim(Yr)[2]
   colnam.Y <- colnames(Yr)
@@ -21,8 +25,6 @@ pcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...) {
       non orthogonal scores.") 
   
   Tu <- .projscor(fm, .matrix(Xu))
-  m <- dim(Tu)[1]
-  rownam.Xu <- row.names(Tu)
   
   if(is.null(Yu)) 
     Yu <- matrix(nrow = m, ncol = q)

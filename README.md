@@ -1,7 +1,7 @@
 ## rnirs 1.7-6
 ## Chemometrics Method and Locally Weighted Regressions 
 
-R package focusing on chemometrics methods, including locally weighted PLS regression and discrimination.
+Package rnirs is a tool box for chemometrics, including spectra pre-processing and plotting, PCA and robust PCA, PLS and PC regression and discrimination, locally weighted methods, kernel methods, etc.
 
 The package is generic for any type of data, although it was initially implemented for near infrared spectral data (NIRS).
 

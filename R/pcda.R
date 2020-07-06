@@ -5,6 +5,9 @@ pcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, da = dalm, ...) {
   n <- zdim[1]
   p <- zdim[2]
   
+  Xu <- .matrix(Xu)
+  m <- dim(Xu)[1]
+
   dots <- list(...)
   namdot <- names(dots)
   
@@ -34,8 +37,7 @@ pcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, da = dalm, ...) {
     fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
   
-  Tu <- .projscor(fm, .matrix(Xu))
-  m <- dim(Tu)[1]
+  Tu <- .projscor(fm, Xu)
   
   r <- y <- fit <- vector("list", ncomp)
   for(a in 1:ncomp) {

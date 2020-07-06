@@ -1,5 +1,4 @@
-plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
-  algo = pls.kernel, ...) {
+kpcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, ...) {
 
   Xu <- .matrix(Xu)
   m <- dim(Xu)[1]
@@ -8,8 +7,14 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   dots <- list(...)
   namdot <- names(dots)
   
-  z <- namdot[namdot %in% names(formals(algo))]
-  if(length(z) > 0) dots.algo <- dots[z] else dots.algo <- NULL
+  weights <- dots$weights
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- dots$weights
+  
+  z <- namdot[namdot %in% names(formals(kern))]
+  if(length(z) > 0) dots.kern <- dots[z] else dots.kern <- NULL
 
   colnam.Y <- colnames(Yr)
   if(is.null(colnam.Y)) colnam.Y <- "y1"
@@ -33,9 +38,9 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   else {
     
     fm <- do.call(
-      plsr, 
+      kpcr, 
       c(list(Xr = Xr, Yr = dummy(Yr), Xu = Xu, 
-        ncomp = ncomp, algo = algo), dots.algo)
+        ncomp = ncomp, kern = kern, weights = weights), dots.kern)
       )
     
     m <- length(fm$fit$ncomp[fm$fit$ncomp == 1])
@@ -65,8 +70,7 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
 
   list(y = y, fit = fit, r = r,
-    Tr = fm$Tr, Tu = fm$Tu, P = fm$P, R = fm$R, C = fm$C, TT = fm$TT,
-    xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
-    T.ortho = fm$T.ortho, ni = ni, dummyfit = dummyfit)       
+    cumpvar = fm$cumpvar, T.ortho = fm$T.ortho, 
+    ni = ni, dummyfit = dummyfit)       
     
   }

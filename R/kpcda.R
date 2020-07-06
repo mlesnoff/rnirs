@@ -5,8 +5,17 @@ kpcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, da = dalm, ...) {
   n <- zdim[1]
   p <- zdim[2]
   
+  Xu <- .matrix(Xu)
+  m <- dim(Xu)[1]
+
   dots <- list(...)
   namdot <- names(dots)
+  
+  weights <- dots$weights
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- dots$weights
   
   z <- namdot[namdot %in% names(formals(kern))]
   if(length(z) > 0) dots.kern <- dots[z] else dots.kern <- NULL
@@ -23,11 +32,9 @@ kpcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, da = dalm, ...) {
     }
   else{
     fm <- do.call(kpca, c(list(Xr = Xr, Xu = Xu, ncomp = ncomp, 
-                               kern = kern), dots.kern))
+                               kern = kern, weights = weights), dots.kern))
     fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
-  
-  m <- dim(fm$Tu)[1]
   
   r <- y <- fit <- vector("list", ncomp)
   for(a in 1:ncomp) {

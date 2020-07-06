@@ -3,11 +3,11 @@
 \docType{package}
 \encoding{latin1}
 
-\title{Chemometrics Methods and Locally Weighted PLS Regressions}
+\title{Tool Box for Chemometrics}
 
 \description{
 
-Package rnirs focuses on chemometrics methods, including locally weighted PLS regressions and discriminations.
+Package rnirs is a tool box for chemometrics, including spectra pre-processing and plotting, PLS and PCA regression and discrimination, robust methods, locally weighted methods, kernel methods, etc.
 
 The package was initially implemented for near infrared spectral (NIRS) data, but is generic for any type of data.
 
@@ -19,14 +19,14 @@ See https://github.com/mlesnoff/rnirs.
 
 \bold{------------------------------------------ DATA MANAGEMENT}
 
------------- DATA CHECKING
+------------ CHECKING
 
 \tabular{ll}{
   \code{\link{checkdupl}}, \code{\link{rmdupl}} \tab Find or remove duplicated row observations between two data sets\cr
   \code{\link{checkna}} \tab Find and count NA values in a data set\cr
   }
 
------------- DATA SUMMARIZE
+------------ SUMMARY
 
 \tabular{ll}{
   \code{\link{centr}} \tab Centers of classes\cr
@@ -34,7 +34,7 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{summ}} \tab Summary of the variables of a data set\cr
   }
 
------------- DATA PREPROCESSING
+------------ PREPROCESSING
 
 \tabular{ll}{
   \code{\link{dderiv}} \tab Derivation by finite difference\cr
@@ -44,7 +44,7 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{snv}} \tab Standard-normal-deviation transformation\cr
   }
 
------------- DATA SAMPLING
+------------ SAMPLING
 
 \tabular{ll}{
   \code{\link{kenston}} \tab Kennard-Stone sampling \cr
@@ -91,25 +91,26 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{pca.sph}} \tab Spherical (Locantore 1999) \cr
   }
 
+\eqn{Non-linear kernel}
+
+\tabular{ll}{
+  \code{\link{kpca}} \tab KPCA\cr
+  }
+
+with available kernel functions
+
+\tabular{ll}{
+  \code{\link{kpol}} \tab Polynomial \cr
+  \code{\link{krbf}} \tab Gausssian RBF \cr
+  \code{\link{ktanh}} \tab Hyperbolic tangente \cr
+  }
+
 \eqn{Outlyingness}
 
 \tabular{ll}{
   \code{\link{out.stah}} \tab Outlyingness measure (Stahel-Donoho) \cr
   \code{\link{out.eucl}} \tab Outlyingness measure (From Euclidean distance) \cr
   \code{\link{out.pca}} \tab Outlyingness measure (From PCA scores) \cr
-  }
-
------------- NON-LINEAR KERNEL PCA
-
-\tabular{ll}{
-  \code{\link{kpca}} \tab KPCA\cr
-  }
-
-\eqn{Kernel functions}
-
-\tabular{ll}{
-  \code{\link{kpol}} \tab Polynomial \cr
-  \code{\link{krbf}} \tab Gausssian RBF \cr
   }
 
 ------------ FDA
@@ -121,7 +122,6 @@ See https://github.com/mlesnoff/rnirs.
 ------------ AUXILLIARY FUNCTIONS
 
 \tabular{ll}{
-  \code{\link{bcoef}} \tab b-coefficients for a PLS model\cr
   \code{\link{scordis}}, \code{\link{lscordis}} \tab Score distances for a score space\cr
   \code{\link{odis}}, \code{\link{lodis}} \tab Orthogonal distances for a score space\cr
   \code{\link{xfit}} \tab Matrix Approximation from multivariate scores and loadings \cr
@@ -129,16 +129,23 @@ See https://github.com/mlesnoff/rnirs.
 
 \bold{------------------------------------------ REGRESSION}
 
-\eqn{Global (eventually weighted)}
+\eqn{Linear}
 
 \tabular{ll}{
   \code{\link{lmr}} \tab Multiple Linear Regression (MLR)\cr
   \code{\link{lmridge}} \tab Linear Ridge Regression\cr
   \code{\link{plsr}} \tab PLSR\cr
   \code{\link{pcr}} \tab PCR\cr
-  \code{\link{matpoly}} \tab Blocks for INLR (Berglund & Wold 1997)\cr
   }
 
+\eqn{Non-linear kernel}
+
+\tabular{ll}{
+  \code{\link{krr}} \tab Kernel ridge regression\cr
+  \code{\link{kpcr}} \tab Kernel PCR\cr
+  \code{\link{matpoly}} \tab Blocks for INLR (Berglund & Wold 1997)\cr
+  }
+  
 \eqn{Locally weighted}
 
 \tabular{ll}{
@@ -146,9 +153,17 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{lwplsr}} \tab LWPLSR, KNN-LWPLSR\cr
   }
 
+------------ AUXILLIARY FUNCTIONS
+
+\tabular{ll}{
+  \code{\link{bcoef}} \tab b-coefficients for a PLSR or PCR model\cr
+  }
+
+
+
 \bold{------------------------------------------ DISCRIMINATION}
 
-\eqn{Methods}
+\eqn{Discrimination methods (DA)}
 
 \tabular{ll}{
   \code{\link{dalm}} \tab DA using multivariate linear regression\cr
@@ -158,11 +173,17 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{dasdod}} \tab DA using a Simca index\cr
   }
 
-\eqn{Global (eventually weighted)}
+\eqn{Linear}
 
 \tabular{ll}{
   \code{\link{plsda}}, \code{\link{plsdalm}} \tab PLSDA\cr
   \code{\link{pcda}} \tab PCDA (DA on principal components)\cr
+  }
+
+\eqn{Non-linear kernel}
+
+\tabular{ll}{
+  \code{\link{kpcda}}, \code{\link{kpcdalm}} \tab Kernel PCDA\cr
   }
 
 \eqn{Locally weighted}
@@ -171,6 +192,7 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{knnda}} \tab KNNWDA \cr
   \code{\link{lwplsr}} \tab LWPLDA, KNN-LWPLSDA\cr
   }
+
 
 \bold{------------------------------------------ VARIABLE SELECTION}
 \tabular{ll}{
@@ -189,8 +211,8 @@ See https://github.com/mlesnoff/rnirs.
 
 \bold{------------------------------------------ MODEL STACKING}
 \tabular{ll}{
-  \code{\link{stackavg}} \tab Model stacking for regression models\cr 
-  \code{\link{stackavg.cla}} \tab Model stacking for discrimination models\cr 
+  \code{\link{stackavg}} \tab Stacking for regression models\cr 
+  \code{\link{stackavg.cla}} \tab Stacking for discrimination models\cr 
   }
 
 \bold{------------------------------------------ CROSS-VALIDATION AND ERROR RATES}

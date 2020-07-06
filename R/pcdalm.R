@@ -1,19 +1,22 @@
-pcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
-  algo = NULL, ...) {
+pcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...) {
 
-  dots <- list(...)
-  namdot <- names(dots)
-  
   Xr <- .matrix(Xr)
   zdim <- dim(Xr)
   n <- zdim[1]
   p <- zdim[2]
+
+  Xu <- .matrix(Xu)
+  m <- dim(Xu)[1]
+  rownam.Xu <- row.names(Xu)
 
   if(is.null(algo))
     if(n < p)
       algo <- pca.eigenk
     else
       algo <- pca.eigen
+  
+  dots <- list(...)
+  namdot <- names(dots)
   
   z <- namdot[namdot %in% names(formals(algo))]
   if(length(z) > 0) dots.algo <- dots[z] else dots.algo <- NULL
@@ -28,10 +31,6 @@ pcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   # levels returns the sorted character level names 
   lev <- levels(Yr)      
   
-  Xu <- .matrix(Xu)
-  m <- dim(Xu)[1]
-  rownam.Xu <- row.names(Xu)
-
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
     fm <- pca(Xr, Xu, ncomp = ncomp)
