@@ -1,22 +1,23 @@
-\name{lmridge}
-\alias{lmridge}
+\name{krr}
+\alias{krr}
 \encoding{latin1}
 
-\title{Linear Ridge Regression}
+\title{Non Linear Kernel Ridge Regression}
 
 \description{
 
-Function \code{lmridge} fits linear ridge regression models by eigen decomposition. The kernel cross-product trick is used when \eqn{n < p}. 
+Function \code{krr} fits non linear kernel ridge regression models. 
 
-Data are internally centered (column-wise) before the analyses, but they are not scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).  
+The kernel Gram matrix is internally centered before the analyses, but the data are not column-wise scaled. If needed, the user has to do the scaling before using the function  (there is no argument \code{scale} in the function). 
 
-Row observations can eventually be weighted.
+Row observations can eventually be weighted (using argument \code{weights}).
 
 }
 
 \usage{
 
-lmridge(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, weights = NULL)
+krr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, kern = kpol,
+  weights = NULL, ...)
 
 }
 
@@ -29,6 +30,8 @@ lmridge(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, weights = NULL)
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations to predict.}
 
 \item{Yu}{A \eqn{m x q} matrix or data frame, or a vector of length \eqn{m}, of the true responses for \eqn{Xu}. Default to \code{NULL}.}
+
+\item{kern}{A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax and other available kernel functions.}
 
 \item{lambda}{A scalar or numeric vector defining the regularization parameter value(s).}
 
@@ -47,8 +50,6 @@ A list of outputs (see examples), such as:
 \item{fit}{Predictions for the test data.}
 
 \item{r}{Residuals for the test data.}
-
-\item{b}{The b-coefficients (including intercept).}
 
 \item{tr}{The trace of the hat matrix (estimated df).}
 
@@ -80,16 +81,16 @@ set.seed(NULL)
 Xr <- X[1:8, ] ; Yr <- Y[1:8, ] 
 Xu <- X[9:10, ] ; Yu <- Y[9:10, ] 
 
-fm <- lmridge(Xr, Yr, Xu, Yu, lambda = c(.1, .2))
+fm <- krr(Xr, Yr, Xu, Yu, lambda = c(.1, .2), degree = 3)
 ## Same as:
-## fm <- lmridge(Xr, Yr, Xu, Yu, lambda = c(1, 2), unit = .1)
+## fm <- krr(Xr, Yr, Xu, Yu, lambda = c(1, 2), unit = .1, degree = 3)
 
 fm$y
 fm$fit
 fm$r
 
-mse(fm, ~ lambda)
-mse(fm, ~ lambda, nam = "y2")
+mse(fm, ~ lambda + unit)
+mse(fm, ~ lambda + unit, nam = "y2")
 
 }
 

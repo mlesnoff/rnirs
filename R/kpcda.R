@@ -63,7 +63,9 @@ kpcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, da = dalm, ...) {
   r <- data.frame(dat, r, stringsAsFactors = FALSE)
 
   list(y = y, fit = fit, r = r,
-       weights = fm$weights, T.ortho = fm$T.ortho, ni = ni)
+    Tr = fm$Tr, Tu = fm$Tu, eig = fm$eig, sv = fm$sv,
+    weights = fm$weights, explvarx = fm$explvarx, 
+    T.ortho = fm$T.ortho, ni = ni)
 
   }
 

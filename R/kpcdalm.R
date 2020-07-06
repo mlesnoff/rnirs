@@ -1,5 +1,10 @@
 kpcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, ...) {
 
+  Xr <- .matrix(Xr)
+  zdim <- dim(Xr)
+  n <- zdim[1]
+  p <- zdim[2]
+  
   Xu <- .matrix(Xu)
   m <- dim(Xu)[1]
   rownam.Xu <- row.names(Xu)
@@ -70,7 +75,8 @@ kpcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, ...) {
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
 
   list(y = y, fit = fit, r = r,
-    cumpvar = fm$cumpvar, T.ortho = fm$T.ortho, 
+    Tr = fm$Tr, Tu = fm$Tu, eig = fm$eig, sv = fm$sv,
+    weights = fm$weights, cumpvar = fm$cumpvar, 
     ni = ni, dummyfit = dummyfit)       
     
   }

@@ -13,7 +13,7 @@ Functions \code{pls} fit PLS1 or PLS2 models, and \code{pca} PCA models.
 
 Data are internally centered (column-wise) before the analyses, but they are not scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).  
 
-Row observations can eventually be weighted.
+Row observations can eventually be weighted (using argument \code{weights}).
 
 }
 

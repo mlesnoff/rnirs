@@ -8,9 +8,9 @@
 
 Non-linear kernel PCA (e.g. Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
 
-The function can set a priori weights to the training observations (rows of \eqn{Xr}), with argument \code{weights}.
+The kernel Gram matrix is internally centered before the analyses, but the data are not column-wise scaled. If needed, the user has to do the scaling before using the function  (there is no argument \code{scale} in the function).
 
-The kernel Gram matrix is internally centered before the analyses, but the data are not column-wise scaled. If needed, the user has to do the scaling before using the function  (there is no argument \code{scale} in the function).  
+Row observations can eventually be weighted (using argument \code{weights}).
 
 }
 
@@ -26,7 +26,7 @@ kpca(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...)
 
 \item{ncomp}{The number of PCA scores (i.e. components) to be calculated.}
 
-\item{kern}{A function defining the considered kernel (Default to \code{\link{kpol}}).}
+\item{kern}{A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax and other available kernel functions.}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 

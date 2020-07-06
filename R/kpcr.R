@@ -88,7 +88,9 @@ kpcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol,
   
   cumpvar <- cumsum(eig) / xsstot
 
-  list(y = y, fit = fit, r = r, cumpvar = cumpvar, T.ortho = TRUE)
+  list(y = y, fit = fit, r = r, 
+    Tr = Tr, Tu = Tu, eig = eig, sv = sv, 
+    cumpvar = cumpvar, weights = weights, T.ortho = TRUE)
 
   }
 
