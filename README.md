@@ -17,9 +17,14 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
 
 * Data checking and summarizing
 * Data pre-processing
-    - Detrend (poly, lowess, als)
+    - Detrend
+        - Polynomial
+        - Lowess
+        - ALS
     - SNV
-    - Derivation (Savitsky-Golay, Finite difference)
+    - Derivation
+        - Savitsky-Golay
+        - Finite differences
 * Multivariate factorial analyses 
     - PLS
     - PCA
