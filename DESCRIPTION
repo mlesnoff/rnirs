@@ -1,6 +1,6 @@
 Package: rnirs
 Type: Package
-Title: Locally Weighted Regressions, Kernel regressions and Other Methods for Chemometrics
+Title: Chemometrics, Locally Weighted Regressions, Kernel regressions and Other Methods
 Version: 1.7-6
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>

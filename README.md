@@ -1,5 +1,5 @@
 ## rnirs 1.7-6
-## Locally Weighted Regressions, Kernel regressions and Other Methods for Chemometrics 
+## Chemometrics, Locally Weighted Regressions, Kernel regressions and Other Methods  
 
 Package rnirs is a tool box for chemometrics, including spectra pre-processing and plotting, PLS and PCA regression and discrimination, robust methods, locally weighted methods, kernel methods, etc.
 
