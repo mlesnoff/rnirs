@@ -1,4 +1,4 @@
-kpcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, 
+kplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, 
                  weights = NULL, ...) {
   
   Xr <- .matrix(Xr)
@@ -30,28 +30,15 @@ kpcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol,
     Yu <- .matrix(Yu, row = row)
     }
   
-  K <- kern(Xr, ...)
-  tK <- t(K)
-  Kc <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + 
-    sum(weights * t(weights * tK))
-  
   Ku <- kern(Xu, Xr, ...)
+  tK <- t(kern(Xr, ...))
   Kuc <- t(t(Ku - colSums(weights * t(Ku))) - colSums(weights * tK)) + 
     sum(weights * t(weights * tK))
   
-  fm <- eigen(sqrt(weights) * t(sqrt(weights) * t(Kc)))
-  
-  A <- fm$vectors[, 1:ncomp, drop = FALSE]
-  eig <- fm$values[1:ncomp]  ## = colSums(weights * Tr * Tr)
-  sv <- sqrt(eig)
-  xsstot <- sum(fm$values)
-  
-  Pr <- sqrt(weights) * .scale(A, scale = sv)
-  Tr <- Kc %*% Pr  
-  Tu <- Kuc %*% Pr  
+  fm <- kpls.nipals(Xr, Yr, ncomp, kern, weights, ...)
+  Tu <- Kuc %*% fm$R
 
-  tTDY <- crossprod(Tr, weights * Yr)
-  beta <- 1 / eig * tTDY    
+  beta <- t(fm$C)    
 
   Ymeans <- matrix(rep(ymeans, m), nrow = m, byrow = TRUE)
   r <- fit <- y <- array(dim = c(m, ncomp + 1, q))
@@ -83,11 +70,9 @@ kpcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol,
   u <- (zq - q + 1):zq
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Y
   
-  cumpvar <- cumsum(eig) / xsstot
-
   list(y = y, fit = fit, r = r, 
-    Tr = Tr, Tu = Tu, eig = eig, sv = sv, 
-    cumpvar = cumpvar, weights = weights, T.ortho = TRUE)
+    Tr = fm$Tr, Tu = fm$Tu, 
+    weights = fm$weights, T.ortho = fm$T.ortho)
 
   }
 

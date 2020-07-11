@@ -143,7 +143,7 @@ with available kernel functions
 \tabular{ll}{
   \code{\link{krr}} \tab Kernel ridge regression\cr
   \code{\link{kpcr}} \tab Kernel PCR\cr
-  \code{\link{matpoly}} \tab Blocks for INLR (Berglund & Wold 1997)\cr
+  \code{\link{inlr}} \tab Blocks for INLR (Berglund & Wold 1997)\cr
   }
   
 \eqn{Locally weighted}

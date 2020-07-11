@@ -10,11 +10,10 @@ kpca <- function(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
   
   K <- kern(Xr, ...)
   tK <- t(K)
-  zK <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + 
+  Kc <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + 
     sum(weights * t(weights * tK))
-  Kd <- sqrt(weights) * t(sqrt(weights) * t(zK))
 
-  fm <- eigen(Kd)
+  fm <- eigen(sqrt(weights) * t(sqrt(weights) * t(Kc)))
   
   A <- fm$vectors[, 1:ncomp]
   eig <- fm$values[1:ncomp]
@@ -23,7 +22,7 @@ kpca <- function(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
   
   Pr <- sqrt(weights) * .scale(A, scale = sv)
 
-  T <- zK %*% Pr
+  T <- Kc %*% Pr
   
   z <- data.frame(ncomp = 1:ncomp, var = eig, pvar = eig / xsstot)
   z$cumpvar <- cumsum(z$pvar)
@@ -36,10 +35,10 @@ kpca <- function(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
     Xu <- .matrix(Xu)
     
     Ku <- kern(Xu, Xr, ...)
-    zKu <- t(t(Ku - colSums(weights * t(Ku))) - colSums(weights * tK)) + 
+    Kuc <- t(t(Ku - colSums(weights * t(Ku))) - colSums(weights * tK)) + 
       sum(weights * t(weights * tK))
 
-    Tu <- zKu %*% Pr
+    Tu <- Kuc %*% Pr
     
     row.names(Tu) <- row.names(Xu)
     colnames(Tu) <-  paste("comp", 1:ncomp, sep = "")

@@ -1,5 +1,16 @@
 News for package rnirs
 
+##----------------- Version 1.8-0
+
+- Function matpoly renamed to "inls"
+
+- New functions
+
+  kpls.nipals         Kernel PLS nipals (Rosipal & Trejo 2001) 
+  kplsr               Kernel PLSR (using kpls.nipals)
+  kgram               Build kernel Gram matrices for direct kernel regressions
+
+
 ##----------------- Version 1.7-6
 
 - New functions
