@@ -13,7 +13,7 @@ Functions \code{kpcda} and \code{kpcdalm} do the same as \code{pcda} and \code{p
 
 Function \code{kpcdalm} is a faster equivalent of \code{kpcda(..., da = dalm, ...)}.
 
-The kernel Gram matrix is internally centered before the analyses, but the data are not column-wise scaled. If needed, the user has to do the scaling before using the function  (there is no argument \code{scale} in the function).
+The kernel Gram matrix is internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.
 
 Row observations can eventually be weighted (using argument \code{weights}).
 

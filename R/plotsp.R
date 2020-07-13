@@ -67,7 +67,7 @@ plotsp <- function(X,
     }
   
   if(is.null(blocks))
-      .flines(X, colnam, type, col, labels, ...) 
+    .flines(X, colnam, type, col, labels, ...) 
   else {
     
     k <- length(blocks)

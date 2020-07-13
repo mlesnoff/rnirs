@@ -8,7 +8,7 @@
 
 \description{
 
-Algorithms for robust PCA of a matrix \eqn{X}. Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the functions (there is no argument \code{scale} available). 
+Algorithms for robust PCA of a matrix \eqn{X}. Data are internally centered before the analyses, but they are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the functions. 
 
 - \code{pca.cr}: 
 

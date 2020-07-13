@@ -8,7 +8,7 @@
 
 Non-linear kernel PCA (e.g. Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
 
-The kernel Gram matrix is internally centered before the analyses, but the data are not column-wise scaled. If needed, the user has to do the scaling before using the function  (there is no argument \code{scale} in the function).
+The kernel Gram matrices are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function .
 
 Row observations can eventually be weighted (using argument \code{weights}).
 

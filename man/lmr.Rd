@@ -6,7 +6,9 @@
 
 \description{
 
-Function \code{lmr} fits a multiple linear regression model (MLR) using function \code{\link{lm}}. The row observations can eventually be weighted.
+Function \code{lmr} fits a multiple linear regression model (MLR) using function \code{\link{lm}}. 
+
+Row observations can eventually be weighted.
 
 }
 

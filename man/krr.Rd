@@ -8,7 +8,7 @@
 
 Function \code{krr} fits non linear kernel ridge regression models. 
 
-The kernel Gram matrix is internally centered before the analyses, but the data are not column-wise scaled. If needed, the user has to do the scaling before using the function  (there is no argument \code{scale} in the function). 
+The kernel Gram matrix is internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function. 
 
 Row observations can eventually be weighted (using argument \code{weights}).
 

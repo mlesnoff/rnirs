@@ -14,13 +14,13 @@ PLS1 and PLS2 algorithms.
 
 \code{pls.kernel} implements the "improved kernel algorithm #1" proposed by Dayal and MacGregor (1997). This algorithm is stable and fast (Andersson 2009), and returns the same results as NIPALS. 
 
-\code{pls.rannar} implements a kernel algorithm proposed by Rannar et al. (1994) for "wide" matrices, i.e.  with low number of rows and very large number of columns (p >> n; e.g. p = 20000). In such a situation, this algorithm is faster than the others (but becomes much slower in other situations). If the algorithm convergences, it returns the same results as NIPALS (Note: discrepancies can be observed if too many PLS components are requested compared to the low number of observations).
+\code{pls.rannar} implements a kernel algorithm proposed by Rannar et al. (1994) for "wide" matrices, i.e.  with low number of rows and very large number of columns (p >> n; e.g. p = 20000). In such a situation, this algorithm is faster than the others (but becomes much slower in other situations). If the algorithm converges, it returns the same results as NIPALS (Note: discrepancies can be observed if too many PLS components are requested compared to the low number of observations).
 
 All algorithms center matrix \eqn{X}. Missing values are not allowed.
 
 The functions can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores, loadings and predictions.
 
-Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the functions (there is no argument \code{scale} in the functions).
+Data are internally centered before the analyses, but they are not column-wise scaled (there is no argument \code{scale} in the functions). If needed, the user has to do the scaling before using the functions.
 
 }
 

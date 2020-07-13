@@ -10,7 +10,7 @@
 
 \description{
 
-Algorithms for PCA of a matrix \eqn{X}. Data are internally centered before the analyses, but they are not column-wise scaled. If needed, the user has to do the scaling before using the functions (there is no argument \code{scale} available). 
+Algorithms for PCA of a matrix \eqn{X}. Data are internally centered before the analyses, but they are not column-wise scaled (there is no argument \code{scale} available). If needed, the user has to do the scaling before using the functions. 
 
 The functions (except \code{pca.nipalsna}) can set a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. Below, \eqn{D} is the diagonal matrix of the weights. 
 

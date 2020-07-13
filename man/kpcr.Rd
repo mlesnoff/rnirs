@@ -1,20 +1,26 @@
-\name{kpcr}
+\name{kplsr}
 \alias{kpcr}
 \encoding{latin1}
 
-\title{Non linear kernel PCR Models}
+\title{Non linear kernel PLSR and PCR Models}
 
 \description{
 
-Regression on kernel PCA latent variables (scores). The functions are implemented only for algorithms providing orthogonal scores.
+Function \code{kplsr} fits a KPLSR model such as in Rosipal & Trejo (2001), with the NIPALS algorithm. 
 
-The kernel Gram matrix is internally centered before the analyses, but the data are not column-wise scaled. If needed, the user has to do the scaling before using the function  (there is no argument \code{scale} in the function). 
+Function \code{kpcr} fits a KPCR model, i.e. a regression on KPCA latent variables (scores) (see \code{\link{kpca}}).
+
+The kernel Gram matrices are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function  . 
 
 Row observations can eventually be weighted (using argument \code{weights}).
+
+Alternatives, that can be much faster for large \eqn{n}, are to do "direct" kernel PLSR or PCR, using function \code{\link{kgram}}.  
 
 }
 
 \usage{
+
+kplsr(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, weights = NULL, ...)
 
 kpcr(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, weights = NULL, ...)
 
@@ -32,7 +38,7 @@ kpcr(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, weights = NULL, ...)
 
 \item{ncomp}{The number of scores (= components = latent variables) to consider.}
 
-\item{kern}{A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax and other available kernel functions.}
+\item{kern}{A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax, and other available kernel functions.}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
@@ -52,6 +58,12 @@ A list of outputs (see examples), such as:
 
 }
 
+\references{
+
+Rosipal, R., Trejo, L.J., 2001. Kernel Partial Least Squares Regression in Reproducing Kernel Hilbert Space. Journal of Machine Learning Research 2, 97-123.
+
+}
+
 \examples{
 
 n <- 10
@@ -68,13 +80,14 @@ Xu <- X[9:10, ] ; Yu <- Y[9:10, ]
 
 ncomp <- 3
 fm <- kpcr(Xr, Yr, Xu, Yu, ncomp = ncomp, degree = 3)
+#fm <- kpcr(Xr, Yr, Xu, Yu, ncomp = ncomp, degree = 3)
 names(fm)
 z <- mse(fm, ~ ncomp)
 z[z$rmsep == min(z$rmsep), ]
 plotmse(z)
 
 ## fictive weights
-kpcr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:nrow(Xr))
+kplsr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:nrow(Xr))
 
 }
 

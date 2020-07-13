@@ -8,7 +8,7 @@
 
 Function \code{lmridge} fits linear ridge regression models by eigen decomposition. The kernel cross-product trick is used when \eqn{n < p}. 
 
-Data are internally centered (column-wise) before the analyses, but they are not scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).  
+Data are internally centered (column-wise) before the analyses, but they are not scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.  
 
 Row observations can eventually be weighted.
 

@@ -23,7 +23,7 @@ The DA method is defined in argument \code{da}. The default DA method is \code{\
 
 - Function \code{pcda} does the same as \code{plsda} but on principal component (instead of PLS) scores. The syntax is the same.
 
-Data are internally centered (column-wise) before the analyses, but they are not scaled. If needed, the user has to do the scaling before using the function (there is no argument \code{scale} in the function).   
+Data are internally centered (column-wise) before the analyses, but they are not scaled (there is no argument \code{scale} in the functions). If needed, the user has to do the scaling before using the function.   
 
 Row observations can eventually be weighted (using argument \code{weights}).
 
