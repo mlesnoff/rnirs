@@ -10,6 +10,8 @@
 
 Functions building the Gram matrix for different kernels (e.g. Scholkopf & Smola 2002).
 
+The user can build any other ad'hoc kernel function.
+
 }
 
 \usage{
@@ -60,7 +62,6 @@ X <- matrix(rnorm(n * p, mean = 10), ncol = p)
 Xu <- matrix(rnorm(m * p, mean = 10), ncol = p)
 set.seed(NULL)
 
-ncomp <- 3
 kpol(X, degree = 2)
 kpol(Xu, X, degree = 2)
 

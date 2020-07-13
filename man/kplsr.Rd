@@ -1,4 +1,5 @@
 \name{kplsr}
+\alias{kplsr}
 \alias{kpcr}
 \encoding{latin1}
 
@@ -6,7 +7,7 @@
 
 \description{
 
-Function \code{kplsr} fits a KPLSR model such as in Rosipal & Trejo (2001), with the NIPALS algorithm. 
+Function \code{kplsr} fits a KPLSR model such as in Rosipal & Trejo (2001), with the NIPALS algorithm (\code{\link{kpls.nipals}}). 
 
 Function \code{kpcr} fits a KPCR model, i.e. a regression on KPCA latent variables (scores) (see \code{\link{kpca}}).
 
@@ -14,7 +15,7 @@ The kernel Gram matrices are internally centered before the analyses, but the da
 
 Row observations can eventually be weighted (using argument \code{weights}).
 
-Alternatives, that can be much faster for large \eqn{n}, are to do "direct" kernel PLSR or PCR, using function \code{\link{kgram}}.  
+Alternative kernel algorithms, that can be much faster for large \eqn{n}, are to do "direct" kernel PLSR or PCR, using function \code{\link{kgram}}.  
 
 }
 

@@ -1,16 +1,19 @@
-\name{kpca}
+\name{kpls}
+\alias{kpls}
 \alias{kpca}
 \encoding{latin1}
 
-\title{KPCA}
+\title{KPLS and KPCA}
 
 \description{
 
-Non-linear kernel PCA (e.g. Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
+Non-linear kernel PLS (Rosipal & Trejo 2001) or PCA (e.g. Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
 
 The kernel Gram matrices are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function .
 
 Row observations can eventually be weighted (using argument \code{weights}).
+
+Alternative kernel algorithms, that can be much faster for large \eqn{n}, are to do "direct" kernel PLS or PCA, using function \code{\link{kgram}}.  
 
 }
 
@@ -42,11 +45,13 @@ A list of outputs (see examples), such as:
 
 \item{Tu}{The test score matrix in the feature space (\eqn{m x ncomp}).}
 
-\item{explvar}{Eigen-values and proportions of variance explained in the feature space by the training scores.}
+\item{explvar}{For \code{kpca}. Eigen-values and proportions of variance explained in the feature space by the training scores.}
 
 }
 
 \references{
+
+Rosipal, R., Trejo, L.J., 2001. Kernel Partial Least Squares Regression in Reproducing Kernel Hilbert Space. Journal of Machine Learning Research 2, 97-123.
 
 Scholkopf, B., Smola, A., Müller, K.-R., 1997. Kernel principal component analysis, in: Gerstner, W., Germond, A., Hasler, M., Nicoud, J.-D. (Eds.), Artificial Neural Networks — ICANN’97, Lecture Notes in Computer Science. Springer, Berlin, Heidelberg, pp. 583-588. https://doi.org/10.1007/BFb0020217
 

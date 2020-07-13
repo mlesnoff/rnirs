@@ -1,21 +1,24 @@
-\name{kpcda}
+\name{kplsda}
+\alias{kplsdalm}
 \alias{kpcda}
 \alias{kpcdalm}
 \encoding{latin1}
 
-\title{KPCDA}
+\title{Non linear kernel PLSDA and PCDA models}
 
 \description{
 
-Discrimination (DA) on non linear kernel PCA latent variables.
+Discrimination (DA) on non linear kernel PLS or PCA latent variables (scores).
 
-Functions \code{kpcda} and \code{kpcdalm} do the same as \code{pcda} and \code{pcdalm} (see correponding help pages) but on scores returned by a kernel PCA, instead of usual PCA.
+Functions \code{kplsda} and \code{kplsdalm} do the same as \code{\link{plsda}} and \code{\link{plsdalm}}, respectively, but on scores returned by a kernel PLS (instead of the usual PLS scores). The kernel PLS scores are calculated with function \code{\link{kpls}}.
 
-Function \code{kpcdalm} is a faster equivalent of \code{kpcda(..., da = dalm, ...)}.
+Functions \code{kpcda} and \code{kpcdalm} do the same as \code{\link{pcda}} and \code{\link{pcdalm}}, respectively, but on scores returned by a kernel PCA (instead of the usual PCA scores). The kernel PLS scores are calculated with function \code{\link{kpca}}.
 
-The kernel Gram matrix is internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.
+The kernel Gram matrices are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the functions). If needed, the user has to do the scaling before using the function.
 
 Row observations can eventually be weighted (using argument \code{weights}).
+
+Alternative kernel algorithms, that can be much faster for large \eqn{n}, are to do "direct" kernel PLSDA or PCDA, using function \code{\link{kgram}}.  
 
 }
 
@@ -73,7 +76,7 @@ headm(Xu)
 table(yr)
 table(yu)
 
-######## KPC-DALM
+######## KPCDALM
 
 ncomp <- 20
 fm <- kpcda(Xr, yr, Xu, yu, ncomp = ncomp, kpol = krbf, sigma  = 2)
@@ -94,7 +97,7 @@ z <- err(fm, ~ ncomp)
 z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp")
 
-######## KPC-QDA
+######## KPCQDA
 
 ncomp <- 20
 fm <- kpcda(Xr, yr, Xu, yu, ncomp, da = daprob, degree = 3, lda = FALSE)

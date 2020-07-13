@@ -31,7 +31,7 @@ kplsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, da = dalm, ...) {
     fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
   else{
-    fm <- do.call(kplsda, c(list(Xr = Xr, Xu = Xu, ncomp = ncomp, 
+    fm <- do.call(kpls, c(list(Xr = Xr, Xu = Xu, ncomp = ncomp, 
                                kern = kern, weights = weights), dots.kern))
     fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
