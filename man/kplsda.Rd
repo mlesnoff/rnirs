@@ -8,17 +8,19 @@
 
 \description{
 
-Discrimination (DA) on non linear kernel PLS or PCA latent variables (scores).
+Discrimination (DA) based on non linear kernel PLS or PCA latent variables (scores).
 
-Functions \code{kplsda} and \code{kplsdalm} do the same as \code{\link{plsda}} and \code{\link{plsdalm}}, respectively, but on scores returned by a kernel PLS (instead of the usual PLS scores). The kernel PLS scores are calculated with function \code{\link{kpls}}.
+Functions \code{kplsda} and \code{kplsdalm} do the same as \code{\link{plsda}} and \code{\link{plsdalm}}, respectively, but using scores returned by a kernel PLS (instead of the usual PLS scores). The kernel PLS scores are calculated with function \code{\link{kpls}}.
 
-Functions \code{kpcda} and \code{kpcdalm} do the same as \code{\link{pcda}} and \code{\link{pcdalm}}, respectively, but on scores returned by a kernel PCA (instead of the usual PCA scores). The kernel PLS scores are calculated with function \code{\link{kpca}}.
+Functions \code{kpcda} and \code{kpcdalm} do the same as \code{\link{pcda}} and \code{\link{pcdalm}}, respectively, but using scores returned by a kernel PCA (instead of the usual PCA scores). The kernel PCA scores are calculated with function \code{\link{kpca}}.
 
 The kernel Gram matrices are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the functions). If needed, the user has to do the scaling before using the function.
 
 Row observations can eventually be weighted (using argument \code{weights}).
 
-Alternative kernel algorithms, that can be much faster for large \eqn{n}, are to do "direct" kernel PLSDA or PCDA, using function \code{\link{kgram}}.  
+\bold{Note:} Alternative kernel PLSDA or PCDA algorithms, that can be much faster for large \eqn{n}, are to run "direct" kernel models, using function \code{\link{kgram}}.  
+
+
 
 }
 

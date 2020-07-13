@@ -25,16 +25,12 @@ pcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, da = dalm, ...) {
   
   nclas <- length(unique(Yr))
   
-  Ydummy <- dummy(Yr)
-  
   if(nclas == 1) {
     fm <- pca(Xr, ncomp = ncomp)
-    fm$T <- fm$Tr
-    fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
   else{
     fm <- do.call(algo, c(list(X = Xr, ncomp = ncomp), dots.algo))
-    fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
+    fm$Tr <- fm$T
     }
   
   Tu <- .projscor(fm, Xu)
@@ -44,7 +40,7 @@ pcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, da = dalm, ...) {
     
     zfm <- do.call(
       da, 
-      c(list(Xr = fm$T[, 1:a, drop = FALSE], Yr = Yr,
+      c(list(Xr = fm$Tr[, 1:a, drop = FALSE], Yr = Yr,
         Xu = Tu[, 1:a, drop = FALSE], Yu = Yu), dots.da)
       )
     
@@ -66,8 +62,8 @@ pcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, da = dalm, ...) {
   r <- data.frame(dat, r, stringsAsFactors = FALSE)
 
   list(y = y, fit = fit, r = r,
-    Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, eig = fm$eig,
-    xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
+    Tr = fm$Tr, Tu = Tu, P = fm$P, R = fm$R, eig = fm$eig,
+    xmeans = fm$xmeans, weights = fm$weights, 
     T.ortho = fm$T.ortho, ni = ni)
 
   }

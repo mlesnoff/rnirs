@@ -15,7 +15,8 @@ The kernel Gram matrices are internally centered before the analyses, but the da
 
 Row observations can eventually be weighted (using argument \code{weights}).
 
-Alternative kernel algorithms, that can be much faster for large \eqn{n}, are to do "direct" kernel PLSR or PCR, using function \code{\link{kgram}}.  
+\bold{Note:} Alternative kernel PLSR or PCR algorithms, that can be much faster for large \eqn{n}, are to run "direct" kernel models, using function \code{\link{kgram}}.  
+
 
 }
 
@@ -89,6 +90,24 @@ plotmse(z)
 
 ## fictive weights
 kplsr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:nrow(Xr))
+
+####### Example of fitting the function sinc(x) (Rosipal & Trejo 2001 p. 105-106) 
+
+x <- seq(-10, 10, by = .2)
+x[x == 0] <- 1e-5
+n <- length(x)
+zy <- sin(abs(x)) / abs(x)
+y <- zy + rnorm(n, 0, .2)
+plot(x, y, type = "p")
+lines(x, zy, lty = 2)
+Xu <- Xr <- .matrix(x, row = FALSE)
+
+ncomp <- 3
+fm <- kplsr(Xr, y, Xu, ncomp = ncomp, kern = krbf)
+fit <- fm$fit$y1[fm$fit$ncomp == ncomp]
+plot(Xr, y, type = "p")
+lines(Xr, zy, lty = 2)
+lines(Xu, fit, col = "red")
 
 }
 

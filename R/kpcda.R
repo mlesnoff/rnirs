@@ -24,16 +24,13 @@ kpcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, da = dalm, ...) {
   if(length(z) > 0) dots.da <- dots[z] else dots.da <- NULL
   
   nclas <- length(unique(Yr))
-  Ydummy <- dummy(Yr)
   
   if(nclas == 1) {
     fm <- pca(Xr, Xu, ncomp = ncomp)
-    fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
   else{
     fm <- do.call(kpca, c(list(Xr = Xr, Xu = Xu, ncomp = ncomp, 
                                kern = kern, weights = weights), dots.kern))
-    fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
   
   r <- y <- fit <- vector("list", ncomp)

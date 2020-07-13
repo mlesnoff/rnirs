@@ -28,12 +28,11 @@ kplsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, da = dalm, ...) {
   
   if(nclas == 1) {
     fm <- pca(Xr, Xu, ncomp = ncomp)
-    fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
   else{
-    fm <- do.call(kpls, c(list(Xr = Xr, Xu = Xu, ncomp = ncomp, 
+    
+    fm <- do.call(kpls, c(list(Xr = Xr, Yr = Ydummy, Xu = Xu, ncomp = ncomp, 
                                kern = kern, weights = weights), dots.kern))
-    fm$ymeans <- .xmean(Ydummy, weights = fm$weights)
     }
   
   r <- y <- fit <- vector("list", ncomp)

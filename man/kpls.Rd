@@ -13,7 +13,7 @@ The kernel Gram matrices are internally centered before the analyses, but the da
 
 Row observations can eventually be weighted (using argument \code{weights}).
 
-Alternative kernel algorithms, that can be much faster for large \eqn{n}, are to do "direct" kernel PLS or PCA, using function \code{\link{kgram}}.  
+\bold{Note:} Alternative kernel PLS or PCA algorithms, that can be much faster for large \eqn{n}, are to run "direct" kernel models, using function \code{\link{kgram}}.  
 
 }
 
