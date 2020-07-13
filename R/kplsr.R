@@ -71,7 +71,7 @@ kplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol,
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Y
   
   list(y = y, fit = fit, r = r, 
-    Tr = fm$Tr, Tu = fm$Tu, 
+    Tr = fm$T, Tu = Tu, C = fm$C, 
     weights = fm$weights, T.ortho = fm$T.ortho)
 
   }

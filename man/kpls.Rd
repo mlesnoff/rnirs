@@ -3,11 +3,11 @@
 \alias{kpca}
 \encoding{latin1}
 
-\title{KPLS and KPCA}
+\title{Non Linear Kernel PLS and PCA}
 
 \description{
 
-Non-linear kernel PLS (Rosipal & Trejo 2001) or PCA (e.g. Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
+Non-linear KPLS (Rosipal & Trejo 2001) or KPCA (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
 
 The kernel Gram matrices are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function .
 
@@ -18,7 +18,11 @@ Alternative kernel algorithms, that can be much faster for large \eqn{n}, are to
 }
 
 \usage{
+
+kpls(Xr, Yr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...)
+
 kpca(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...)
+
 }
 
 \arguments{
@@ -53,7 +57,7 @@ A list of outputs (see examples), such as:
 
 Rosipal, R., Trejo, L.J., 2001. Kernel Partial Least Squares Regression in Reproducing Kernel Hilbert Space. Journal of Machine Learning Research 2, 97-123.
 
-Scholkopf, B., Smola, A., Müller, K.-R., 1997. Kernel principal component analysis, in: Gerstner, W., Germond, A., Hasler, M., Nicoud, J.-D. (Eds.), Artificial Neural Networks — ICANN’97, Lecture Notes in Computer Science. Springer, Berlin, Heidelberg, pp. 583-588. https://doi.org/10.1007/BFb0020217
+Scholkopf, B., Smola, A., Müller, K.-R., 1997. Kernel principal component analysis, in: Gerstner, W., Germond, A., Hasler, M., Nicoud, J.-D. (Eds.), Artificial Neural Networks — ICANN 97, Lecture Notes in Computer Science. Springer, Berlin, Heidelberg, pp. 583-588. https://doi.org/10.1007/BFb0020217
 
 Scholkopf, B., Smola, A.J., 2002. Learning with kernels: support vector machines, regularization, optimization, and beyond, Adaptive computation and machine learning. MIT Press, Cambridge, Mass.
 
@@ -63,19 +67,19 @@ Tipping, M.E., 2001. Sparse kernel principal component analysis. Advances in neu
 
 \examples{
 
-n <- 5
-p <- 4
-m <- 3
+n <- 8
+p <- 3
 set.seed(1)
 X <- matrix(rnorm(n * p, mean = 10), ncol = p)
-Xu <- matrix(rnorm(m * p, mean = 10), ncol = p)
+y1 <- 100 * rnorm(n)
+y2 <- 100 * rnorm(n)
+Y <- cbind(y1, y2)
+Xu <- X[1:2, ]
 set.seed(NULL)
 
-ncomp <- 3
-kpca(X, ncomp = ncomp, degree = 2)
+ncomp <- 4
+kpls(X, Y, Xu, ncomp = ncomp, degree = 2)
 kpca(X, ncomp = ncomp, kern = krbf, sigma = .5)
-
-kpca(X, Xu, ncomp = ncomp)
 
 }
 

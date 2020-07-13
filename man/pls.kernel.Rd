@@ -10,17 +10,17 @@
 
 PLS1 and PLS2 algorithms.
 
-\code{pls.nipals} implements the NIPALS algorithm (e.g. Tenenhaus 1998, Wold 2002). However, for PLS2, the usual NIPALS iterative part is replaced by the direct calculation of the weights vector \eqn{w} by SVD decomposition of matrix \eqn{X'Y} (Hoskuldsson 1988 p.213).  
-
 \code{pls.kernel} implements the "improved kernel algorithm #1" proposed by Dayal and MacGregor (1997). This algorithm is stable and fast (Andersson 2009), and returns the same results as NIPALS. 
 
-\code{pls.rannar} implements a kernel algorithm proposed by Rannar et al. (1994) for "wide" matrices, i.e.  with low number of rows and very large number of columns (p >> n; e.g. p = 20000). In such a situation, this algorithm is faster than the others (but becomes much slower in other situations). If the algorithm converges, it returns the same results as NIPALS (Note: discrepancies can be observed if too many PLS components are requested compared to the low number of observations).
+\code{pls.nipals} implements the NIPALS algorithm (e.g. Tenenhaus 1998, Wold 2002). For PLS2, note that the usual NIPALS iterative part is replaced by the direct calculation of the weights vector \eqn{w} by SVD decomposition of matrix \eqn{X'Y} (Hoskuldsson 1988 p.213).  
 
-All algorithms center matrix \eqn{X}. Missing values are not allowed.
+\code{pls.rannar} implements a kernel algorithm proposed by Rannar et al. (1994) for "wide" matrices, i.e.  with low number of rows and very large number of columns (p >> n; e.g. p = 20000). In such a situation, this algorithm is faster than the others (but becomes much slower in other situations). If the algorithm converges, it returns the same results as NIPALS (Note: discrepancies can be observed if too many PLS components are requested compared to the low number of observations).
 
 The functions can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores, loadings and predictions.
 
 Data are internally centered before the analyses, but they are not column-wise scaled (there is no argument \code{scale} in the functions). If needed, the user has to do the scaling before using the functions.
+
+Missing values are not allowed.
 
 }
 
@@ -49,7 +49,7 @@ pls.rannar(X, Y, ncomp, weights = NULL)
 \value{
 A list of outputs, such as:
 
-\item{T}{The X-score matrix \eqn{Tr}  (\eqn{n x ncomp}).}
+\item{T}{The X-score matrix (\eqn{n x ncomp}).}
 
 \item{P}{The X-loadings matrix (\eqn{p x ncomp}).}
 

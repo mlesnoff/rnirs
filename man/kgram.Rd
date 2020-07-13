@@ -1,5 +1,5 @@
 \name{kgram}
-\alias{kpcr}
+\alias{kgram}
 \encoding{latin1}
 
 \title{Kernel Gram matrices}
@@ -48,7 +48,7 @@ Rosipal, R., Trejo, L.J., 2001. Kernel Partial Least Squares Regression in Repro
 
 \examples{
 
-####### Example of the sinc(x) function (Rosipal & Trejo 2001 p. 105-106) 
+####### Example of fitting the function sinc(x) (Rosipal & Trejo 2001 p. 105-106) 
 
 x <- seq(-10, 10, by = .2)
 x[x == 0] <- 1e-5
@@ -63,20 +63,20 @@ Xu <- Xr <- .matrix(x, row = FALSE)
 
 res <- kgram(Xr, Xu, kern = krbf, sigma = 1)
 ncomp <- 3
-fm <- plsr(res$Kr, y, res$Ku, zy, ncomp = ncomp)
+fm <- plsr(res$Kr, y, res$Ku, ncomp = ncomp)
 fit <- fm$fit$y1[fm$fit$ncomp == ncomp]
-plot(x, y, type = "p")
-lines(x, zy, lty = 2)
-lines(x, fit, col = "red")
+plot(Xr, y, type = "p")
+lines(Xr, zy, lty = 2)
+lines(Xu, fit, col = "red")
 
 ## DK Ridge regression
 
 res <- kgram(Xr, Xu, kern = krbf, sigma = 1)
-fm <- lmridge(res$Kr, y, res$Ku, zy, lambda = .1)
+fm <- lmridge(res$Kr, y, res$Ku, lambda = .1)
 fit <- fm$fit$y1
-plot(x, y, type = "p")
-lines(x, zy, lty = 2)
-lines(x, fit, col = "red")
+plot(Xr, y, type = "p")
+lines(Xr, zy, lty = 2)
+lines(Xu, fit, col = "red")
 
 }
 
