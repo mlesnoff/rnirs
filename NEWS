@@ -8,6 +8,7 @@ News for package rnirs
 
   kpls.nipals         Kernel PLS nipals (Rosipal & Trejo 2001) 
   kplsr               Kernel PLSR (using kpls.nipals)
+  kplsda, kplsdalm    Kernel PLSDA (using kpls.nipals)
   kgram               Build kernel Gram matrices for direct kernel regressions
 
 
