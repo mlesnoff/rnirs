@@ -1,4 +1,5 @@
-kpls.nipals <- function(X, Y, ncomp, kern = kpol, weights = NULL, ...) {
+kpls.nipals <- function(X, Y, ncomp, kern = kpol, weights = NULL,
+                         tol = .Machine$double.eps^0.5, maxit = 100, ...) {
   
   X <- .matrix(X)
   zdim <- dim(X)
@@ -28,24 +29,42 @@ kpls.nipals <- function(X, Y, ncomp, kern = kpol, weights = NULL, ...) {
   for(a in 1:ncomp) {
     
     if(q == 1) {
+      
       t <- K %*% (weights * Y)
+      t <- t / sqrt(sum(weights * t * t))
+      
+      c <- crossprod(weights * Y, t)
+    
+      u <- Y %*% c
+      u <- u / sqrt(sum(u * u))
+      
       }
     else {
-      A <- K %*% (weights * tcrossprod(Y)) %*% diag(weights)
-      ## Slow
-      t <- .eigpow(A)$v
-      ## End
+      
+      u <- Y[, 1]
+      ztol <- 1
+      iter <- 1
+    
+      #tic()
+      while(ztol > tol & iter <= maxit) {
+        
+        t <- K %*% (weights * u)
+        t <- t / sqrt(sum(weights * t * t))
+    
+        c <- crossprod(weights * Y, t)
+    
+        zu <- Y %*% c
+        zu <- zu / sqrt(sum(zu * zu))
+        ztol <- .xnorm(u - zu)
+        u <- zu
+        iter <- iter + 1
+    
+        }
+      #toc()
       }
     
-    t <- t / sqrt(sum(weights * t * t))
-    
-    c <- crossprod(weights * Y, t)
-    
-    u <- Y %*% c
-    u <- u / sqrt(sum(u * u))
-    
-    ## Slow
     z <- diag(n) - tcrossprod(t, weights * t)
+    ## Slow: ~ .2 s/component for n=500 ==> 4 s for ncomp=20
     K <- z %*% K %*% t(z)
     ## End
     
