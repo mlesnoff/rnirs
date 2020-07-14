@@ -8,7 +8,7 @@
 
 \description{
 
-Functions calculating outlyingness for the data observations (= rows of a matrix \eqn{X}). Outlyingness quantifies (in a relative scale) how far is an observation from the bulk (center) of the data. Such a measure can be used for detecting outliers and/or weighting in robust regression methods.
+Functions calculating outlyingness for the data observations (= rows of a matrix \eqn{X}). Outlyingness quantifies (in a relative scale) how far is an observation from the bulk (center) of the data. Such a measure can be used for detecting outliers and/or weighting the row observatiosn in robust regression methods.
 
 - \code{out.stah}: 
 
@@ -30,7 +30,7 @@ Outlyingness is calculated from a fitted score space. For instance, a PCA (or PL
 
 out.stah(X, scale = TRUE, nsim = 1500)
 
-out.eucl(X, scale = TRUE)
+out.eucl(X, scale = TRUE, spatial = FALSE)
 
 out.sdod(fm, X, ...)
 
@@ -43,6 +43,8 @@ out.sdod(fm, X, ...)
 \item{scale}{If \code{TRUE} (default), for \code{out.stah}, matrix \eqn{X} is preliminary centered and scaled by column-wise medians and MADs, respectively, and for \code{out.eucl}, matrix \eqn{X} is preliminary scaled by column-wise MADs.}
 
 \item{nsim}{For \code{out.stah}. A number of randomly simulated directions considered in addition to the \eqn{n} data observations (rows of \eqn{X}).}
+
+\item{spatial}{For \code{out.eucl}. Logical. If \code{TRUE}, the center of the data is calculated by the spatial median (computed by function \code{.xmedspa} available in file \code{zfunctions.R}; this function uses the fast code of rrcov v.1.4-3 available on R CRAN; Thanks to V. Todorov, 2016). If \code{FALSE} (default), the center of the data is calculated by the column-wise medians.}
 
 \item{fm}{For \code{out.sdod}. The PCA model from wich is calculated the outlyingness.}
 

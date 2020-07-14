@@ -39,11 +39,11 @@ pls.iw(X, Y, ncomp, ncompw = 10, a = 3,
 
 \item{ncompw}{The number of scores (i.e. components) used for optimizing the WPLS weights.}
 
-\item{tol}{The cutoff value for the tricubic weight function (\code{.tricube}).}
+\item{a}{The cutoff value for the tricubic weight function (\code{.tricube}).}
 
 \item{tol}{Tolerance value for the iterative weights optimization.}
 
-\item{maxi}{Maximum number of iterations for the weights optimization.}
+\item{maxit}{Maximum number of iterations for the weights optimization.}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 

@@ -1,5 +1,5 @@
 pls.rob <- function(X, Y, ncomp, ncompw = 10, alpha = .70,
-                    typcut = c("param", "mad", "boxplot"), weights = NULL, ...) {
+                    typcut = c("param", "mad"), weights = NULL, ...) {
   
   typcut <- match.arg(typcut)
   
