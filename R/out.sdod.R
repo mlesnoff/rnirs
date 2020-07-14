@@ -1,4 +1,4 @@
-out.mva <- function(fm, X, ...) {
+out.sdod <- function(fm, X, ...) {
   
   zsd <- scordis(fm, ...)$dr$dstand
   zod <- odis(fm, X, ...)$dr$dstand

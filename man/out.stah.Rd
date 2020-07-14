@@ -1,7 +1,7 @@
 \name{out.stah}
 \alias{out.stah}
 \alias{out.eucl}
-\alias{out.mva}
+\alias{out.sdod}
 \encoding{latin1}
 
 \title{Outlyingness measures}
@@ -18,11 +18,11 @@ Outlyingness is calculated from the projections of the observation to a set of d
 
 - \code{out.eucl}:
 
-Outlyingness is calculated from the Euclidean distance between the observation and a robust estimate of the center of the data.
+Outlyingness is calculated by the Euclidean distance between the observation and a robust estimate of the center of the data (either the column-wise median or the spatial median). The euclidean distance is then scaled by the median of the \eqn{n} calculated Euclidean distances. Such outlyingness was for instance used in the robust PLSR (PRM) algorithm of Serneels et al. 2005.   
 
-- \code{out.mva}:
+- \code{out.sdod}:
 
-Outlyingness is calculated from a given multivariate factorial space. For instance, a PCA (or PLS) is preliminary fitted with a given algorithm (ideally robust). Then, score (SD) and orthogonal (OD) distances are calculated for the fitted multivariate space and standardized by cutoffs (see  \code{\link{scordis}} and  \code{\link{odis}}). The outlyingness is then computed by \eqn{sqrt(.5 * SD_stand^2 + .5 * OD_stand^2)}. 
+Outlyingness is calculated from a fitted score space. For instance, a PCA (or PLS) is preliminary fitted with a given algorithm (ideally robust). Then, score (SD) and orthogonal (OD) distances are calculated for the fitted score space and standardized by cutoffs (see  \code{\link{scordis}} and  \code{\link{odis}}). The outlyingness is then computed by \eqn{sqrt(.5 * SD_stand^2 + .5 * OD_stand^2)}. 
 
 }
 
@@ -32,7 +32,7 @@ out.stah(X, scale = TRUE, nsim = 1500)
 
 out.eucl(X, scale = TRUE)
 
-out.mva(fm, X, ...)
+out.sdod(fm, X, ...)
 
 }
 
@@ -44,9 +44,9 @@ out.mva(fm, X, ...)
 
 \item{nsim}{For \code{out.stah}. A number of randomly simulated directions considered in addition to the \eqn{n} data observations (rows of \eqn{X}).}
 
-\item{fm}{For \code{out.mva}. The PCA model from wich is calculated the outlyingness.}
+\item{fm}{For \code{out.sdod}. The PCA model from wich is calculated the outlyingness.}
 
-\item{...}{For \code{out.mva}. Optional arguments to pass in functions \code{\link{scordis}} and  \code{\link{odis}}.}
+\item{...}{For \code{out.sdod}. Optional arguments to pass in functions \code{\link{scordis}} and  \code{\link{odis}}.}
 
 }
 
@@ -66,6 +66,8 @@ Hubert, M., Rousseeuw, P.J., Vanden Branden, K., 2005. ROBPCA: A New Approach to
 
 Maronna, R.A., Yohai, V.J., 1995. The Behavior of the Stahel-Donoho Robust Multivariate Estimator. Journal of the American Statistical Association 90, 330-341. https://doi.org/10.1080/01621459.1995.10476517
 
+Serneels, S., Croux, C., Filzmoser, P., Van Espen, P.J., 2005. Partial robust M-regression. Chemometrics and Intelligent Laboratory Systems 79, 55-64. https://doi.org/10.1016/j.chemolab.2005.04.007
+
 }
 
 \examples{
@@ -81,7 +83,7 @@ out.stah(X)
 out.eucl(X)
 
 fm <- pca.rob(X, ncomp = 2)
-out.mva(fm, X)
+out.sdod(fm, X)
 
 }
 

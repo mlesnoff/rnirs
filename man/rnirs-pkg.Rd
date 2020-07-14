@@ -70,8 +70,8 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 \eqn{** Robust}
 
 \tabular{ll}{
-  \code{\link{pls.rob}} \tab Robust PLS using PCA outlyingness weighting\cr
-  \code{\link{pls.iter}} \tab Robust PLS based on iterative weighting \cr
+  \code{\link{pls.rob}} \tab Robust PLS1 ((robust PCA and WPLS))\cr
+  \code{\link{pls.iw}} \tab Robust PLS1 (Iterative Re-Weighting) \cr
   }
 
 ------------ \bold{Non Linear Kernel PLS}
@@ -143,8 +143,8 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 
 \tabular{ll}{
   \code{\link{out.stah}} \tab Stahel-Donoho outlyingness \cr
-  \code{\link{out.eucl}} \tab Outlyingness based on Euclidean distance \cr
-  \code{\link{out.scor}} \tab Outlyingness based on multivariate scores (PLS, PCA, etc.) \cr
+  \code{\link{out.eucl}} \tab Outlyingness using Euclidean distance \cr
+  \code{\link{out.sdod}} \tab Outlyingness based on a score space \cr
   }
 
 ------------ \bold{Auxilliary functions}

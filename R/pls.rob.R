@@ -13,9 +13,11 @@ pls.rob <- function(X, Y, ncomp, ncompw = 10, alpha = .70,
   else
     weights <- weights / sum(weights)  
   
-  fm <- pca.rob(X, min(ncompw, n, p), typcut = typcut, ...)
+  ncompw <- min(ncompw, n, p)
+  
+  fm <- pca.rob(X, ncompw, typcut = typcut, weights = weights, ...)
   #fm <- pca.sph(X, min(ncompw, n, p), ...)
-  r <- out.mva(fm, X, typcut = typcut)
+  r <- out.sdod(fm, X, typcut = typcut)
   wx <- .talworth(r, quantile(r, alpha))
 
   fm <- pls.kernel(X, Y, ncomp = ncompw, weights = weights * wx)

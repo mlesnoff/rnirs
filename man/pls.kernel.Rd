@@ -55,7 +55,7 @@ A list of outputs, such as:
 
 \item{W}{The X-loading weights matrix (\eqn{p x ncomp}).}
 
-\item{C}{The Y-loading weights matrix (C = B', where B is the scores regression coefficients matrix).}
+\item{C}{The Y-loading weights matrix (C = t(Beta), where Beta is the scores regression coefficients matrix).}
 
 \item{R}{The PLS projection matrix (\eqn{p x ncomp}).}
 

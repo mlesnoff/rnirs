@@ -4,13 +4,21 @@ News for package rnirs
 
 - Function matpoly renamed to "inls"
 
+- Function out.pca renamed to "out.sdod"
+
+- Modifiaction of function out.eucl
+
+- Argument "weights" added to fonction pca.rob
+
 - New functions
 
-  kpls.nipals         Kernel PLS nipals (Rosipal & Trejo 2001) 
+  kpls.nipals         Kernel NIPALS PLS (Rosipal & Trejo 2001) 
   kplsr               Kernel PLSR (using kpls.nipals)
   kplsda, kplsdalm    Kernel PLSDA (using kpls.nipals)
-  kgram               Build kernel Gram matrices for direct kernel regressions
-
+  kgram               Kernel Gram matrices for direct kernel regressions
+  pls.rob             Robust PLS algorithm (robust PCA and WPLS) 
+  pls.iw              Robust PLS algorithm (iterative Re-Weighting)
+  
 
 ##----------------- Version 1.7-6
 

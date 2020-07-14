@@ -42,7 +42,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - Usual
         - Robust
     - FDA
-    - Non linear kernel
+    - Non Linear Kernel
         - KPLS
         - KPCA
         - Direct KPLS and KPCA
@@ -52,29 +52,29 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - Ridge Regression
         - PLSR
         - PCR
-    - Non linear kernel
+    - Non Linear Kernel
         - Kernel Ridge Regression
         - KPLSR
         - KPCR 
         - INLR
         - Direct Kernel Regression
-    - Locally weighted (LW)
+    - Locally Weighted (LW)
         - KNN-WR
         - KNN-LW-PLSR
-        - Generic function for KNN-LW regression
+        - Generic KNN-LW function
 * Discrimination
     - DA (various discrimination methods)
     - Linear
         - PLSDA
         - PCDA
-    - Non linear kernel
+    - Non Linear Kernel
         - KPLSDA
         - KPCDA
         - Direct Kernel Discrimination
-    - Locally weighted (LW)
+    - Locally Weighted (LW)
         - KNN-WDA
         - KNN-LW-PLSDA
-        - Generic function for KNN-LW discrimination
+        - Generic KNN-LW function
 * Multiblock
     - Orthogonalization of a matrix to another matrix
     - Block-selection
