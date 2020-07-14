@@ -1,4 +1,5 @@
 \name{kplsda}
+\alias{kplsda}
 \alias{kplsdalm}
 \alias{kpcda}
 \alias{kpcdalm}

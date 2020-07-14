@@ -35,7 +35,7 @@ kpls.nipals(X, Y, ncomp, kern = kpol, weights = NULL,
 
 \item{tol}{Tolerance level for stopping the NIPALS iterations.}
 
-\item{iter}{Maximum number of NIPALS iterations.}
+\item{maxit}{Maximum number of NIPALS iterations.}
 
 \item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern}.}
 

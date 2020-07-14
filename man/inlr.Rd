@@ -6,21 +6,23 @@
 
 \description{
 
-Function \code{inlr} builds blocks useable for "implicit non-linear latent variable regression (INLR)" (Berglund & Wold 1997). This is similar as the idea of direct kernel regression/discrimination methods.
+Function \code{inlr} builds matrix blocks useable for "implicit non-linear latent variable regression (INLR)" (Berglund & Wold 1997). INLR is in the same idea of direct non linear kernel regression and discrimination methods.
 
 Given an input reference (=training) data matrix \eqn{X = [ x_ij ]} and a degree \eqn{d > 1}, the function builds a new matrix resulting from the concatenation of the \eqn{d} blocks \eqn{[ (x_ij)^k ] ; k = 1, ..., d} corresponding to the successive polynoms (without the cross-product terms).
 
-The same is done for an eventual test matrix. If there is a block scaling for the training matrix (see argument \code{scale.blocks}), the same scaling values are used for the test matrix.
+The same is done for an eventual test matrix (new data to predict). If there is a block scaling for the training matrix (see argument \code{scale.blocks}), the same scaling values are used for the test matrix.
 
 }
 
 \usage{
-inlr(X, degree = 2, scale.blocks = FALSE)
+inlr(Xr, Xu = NULL, degree = 2, scale.blocks = FALSE)
 }
 
 \arguments{
 
-\item{X}{A \eqn{n x p} matrix or data frame of reference (= training) observations.}
+\item{Xr}{A \eqn{n x p} matrix or data frame of reference (= training) observations.}
+
+\item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations to predict.}
 
 \item{degree}{The degree used for the concatenation. Must be \eqn{> 1}.}
 

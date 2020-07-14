@@ -29,6 +29,8 @@ kpca(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...)
 
 \item{Xr}{A \eqn{n x p} matrix or data frame of reference (= training) observations.}
 
+\item{Yr}{For \code{kpls}. A \eqn{n x q} matrix or data frame, or a vector of length \eqn{n}, of reference (= training) responses. }
+
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations to be projected in the calculated reference score space (\eqn{Xu} is not used in the calculation of this score space). Default to \code{NULL}.}
 
 \item{ncomp}{The number of PCA scores (i.e. components) to be calculated.}

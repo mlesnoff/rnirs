@@ -57,7 +57,7 @@ zy <- sin(abs(x)) / abs(x)
 y <- zy + rnorm(n, 0, .2)
 plot(x, y, type = "p")
 lines(x, zy, lty = 2)
-Xu <- Xr <- .matrix(x, row = FALSE)
+Xu <- Xr <- matrix(x, ncol = 1)
 
 ## DKPLSR
 
