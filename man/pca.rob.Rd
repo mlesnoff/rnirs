@@ -56,7 +56,7 @@ pca.rob(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, ...)
 
 \item{step2}{For \code{pca.rob}. If \code{TRUE} (default), Step 2 is implemented.}
 
-\item{...}{For \code{pca.rob}. Optional arguments to pass in function \code{\link{out.pca}}.}
+\item{...}{For \code{pca.rob}. Optional arguments to pass in function \code{\link{out.mva}}.}
 
 }
 

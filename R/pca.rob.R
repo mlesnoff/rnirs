@@ -22,7 +22,7 @@ pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, ...) {
   
   if(step2) {
     
-    r <- out.pca(fm, X, ...)
+    r <- out.mva(fm, X, ...)
     w <- .talworth(r, 1)
     
     fm <- algo(X, ncomp = ncomp, weights = w)

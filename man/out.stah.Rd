@@ -1,7 +1,7 @@
 \name{out.stah}
 \alias{out.stah}
 \alias{out.eucl}
-\alias{out.pca}
+\alias{out.mva}
 \encoding{latin1}
 
 \title{Outlyingness measures}
@@ -20,9 +20,9 @@ Outlyingness is calculated from the projections of the observation to a set of d
 
 Outlyingness is calculated from the Euclidean distance between the observation and a robust estimate of the center of the data.
 
-- \code{out.pca}:
+- \code{out.mva}:
 
-Outlyingness is calculated from a given PCA space. A PCA is preliminary fitted with a given algorithm (ideally robust). Then, score (SD) and orthogonal (OD) distances are calculated, and standardized by cutoffs (see  \code{\link{scordis}} and  \code{\link{odis}}). The outlyingness is computed by \eqn{sqrt(.5 * SD_stand^2 + .5 * OD_stand^2)}. 
+Outlyingness is calculated from a given multivariate factorial space. For instance, a PCA (or PLS) is preliminary fitted with a given algorithm (ideally robust). Then, score (SD) and orthogonal (OD) distances are calculated for the fitted multivariate space and standardized by cutoffs (see  \code{\link{scordis}} and  \code{\link{odis}}). The outlyingness is then computed by \eqn{sqrt(.5 * SD_stand^2 + .5 * OD_stand^2)}. 
 
 }
 
@@ -32,7 +32,7 @@ out.stah(X, scale = TRUE, nsim = 1500)
 
 out.eucl(X, scale = TRUE)
 
-out.pca(fm, X, ...)
+out.mva(fm, X, ...)
 
 }
 
@@ -44,9 +44,9 @@ out.pca(fm, X, ...)
 
 \item{nsim}{For \code{out.stah}. A number of randomly simulated directions considered in addition to the \eqn{n} data observations (rows of \eqn{X}).}
 
-\item{fm}{For \code{out.pca}. The PCA model from wich is calculated the outlyingness.}
+\item{fm}{For \code{out.mva}. The PCA model from wich is calculated the outlyingness.}
 
-\item{...}{For \code{out.pca}. Optional arguments to pass in functions \code{\link{scordis}} and  \code{\link{odis}}.}
+\item{...}{For \code{out.mva}. Optional arguments to pass in functions \code{\link{scordis}} and  \code{\link{odis}}.}
 
 }
 
@@ -81,7 +81,7 @@ out.stah(X)
 out.eucl(X)
 
 fm <- pca.rob(X, ncomp = 2)
-out.pca(fm, X)
+out.mva(fm, X)
 
 }
 

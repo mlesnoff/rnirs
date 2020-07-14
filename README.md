@@ -1,9 +1,9 @@
-## rnirs 1.7-6
-## Chemometrics, Locally Weighted Regressions, Kernel regressions and Other Methods  
+## rnirs 1.8-0
+## Chemometrics, Kernel Regression and Discrimination, Locally Weighting, and Other Methods  
 
-Package rnirs is a tool box for chemometrics, including spectra pre-processing and plotting, PLS and PCA regression and discrimination, robust methods, locally weighted methods, kernel methods, etc.
+Package rnirs is a tool box for chemometrics, including spectra pre-processing and plotting, PLS and PCA regression and discrimination, kernel methods, locally weighted methods, robust methods, etc.
 
-The package is generic for any type of data, although it was initially implemented for near infrared spectral data (NIRS).
+The package is generic for any type of data, although it was initially implemented for near infrared spectral data (NIRS). See the **rnirs-package** help page for a detailed list of the functions.
 
 The changes in the package versions are reported in the **NEWS** file above. 
 
@@ -12,6 +12,14 @@ Using Rstudio is recommended for installation and usage (https://www.rstudio.com
 You can install and update the package directly from GitHub (see below), or by asking the .tar.gz or zip installation file (for the successive versions) to the author. See Contact section at the end. 
 
 If you use package **rnris** and like it, do not hesitate to **mark a star** on this GithHub web-page. You may also register as watchers for receiving alerts for some important updates. For both of these operations, you need to be connected on your account.
+
+**rnris** is dependent to the following 5 packages (available on CRAN):
+
+- data.table      (for fast internal data management)
+- FNN             (for fast search of nearest neighbours) 
+- matrixStats     (for fast column- and row-wise operations on matrices)
+- ptw             (for the ALS detrend algorithm)
+- signal          (fotr the Savitsky-Golay derivation algorithm)
 
 ## Main features 
 
@@ -22,17 +30,22 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - Lowess
         - ALS
     - SNV
+    - Moving average
     - Derivation
         - Savitsky-Golay
         - Finite differences
 * Multivariate factorial analyses 
     - PLS
+        - Usual
+        - Robust
     - PCA
         - Usual
         - Robust
     - FDA
     - Non linear kernel
+        - KPLS
         - KPCA
+        - Direct KPLS and KPCA
 * Regression
     - Linear
         - Multiple Linear Regression (MLR)
@@ -40,33 +53,39 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - PLSR
         - PCR
     - Non linear kernel
-        - Kernel ridge regression
-        - KPCR
+        - Kernel Ridge Regression
+        - KPLSR
+        - KPCR 
         - INLR
-    - Locally weighted (wrappers using locw)
-        - KNN-R
-        - KNN-LWPLSR
+        - Direct Kernel Regression
+    - Locally weighted (LW)
+        - KNN-WR
+        - KNN-LW-PLSR
+        - Generic function for KNN-LW regression
 * Discrimination
     - DA (various discrimination methods)
     - Linear
         - PLSDA
         - PCDA
     - Non linear kernel
+        - KPLSDA
         - KPCDA
-    - Locally weighted (wrappers using locw)
-        - KNN-DA
-        - KNN-LWPLSDA
+        - Direct Kernel Discrimination
+    - Locally weighted (LW)
+        - KNN-WDA
+        - KNN-LW-PLSDA
+        - Generic function for KNN-LW discrimination
 * Multiblock
     - Orthogonalization of a matrix to another matrix
     - Block-selection
     - Block-scaling
     - Block-dimension reduction by PLS or PCA
     - Block-dimension reduction by SO-PLS or SO-PCA
-* MOdel stacking
-    - stackavg
-    - stackavg.cla
+* Model stacking
+    - Quantitative predictions
+    - Classes predictions
 * Cross-validation
-    - Generic function **fitcv**
+    - Generic function
 * Graphics
 * Miscellaneous functions
 

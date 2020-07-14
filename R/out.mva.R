@@ -1,4 +1,4 @@
-out.pca <- function(fm, X, ...) {
+out.mva <- function(fm, X, ...) {
   
   zsd <- scordis(fm, ...)$dr$dstand
   zod <- odis(fm, X, ...)$dr$dstand

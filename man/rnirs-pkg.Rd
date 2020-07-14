@@ -3,30 +3,30 @@
 \docType{package}
 \encoding{latin1}
 
-\title{Locally Weighted Regressions, Kernel regressions and Other Methods for Chemometrics}
+\title{Chemometrics, Kernel Regression and Discrimination, Locally Weighting, and Other Methods}
 
 \description{
 
-Package rnirs is a tool box for chemometrics, including spectra pre-processing and plotting, PLS and PCA regression and discrimination, robust methods, locally weighted methods, kernel methods, etc.
+Package rnirs is a tool box for chemometrics, including spectra pre-processing and plotting, data checking, PLS and PCA regression and discrimination, kernel methods, locally weighted methods, robust methods, etc.
 
-The package was initially implemented for near infrared spectral (NIRS) data, but is generic for any type of data.
+The package was initially implemented for near infrared spectral data (NIRS), but is generic for any type of data.
 
-See https://github.com/mlesnoff/rnirs. 
+See https://github.com/mlesnoff/rnirs for last version and installation. 
 
 }
 
 \details{
 
-\bold{------------------------------------------ DATA MANAGEMENT}
+\bold{*************************************** DATA MANAGEMENT}
 
------------- CHECKING
+------------ \bold{Checking}
 
 \tabular{ll}{
   \code{\link{checkdupl}}, \code{\link{rmdupl}} \tab Find or remove duplicated row observations between two data sets\cr
   \code{\link{checkna}} \tab Find and count NA values in a data set\cr
   }
 
------------- SUMMARY
+------------ \bold{Summary}
 
 \tabular{ll}{
   \code{\link{centr}} \tab Centers of classes\cr
@@ -34,7 +34,7 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{summ}} \tab Summary of the variables of a data set\cr
   }
 
------------- PREPROCESSING
+------------ \bold{Preprocessing}
 
 \tabular{ll}{
   \code{\link{dderiv}} \tab Derivation by finite difference\cr
@@ -44,22 +44,22 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{snv}} \tab Standard-normal-deviation transformation\cr
   }
 
------------- SAMPLING
+------------ \bold{Sampling}
 
 \tabular{ll}{
   \code{\link{kenston}} \tab Kennard-Stone sampling \cr
   \code{\link{sampclas}} \tab Within-class sampling\cr
   }
 
-\bold{------------------------------------------ MULTIVARIATE ANALYSES}
+\bold{*************************************** MULTIVARIATE ANALYSES}
 
------------- PLS
+------------ \bold{PLS}
 
 \tabular{ll}{
   \code{\link{pls}} \tab PLS with the available algorithms below\cr
   }
 
-\eqn{Algorithms}
+\eqn{** Usual}
 
 \tabular{ll}{
   \code{\link{pls.kernel}} \tab "Improved Kernel #1" (Dayal & McGregor 1997) \cr
@@ -67,13 +67,43 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{pls.rannar}} \tab Kernel version for wide matrices (Rannar et al. 1994) \cr
   }
 
------------- PCA
+\eqn{** Robust}
+
+\tabular{ll}{
+  \code{\link{pls.rob}} \tab Robust PLS using PCA outlyingness weighting\cr
+  \code{\link{pls.iter}} \tab Robust PLS based on iterative weighting \cr
+  }
+
+------------ \bold{Non Linear Kernel PLS}
+
+\eqn{** Using the KPLS NIPALS algorithm (Rosipal & Trejo 2001)}
+
+\tabular{ll}{
+  \code{\link{kpls.nipals}} \tab KPLS NIPALS algorithm)\cr
+  \code{\link{kpls}} \tab KPLS (using kpls.nipals)\cr
+  }
+
+\eqn{** Direct KPLS}
+
+\tabular{ll}{
+  \code{\link{kgram}} \tab Build kernel Gram matrices for direct kernel models \cr
+  }
+
+\eqn{** With available kernel functions}
+
+\tabular{ll}{
+  \code{\link{kpol}} \tab Polynomial \cr
+  \code{\link{krbf}} \tab Gausssian RBF \cr
+  \code{\link{ktanh}} \tab Hyperbolic tangente \cr
+  }
+
+------------ \bold{PCA}
 
 \tabular{ll}{
   \code{\link{pca}} \tab PCA with the available algorithms below\cr
   }
 
-\eqn{Usual algorithms}
+\eqn{** Usual}
 
 \tabular{ll}{
   \code{\link{pca.svd}} \tab SVD \cr
@@ -83,43 +113,41 @@ See https://github.com/mlesnoff/rnirs.
   \code{\link{pca.nipalsna}} \tab NIPALS allowing missing data \cr
   }
 
-\eqn{Robust algorithms}
+\eqn{** Robust}
 
 \tabular{ll}{
-  \code{\link{pca.rob}} \tab Robust WPCA \cr
-  \code{\link{pca.cr}} \tab Croux & Ruiz-Gazen (2005) \cr
-  \code{\link{pca.sph}} \tab Spherical (Locantore 1999) \cr
+  \code{\link{pca.rob}} \tab Robustly weighted PCA \cr
+  \code{\link{pca.cr}} \tab Croux & Ruiz-Gazen PP-PCA (2005) \cr
+  \code{\link{pca.sph}} \tab Spherical PCA (Locantore 1999) \cr
   }
 
-\eqn{Non-linear kernel}
+------------ \bold{Non Linear Kernel PCA}
 
 \tabular{ll}{
-  \code{\link{kpca}} \tab KPCA\cr
+  \code{\link{kpca}} \tab KPCA with various kernel functions (Scholkopf et al. 2002)\cr
   }
 
-with available kernel functions
+\eqn{** Direct KPCA}
 
 \tabular{ll}{
-  \code{\link{kpol}} \tab Polynomial \cr
-  \code{\link{krbf}} \tab Gausssian RBF \cr
-  \code{\link{ktanh}} \tab Hyperbolic tangente \cr
+  Use \code{\link{kgram}}
   }
 
-\eqn{Outlyingness}
-
-\tabular{ll}{
-  \code{\link{out.stah}} \tab Outlyingness measure (Stahel-Donoho) \cr
-  \code{\link{out.eucl}} \tab Outlyingness measure (From Euclidean distance) \cr
-  \code{\link{out.pca}} \tab Outlyingness measure (From PCA scores) \cr
-  }
-
------------- FDA
+------------ \bold{FDA}
 
 \tabular{ll}{
   \code{\link{fda}}, \code{\link{fda.svd}} \tab Factorial discriminant analysis\cr
   }
 
------------- AUXILLIARY FUNCTIONS
+------------ \bold{Outlyingness measures}
+
+\tabular{ll}{
+  \code{\link{out.stah}} \tab Stahel-Donoho outlyingness \cr
+  \code{\link{out.eucl}} \tab Outlyingness based on Euclidean distance \cr
+  \code{\link{out.scor}} \tab Outlyingness based on multivariate scores (PLS, PCA, etc.) \cr
+  }
+
+------------ \bold{Auxilliary functions}
 
 \tabular{ll}{
   \code{\link{scordis}}, \code{\link{lscordis}} \tab Score distances for a score space\cr
@@ -127,43 +155,69 @@ with available kernel functions
   \code{\link{xfit}} \tab Matrix Approximation from multivariate scores and loadings \cr
   }
 
-\bold{------------------------------------------ REGRESSION}
+\bold{*************************************** REGRESSION}
 
-\eqn{Linear}
+------------ \bold{Linear}
 
 \tabular{ll}{
   \code{\link{lmr}} \tab Multiple Linear Regression (MLR)\cr
   \code{\link{lmridge}} \tab Linear Ridge Regression\cr
+  }
+
+\eqn{** On latent variables}
+
+\tabular{ll}{
   \code{\link{plsr}} \tab PLSR\cr
   \code{\link{pcr}} \tab PCR\cr
   }
 
-\eqn{Non-linear kernel}
-
-\tabular{ll}{
-  \code{\link{krr}} \tab Kernel ridge regression\cr
-  \code{\link{kpcr}} \tab Kernel PCR\cr
-  \code{\link{inlr}} \tab Blocks for INLR (Berglund & Wold 1997)\cr
-  }
-  
-\eqn{Locally weighted}
-
-\tabular{ll}{
-  \code{\link{knnr}} \tab KNNWR \cr
-  \code{\link{lwplsr}} \tab LWPLSR, KNN-LWPLSR\cr
-  }
-
------------- AUXILLIARY FUNCTIONS
+\eqn{** Auxilliary function}
 
 \tabular{ll}{
   \code{\link{bcoef}} \tab b-coefficients for a PLSR or PCR model\cr
   }
 
+------------ \bold{Non Linear Kernel}
 
+\tabular{ll}{
+  \code{\link{krr}} \tab Kernel ridge regression\cr
+  \code{\link{inlr}} \tab Blocks for INLR (Berglund & Wold 1997)\cr
+  }
+  
+\eqn{** On latent variables (using kpls.nipals and kpca)}
 
-\bold{------------------------------------------ DISCRIMINATION}
+\tabular{ll}{
+  \code{\link{kplsr}} \tab Kernel PLSR\cr
+  \code{\link{kpcr}} \tab Kernel PCR\cr
+  }
 
-\eqn{Discrimination methods (DA)}
+\eqn{** Direct KPLSR and KPCR}
+
+\tabular{ll}{
+  Use \code{\link{kgram}}
+  }
+
+------------ \bold{Locally weighted}
+
+\tabular{ll}{
+  \code{\link{knnr}} \tab KNN-WR \cr
+  }
+
+\eqn{** On latent variables}
+
+\tabular{ll}{
+  \code{\link{lwplsr}} \tab LW-PLSR and KNN-LW-PLSR\cr
+  }
+
+\eqn{** Generic function for building KNN-LW regression models}
+
+\tabular{ll}{
+  \code{\link{locw}} \tab Locally weighted models\cr
+  }
+
+\bold{*************************************** DISCRIMINATION}
+
+------------ \bold{Discrimination methods (DA)}
 
 \tabular{ll}{
   \code{\link{dalm}} \tab DA using multivariate linear regression\cr
@@ -173,33 +227,60 @@ with available kernel functions
   \code{\link{dasdod}} \tab DA using a Simca index\cr
   }
 
-\eqn{Linear}
+------------ \bold{Linear}
+
+\eqn{** On latent variables}
 
 \tabular{ll}{
-  \code{\link{plsda}}, \code{\link{plsdalm}} \tab PLSDA\cr
-  \code{\link{pcda}} \tab PCDA (DA on principal components)\cr
+  \code{\link{plsda}} \tab PLSDA\cr
+  \code{\link{plsdalm}} \tab PLSDA (with dalm)\cr
+  \code{\link{pcda}} \tab PCDA\cr
+  \code{\link{pcdalm}} \tab PCDA (with dalm)\cr
   }
 
-\eqn{Non-linear kernel}
+------------ \bold{Non Linear Kernel}
+
+\eqn{** On latent variables (using kpls.nipals and kpca)}
 
 \tabular{ll}{
-  \code{\link{kpcda}}, \code{\link{kpcdalm}} \tab Kernel PCDA\cr
+  \code{\link{kplsda}} \tab Kernel PLSDA\cr
+  \code{\link{kplsdalm}} \tab Kernel PLSDA (with dalm)\cr
+  \code{\link{kpcda}} \tab Kernel PCDA\cr
+  \code{\link{kpcdalm}} \tab Kernel PCDA (with dalm)\cr
   }
 
-\eqn{Locally weighted}
+\eqn{** Direct KPLSDA and KPCDA}
 
 \tabular{ll}{
-  \code{\link{knnda}} \tab KNNWDA \cr
-  \code{\link{lwplsr}} \tab LWPLDA, KNN-LWPLSDA\cr
+  Use \code{\link{kgram}}
   }
 
+------------ \bold{Locally weighted}
 
-\bold{------------------------------------------ VARIABLE SELECTION}
+\tabular{ll}{
+  \code{\link{knnda}} \tab KNN-WDA \cr
+  }
+
+\eqn{** On latent variables}
+
+\tabular{ll}{
+  \code{\link{lwplsda}} \tab LW-PLSDA and KNN-LW-PLSDA\cr
+  \code{\link{lwplsdalm}} \tab LW-PLSDA and KNN-LW-PLSDA (with dalm)\cr
+  }
+
+\eqn{** Generic function for building KNN-LW discrimination models}
+
+\tabular{ll}{
+  \code{\link{locw}} \tab Locally weighted models\cr
+  }
+
+\bold{*************************************** VARIABLE SELECTION}
+
 \tabular{ll}{
   \code{\link{covsel}} \tab CovSel\cr
   }
 
-\bold{------------------------------------------ MULTIBLOCK FUNCTIONS}
+\bold{*************************************** MULTIBLOCK FUNCTIONS}
 
 \tabular{ll}{
   \code{\link{orthog}} \tab Orthogonalization of a matrix to another matrix\cr
@@ -209,21 +290,22 @@ with available kernel functions
   \code{\link{blocksopls}}, \code{\link{blocksopca}} \tab Block dimension reduction by SO-PLS or SO-PCA\cr
   }
 
-\bold{------------------------------------------ MODEL STACKING}
+\bold{*************************************** MODEL STACKING}
 \tabular{ll}{
   \code{\link{stackavg}} \tab Stacking for regression models\cr 
   \code{\link{stackavg.cla}} \tab Stacking for discrimination models\cr 
   }
 
-\bold{------------------------------------------ CROSS-VALIDATION AND ERROR RATES}
+\bold{*************************************** CROSS-VALIDATION AND ERROR RATES}
+
 \tabular{ll}{
   \code{\link{segmcvkfold}}, \code{\link{segmcvmc}} \tab Segments for cross-validation \cr
   \code{\link{fitcv}} \tab Cross-validation of a prediction model \cr
   \code{\link{mse}}, \code{\link{err}} \tab Error rates of prediction models\cr 
-  \code{\link{selncomp.wold}} \tab Selection of the number of components in a PCR/PLSR or PLSDA model \cr
+  \code{\link{selncomp.wold}} \tab Selection of the number of components in a PLSR/DA or PCR/DA model \cr
   }
 
-\bold{------------------------------------------ GRAPHICS}
+\bold{*************************************** GRAPHICS}
 
 \tabular{ll}{
   \code{\link{plotxy}} \tab 2d scatter plot\cr
@@ -231,7 +313,7 @@ with available kernel functions
   \code{\link{plotsp}}, \code{\link{plotsp1}} \tab Plotting spectra (or more generally row observations) of a data set\cr
   }
 
-\bold{------------------------------------------ MISCELLANEOUS}
+\bold{*************************************** MISCELLANEOUS}
 
 \tabular{ll}{
   \code{\link{dis}}  \tab Dissimilarities between row observations of a matrix and a given vector  \cr
@@ -244,7 +326,7 @@ with available kernel functions
   \code{\link{wdist}} \tab Weights for distances \cr
   }
 
-\eqn{-- Other}
+\eqn{** Other}
 
 \tabular{ll}{
   \code{\link{dkern.gauss}}, \code{\link{dmnorm}} \tab Probability density prediction \cr
