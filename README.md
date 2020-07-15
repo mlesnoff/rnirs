@@ -19,7 +19,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
 - FNN             (for fast search of nearest neighbours) 
 - matrixStats     (for fast column- and row-wise operations on matrices)
 - ptw             (for the ALS detrend algorithm)
-- signal          (fotr the Savitsky-Golay derivation algorithm)
+- signal          (for the Savitsky-Golay derivation algorithm)
 
 ## Main features 
 
