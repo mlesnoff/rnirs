@@ -29,8 +29,8 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - Polynomial
         - Lowess
         - ALS
-    - SNV
     - Moving average
+    - SNV
     - Derivation
         - Savitsky-Golay
         - Finite differences
@@ -63,7 +63,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - KNN-LW-PLSR
         - Generic KNN-LW function
 * Discrimination
-    - DA (various discrimination methods)
+    - DA (various discrimination methods: DALM, LDA, QDA, etc.)
     - Linear
         - PLSDA
         - PCDA
