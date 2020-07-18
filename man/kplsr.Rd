@@ -9,13 +9,13 @@
 
 Function \code{kplsr} fits a KPLSR model such as in Rosipal & Trejo (2001), with the NIPALS algorithm (\code{\link{kpls.nipals}}). 
 
-Function \code{kpcr} fits a KPCR model, i.e. a regression on KPCA latent variables (scores) (see \code{\link{kpca}}).
+Function \code{kpcr} fits a KPCR model, i.e. a regression on KPCA latent variables (scores) implemented by \code{\link{kpca}}.
 
-The kernel Gram matrices are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function  . 
+The kernel Gram matrices \eqn{K} are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.
 
-Row observations can eventually be weighted (using argument \code{weights}).
+Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
-\bold{Note:} Alternative kernel PLSR or PCR algorithms, that can be much faster for large \eqn{n}, are to run "direct" kernel models, using function \code{\link{kgram}}.  
+\bold{Note:} These kernel algorithms are time expensive when \eqn{n > 500}, especially KPLSR due to the iterative deflation of the \eqn{n x n} training Gram matrix \eqn{K}. A much faster alternative is to run "direct" kernel models, i.e. build preliminary kernel Gram matrices such as doing a pre-processing on \eqn{X} (e.g. Bennett & Embrechts 2003) and then run usual algorithms on them. See examples in function \code{\link{kgram}}.  
 
 
 }
@@ -62,7 +62,15 @@ A list of outputs (see examples), such as:
 
 \references{
 
+Bennett, K.P., Embrechts, M.J., 2003. An optimization perspective on kernel partial least squares regression, in: Advances in Learning Theory: Methods, Models and Applications, NATO Science Series III: Computer & Systems Sciences. IOS Press Amsterdam, pp. 227-250.
+
 Rosipal, R., Trejo, L.J., 2001. Kernel Partial Least Squares Regression in Reproducing Kernel Hilbert Space. Journal of Machine Learning Research 2, 97-123.
+
+Scholkopf, B., Smola, A., Müller, K.-R., 1997. Kernel principal component analysis, in: Gerstner, W., Germond, A., Hasler, M., Nicoud, J.-D. (Eds.), Artificial Neural Networks — ICANN 97, Lecture Notes in Computer Science. Springer, Berlin, Heidelberg, pp. 583-588. https://doi.org/10.1007/BFb0020217
+
+Scholkopf, B., Smola, A.J., 2002. Learning with kernels: support vector machines, regularization, optimization, and beyond, Adaptive computation and machine learning. MIT Press, Cambridge, Mass.
+
+Tipping, M.E., 2001. Sparse kernel principal component analysis. Advances in neural information processing systems, MIT Press. http://papers.nips.cc/paper/1791-sparse-kernel-principal-component-analysis.pdf
 
 }
 

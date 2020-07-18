@@ -57,7 +57,7 @@ plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...) {
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Y
 
   list(y = y, fit = fit, r = r,
-    Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, C = fm$C, TT = fm$TT,
+    Tr = fm$T, Tu = Tu, P = fm$P, W = fm$W, R = fm$R, C = fm$C, TT = fm$TT,
     xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
     T.ortho = fm$T.ortho)
 

@@ -9,11 +9,11 @@
 
 Non-linear KPLS (Rosipal & Trejo 2001) or KPCA (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
 
-The kernel Gram matrices are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function .
+The kernel Gram matrices \eqn{K} are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.
 
-Row observations can eventually be weighted (using argument \code{weights}).
+Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
-\bold{Note:} Alternative kernel PLS or PCA algorithms, that can be much faster for large \eqn{n}, are to run "direct" kernel models, using function \code{\link{kgram}}.  
+\bold{Note:} These kernel algorithms are time expensive when \eqn{n > 500}, especially KPLS due to the iterative deflation of the \eqn{n x n} training Gram matrix \eqn{K}. A much faster alternative is to run "direct" kernel models, i.e. build preliminary kernel Gram matrices such as doing a pre-processing on \eqn{X} (e.g. Bennett & Embrechts 2003) and then run usual algorithms on them. See examples in function \code{\link{kgram}}.  
 
 }
 
@@ -56,6 +56,8 @@ A list of outputs (see examples), such as:
 }
 
 \references{
+
+Bennett, K.P., Embrechts, M.J., 2003. An optimization perspective on kernel partial least squares regression, in: Advances in Learning Theory: Methods, Models and Applications, NATO Science Series III: Computer & Systems Sciences. IOS Press Amsterdam, pp. 227-250.
 
 Rosipal, R., Trejo, L.J., 2001. Kernel Partial Least Squares Regression in Reproducing Kernel Hilbert Space. Journal of Machine Learning Research 2, 97-123.
 

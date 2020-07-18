@@ -91,6 +91,12 @@
   
   }
 
+.dw <- function(x) {
+  x <- c(x)
+  n <- length(x)
+  sum((x[2:n] - x[1:(n - 1)])^2) / sum(x * x)
+  }
+
 .ellips <- function(shape, center = rep(0, ncol(shape)), radius = 1) {
   
   # The generated ellipse is: (x - mu)' * S^(-1) * (x - mu) <= r^2  

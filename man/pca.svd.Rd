@@ -10,19 +10,22 @@
 
 \description{
 
-Algorithms for PCA of a matrix \eqn{X}. Data are internally centered before the analyses, but they are not column-wise scaled (there is no argument \code{scale} available). If needed, the user has to do the scaling before using the functions. 
+Algorithms for centered PCA of a matrix \eqn{X}. 
 
-The functions (except \code{pca.nipalsna}) can set a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. Below, \eqn{D} is the diagonal matrix of the weights. 
+Noting \eqn{D} a diagonal matrix of row weights:
 
 - \code{pca.svd}: SVD decomposition of \eqn{D^(1/2) * X}, using function \code{\link{svd}}. 
 
 - \code{pca.eigen}: eigen decomposition of \eqn{X' * D * X}, using function \code{\link{eigen}}. 
 
-- \code{pca.eigenk}: eigen decomposition of \eqn{D^(1/2) * X * X' D^(1/2)}, using function \code{\link{eigen}}. This is the "kernel" version of the PCA algorithm (Wu et al. 1997). For wide matrices (\eqn{n << p}) and \eqn{n} not too large, this algorithm can be much faster than the others. 
+- \code{pca.eigenk}: eigen decomposition of \eqn{D^(1/2) * X * X' D^(1/2)}, using function \code{\link{eigen}}. This is the "kernel cross-product trick" version of the PCA algorithm (Wu et al. 1997). For wide matrices (\eqn{n << p}) and \eqn{n} not too large, this algorithm can be much faster than the others. 
 
 - \code{pca.nipals}: eigen decomposition of \eqn{X' * D * X} using NIPALS. 
 
 - \code{pca.nipalsna}: eigen decomposition of \eqn{X' * D * X} using a NIPALS version allowing missing data in \eqn{X}. The core of \code{pca.nipalsna} uses the code of function \code{nipals} of package \code{nipals} v.0.7 (Thanks to K. Wright, 2020) available on CRAN.
+
+Data are internally centered before the analyses, but they are not column-wise scaled (there is no argument \code{scale} available). If needed, the user has to do the scaling before using the functions. 
+The functions (except \code{pca.nipalsna}) can set a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. Below, \eqn{D} is the diagonal matrix of the weights. 
 
 \code{NA} are not allowed in the functions except \code{pca.nipalsna}.
 

@@ -1,4 +1,4 @@
-inlr <- function(Xr, Xu = NULL, degree = 2, scale.blocks = FALSE) {
+inlr <- function(Xr, Xu = NULL, degree = 2, scale.blocks = TRUE) {
   
   if(degree < 2)
     stop("Argument 'degree' must be an integer > 1.")

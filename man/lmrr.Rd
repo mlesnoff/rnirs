@@ -1,22 +1,22 @@
-\name{lmridge}
-\alias{lmridge}
+\name{lmrr}
+\alias{lmrr}
 \encoding{latin1}
 
 \title{Linear Ridge Regression}
 
 \description{
 
-Function \code{lmridge} fits linear ridge regression models by eigen decomposition. The kernel cross-product trick is used when \eqn{n < p}. 
+Function \code{lmrr} fits linear ridge regression models (Hoerl & Kennard 1970, Hastie & Tibshirani 2004, Hastie et al 2009, Cule & De Iorio 2012) by eigen decomposition. The "kernel cross-product trick" (such as in \code{\link{pca.eigenk}}; Wu et al. 1997) is used when \eqn{n < p}. 
 
 Data are internally centered (column-wise) before the analyses, but they are not scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.  
 
-Row observations can eventually be weighted.
+Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
 }
 
 \usage{
 
-lmridge(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, weights = NULL)
+lmrr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, weights = NULL)
 
 }
 
@@ -30,9 +30,9 @@ lmridge(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, weights = NULL)
 
 \item{Yu}{A \eqn{m x q} matrix or data frame, or a vector of length \eqn{m}, of the true responses for \eqn{Xu}. Default to \code{NULL}.}
 
-\item{lambda}{A scalar or numeric vector defining the regularization parameter value(s).}
+\item{lambda}{A scalar or numeric vector (giving several values of \eqn{lambda}) defining the regularization parameter value(s).}
 
-\item{unit}{Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6, ...} corresponds to a value \code{lambda = 12e-6}.}
+\item{unit}{Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6, ...} means that \code{lambda = 12e-6}.}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
@@ -64,6 +64,8 @@ Hastie, T., Tibshirani, R., Friedman, J., 2009. The elements of statistical lear
 
 Hoerl, A.E., Kennard, R.W., 1970. Ridge Regression: Biased Estimation for Nonorthogonal Problems. Technometrics 12, 55-67. https://doi.org/10.1080/00401706.1970.10488634
 
+Wu, W., Massart, D.L., de Jong, S., 1997. The kernel PCA algorithms for wide data. Part I: Theory and algorithms. Chemometrics and Intelligent Laboratory Systems 36, 165-172. https://doi.org/10.1016/S0169-7439(97)00010-5
+
 }
 
 \examples{
@@ -80,9 +82,9 @@ set.seed(NULL)
 Xr <- X[1:8, ] ; Yr <- Y[1:8, ] 
 Xu <- X[9:10, ] ; Yu <- Y[9:10, ] 
 
-fm <- lmridge(Xr, Yr, Xu, Yu, lambda = c(.1, .2))
+fm <- lmrr(Xr, Yr, Xu, Yu, lambda = c(.1, .2))
 ## Same as:
-## fm <- lmridge(Xr, Yr, Xu, Yu, lambda = c(1, 2), unit = .1)
+## fm <- lmrr(Xr, Yr, Xu, Yu, lambda = c(1, 2), unit = .1)
 
 fm$y
 fm$fit

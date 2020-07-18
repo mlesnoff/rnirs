@@ -8,7 +8,7 @@
 
 Function \code{kgram} builds kernel Gram matrices for reference (= training) observations and, eventually, new (= test) observations to predict. 
 
-The generated Gram matrices can then be used as input of usual regression functions (e.g. \code{\link{plsr}} or \code{\link{plsda}}) for implementing "direct" kernel regressions or discriminations. For instance, the direct kernel PLSR (DKPLSR) is discussed in Bennet & Embrechts (2003). See the examples.
+The generated Gram matrices can then be used as input of usual regression functions (e.g. \code{\link{plsr}} or \code{\link{plsda}}) for implementing "direct" kernel regressions or discriminations. For instance, the direct kernel PLSR (DKPLSR) is discussed in Bennet & Embrechts (2003). See the examples below.
 
 }
 

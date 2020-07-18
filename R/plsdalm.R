@@ -65,7 +65,7 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
 
   list(y = y, fit = fit, r = r,
-    Tr = fm$Tr, Tu = fm$Tu, P = fm$P, R = fm$R, C = fm$C, TT = fm$TT,
+    Tr = fm$Tr, Tu = fm$Tu, P = fm$P, W = fm$W, R = fm$R, C = fm$C, TT = fm$TT,
     xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
     T.ortho = fm$T.ortho, ni = ni, dummyfit = dummyfit)       
     
