@@ -1,12 +1,14 @@
 News for package rnirs
 
-##----------------- Version 1.8-0
+##----------------- Version 1.8-1
 
 - Change argument value in function inlr
 
 - Function lmridge renamed to rr
 
 - Argument "square" in function wdist
+
+- Various internal modifications
 
 
 ##----------------- Version 1.8-0
