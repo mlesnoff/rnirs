@@ -1,14 +1,15 @@
-\name{dalm}
-\alias{dalm}
+\name{darr}
+\alias{darr}
+\alias{dakrr}
 \encoding{latin1}
 
-\title{DA using Linear Regression on the Y-Dummy table}
+\title{DA using Ridge and Kernel Ridge Regression on the Y-Dummy table}
 
 \description{
 
 - The class membership \eqn{y} (unidimensional variable) for the reference (= training) observations is firstly transformed (with function \code{\link{dummy}}) to a table \eqn{Ydummy} containing a number of \eqn{nclas} dummy variables, where \eqn{nclas} is the number of classes in \eqn{y}. 
 
-- Then, a linear regression model is fitted between the \eqn{X}-data and each of the dummy variables (i.e. columns of the dummy table \eqn{Ydummy}). 
+- Then, a linear ridge regression (RR, with function \code{\link{rr}}) or kernel ridge regression (KRR, with function  \code{\link{krr}}) model is fitted between the \eqn{X}-data and each of the dummy variables (i.e. columns of the dummy table \eqn{Ydummy}). 
 
 - For a given new observation, the final prediction (a class) corresponds to the dummy variable for which the prediction is the highest.
 
@@ -16,12 +17,16 @@ When the number of classes is higher than two, this method  can be affected by a
 
 Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
-When argument \code{weights = NULL} (default), \code{dalm} is strictly equivalent to \code{daglm(..., family = gaussian)} but faster.
-
 }
 
 \usage{
-dalm(Xr, Yr, Xu, Yu = NULL, weights = NULL)
+
+darr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, 
+                 weights = NULL)
+                 
+dakrr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, kern = kpol, 
+                 weights = NULL, ...)                 
+                 
 }
 
 \arguments{
@@ -34,7 +39,15 @@ dalm(Xr, Yr, Xu, Yu = NULL, weights = NULL)
 
 \item{Yu}{A vector of length \eqn{m}, or a \eqn{m x 1} matrix, of the true response (class membership). Default to \code{NULL}.}
 
+\item{lambda}{A scalar or numeric vector (giving several values of \eqn{lambda}) defining the regularization parameter value(s).}
+
+\item{unit}{Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6, ...} means that \code{lambda = 12e-6}.}
+
+\item{kern}{For \code{dakrr}. A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax and other available kernel functions.}
+
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+
+\item{...}{For \code{dakrr}. Optionnal arguments to pass in the kernel function defined in \code{kern}.}
 
 }
 
@@ -50,37 +63,29 @@ A list of outputs, such as:
 
 }
 
-\references{
-
-Hastie, T., Tibshirani, R., Friedman, J., 2009. 2nd Ed. The elements of statistical learning. Data mining, inference and prediction. Springer.
-
-}
-
 \examples{
 
 data(iris)
 
-X <- iris[, 1:4]
-y <- iris[, 5]
-N <- nrow(X)
+Xr <- datforages$Xr
+yr <- datforages$yr
 
-m <- round(.25 * N) 
-n <- N - m        
-s <- sample(1:N, m)
-Xr <- X[-s, ]
-yr <- y[-s]
-Xu <- X[s, ]
-yu <- y[s]
+Xu <- datforages$Xu
+yu <- datforages$yu
 
-fm <- dalm(Xr, yr, Xu, yu)
-names(fm)
-headm(fm$y)
-headm(fm$fit)
-headm(fm$r)
-headm(fm$dummyfit)
-fm$ni
+lambda <- 10^(-15:5) ; unit <- 1
+fm <- darr(Xr, yr, Xu, yu, lambda = lambda)
+z <- err(fm, ~ lambda + unit)
+z[z$errp == min(z$errp), ][1, ]
+plot(z$lambda, z$errp, type = "b")
 
-err(fm)
+lambda <- 10^(-15:5) ; unit <- 1
+fm <- dakrr(Xr, yr, Xu, yu, lambda = lambda)
+#fm <- dakrr(Xr, yr, Xu, yu, lambda = lambda, degree = 3)
+#fm <- dakrr(Xr, yr, Xu, yu, lambda = lambda, kern = krbf, sigma = 10)
+z <- err(fm, ~ lambda + unit)
+z[z$errp == min(z$errp), ][1, ]
+plot(z$lambda, z$errp, type = "b")
 
 }
 

@@ -63,7 +63,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - KNN-LW-PLSR
         - Generic KNN-LW function
 * Discrimination
-    - DA (various discrimination methods: DALM, LDA, QDA, etc.)
+    - DA (various discrimination methods: DALM, LDA, QDA, DA-RR, DA-KRR, etc.)
     - Linear
         - PLSDA
         - PCDA

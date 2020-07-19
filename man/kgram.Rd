@@ -72,7 +72,7 @@ lines(Xu, fit, col = "red")
 ## DK Ridge regression
 
 res <- kgram(Xr, Xu, kern = krbf, sigma = 1)
-fm <- lmridge(res$Kr, y, res$Ku, lambda = .1)
+fm <- rr(res$Kr, y, res$Ku, lambda = .1)
 fit <- fm$fit$y1
 plot(Xr, y, type = "p")
 lines(Xr, zy, lty = 2)

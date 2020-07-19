@@ -219,11 +219,23 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 
 ------------ \bold{Discrimination methods (DA)}
 
+\eqn{** DA using Regressions on the Y-Dummy table}
+
+(The column of the fitted Y-dummy table with the maximum predicted value
+is taken as the predicted class)
+
 \tabular{ll}{
   \code{\link{dalm}} \tab DA using multivariate linear regression\cr
+  \code{\link{darr}} \tab DA using linear ridge regression\cr
+  \code{\link{dakrr}} \tab DA using non linear kernel ridge regression\cr
   \code{\link{daglm}} \tab DA using generalized linear models\cr
+  }
+
+\eqn{** Other DA methods}
+
+\tabular{ll}{
   \code{\link{daprob}} \tab Probablistic DA (parametric and non-parametric LDA and QDA)\cr
-  \code{\link{dadis}} \tab DA using the dissimilarity to class centers\cr
+  \code{\link{dadis}} \tab DA using the dissimilarity to the class centers\cr
   \code{\link{dasdod}} \tab DA using a Simca index\cr
   }
 

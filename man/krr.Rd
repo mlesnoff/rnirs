@@ -33,14 +33,13 @@ krr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, kern = kpol,
 
 \item{Yu}{A \eqn{m x q} matrix or data frame, or a vector of length \eqn{m}, of the true responses for \eqn{Xu}. Default to \code{NULL}.}
 
-\item{kern}{A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax and other available kernel functions.}
-
 \item{lambda}{A scalar or numeric vector defining the regularization parameter value(s).}
 
 \item{unit}{Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6, ...} corresponds to a value \code{lambda = 12e-6}.}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
+\item{kern}{A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax and other available kernel functions.}
 
 \item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern}.}
 }

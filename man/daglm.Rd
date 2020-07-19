@@ -2,13 +2,17 @@
 \alias{daglm}
 \encoding{latin1}
 
-\title{DA using generalized linear regression}
+\title{DA using GLIM Regression on the Y-Dummy table}
 
 \description{
 
-Discriminant analysis using generalized linear regression (GLIM).
+- The class membership \eqn{y} (unidimensional variable) for the reference (= training) observations is firstly transformed (with function \code{\link{dummy}}) to a table \eqn{Ydummy} containing a number of \eqn{nclas} dummy variables, where \eqn{nclas} is the number of classes in \eqn{y}. 
 
-The class membership (unidimensional variable) \eqn{y} for the reference (= training) observations is firstly transformed (with function \code{\link{dummy}}) to a table \eqn{Ydummy} containing \eqn{nclas} dummy variables, where \eqn{nclas} is the number of classes in \eqn{y}. Then, a GLIM model (using function \code{\link{glm}}) is fitted independently on the \eqn{X-}data and each of the \eqn{nclas} dummy variables of \eqn{Ydummy}. The \eqn{nclas} models provide \eqn{nclas} prediction vectors (one for each of the dummy variables) (using function \code{\link{predict.glm}}) for the new (= test) observations to predict. For a given new observation to predict, the final predicted class corresponds to the dummy variable (i.e. column of the dummy table \eqn{Ydummy}) for which the prediction is the highest.
+- Then, a generalized linear regression model (GLIM, using function \code{\link{glm}}) is fitted between the \eqn{X}-data and each of the dummy variables (i.e. columns of the dummy table \eqn{Ydummy}). 
+
+- For a given new observation, the final prediction (a class) corresponds to the dummy variable for which the prediction is the highest.
+
+When the number of classes is higher than two, this method  can be affected by a masking effect (see eg. Hastie et al. 2009, section 4.2): some class(es) can be masked (therefore not well predicted) if more than two classes are aligned in the \eqn{X}-space. Caution should be taken about such eventual masking effects.
 
 }
 
