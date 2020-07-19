@@ -1,12 +1,12 @@
-\name{lrr}
-\alias{lrr}
+\name{rr}
+\alias{rr}
 \encoding{latin1}
 
 \title{Linear Ridge Regression}
 
 \description{
 
-Function \code{lrr} fits linear ridge regression models (Hoerl & Kennard 1970, Hastie & Tibshirani 2004, Hastie et al 2009, Cule & De Iorio 2012) by eigen decomposition. The "kernel cross-product trick" (such as in \code{\link{pca.eigenk}}; Wu et al. 1997) is used when \eqn{n < p}. 
+Function \code{rr} fits linear ridge regression models (Hoerl & Kennard 1970, Hastie & Tibshirani 2004, Hastie et al 2009, Cule & De Iorio 2012) by eigen decomposition. The "kernel cross-product trick" (such as in \code{\link{pca.eigenk}}; Wu et al. 1997) is used when \eqn{n < p}. 
 
 Data are internally centered (column-wise) before the analyses, but they are not scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.  
 
@@ -16,7 +16,7 @@ Row observations can eventually be weighted with a priori weights (using argumen
 
 \usage{
 
-lrr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, weights = NULL)
+rr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, weights = NULL)
 
 }
 
@@ -82,9 +82,9 @@ set.seed(NULL)
 Xr <- X[1:8, ] ; Yr <- Y[1:8, ] 
 Xu <- X[9:10, ] ; Yu <- Y[9:10, ] 
 
-fm <- lrr(Xr, Yr, Xu, Yu, lambda = c(.1, .2))
+fm <- rr(Xr, Yr, Xu, Yu, lambda = c(.1, .2))
 ## Same as:
-## fm <- lrr(Xr, Yr, Xu, Yu, lambda = c(1, 2), unit = .1)
+## fm <- rr(Xr, Yr, Xu, Yu, lambda = c(1, 2), unit = .1)
 
 fm$y
 fm$fit

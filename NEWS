@@ -4,7 +4,7 @@ News for package rnirs
 
 - Change argument value in function inlr
 
-- Function lmridge renamed to lrr
+- Function lmridge renamed to rr
 
 - Argument "square" in function wdist
 

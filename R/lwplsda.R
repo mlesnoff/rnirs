@@ -29,7 +29,7 @@ lwplsda <- function(
   
   cri <- list(...)$cri
   if(is.null(cri))
-    cri <- 3
+    cri <- 5
   
   r <- fit <- y <- vector(mode = "list", length = npar)
   for(i in 1:npar) {
