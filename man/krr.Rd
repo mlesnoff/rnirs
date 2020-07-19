@@ -12,7 +12,7 @@ The kernel Gram matrices \eqn{K} are internally centered before the analyses, bu
 
 Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
-\bold{Note:} An alternative is to run "direct" kernel ridge regression, i.e. build preliminary kernel Gram matrices such as doing a pre-processing on \eqn{X} (e.g. Bennett & Embrechts 2003) and then run usual RR on them. See examples in function \code{\link{kgram}}.  
+\bold{Note:} An alternative to \code{krr}  is to run "direct" kernel ridge regression, i.e. build preliminary kernel Gram matrices such as doing a pre-processing on \eqn{X} (e.g. Bennett & Embrechts 2003) and then run usual RR on them. See examples in function \code{\link{kgram}}.  
 
 }
 

@@ -17,6 +17,7 @@ When the number of classes is higher than two, this method  can be affected by a
 
 Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
+\bold{Note:} An alternative to \code{dakrr} is to run a "direct" kernel ridge discrimination, i.e. build preliminary kernel Gram matrices such as doing a pre-processing on \eqn{X} (e.g. Bennett & Embrechts 2003) and then run a DA-RR on them. See examples in function \code{\link{kgram}}.  
 }
 
 \usage{

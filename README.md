@@ -41,36 +41,44 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
     - PCA
         - Usual
         - Robust
-    - FDA
     - Non Linear Kernel
         - KPLS
         - KPCA
         - Direct KPLS and KPCA
+    - FDA
 * Regression
-    - Linear
-        - Multiple Linear Regression (MLR)
-        - Ridge Regression
-        - PLSR
-        - PCR
-    - Non Linear Kernel
-        - Kernel Ridge Regression
-        - KPLSR
-        - KPCR 
-        - INLR
-        - Direct Kernel Regression
+    - On X
+        - Linear
+            - Multiple Linear Regression (MLR)
+            - Ridge Regression
+        - Non Linear
+            - Kernel Ridge Regression
+            - INLR
+    
+    - On latent variables
+        - Linear
+            - PLSR
+            - PCR
+        - Non Linear
+            - KPLSR
+            - KPCR 
+            - Direct Kernel Regression
     - Locally Weighted (LW)
         - KNN-WR
         - KNN-LW-PLSR
         - Generic KNN-LW function
-* Discrimination
-    - DA (various discrimination methods: DALM, LDA, QDA, DA-RR, DA-KRR, etc.)
-    - Linear
-        - PLSDA
-        - PCDA
-    - Non Linear Kernel
-        - KPLSDA
-        - KPCDA
-        - Direct Kernel Discrimination
+* Discrimination (DA)
+    - On X
+        - Using Regressions on the Y-Dummy table: DA-LM, DA-RR, DA-KRR, DA-GLM
+        - Other methods: LDA, QDA, Non-parametric, SIMCA, etc.
+    - On Latent variables
+        - Linear
+            - PLSDA
+            - PCDA
+        - Non Linear Kernel
+            - KPLSDA
+            - KPCDA
+            - Direct Kernel Discrimination
     - Locally Weighted (LW)
         - KNN-WDA
         - KNN-LW-PLSDA
