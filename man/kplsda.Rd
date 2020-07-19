@@ -9,7 +9,7 @@
 
 \description{
 
-Discrimination (DA) based on non linear KPLS or KPCA latent variables (scores).
+Discrimination (DA) based on latent variables (scores) of KPLS (Rosipal & Trejo 2001) or KPCA (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
 
 Functions \code{kplsda} and \code{kplsdalm} do the same as \code{\link{plsda}} and \code{\link{plsdalm}}, respectively, but using KPLS scores returned by \code{\link{kpls}}.
 
