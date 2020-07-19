@@ -160,8 +160,8 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 ------------ \bold{Linear}
 
 \tabular{ll}{
-  \code{\link{lmr}} \tab Multiple Linear Regression (MLR)\cr
-  \code{\link{lmrr}} \tab Linear Ridge Regression\cr
+  \code{\link{lmr}} \tab Linear Regression (MLR)\cr
+  \code{\link{lrr}} \tab Linear Ridge Regression\cr
   }
 
 \eqn{** On latent variables}

@@ -7,16 +7,15 @@
 
 \description{
 
-Function \code{kplsr} fits a KPLSR model such as in Rosipal & Trejo (2001), with the NIPALS algorithm (\code{\link{kpls.nipals}}). 
+Function \code{kplsr} fits KPLSR models with the NIPALS algorithm (implemented in \code{\link{kpls.nipals}}) such as described in Rosipal & Trejo (2001). 
 
-Function \code{kpcr} fits a KPCR model, i.e. a regression on KPCA latent variables (scores) implemented by \code{\link{kpca}}.
+Function \code{kpcr} fits a KPCR model, i.e. a regression on KPCA latent variables (scores) compured by \code{\link{kpca}}.
 
 The kernel Gram matrices \eqn{K} are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.
 
 Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
 \bold{Note:} These kernel algorithms are time expensive when \eqn{n > 500}, especially KPLSR due to the iterative deflation of the \eqn{n x n} training Gram matrix \eqn{K}. A much faster alternative is to run "direct" kernel models, i.e. build preliminary kernel Gram matrices such as doing a pre-processing on \eqn{X} (e.g. Bennett & Embrechts 2003) and then run usual algorithms on them. See examples in function \code{\link{kgram}}.  
-
 
 }
 

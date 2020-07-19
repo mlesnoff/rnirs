@@ -1,4 +1,4 @@
-lmrr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, 
+lrr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, 
                     weights = NULL) {
   
   Xr <- .matrix(Xr)

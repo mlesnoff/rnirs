@@ -31,12 +31,12 @@ krr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, kern = kpol,
   
   K <- kern(Xr, ...)
   tK <- t(K)
-  zK <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + 
+  Kc <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + 
     sum(weights * t(weights * tK))
-  Kd <- sqrt(weights) * t(sqrt(weights) * t(zK))
+  Kd <- sqrt(weights) * t(sqrt(weights) * t(Kc))
   
   Ku <- kern(Xu, Xr, ...)
-  zKu <- t(t(Ku - colSums(weights * t(Ku))) - colSums(weights * tK)) + 
+  Kuc <- t(t(Ku - colSums(weights * t(Ku))) - colSums(weights * tK)) + 
     sum(weights * t(weights * tK))
   
   fm <- eigen(Kd)
@@ -48,8 +48,8 @@ krr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, kern = kpol,
   sv <- sqrt(eig)
   
   Pr <- sqrt(weights) * .scale(A, scale = sv)
-  Tr <- zK %*% Pr  
-  Tu <- zKu %*% Pr  
+  Tr <- Kc %*% Pr  
+  Tu <- Kuc %*% Pr  
     
   tTDY <- crossprod(Tr, weights * Yr)
   

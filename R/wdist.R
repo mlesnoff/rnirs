@@ -1,7 +1,8 @@
-wdist <- function(d, h = 2, cri = 3) {
+wdist <- function(d, h = 2, cri = 3, square = FALSE) {
   
   d <- c(d)
-  #d <- c(d)^2
+  if(square)
+    d <- d^2
 
   w <- ifelse(d <  median(d) + cri * mad(d), exp(-d / (h * mad(d))), 0)
   w <- w / max(w)

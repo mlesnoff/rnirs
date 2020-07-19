@@ -4,7 +4,9 @@ News for package rnirs
 
 - Change argument value in function inlr
 
-- Function lmridge renamed to lmrr
+- Function lmridge renamed to lrr
+
+- Argument "square" in function wdist
 
 
 ##----------------- Version 1.8-0
