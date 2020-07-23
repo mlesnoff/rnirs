@@ -1,4 +1,4 @@
-dis <- function( Xr, Xu = NULL, mu = NULL, 
+dis <- function(Xr, Xu = NULL, mu = NULL, 
   diss = c("euclidean", "mahalanobis", "correlation"), sigma = NULL, 
   weights = NULL) {
   
@@ -44,8 +44,7 @@ dis <- function( Xr, Xu = NULL, mu = NULL,
     
     }
   
-  dr <- data.frame(rownum = 1:n, rownam = rownam, 
-    ncomp = rep(p, n), d = c(d))
+  dr <- data.frame(rownum = 1:n, rownam = rownam, d = c(d))
   
   ### NEW OBSERVATIONS
   
@@ -73,8 +72,7 @@ dis <- function( Xr, Xu = NULL, mu = NULL,
       
       )
       
-    du <- data.frame(rownum = 1:m, rownam = rownam,
-      ncomp = rep(p, m), d = c(d))
+    du <- data.frame(rownum = 1:m, rownam = rownam, d = c(d))
     
     }
 

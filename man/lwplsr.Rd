@@ -9,13 +9,7 @@
 
 \description{
 
-Pipelines (wrappers) for k-nearest-neighbors locally weighted PLSR and PLSDA models (kNN-LWPLSR and kNN-LWPLSDA): 
-
-- Function \code{lwplsr} builds kNN-LWPLSR models 
-
-- Functions \code{lwplsda} and \code{lwplsdalm} build kNN-LWPLSDA models. Function \code{lwplsdalm} is a faster equivalent of \code{lwplsda(..., da = dalm, ...)}.
-
-These pipelines use functions \code{\link{getknn}}, \code{\link{locw}} and functions for PLSR (\code{\link{plsr}}) or PLSDA (\code{\link{plsda}} and \code{\link{plsdalm}}). See the code for details.
+Pipelines (wrappers) for k-nearest-neighbors locally weighted PLSR and PLSDA models (kNN-LWPLSR and kNN-LWPLSDA).
 
 LWPLSR is a "local"  method: i.e. a different model is built for each new observation to predict, from a training set defined by neighboring. This is a particular case of weighted PLSR (WPLSR) (e.g. Schaal et al. 2002). In WPLSR, specific a priori weights, different from the usual \eqn{1/n} of the standard PLSR, are given to all the \eqn{n} training observations. These weights are used in the calculation of (a) the PLS scores and loadings and (b) the regression of the response over the scores. The specificity of LWPLSR is that the weights depend from dissimilarities (e.g. distances) between this new observation to predict and the training observations. Note that the weights change for each new observation to predict.
 
@@ -23,7 +17,15 @@ In the literature (Sicard & Sabatier 2006, Kim et al 2011), basic versions of LW
 
 kNN-LWPLSDA uses the same principle, though WPLSDA is used in place of WPLSR.
 
-In functions \code{lwplsr}, \code{lwplsda} and \code{lwplsdalm}, the dissimilarities used for computing the weights can be calculated from the original \eqn{X-}data (i.e. without dimension reduction) or, when using argument \code{ncompdis}, from preliminary computed global PLS scores.  
+- Function \code{lwplsr} builds kNN-LWPLSR models 
+
+- Function \code{lwplsda} builds kNN-LWPLSDA models with various DA methods.
+
+- Function \code{lwplsdalm} is a faster equivalent of \code{lwplsda(..., da = dalm, ...)}.
+
+These pipelines use functions \code{\link{getknn}}, \code{\link{locw}} and functions for PLSR and PLSDA (code{\link{plsr}}, \code{\link{plsda}} and \code{\link{plsdalm}}). See the code for details. Many other pipelines can be build using function \code{\link{locw}}.
+
+In functions \code{lwplsr}, \code{lwplsda} and \code{lwplsdalm}, the dissimilarities used for computing the weights can be calculated from the original \eqn{X-}data (i.e. without preliminary dimension reduction) or, when using argument \code{ncompdis}, from preliminary computed global PLS scores.  
 
 Data are internally centered before the analyses, but not scaled (there is no argument \code{scale} in the functions). If needed, the scaling has to be done by the user before using the functions.  
 
@@ -35,7 +37,7 @@ lwplsr(
   Xr, Yr,
   Xu, Yu = NULL,
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
-  h = Inf, k,
+  h = 5, k,
   ncomp,
   stor = TRUE,
   print = TRUE,
@@ -46,7 +48,7 @@ lwplsda(
   Xr, Yr,
   Xu, Yu = NULL,
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
-  h = Inf, k,
+  h = 5, k,
   ncomp,
   stor = TRUE,
   print = TRUE,
@@ -57,7 +59,7 @@ lwplsdalm(
   Xr, Yr,
   Xu, Yu = NULL,
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
-  h = Inf, k,
+  h = 5, k,
   ncomp,
   stor = TRUE,
   print = TRUE,
@@ -80,9 +82,9 @@ lwplsdalm(
 
 \item{ncompdis}{A vector (eventually of length = 1) defining the number(s) of components of the preliminary global PLS calculated on \eqn{(Xr, Yr)} and \eqn{Xu} for calculating the  dissimilarities used for defining the neighbors. If \code{NULL} (default), there is no preliminary data compression), i.e. the dissimilarities are calculated from the original \eqn{Xr} and \eqn{Xu} data.Each component of \code{ncompdis} is considered successively in the calculations.}
 
-\item{h}{A vector (eventually of length = 1) defining the scaling shape factor(s) of the function of the weights applied to the neighbors in the weighted PLSR. Lower is \eqn{h}, sharper is the function. See \code{\link{wdist}}.Each component of \code{h} is considered successively in the calculations.}
+\item{h}{A scalar or vector of scalars defining the scaling shape factor(s) of the function of the weights applied to the neighbors in the weighted PLSR. Lower is \eqn{h}, sharper is the function. See \code{\link{wdist}}. Each component of \code{h} is considered successively in the calculations. Default to \eqn{h = 5} which corresponds to a medium "omnibus" sharpness for the weight function (the user may decide to not optimze this parameter and use the default) .}
 
-\item{k}{A vector (eventually of length = 1) defining the number(s) of nearest neighbors to select in the reference data set for each observation to predict. Each component of \code{k} is considered successively in the calculations.}
+\item{k}{An integer of vector of integers defining the number(s) of nearest neighbors to select in the reference data set for each observation to predict. Each component of \code{k} is considered successively in the calculations.}
 
 \item{ncomp}{The maximum number(s) of components considered in the local PLSR models. The predictions are returned for models having from 1 to \eqn{ncomp} components.}
 
@@ -222,14 +224,13 @@ table(yu)
 ## - Weighting 2 = within each neighborhood, weights are calculated by "wdist" 
 
 ncompdis <- 10
-h <- 2
 k <- c(50, 100)
 ncomp <- 15
 fm <- lwplsda(
   Xr, yr,
   Xu, yu,
   ncompdis = ncompdis, diss = "mahalanobis",
-  h = h, k = k,
+  k = k,
   da = dalm,
   ncomp = ncomp,
   print = TRUE
@@ -241,38 +242,38 @@ headm(fm$r)
 
 z <- err(fm, ~ ncompdis + h + k + ncomp)
 z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp", group = z$k)
+group <- paste("h=", z$h, ", k=", z$k, sep = "")
+plotmse(z, nam = "errp", group = group)
 
 ###### Same using lwplsdalm (faster)
 
 ncompdis <- 10
-h <- 2
 k <- c(50, 100)
 ncomp <- 15
 fm <- lwplsdalm(
   Xr, yr,
   Xu, yu,
   ncompdis = ncompdis, diss = "mahalanobis",
-  h = h, k = k,
+  k = k,
   ncomp = ncomp,
   print = TRUE
   )
 
 z <- err(fm, ~ ncompdis + h + k + ncomp)
 z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp", group = z$k)
+group <- paste("h=", z$h, ", k=", z$k, sep = "")
+plotmse(z, nam = "errp", group = group)
 
 ## Same models but changing the DA method ==> LDA
 
 ncompdis <- 10
-h <- 2
 k <- c(50, 100)
 ncomp <- 15
 fm <- lwplsda(
   Xr, yr,
   Xu, yu,
   ncompdis = ncompdis, diss = "mahalanobis",
-  h = h, k = k,
+  k = k,
   da = daprob,
   ncomp = ncomp,
   print = TRUE
@@ -280,7 +281,8 @@ fm <- lwplsda(
 
 z <- err(fm, ~ ncompdis + h + k + ncomp)
 z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp", group = z$k)
+group <- paste("h=", z$h, ", k=", z$k, sep = "")
+plotmse(z, nam = "errp", group = group)
 
 ############################# OBJECTS RETURNED BY THE FUNCTIONS
 
@@ -302,7 +304,7 @@ fm <- lwplsr(
   Xr, Yr,
   Xu, Yu,
   ncompdis = 3, diss = "mahalanobis",
-  h = 2, k = 5,
+  k = 5,
   ncomp = 2,
   print = TRUE
   )

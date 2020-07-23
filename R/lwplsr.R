@@ -2,7 +2,7 @@ lwplsr <- function(
   Xr, Yr,
   Xu, Yu = NULL,
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
-  h = Inf, k,
+  h = 5, k,
   ncomp,
   stor = TRUE,
   print = TRUE,

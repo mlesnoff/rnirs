@@ -1,5 +1,14 @@
 News for package rnirs
 
+##----------------- Version 1.8-2
+
+- Various code cleaning
+
+- Ghange of the default value of argument "h" in function lwplsr, lwplsda, lwplsdalm 
+
+
+
+
 ##----------------- Version 1.8-1
 
 - New functions

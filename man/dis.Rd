@@ -2,7 +2,7 @@
 \alias{dis}
 \encoding{latin1}
 
-\title{Dissimilarities between row observations of a matrix and a given vectord}
+\title{Dissimilarities between row observations of a matrix and a given vector}
 
 \description{
 
