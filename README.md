@@ -23,8 +23,8 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
 
 ## Main features 
 
-* Data checking and summarizing
-* Data pre-processing
+* **Data checking and summarizing**
+* **Data pre-processing**
     - Detrend
         - Polynomial
         - Lowess
@@ -34,7 +34,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
     - Derivation
         - Savitsky-Golay
         - Finite differences
-* Multivariate factorial analyses 
+* **Multivariate factorial analyses** 
     - PLS
         - Usual
         - Robust
@@ -46,7 +46,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - KPCA
         - Direct KPLS and KPCA
     - FDA
-* Regression
+* **Regression**
     - Linear
         - Multiple Linear Regression (MLR)
         - Ridge Regression (RR)
@@ -64,7 +64,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - KNN-WR
         - KNN-LW-PLSR
         - Generic KNN-LW function
-* Discrimination (DA)
+* **Discrimination (DA)**
     - DA methods
         - Using Regressions on the Y-Dummy table
             - DA-LM
@@ -88,19 +88,19 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - KNN-WDA
         - KNN-LW-PLSDA
         - Generic KNN-LW function
-* Multiblock
+* **Multiblock**
     - Orthogonalization of a matrix to another matrix
     - Block-selection
     - Block-scaling
     - Block-dimension reduction by PLS or PCA
     - Block-dimension reduction by SO-PLS or SO-PCA
-* Model stacking
+* **Model stacking**
     - Quantitative predictions
     - Classes predictions
-* Cross-validation
+* **Cross-validation**
     - Generic function
-* Graphics
-* Miscellaneous functions
+* **Graphics**
+* **Miscellaneous functions**
 
 You can write **??rnirs** in the R console for details.
 
