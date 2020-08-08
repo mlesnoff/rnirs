@@ -1,82 +1,73 @@
-kplsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, ...) {
-
-  Xr <- .matrix(Xr)
-  zdim <- dim(Xr)
-  n <- zdim[1]
-  p <- zdim[2]
+kplsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
+                 kern = kpol, weights = NULL, print = TRUE, ...) { 
   
-  Xu <- .matrix(Xu)
-  m <- dim(Xu)[1]
-  rownam.Xu <- row.names(Xu)
-
+  namkern <- as.character(substitute(kern))
+  
   dots <- list(...)
-  namdot <- names(dots)
   
-  weights <- dots$weights
-  if(is.null(weights))
-    weights <- rep(1 / n, n)
-  else
-    weights <- dots$weights
-  
-  z <- namdot[namdot %in% names(formals(kern))]
-  if(length(z) > 0) dots.kern <- dots[z] else dots.kern <- NULL
-
-  colnam.Y <- colnames(Yr)
-  if(is.null(colnam.Y)) colnam.Y <- "y1"
-    
-  Yr <- as.factor(Yr)
-  ni <- c(table(Yr))
-  nclas <- length(ni)
-
-  # levels returns the sorted character level names 
-  lev <- levels(Yr)      
-  
-  ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
-  if(nclas == 1) {
-    fm <- pca(Xr, Xu, ncomp = ncomp)
-    y <- rep(as.character(Yu), ncomp)
-    fit <- rep(lev, m * ncomp)
-    dummyfit <- NULL
+  if(namkern == "kpol") {
+    if(is.null(dots$degree)) dots$degree <- 1
+    if(is.null(dots$scale)) dots$scale <- 1
+    if(is.null(dots$offset)) dots$offset <- 0
+    kpar <- list(degree =  dots$degree, scale =  dots$scale, offset =  dots$offset)
     }
-  ### END
+
+  if(namkern == "krbf") {
+    if(is.null(dots$sigma)) dots$sigma <- 1
+    kpar <- list(sigma =  dots$sigma)
+    }
   
-  else {
+  if(namkern == "ktanh") {
+    if(is.null(dots$scale)) dots$scale <- 1
+    if(is.null(dots$offset)) dots$offset <- 0
+    kpar <- list(scale =  dots$scale, offset =  dots$offset)
+    }
+
+  kpar <- expand.grid(kpar)
+  npar <- ncol(kpar)
+  nampar <- names(kpar)
+  
+  r <- fit <- y <- vector(mode = "list", length = npar)
+  
+  if(print)
+    cat(paste("\n Kernel parameters: ", namkern, "\n", sep = ""))
+
+  for(i in 1:nrow(kpar)) {
     
-    fm <- do.call(
-      kplsr, 
-      c(list(Xr = Xr, Yr = dummy(Yr), Xu = Xu, 
-        ncomp = ncomp, kern = kern, weights = weights), dots.kern)
+    if(print)
+      print(kpar[i, ])
+    
+    zfm <- switch(namkern,
+                  
+      kpol = .kplsdalm(Xr, Yr, Xu, Yu, ncomp, kern = kpol, weights, 
+                 degree = kpar[i, "degree"], scale = kpar[i, "scale"], offset = kpar[i, "offset"]),
+      
+      krbf = .kplsdalm(Xr, Yr, Xu, Yu, ncomp, kern = krbf, weights, 
+                 sigma = kpar[i, "sigma"]),
+
+      ktanh = .kplsdalm(Xr, Yr, Xu, Yu, ncomp, kern = ktanh, weights, 
+                 scale = kpar[i, "scale"], offset = kpar[i, "offset"])
+      
       )
     
-    m <- length(fm$fit$ncomp[fm$fit$ncomp == 1])
-    dummyfit <- fm$fit[fm$fit$ncomp > 0, ] 
+    z <- dim(zfm$y)[1] 
+    dat <- data.frame(matrix(rep(unlist(kpar[i, ]), z), ncol = npar, byrow = TRUE))
+    names(dat) <- names(kpar)
     
-    # if ex-aequos, the first is selected
-    fit <- dummyfit
-    fit <- fit[, (ncol(fit) - nclas + 1):ncol(fit)]
-    fit <- apply(fit, FUN = .findmax, MARGIN = 1) 
-    fit <- sapply(fit, FUN = function(x) lev[x])
+    y[[i]] <- cbind(dat, zfm$y)
+    fit[[i]] <- cbind(dat, zfm$fit)
+    r[[i]] <- cbind(dat, zfm$r)    
     
-    if (!is.null(Yu))
-      y <- rep(as.character(Yu), ncomp)
-    else
-      y <- rep(NA, length(fit))
-
     }
   
-  r <- as.numeric(y != fit)
-
-  dat <- data.frame(rownum = rep(1:m, ncomp), rownam = rep(rownam.Xu, ncomp),
-    ncomp = sort(rep(1:ncomp, m)))
-  
-  y <- data.frame(dat, y, stringsAsFactors = FALSE)
-  fit <- data.frame(dat, fit, stringsAsFactors = FALSE)
-  r <- data.frame(dat, r)
-  names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
-
-  list(y = y, fit = fit, r = r,
-    Tr = fm$Tr, Tu = fm$Tu,
-    weights = fm$weights, 
-    ni = ni, dummyfit = dummyfit)       
+  y <- setDF(rbindlist(y))
+  fit <- setDF(rbindlist(fit))
+  r <- setDF(rbindlist(r))  
     
+  list(y = y, fit = fit, r = r)
+
   }
+
+    
+    
+    
