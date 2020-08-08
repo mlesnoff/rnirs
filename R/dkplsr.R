@@ -1,4 +1,4 @@
-krr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, 
+dkplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
                  kern = kpol, weights = NULL, print = TRUE, ...) { 
   
   namkern <- as.character(substitute(kern))
@@ -37,18 +37,20 @@ krr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
     if(print)
       print(kpar[i, ])
     
-    zfm <- switch(namkern,
+    res <- switch(namkern,
                   
-      kpol = .krr(Xr, Yr, Xu, Yu, lambda, unit, kern = kpol, weights, 
+      kpol = kgram(Xr, Xu, kern = kpol, 
                  degree = kpar[i, "degree"], scale = kpar[i, "scale"], offset = kpar[i, "offset"]),
       
-      krbf = .krr(Xr, Yr, Xu, Yu, lambda, unit, kern = krbf, weights, 
+      krbf = kgram(Xr, Xu, kern = krbf, 
                  sigma = kpar[i, "sigma"]),
 
-      ktanh = .krr(Xr, Yr, Xu, Yu, lambda, unit, kern = ktanh, weights, 
+      ktanh = kgram(Xr, Xu, kern = ktanh, 
                  scale = kpar[i, "scale"], offset = kpar[i, "offset"])
       
       )
+    
+    zfm <- plsr(res$Kr, Yr, res$Ku, Yu, ncomp, weights, algo = pls.kernel)
     
     z <- dim(zfm$y)[1] 
     dat <- data.frame(matrix(rep(unlist(kpar[i, ]), z), ncol = npar, byrow = TRUE))

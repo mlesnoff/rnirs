@@ -1,9 +1,9 @@
-plotmse <- function(obj, nam = "rmsep", group = NULL,  col = NULL,
+plotmse <- function(obj, nam = "rmsep", namx = "ncomp", group = NULL,  col = NULL,
   legend = TRUE, legend.title = NULL, ncol = 1, ...) {
   
   dots <- list(...)
 
-  obj <- obj[, c("ncomp", nam)]
+  obj <- obj[, c(namx, nam)]
   
   if(is.null(dots$lwd))
     dots$lwd <- 1.8
@@ -11,14 +11,19 @@ plotmse <- function(obj, nam = "rmsep", group = NULL,  col = NULL,
   fg <- "grey70"
     
   plot(obj[, 1:2], 
-    xlab = "Nb. components", ylab = toupper(nam),
+    #xlab = "Nb. components", 
+    #ylab = toupper(nam),
     type = "n",
     xaxt = "n", las = 1, fg = fg,
     ...
     )
-  labs <- u <- 0:max(obj$ncomp)
-  labs[1 + seq(1, max(obj$ncomp), by = 2)] <- NA
-  axis(side = 1, at = u, labels = labs, fg = fg) 
+  if(namx == "ncomp") {
+    labs <- u <- 0:max(obj$ncomp)
+    labs[1 + seq(1, max(obj$ncomp), by = 2)] <- NA
+    axis(side = 1, at = u, labels = labs, fg = fg)
+    }
+  else
+    axis(side = 1)
       
   if(is.null(group)) {
     

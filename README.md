@@ -1,4 +1,4 @@
-## rnirs 1.8-2
+## rnirs 1.8-3
 ## Chemometrics, Kernel Regression and Discrimination, Locally Weighting, and Other Methods  
 
 Package rnirs is a R tool box for chemometrics, including spectra pre-processing and plotting, PLS and PCA regression and discrimination, kernel methods, locally weighted methods, robust methods, etc.
@@ -23,8 +23,8 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
 
 ## Main features 
 
-* Data checking and summarizing
-* Data pre-processing
+* **Data checking and summarizing**
+* **Data pre-processing**
     - Detrend
         - Polynomial
         - Lowess
@@ -34,7 +34,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
     - Derivation
         - Savitsky-Golay
         - Finite differences
-* Multivariate factorial analyses 
+* **Multivariate factorial analyses** 
     - PLS
         - Usual
         - Robust
@@ -46,7 +46,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - KPCA
         - Direct KPLS and KPCA
     - FDA
-* Regression
+* **Regression**
     - Linear
         - Multiple Linear Regression (MLR)
         - Ridge Regression (RR)
@@ -54,7 +54,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
             - PLSR
             - PCR
     - Non Linear Kernel
-        - KRR
+        - KRR (LS-SVM)
         - INLR
         - On latent variables
             - KPLSR
@@ -64,12 +64,12 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - KNN-WR
         - KNN-LW-PLSR
         - Generic KNN-LW function
-* Discrimination (DA)
+* **Discrimination (DA)**
     - DA methods
         - Using Regressions on the Y-Dummy table
             - DA-LM
             - DA-RR
-            - DA-KRR
+            - DA-KRR (DA-LS-SVM)
             - DA-GLM
         - Other methods
             - LDA, QDA
@@ -88,19 +88,19 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - KNN-WDA
         - KNN-LW-PLSDA
         - Generic KNN-LW function
-* Multiblock
+* **Multiblock**
     - Orthogonalization of a matrix to another matrix
     - Block-selection
     - Block-scaling
     - Block-dimension reduction by PLS or PCA
     - Block-dimension reduction by SO-PLS or SO-PCA
-* Model stacking
+* **Model stacking**
     - Quantitative predictions
     - Classes predictions
-* Cross-validation
+* **Cross-validation**
     - Generic function
-* Graphics
-* Miscellaneous functions
+* **Graphics**
+* **Miscellaneous functions**
 
 You can write **??rnirs** in the R console for details.
 

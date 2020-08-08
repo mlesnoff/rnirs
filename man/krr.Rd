@@ -18,8 +18,8 @@ Row observations can eventually be weighted with a priori weights (using argumen
 
 \usage{
 
-krr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, kern = kpol,
-  weights = NULL, ...)
+krr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, 
+                 kern = kpol, weights = NULL, print = TRUE, ...)
 
 }
 
@@ -37,11 +37,14 @@ krr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, kern = kpol,
 
 \item{unit}{Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6, ...} corresponds to a value \code{lambda = 12e-6}.}
 
-\item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
-
 \item{kern}{A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax and other available kernel functions.}
 
-\item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern}.}
+\item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+
+\item{print}{Logical (default = \code{TRUE}). If \code{TRUE}, fitting information are printed.}
+
+\item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern}. The value set in the kernel parameters (e.g. \code{degree} for \code{\link{kpol}}) can be a vector of several parameter values.}
+
 }
 
 \value{
@@ -88,16 +91,16 @@ set.seed(NULL)
 Xr <- X[1:8, ] ; Yr <- Y[1:8, ] 
 Xu <- X[9:10, ] ; Yu <- Y[9:10, ] 
 
-fm <- krr(Xr, Yr, Xu, Yu, lambda = c(.1, .2), degree = 3)
+fm <- krr(Xr, Yr, Xu, Yu, lambda = c(.1, .2), degree = 2:3, offset = c(0, 1))
 ## Same as:
-## fm <- krr(Xr, Yr, Xu, Yu, lambda = c(1, 2), unit = .1, degree = 3)
+## fm <- krr(Xr, Yr, Xu, Yu, lambda = c(1, 2), unit = .1, degree = 2:3, offset = c(0, 1))
 
 fm$y
 fm$fit
 fm$r
 
-mse(fm, ~ lambda + unit)
-mse(fm, ~ lambda + unit, nam = "y2")
+mse(fm, ~ lambda + unit + degree + scale + offset)
+mse(fm, ~ lambda + unit + degree + scale + offset, nam = "y2")
 
 }
 

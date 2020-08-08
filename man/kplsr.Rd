@@ -1,6 +1,7 @@
 \name{kplsr}
 \alias{kplsr}
 \alias{kpcr}
+\alias{dkplsr}
 \encoding{latin1}
 
 \title{Non linear kernel PLSR and PCR Models}
@@ -15,15 +16,20 @@ The kernel Gram matrices \eqn{K} are internally centered before the analyses, bu
 
 Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
-\bold{Note:} These kernel algorithms are time expensive when \eqn{n > 500}, especially KPLSR due to the iterative deflation of the \eqn{n x n} training Gram matrix \eqn{K}. A much faster alternative is to run "direct" kernel models, i.e. build preliminary kernel Gram matrices such as doing a pre-processing on \eqn{X} (e.g. Bennett & Embrechts 2003) and then run usual algorithms on them. See examples in function \code{\link{kgram}}.  
+\bold{Note:} These kernel algorithms are time expensive when \eqn{n > 500}, especially KPLSR due to the iterative deflation of the \eqn{n x n} training Gram matrix \eqn{K}. A much faster alternative to KPLSR is to run a "direct kernel PLSR" (DKPLSR) (Bennett & Embrechts 2003), i.e. to build preliminary kernel Gram matrices (such as doing a pre-processing on \eqn{X}), and then to run a usual PLSR algorithm on them. This is what does function \code{dkplsr}. See also examples in function \code{\link{kgram}}.   
 
 }
 
 \usage{
 
-kplsr(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, weights = NULL, ...)
+kplsr(Xr, Yr, Xu, Yu = NULL, ncomp, 
+                 kern = kpol, weights = NULL, print = TRUE, ...)
 
-kpcr(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, weights = NULL, ...)
+kpcr(Xr, Yr, Xu, Yu = NULL, ncomp, 
+                 kern = kpol, weights = NULL, print = TRUE, ...)
+
+dkplsr(Xr, Yr, Xu, Yu = NULL, ncomp, 
+                 kern = kpol, weights = NULL, print = TRUE, ...)
 
 }
 
@@ -43,7 +49,9 @@ kpcr(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, weights = NULL, ...)
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
-\item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern}.}
+\item{print}{Logical (default = \code{TRUE}). If \code{TRUE}, fitting information are printed.}
+
+\item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern}. The value set in the kernel parameters (e.g. \code{degree} for \code{\link{kpol}}) can be a vector of several parameter values.}
 
 }
 
@@ -97,6 +105,7 @@ plotmse(z)
 
 ## fictive weights
 kplsr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:nrow(Xr))
+#dkplsr(Xr, Yr, Xu, Yu, ncomp = ncomp, weights = 1:nrow(Xr))   ## DKPLSR
 
 ####### Example of fitting the function sinc(x) (Rosipal & Trejo 2001 p. 105-106) 
 
@@ -111,6 +120,7 @@ Xu <- Xr <- matrix(x, ncol = 1)
 
 ncomp <- 3
 fm <- kplsr(Xr, y, Xu, ncomp = ncomp, kern = krbf)
+#fm <- kplsr(Xr, y, Xu, ncomp = ncomp, kern = krbf)   ## DKPLSR
 fit <- fm$fit$y1[fm$fit$ncomp == ncomp]
 plot(Xr, y, type = "p")
 lines(Xr, zy, lty = 2)

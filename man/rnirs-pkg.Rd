@@ -51,7 +51,7 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
   \code{\link{sampclas}} \tab Within-class sampling\cr
   }
 
-\bold{*************************************** MULTIVARIATE ANALYSES}
+\bold{*************************************** MULTIVARIATE FACTORIAL ANALYSES}
 
 ------------ \bold{PLS}
 
@@ -70,7 +70,7 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 \eqn{** Robust}
 
 \tabular{ll}{
-  \code{\link{pls.rob}} \tab Robust PLS1 ((robust PCA and WPLS))\cr
+  \code{\link{pls.rob}} \tab Robust PLS1 (robust PCA and weighted PLS)\cr
   \code{\link{pls.iw}} \tab Robust PLS1 (Iterative Re-Weighting) \cr
   }
 
@@ -89,7 +89,7 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
   \code{\link{kgram}} \tab Build kernel Gram matrices for direct kernel models \cr
   }
 
-\eqn{** With available kernel functions}
+\eqn{** Available kernel functions}
 
 \tabular{ll}{
   \code{\link{kpol}} \tab Polynomial \cr
@@ -180,7 +180,7 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 ------------ \bold{Non Linear Kernel}
 
 \tabular{ll}{
-  \code{\link{krr}} \tab Kernel ridge regression\cr
+  \code{\link{krr}} \tab Kernel ridge regression (LS-SVM)\cr
   \code{\link{inlr}} \tab Blocks for INLR (Berglund & Wold 1997)\cr
   }
   
@@ -194,7 +194,8 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 \eqn{** Direct KPLSR and KPCR}
 
 \tabular{ll}{
-  Use \code{\link{kgram}}
+  \code{\link{dkplsr}} \tab Direct Kernel PLSR\cr
+  Or use \code{\link{kgram}}
   }
 
 ------------ \bold{Locally weighted}
@@ -227,7 +228,7 @@ is taken as the predicted class)
 \tabular{ll}{
   \code{\link{dalm}} \tab DA using multivariate linear regression\cr
   \code{\link{darr}} \tab DA using linear ridge regression\cr
-  \code{\link{dakrr}} \tab DA using non linear kernel ridge regression\cr
+  \code{\link{dakrr}} \tab DA using non linear kernel ridge regression (LS-SVM)\cr
   \code{\link{daglm}} \tab DA using generalized linear models\cr
   }
 
