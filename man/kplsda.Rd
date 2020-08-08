@@ -65,6 +65,8 @@ dkplsdalm(Xr, Yr, Xu, Yu = NULL, ncomp,
 
 \item{kern}{A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax and other available kernel functions.}
 
+\item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+
 \item{print}{Logical (default = \code{TRUE}). If \code{TRUE}, fitting information are printed.}
 
 \item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern}. The value set in the kernel parameters (e.g. \code{degree} for \code{\link{kpol}}) can be a vector of several parameter values.}
