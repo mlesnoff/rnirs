@@ -59,7 +59,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - On latent variables
             - KPLSR
             - KPCR 
-        - Direct Kernel Regression
+        - Direct Kernel Regressions
     - Locally Weighted (LW)
         - KNN-WR
         - KNN-LW-PLSR
@@ -83,7 +83,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - Non Linear Kernel
             - KPLSDA
             - KPCDA
-            - Direct Kernel Discrimination
+            - Direct Kernel Discriminations
     - Locally Weighted (LW)
         - KNN-WDA
         - KNN-LW-PLSDA
