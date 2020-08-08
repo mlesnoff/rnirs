@@ -265,7 +265,9 @@ is taken as the predicted class)
 \eqn{** Direct KPLSDA and KPCDA}
 
 \tabular{ll}{
-  Use \code{\link{kgram}}
+  \code{\link{dkplsda}} \tab Direct Kernel PLSDA\cr
+  \code{\link{dkplsdalm}} \tab Direct Kernel PLSDA (with dalm)\cr
+  Or use \code{\link{kgram}}
   }
 
 ------------ \bold{Locally weighted}

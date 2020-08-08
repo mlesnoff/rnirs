@@ -3,11 +3,15 @@
 \alias{kplsdalm}
 \alias{kpcda}
 \alias{kpcdalm}
+\alias{dkplsda}
+\alias{dkplsdalm}
 \encoding{latin1}
 
 \title{Non linear kernel PLSDA and PCDA models}
 
 \description{
+
+KPLSDA, KPCDA or DKPLSDA
 
 Discrimination (DA) based on latent variables (scores) of KPLS (Rosipal & Trejo 2001) or KPCA (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
 
@@ -19,15 +23,29 @@ The kernel Gram matrices \eqn{K} are internally centered before the analyses, bu
 
 Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
-\bold{Note:} These kernel algorithms are time expensive when \eqn{n > 500}, especially KPLS due to the iterative deflation of the \eqn{n x n} training Gram matrix \eqn{K}. A much faster alternative is to run "direct" kernel models, i.e. build preliminary kernel Gram matrices such as doing a pre-processing on \eqn{X} (e.g. Bennett & Embrechts 2003) and then run usual algorithms on them. See examples in function \code{\link{kgram}}.  
+\bold{Note:} These kernel algorithms are time expensive when \eqn{n > 500}, especially KPLSDA due to the iterative deflation of the \eqn{n x n} training Gram matrix \eqn{K}. A much faster alternative to KPLSDA is to run a "direct kernel PLSDA" (DKPLSDA) (Bennett & Embrechts 2003), i.e. to build preliminary kernel Gram matrices (such as doing a pre-processing on \eqn{X}), and then to run a usual PLSDA algorithm on them. This is what do functions \code{dkplsda} and  \code{dkplsdalm}. See also examples in function \code{\link{kgram}}.   
 
 }
 
 \usage{
 
-kpcda(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, da = dalm, ...)
+kplsda(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm, 
+                 kern = kpol, weights = NULL, print = TRUE, ...)
 
-kpcdalm(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, ...)
+kplsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, 
+                 kern = kpol, weights = NULL, print = TRUE, ...)
+
+kpcda(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm, 
+                 kern = kpol, weights = NULL, print = TRUE, ...)
+
+kpcdalm(Xr, Yr, Xu, Yu = NULL, ncomp, 
+                 kern = kpol, weights = NULL, print = TRUE, ...)
+
+dkplsda(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm, 
+                 kern = kpol, weights = NULL, print = TRUE, ...)
+
+dkplsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, 
+                 kern = kpol, weights = NULL, print = TRUE, ...)
 
 }
 
@@ -43,11 +61,13 @@ kpcdalm(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, ...)
 
 \item{ncomp}{The number of scores (i.e. components) to consider.}
 
-\item{kern}{A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax and other available kernel functions.}
-
 \item{da}{A function defining the discriminant method used for the predictions. Default to \code{\link{dalm}}.} 
 
-\item{...}{Optionnal arguments to pass in functions defined in \code{kern} and \code{da}.}
+\item{kern}{A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax and other available kernel functions.}
+
+\item{print}{Logical (default = \code{TRUE}). If \code{TRUE}, fitting information are printed.}
+
+\item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern}. The value set in the kernel parameters (e.g. \code{degree} for \code{\link{kpol}}) can be a vector of several parameter values.}
 
 }
 
@@ -93,31 +113,31 @@ table(yu)
 ######## KPCDALM
 
 ncomp <- 20
-fm <- kpcda(Xr, yr, Xu, yu, ncomp = ncomp, kpol = krbf, sigma  = 2)
+fm <- kpcda(Xr, yr, Xu, yu, ncomp = ncomp, kern = krbf, sigma = c(1, 10))
 names(fm)
 headm(fm$y)
 headm(fm$fit)
 headm(fm$r)
 
-z <- err(fm, ~ ncomp)
+z <- err(fm, ~ ncomp + sigma)
 z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp")
+plotmse(z, nam = "errp", group = z$sigma)
 
 ## Same with kpcdalm (faster)
 
 ncomp <- 20
-fm <- kpcdalm(Xr, yr, Xu, yu, ncomp = ncomp, kpol = krbf, sigma  = 2)
-z <- err(fm, ~ ncomp)
+fm <- kpcdalm(Xr, yr, Xu, yu, ncomp = ncomp, kern = krbf, sigma = c(1, 10))
+z <- err(fm, ~ ncomp + sigma)
 z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp")
+plotmse(z, nam = "errp", group = z$sigma)
 
-######## KPCQDA
+######## KPCDA-PROB (QDA)
 
 ncomp <- 20
-fm <- kpcda(Xr, yr, Xu, yu, ncomp, da = daprob, degree = 3, lda = FALSE)
-z <- err(fm, ~ ncomp)
+fm <- kpcda(Xr, yr, Xu, yu, ncomp, da = daprob, degree = 2:3, lda = FALSE)
+z <- err(fm, ~ ncomp + degree)
 z[z$errp == min(z$errp), ]
-plotmse(z, nam = "errp")
+plotmse(z, nam = "errp", group = z$degree)
 
 }
 

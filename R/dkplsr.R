@@ -50,7 +50,7 @@ dkplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
       
       )
     
-    zfm <- plsr(res$Kr, Yr, res$Ku, Yu, ncomp, weights, algo = pls.kernel)
+    zfm <- plsr(res$Kr, Yr, res$Ku, Yu, ncomp, algo = pls.kernel, weights = weights)
     
     z <- dim(zfm$y)[1] 
     dat <- data.frame(matrix(rep(unlist(kpar[i, ]), z), ncol = npar, byrow = TRUE))

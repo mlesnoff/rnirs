@@ -6,13 +6,15 @@
 
 \description{
 
-- The class membership \eqn{y} (unidimensional variable) for the reference (= training) observations is firstly transformed (with function \code{\link{dummy}}) to a table \eqn{Ydummy} containing a number of \eqn{nclas} dummy variables, where \eqn{nclas} is the number of classes in \eqn{y}. 
+DA-GLM
 
-- Then, a generalized linear regression model (GLIM, using function \code{\link{glm}}) is fitted between the \eqn{X}-data and each of the dummy variables (i.e. columns of the dummy table \eqn{Ydummy}). 
+1- The class membership \eqn{y} (unidimensional variable) for the reference (= training) observations is firstly transformed (with function \code{\link{dummy}}) to a table \eqn{Ydummy} containing a number of \eqn{nclas} dummy variables, where \eqn{nclas} is the number of classes in \eqn{y}. 
 
-- For a given new observation, the final prediction (a class) corresponds to the dummy variable for which the prediction is the highest.
+2- Then, a generalized linear regression model (GLIM, using function \code{\link{glm}}) is fitted between the \eqn{X}-data and each of the dummy variables (i.e. columns of the dummy table \eqn{Ydummy}). 
 
-When the number of classes is higher than two, this method  can be affected by a masking effect (see eg. Hastie et al. 2009, section 4.2): some class(es) can be masked (therefore not well predicted) if more than two classes are aligned in the \eqn{X}-space. Caution should be taken about such eventual masking effects.
+3- For a given new observation, the final prediction (a class) corresponds to the dummy variable for which the prediction is the highest.
+
+When the number of classes is higher than two, this method  can be affected by a masking effect (see eg. Hastie et al. 2009, section 4.2): some class(es) can be masked (therefore not well predicted) if more than two classes are aligned in the \eqn{X}-space. Caution should thereefore be taken about such eventual masking effects.
 
 }
 

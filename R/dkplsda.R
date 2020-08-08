@@ -1,9 +1,13 @@
-kpcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
+dkplsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm, 
                  kern = kpol, weights = NULL, print = TRUE, ...) { 
   
   namkern <- as.character(substitute(kern))
   
   dots <- list(...)
+  namdot <- names(dots)
+
+  z <- namdot[namdot %in% names(formals(da))]
+  if(length(z) > 0) dots.da <- dots[z] else dots.da <- NULL
   
   if(namkern == "kpol") {
     if(is.null(dots$degree)) dots$degree <- 1
@@ -37,19 +41,25 @@ kpcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
     if(print)
       print(kpar[i, ])
     
-    zfm <- switch(namkern,
+    res <- switch(namkern,
                   
-      kpol = .kpcdalm(Xr, Yr, Xu, Yu, ncomp, kern = kpol, weights, 
+      kpol = kgram(Xr, Xu, kern = kpol, 
                  degree = kpar[i, "degree"], scale = kpar[i, "scale"], offset = kpar[i, "offset"]),
       
-      krbf = .kpcdalm(Xr, Yr, Xu, Yu, ncomp, kern = krbf, weights, 
+      krbf = kgram(Xr, Xu, kern = krbf, 
                  sigma = kpar[i, "sigma"]),
 
-      ktanh = .kpcdalm(Xr, Yr, Xu, Yu, ncomp, kern = ktanh, weights, 
+      ktanh = kgram(Xr, Xu, kern = ktanh, 
                  scale = kpar[i, "scale"], offset = kpar[i, "offset"])
       
       )
     
+    zfm <- do.call(
+      plsda, 
+      c(list(Xr = res$Kr, Yr = Yr, Xu = res$Ku, Yu = Yu, ncomp = ncomp, 
+             algo = pls.kernel, weights = weights, da = da), dots.da)
+      )
+
     z <- dim(zfm$y)[1] 
     dat <- data.frame(matrix(rep(unlist(kpar[i, ]), z), ncol = npar, byrow = TRUE))
     names(dat) <- names(kpar)

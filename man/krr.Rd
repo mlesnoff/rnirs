@@ -6,13 +6,13 @@
 
 \description{
 
-Function \code{krr} fits KRR models, also referred as LS-SVM (Suykens et al. 2000, Bennett & Embrechts 2003, Krell 2018). 
+Function \code{krr} fits KRR models, also referred to as LS-SVM (Suykens et al. 2000, Bennett & Embrechts 2003, Krell 2018). 
 
 The kernel Gram matrices \eqn{K} are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.
 
 Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
-\bold{Note:} An alternative to \code{krr}  is to run "direct" kernel ridge regression, i.e. build preliminary kernel Gram matrices such as doing a pre-processing on \eqn{X} (e.g. Bennett & Embrechts 2003) and then run usual RR on them. See examples in function \code{\link{kgram}}.  
+\bold{Note:} An alternative to \code{krr}  is to run a "direct" kernel approach (e.g. Bennett & Embrechts 2003), i.e. to build preliminary kernel Gram matrices (such as doing a pre-processing on \eqn{X}), and then run usual RR on them. See examples in function \code{\link{kgram}}.  
 
 }
 

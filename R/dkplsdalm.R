@@ -1,4 +1,4 @@
-kpcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
+dkplsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
                  kern = kpol, weights = NULL, print = TRUE, ...) { 
   
   namkern <- as.character(substitute(kern))
@@ -37,18 +37,20 @@ kpcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
     if(print)
       print(kpar[i, ])
     
-    zfm <- switch(namkern,
+    res <- switch(namkern,
                   
-      kpol = .kpcdalm(Xr, Yr, Xu, Yu, ncomp, kern = kpol, weights, 
+      kpol = kgram(Xr, Xu, kern = kpol, 
                  degree = kpar[i, "degree"], scale = kpar[i, "scale"], offset = kpar[i, "offset"]),
       
-      krbf = .kpcdalm(Xr, Yr, Xu, Yu, ncomp, kern = krbf, weights, 
+      krbf = kgram(Xr, Xu, kern = krbf, 
                  sigma = kpar[i, "sigma"]),
 
-      ktanh = .kpcdalm(Xr, Yr, Xu, Yu, ncomp, kern = ktanh, weights, 
+      ktanh = kgram(Xr, Xu, kern = ktanh, 
                  scale = kpar[i, "scale"], offset = kpar[i, "offset"])
       
       )
+    
+    zfm <- plsdalm(res$Kr, Yr, res$Ku, Yu, ncomp, algo = pls.kernel, weights = weights)
     
     z <- dim(zfm$y)[1] 
     dat <- data.frame(matrix(rep(unlist(kpar[i, ]), z), ncol = npar, byrow = TRUE))

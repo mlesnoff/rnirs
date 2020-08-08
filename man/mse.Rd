@@ -22,7 +22,7 @@ mse(fm, formula = ~ 1, nam = NULL, digits = 3)
 
 err(fm, formula = ~ 1, nam = NULL, digits = 4)
 
-plotmse(obj, nam = "rmsep", namx = "ncomp", group = NULL,  col = NULL,
+plotmse(obj, namx = "ncomp", nam = "rmsep", group = NULL,  col = NULL,
   legend = TRUE, legend.title = NULL, ncol = 1, ...)
 
 }
@@ -33,9 +33,9 @@ plotmse(obj, nam = "rmsep", namx = "ncomp", group = NULL,  col = NULL,
 
 \item{formula}{A right-hand-side formula defing the aggregation levels on which are calculated the error rates.}
 
-\item{nam}{For \code{mse}: Name (character string) of the column to consider in \code{fm$y} for calulating the prediction error rate. If \code{NULL} (default), the last column of \code{fm$y} is considered. For \code{plotmse}: Name (character string) of the column in \code{obj} to plot as y-axis. Default to \code{nam = "rmsep"}.}
-
 \item{namx}{For \code{plotmse}: Name (character string) of the column in \code{obj} to plot as x-axis. Default to \code{nam = "ncomp"}.}
+
+\item{nam}{For \code{mse}: Name (character string) of the column to consider in \code{fm$y} for calulating the prediction error rate. If \code{NULL} (default), the last column of \code{fm$y} is considered. For \code{plotmse}: Name (character string) of the column in \code{obj} to plot as y-axis. Default to \code{nam = "rmsep"}.}
 
 \item{digits}{The number of digits for the numerical outputs.}
 

@@ -8,6 +8,8 @@
 
 \description{
 
+KPLSR, KPCR or DKPLSR
+
 Function \code{kplsr} fits KPLSR models with the NIPALS algorithm (implemented in \code{\link{kpls.nipals}}) such as described in Rosipal & Trejo (2001). 
 
 Function \code{kpcr} fits a KPCR model, i.e. a regression on latent variables (scores) of KPCA  (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001), computed by \code{\link{kpca}}.

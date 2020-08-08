@@ -1,71 +1,73 @@
-dakrr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, kern = kpol, 
-                 weights = NULL, ...){
+dakrr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, 
+                 kern = kpol, weights = NULL, print = TRUE, ...) { 
   
-  Xr <- .matrix(Xr)
-  n <- nrow(Xr)
+  namkern <- as.character(substitute(kern))
   
-  Xu <- .matrix(Xu)
-  m <- nrow(Xu)
-  rownam.Xu <- row.names(Xu)
+  dots <- list(...)
   
-  colnam.Y <- colnames(Yr)
-  if(is.null(colnam.Y)) colnam.Y <- "y1"
-
-  Yr <- as.factor(Yr)
-  ni <- c(table(Yr))
-  nclas <- length(ni)
-  
-  # levels returns the sorted character level names 
-  lev <- levels(Yr)      
-  
-  if(!is.null(Yu)) 
-    Yu <- as.character(Yu) 
-  else 
-    Yu <- rep(NA, m)
-  
-  lambda <- sort(lambda)
-  nlambda <- length(lambda)
-  
-  ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
-  if(nclas == 1) {
-    fit <- rep(lev, nlambda * m)
-    dummyfit <- NULL
-    }
-  ### END
-  
-  else {
-    
-    if(is.null(weights))
-      weights <- rep(1 / n, n)
-    else
-      weights <- weights / sum(weights) 
-    
-    fm <- krr(Xr, dummy(Yr), Xu, lambda = lambda, 
-             unit = unit, kern = kern, weights = weights, ...)
-    dummyfit <- fm$fit[, lev, drop = FALSE]
-  
-    z <- apply(dummyfit, FUN = .findmax, MARGIN = 1) 
-    fit <- sapply(z, FUN = function(x) lev[x])
-  
+  if(namkern == "kpol") {
+    if(is.null(dots$degree)) dots$degree <- 1
+    if(is.null(dots$scale)) dots$scale <- 1
+    if(is.null(dots$offset)) dots$offset <- 0
+    kpar <- list(degree =  dots$degree, scale =  dots$scale, offset =  dots$offset)
     }
 
-  y <- rep(Yu, nlambda)
-  r <- as.numeric(y != fit)
+  if(namkern == "krbf") {
+    if(is.null(dots$sigma)) dots$sigma <- 1
+    kpar <- list(sigma =  dots$sigma)
+    }
   
-  y <- data.frame(lambda = sort(rep(lambda, m)), unit = rep(unit, nlambda * m), 
-                  rownum = rep(1:m, nlambda), rownam = rep(rownam.Xu, nlambda), 
-                  y, stringsAsFactors = FALSE)
-  
-  fit <- data.frame(lambda = sort(rep(lambda, m)), unit = rep(unit, nlambda * m), 
-                  rownum = rep(1:m, nlambda), rownam = rep(rownam.Xu, nlambda), 
-                  fit, stringsAsFactors = FALSE)
+  if(namkern == "ktanh") {
+    if(is.null(dots$scale)) dots$scale <- 1
+    if(is.null(dots$offset)) dots$offset <- 0
+    kpar <- list(scale =  dots$scale, offset =  dots$offset)
+    }
 
-  r <- data.frame(lambda = sort(rep(lambda, m)), unit = rep(unit, nlambda * m), 
-                  rownum = rep(1:m, nlambda), rownam = rep(rownam.Xu, nlambda), 
-                  r, stringsAsFactors = FALSE)
+  kpar <- expand.grid(kpar)
+  npar <- ncol(kpar)
+  nampar <- names(kpar)
+  
+  r <- fit <- y <- vector(mode = "list", length = npar)
+  
+  if(print)
+    cat(paste("\n Kernel parameters: ", namkern, "\n", sep = ""))
+
+  for(i in 1:nrow(kpar)) {
+    
+    if(print)
+      print(kpar[i, ])
+    
+    zfm <- switch(namkern,
                   
-  names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
+      kpol = .dakrr(Xr, Yr, Xu, Yu, lambda, unit, kern = kpol, weights, 
+                 degree = kpar[i, "degree"], scale = kpar[i, "scale"], offset = kpar[i, "offset"]),
+      
+      krbf = .dakrr(Xr, Yr, Xu, Yu, lambda, unit, kern = krbf, weights, 
+                 sigma = kpar[i, "sigma"]),
 
-  list(y = y, fit = fit, r = r, dummyfit = fm$fit, ni = ni)
+      ktanh = .dakrr(Xr, Yr, Xu, Yu, lambda, unit, kern = ktanh, weights, 
+                 scale = kpar[i, "scale"], offset = kpar[i, "offset"])
+      
+      )
+    
+    z <- dim(zfm$y)[1] 
+    dat <- data.frame(matrix(rep(unlist(kpar[i, ]), z), ncol = npar, byrow = TRUE))
+    names(dat) <- names(kpar)
+    
+    y[[i]] <- cbind(dat, zfm$y)
+    fit[[i]] <- cbind(dat, zfm$fit)
+    r[[i]] <- cbind(dat, zfm$r)    
+    
+    }
   
+  y <- setDF(rbindlist(y))
+  fit <- setDF(rbindlist(fit))
+  r <- setDF(rbindlist(r))  
+    
+  list(y = y, fit = fit, r = r)
+
   }
+
+    
+    
+    

@@ -1,4 +1,4 @@
-plotmse <- function(obj, nam = "rmsep", namx = "ncomp", group = NULL,  col = NULL,
+plotmse <- function(obj, namx = "ncomp", nam = "rmsep", group = NULL,  col = NULL,
   legend = TRUE, legend.title = NULL, ncol = 1, ...) {
   
   dots <- list(...)
