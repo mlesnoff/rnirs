@@ -1,7 +1,7 @@
 Package: rnirs
 Type: Package
 Title: Chemometrics, Kernel Regression and Discrimination, Locally Weighting, and Other Methods
-Version: 1.8-3
+Version: 1.8-4
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Description: Package rnirs focuses on chemometrics methods, including locally weighted PLS regression and discrimination.The package is generic for any type of data, although it was initially implemented for near infrared spectral data (NIRS).

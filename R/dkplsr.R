@@ -1,5 +1,6 @@
 dkplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
-                 kern = kpol, weights = NULL, print = TRUE, ...) { 
+                 kern = kpol, weights = NULL, print = FALSE, ...) { 
+  
   
   namkern <- as.character(substitute(kern))
   
@@ -27,7 +28,7 @@ dkplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   npar <- ncol(kpar)
   nampar <- names(kpar)
   
-  r <- fit <- y <- vector(mode = "list", length = npar)
+  fm <- r <- fit <- y <- fm <- vector(mode = "list", length = npar)
   
   if(print)
     cat(paste("\n Kernel parameters: ", namkern, "\n", sep = ""))
@@ -50,15 +51,16 @@ dkplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
       
       )
     
-    zfm <- plsr(res$Kr, Yr, res$Ku, Yu, ncomp, algo = pls.kernel, weights = weights)
+    fm[[i]] <- plsr(res$Kr, Yr, res$Ku, Yu, ncomp, algo = pls.kernel, weights = weights)
     
-    z <- dim(zfm$y)[1] 
+    z <- dim(fm[[i]]$y)[1] 
     dat <- data.frame(matrix(rep(unlist(kpar[i, ]), z), ncol = npar, byrow = TRUE))
     names(dat) <- names(kpar)
     
-    y[[i]] <- cbind(dat, zfm$y)
-    fit[[i]] <- cbind(dat, zfm$fit)
-    r[[i]] <- cbind(dat, zfm$r)    
+    y[[i]] <- cbind(dat, fm[[i]]$y)
+    fit[[i]] <- cbind(dat, fm[[i]]$fit)
+    r[[i]] <- cbind(dat, fm[[i]]$r)
+
     
     }
   
@@ -66,7 +68,7 @@ dkplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   fit <- setDF(rbindlist(fit))
   r <- setDF(rbindlist(r))  
     
-  list(y = y, fit = fit, r = r)
+  list(y = y, fit = fit, r = r, fm = fm)
 
   }
 

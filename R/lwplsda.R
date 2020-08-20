@@ -4,6 +4,7 @@ lwplsda <- function(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = 5, k,
   ncomp,
+  cri = 5,
   stor = TRUE,
   print = TRUE,
   ...
@@ -26,10 +27,6 @@ lwplsda <- function(
   param <- expand.grid(ncompdis, h, k)
   names(param) <- c("ncompdis", "h", "k")
   npar <- nrow(param)
-  
-  cri <- list(...)$cri
-  if(is.null(cri))
-    cri <- 5
   
   r <- fit <- y <- vector(mode = "list", length = npar)
   for(i in 1:npar) {

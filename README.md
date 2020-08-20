@@ -1,4 +1,4 @@
-## rnirs 1.8-3
+## rnirs 1.8-4
 ## Chemometrics, Kernel Regression and Discrimination, Locally Weighting, and Other Methods  
 
 Package rnirs is a R tool box for chemometrics, including spectra pre-processing and plotting, PLS and PCA regression and discrimination, kernel methods, locally weighted methods, robust methods, etc.

@@ -9,23 +9,25 @@
 
 \description{
 
-Pipelines (wrappers) for k-nearest-neighbors locally weighted PLSR and PLSDA models (kNN-LWPLSR and kNN-LWPLSDA).
+Wrappers for k-nearest-neighbors locally weighted PLSR (kNN-LWPLSR) and PLSDA models (kNN-LWPLSDA). 
 
-LWPLSR is a "local"  method: i.e. a different model is built for each new observation to predict, from a training set defined by neighboring. This is a particular case of weighted PLSR (WPLSR) (e.g. Schaal et al. 2002). In WPLSR, specific a priori weights, different from the usual \eqn{1/n} of the standard PLSR, are given to all the \eqn{n} training observations. These weights are used in the calculation of (a) the PLS scores and loadings and (b) the regression of the response over the scores. The specificity of LWPLSR is that the weights depend from dissimilarities (e.g. distances) between this new observation to predict and the training observations. Note that the weights change for each new observation to predict.
+- Function \code{lwplsr} fits kNN-LWPLSR models 
 
-In the literature (Sicard & Sabatier 2006, Kim et al 2011), basic versions of LWPLSR use all the \eqn{n} training observations for each observation to predict. This can be very time consuming, in particular for large \eqn{n}. A faster and often more efficient strategy is to preliminary select in the training set a number of \eqn{k} nearest neighbors to the observation to predict (\eqn{weighting "1"} in function \code{\link{locw}}) and then to apply LWPLSR only to this pre-selected neighborhood (\eqn{weighting "2"} in \code{\link{locw}}). This corresponds to kNN-LWPLSR (Lesnoff et al. 2020). 
-
-kNN-LWPLSDA uses the same principle, though WPLSDA is used in place of WPLSR.
-
-- Function \code{lwplsr} builds kNN-LWPLSR models 
-
-- Function \code{lwplsda} builds kNN-LWPLSDA models with various DA methods.
+- Function \code{lwplsda} fits kNN-LWPLSDA models with various DA methods.
 
 - Function \code{lwplsdalm} is a faster equivalent of \code{lwplsda(..., da = dalm, ...)}.
 
-These pipelines use functions \code{\link{getknn}}, \code{\link{locw}} and functions for PLSR and PLSDA (code{\link{plsr}}, \code{\link{plsda}} and \code{\link{plsdalm}}). See the code for details. Many other pipelines can be build using function \code{\link{locw}}.
+These wrappers use functions \code{\link{getknn}}, \code{\link{locw}} and functions for PLSR and PLSDA (\code{\link{plsr}}, \code{\link{plsda}} and \code{\link{plsdalm}}). See the code for details. Many other learning pipelines can be build using function \code{\link{locw}}.
 
-In functions \code{lwplsr}, \code{lwplsda} and \code{lwplsdalm}, the dissimilarities used for computing the weights can be calculated from the original \eqn{X-}data (i.e. without preliminary dimension reduction) or, when using argument \code{ncompdis}, from preliminary computed global PLS scores.  
+LwPLSR is a particular case of "weighted PLSR" (WPLSR) (e.g. Schaal et al. 2002). In WPLSR, a priori weights, different from the usual \eqn{1/n} (standard PLSR), are given to the \eqn{n} training observations. These weights are used for calculating (i) the PLS scores and loadings and (ii) the regression model of the response over the scores. Compared to WPLSR,  LWPLSR has the particularity that the a priori weights are defined from dissimilarities (e.g. distances) between the new observation to predict and the training observations. Note that the weights, and therefore the predictive WPLSR model, change for each new observation to predict.
+
+The basic versions of LWPLSR (e.g. Sicard & Sabatier 2006, Kim et al 2011) use, for each observation to predict, all the \eqn{n} training observation. This can be very time consuming, in particular for large \eqn{n}. 
+
+A faster and often more efficient strategy is to preliminary select, in the training set, a number of \eqn{k} nearest neighbors to the observation to predict (this is referred to as \eqn{"weighting 1"} in function \code{\link{locw}}) and then to apply LWPLSR only to this pre-selected neighborhood (this is referred to as\eqn{weighting "2"} in \code{\link{locw}}). This strategy corresponds to kNN-LWPLSR (Lesnoff et al. 2020). 
+
+kNN-LWPLSDA uses the same principle, though WPLSDA is used in place of WPLSR.
+
+In functions \code{lwplsr}, \code{lwplsda} and \code{lwplsdalm}, the dissimilarities used for computing the weights can be calculated from the original \eqn{X-}data, i.e. without preliminary dimension reduction, or when using argument \code{ncompdis}, from preliminary computed global PLS scores.  
 
 Data are internally centered before the analyses, but not scaled (there is no argument \code{scale} in the functions). If needed, the scaling has to be done by the user before using the functions.  
 
@@ -39,6 +41,7 @@ lwplsr(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = 5, k,
   ncomp,
+  cri = 3,
   stor = TRUE,
   print = TRUE,
   ...
@@ -50,6 +53,7 @@ lwplsda(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = 5, k,
   ncomp,
+  cri = 5,
   stor = TRUE,
   print = TRUE,
   ...
@@ -61,6 +65,7 @@ lwplsdalm(
   ncompdis = NULL, diss = c("euclidean", "mahalanobis", "correlation"),
   h = 5, k,
   ncomp,
+  cri = 5,
   stor = TRUE,
   print = TRUE,
   ...
@@ -87,6 +92,8 @@ lwplsdalm(
 \item{k}{An integer of vector of integers defining the number(s) of nearest neighbors to select in the reference data set for each observation to predict. Each component of \code{k} is considered successively in the calculations.}
 
 \item{ncomp}{The maximum number(s) of components considered in the local PLSR models. The predictions are returned for models having from 1 to \eqn{ncomp} components.}
+
+\item{cri}{A positive scalar used for defining outliers in the distances vector when defining the neighborhood. The weights of the distances higher than \eqn{median(d) + cri * mad(d)} are set to zero. See \code{\link{wdist}}.}
 
 \item{stor}{Logical (default to \code{TRUE}). See \code{\link{locw}}.}
 

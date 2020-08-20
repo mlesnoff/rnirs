@@ -1,5 +1,12 @@
 News for package rnirs
 
+##----------------- Version 1.8-4
+
+- New argument "cri" in function lwplsr, lwplsda and lwplsdalm
+
+- Various code cleaning
+
+
 ##----------------- Version 1.8-3
 
 - New argument "namx" in function plotmse

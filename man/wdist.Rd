@@ -10,11 +10,11 @@ Calculation of weights from a vector of distances using a decreasing inverse exp
 Let \eqn{d} be a vector of distances. 
 
 
-- Preliminary weights are calculated by \eqn{w = exp(-d / (h * mad(d)))} , where \eqn{h} is a scalar > 0 (scale factor).  
+1- Preliminary weights are calculated by \eqn{w = exp(-d / (h * mad(d)))} , where \eqn{h} is a scalar > 0 (scale factor).  
 
-- The weights of the distances higher than \eqn{median(d) + c * mad(d)}, where \eqn{c} is a scalar > 0 (used for removing outliers), are set to zero.  
+2- The weights of the distances higher than \eqn{median(d) + c * mad(d)}, where \eqn{c} is a scalar > 0, are set to zero. This step is used for removing outliers. 
 
-- Finally, the weights are "normalized" between 0 and 1 by \eqn{w = w / max(w)}.
+3- Finally, the weights are "normalized" between 0 and 1 by \eqn{w = w / max(w)}.
 
 
 
@@ -28,7 +28,7 @@ Let \eqn{d} be a vector of distances.
 
 \item{h}{A positive scalar (scaling factor). Lower is \eqn{h}, sharper is the function. See Details and the examples.}
 
-\item{cri}{A positive scalar used for defining outliers in the distances vector.}
+\item{cri}{A positive scalar (\eqn{c}) used for defining outliers in the distances vector.}
 
 \item{square}{Logical. If \code{TRUE}, distances \eqn{d} are replaced by the squared distances, which corresponds to a Gaussian (RBF) kernel function. Default to \eqn{FALSE)}.}
 
