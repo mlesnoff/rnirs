@@ -1,5 +1,5 @@
 dkplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
-                 kern = kpol, weights = NULL, print = FALSE, ...) { 
+                 kern = kpol, weights = NULL, print = TRUE, ...) { 
   
   
   namkern <- as.character(substitute(kern))
