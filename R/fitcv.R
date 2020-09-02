@@ -35,7 +35,8 @@ fitcv <- function(X, Y, fun, segm, print = FALSE, ...) {
         X[-s, , drop = FALSE], 
         Y[-s, , drop = FALSE], 
         X[s, , drop = FALSE], 
-        Y[s, , drop = FALSE], 
+        Y[s, , drop = FALSE],
+        #print = FALSE,
         ...
         )
       

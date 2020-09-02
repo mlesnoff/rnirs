@@ -5,6 +5,8 @@ segmcvkfold <- function(n, y = NULL, K = 5, type = c("random", "consecutive", "i
   segm <- vector("list", length = nrep)
   names(segm) <- paste("rep", 1:nrep, sep = "")
   
+  n <- round(n)
+  
   zn <- n
   if(!is.null(y)) {
     if(length(y) != n) stop("y must be of size n")

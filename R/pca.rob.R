@@ -1,6 +1,6 @@
 pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, 
                     weights = NULL, ...) {
-    
+  
   X <- .matrix(X)
   zdim <- dim(X)
   n <- zdim[1]

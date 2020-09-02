@@ -12,6 +12,9 @@ locw <- function(
   .fun <- match.fun(fun)
   dots <- list(...)
 
+  if("print" %in% names(formals(fun)))
+    dots$print <- FALSE
+
   Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
   n <- nrow(Yr)
   q <- ncol(Yr)

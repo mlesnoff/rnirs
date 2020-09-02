@@ -451,7 +451,32 @@
   
   X <- .scale(X, xmeans, sqrt(xvars))
   
-  crossprod(weights * X, X)
+  crossprod(sqrt(weights) * X)
+  
+  }
+
+.xycor <- function(X, Y, weights = NULL, row = FALSE) {
+
+  X <- .matrix(X, row = row)
+  n <- dim(X)[1]
+  
+  Y <- .matrix(Y, row = row)
+  
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
+  
+  xmeans <- .xmean(X, weights = weights)
+  xvars <- .xvar(X, weights = weights)
+  
+  ymeans <- .xmean(Y, weights = weights)
+  yvars <- .xvar(Y, weights = weights)
+  
+  X <- .scale(X, xmeans, sqrt(xvars))
+  Y <- .scale(Y, ymeans, sqrt(yvars))
+  
+  crossprod(weights * X, Y)
   
   }
 
@@ -469,6 +494,28 @@
   X <- .center(X, xmeans)
   
   crossprod(sqrt(weights) * X)
+  
+  }
+
+.xycov <- function(X, Y, weights = NULL, row = FALSE) {
+  
+  X <- .matrix(X, row = row)
+  n <- dim(X)[1]
+  
+  Y <- .matrix(Y, row = row)
+  
+  if(is.null(weights))
+    weights <- rep(1 / n, n)
+  else
+    weights <- weights / sum(weights)
+  
+  xmeans <- .xmean(X, weights = weights)
+  ymeans <- .xmean(Y, weights = weights)
+  
+  X <- .center(X, xmeans)
+  Y <- .center(Y, ymeans)
+  
+  crossprod(weights * X, Y)
   
   }
 

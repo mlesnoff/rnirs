@@ -1,5 +1,12 @@
 News for package rnirs
 
+##----------------- Version 1.8-5
+
+- Bug correction in kpls (Xu = NULL did not work)
+
+- Various code cleaning
+
+
 ##----------------- Version 1.8-4
 
 - New argument "cri" in function lwplsr, lwplsda and lwplsdalm

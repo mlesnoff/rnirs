@@ -1,5 +1,5 @@
-.krr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, kern = kpol, 
-                    weights = NULL, ...) {
+.kpcr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, 
+                 weights = NULL, ...) {
   
   Xr <- .matrix(Xr)
   zdim <- dim(Xr)
@@ -18,6 +18,7 @@
   Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
   q <- dim(Yr)[2]
   colnam.Y <- colnames(Yr)
+  ymeans <- .xmean(Yr, weights)
   
   if(is.null(Yu)) 
     Yu <- matrix(nrow = m, ncol = q)
@@ -33,56 +34,45 @@
   tK <- t(K)
   Kc <- t(t(K - colSums(weights * tK)) - colSums(weights * tK)) + 
     sum(weights * t(weights * tK))
-  Kd <- sqrt(weights) * t(sqrt(weights) * t(Kc))
   
   Ku <- kern(Xu, Xr, ...)
   Kuc <- t(t(Ku - colSums(weights * t(Ku))) - colSums(weights * tK)) + 
     sum(weights * t(weights * tK))
   
-  fm <- eigen(Kd)
-  tol <- sqrt(.Machine$double.eps)
-  posit <- fm$values > max(tol * fm$values[1L], 0)
+  fm <- eigen(sqrt(weights) * t(sqrt(weights) * t(Kc)))
   
-  A <- fm$vectors[, posit, drop = FALSE]
-  eig <- fm$values[posit]
+  A <- fm$vectors[, 1:ncomp, drop = FALSE]
+  eig <- fm$values[1:ncomp]  ## = colSums(weights * Tr * Tr)
   sv <- sqrt(eig)
+  xsstot <- sum(fm$values)
   
   Pr <- sqrt(weights) * .scale(A, scale = sv)
   Tr <- Kc %*% Pr  
   Tu <- Kuc %*% Pr  
-    
+
   tTDY <- crossprod(Tr, weights * Yr)
-  
-  lambda <- sort(lambda)
-  nlambda <- length(lambda)
-  zlambda <- unit * lambda
-  
-  ymeans <- .xmean(Yr, weights)
+  beta <- 1 / eig * tTDY    
+
   Ymeans <- matrix(rep(ymeans, m), nrow = m, byrow = TRUE)
-  r <- fit <- y <- array(dim = c(m, nlambda, q))
-  tr <- vector(length = nlambda)
-
-  for(i in 1:nlambda) {
-    
-    z <- 1 / (eig + zlambda[[i]] / n)
-    tr[i] <- sum(eig * z)
+  r <- fit <- y <- array(dim = c(m, ncomp + 1, q))
+  y[, 1, ] <- Yu
+  fit[, 1, ] <- Ymeans
   
-    beta <- z * tTDY
-
-    y[, i, ] <- Yu
-    fit[, i, ] <- Ymeans + Tu %*% beta
-
+  for(a in 1:ncomp) {
+    
+    y[, a + 1, ] <- Yu
+    fit[, a + 1, ] <- Ymeans + Tu[, 1:a, drop = FALSE] %*% beta[1:a, , drop = FALSE]
+    
     }
   
-  y <- matrix(c(y), nrow = m * nlambda, ncol = q, byrow = FALSE)
-  fit <- matrix(c(fit), nrow = m * nlambda, ncol = q, byrow = FALSE)
+  y <- matrix(c(y), nrow = m * (ncomp + 1), ncol = q, byrow = FALSE)
+  fit <- matrix(c(fit), nrow = m * (ncomp + 1), ncol = q, byrow = FALSE)
   r <- y - fit
 
   dat <- data.frame(
-    lambda = sort(rep(lambda, m)),
-    unit = rep(unit, nlambda * m),
-    rownum = rep(1:m, nlambda),
-    rownam = rep(rownam.Xu, nlambda)
+    ncomp = sort(rep(0:ncomp, m)),
+    rownum = rep(1:m, ncomp + 1),
+    rownam = rep(rownam.Xu, ncomp + 1)
     )
   
   y <- cbind(dat, y)
@@ -92,8 +82,12 @@
   zq <- ncol(y)
   u <- (zq - q + 1):zq
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Y
+  
+  cumpvar <- cumsum(eig) / xsstot
 
-  list(y = y, fit = fit, r = r, tr = tr)
+  list(y = y, fit = fit, r = r, 
+    Tr = Tr, Tu = Tu, beta = beta, eig = eig, sv = sv, 
+    cumpvar = cumpvar, weights = weights, T.ortho = TRUE)
 
   }
 

@@ -5,10 +5,6 @@ kpls <- function(Xr, Yr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
   n <- zdim[1]
   p <- zdim[2]
   
-  Xu <- .matrix(Xu)
-  m <- dim(Xu)[1]
-  rownam.Xu <- row.names(Xu)
-  
   if(is.null(weights))
     weights <- rep(1 / n, n)
   else
@@ -18,6 +14,10 @@ kpls <- function(Xr, Yr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
   
   Tu <- NULL
   if(!is.null(Xu)) {
+    Xu <- .matrix(Xu)
+    m <- dim(Xu)[1]
+    rownam.Xu <- row.names(Xu)
+  
     Ku <- kern(Xu, Xr, ...)
     tK <- t(kern(Xr, ...))
     Kuc <- t(t(Ku - colSums(weights * t(Ku))) - colSums(weights * tK)) + 
