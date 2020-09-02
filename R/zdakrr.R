@@ -23,7 +23,7 @@
   else 
     Yu <- rep(NA, m)
   
-  lambda <- sort(lambda)
+  lambda <- sort(unique(lambda))
   nlambda <- length(lambda)
   
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS

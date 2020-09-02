@@ -22,6 +22,7 @@ kplsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm,
     if(is.null(dots$offset)) dots$offset <- 0
     kpar <- list(scale =  dots$scale, offset =  dots$offset)
     }
+  kpar <- lapply(kpar, FUN = function(x) sort(unique(x)))
 
   kpar <- expand.grid(kpar)
   npar <- ncol(kpar)

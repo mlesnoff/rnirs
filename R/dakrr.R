@@ -22,6 +22,7 @@ dakrr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
     if(is.null(dots$offset)) dots$offset <- 0
     kpar <- list(scale =  dots$scale, offset =  dots$offset)
     }
+  kpar <- lapply(kpar, FUN = function(x) sort(unique(x)))
 
   kpar <- expand.grid(kpar)
   npar <- ncol(kpar)
