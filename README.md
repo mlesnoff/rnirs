@@ -1,15 +1,15 @@
 ## rnirs 1.8-5
-## Chemometrics, Kernel Regression and Discrimination, Locally Weighting, and Other Methods  
+## Regression and Discrimination (Kernel, Locally Weighting, etc.), and Other Methods for Chemometrics  
 
-Package rnirs is a R tool box for chemometrics, including spectra pre-processing and plotting, PLS and PCA regression and discrimination, kernel methods, locally weighted methods, robust methods, etc.
+Package rnirs is a R statistical tool box for chemometrics (but is also generic for any type of data). 
 
-The package is generic for any type of data, although it was initially implemented for near infrared spectral data (NIRS). See the **rnirs-package** help page for a detailed list of the functions.
+It includes pre-processing and plotting, PLS and PCA regressions and discriminations, kernel methods, locally weighted methods, robust methods, etc. See the **rnirs-package** help page for a detailed list of the functions.
 
 The changes in the package versions are reported in the **NEWS** file above. 
 
-Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
-
 You can install and update the package directly from GitHub (see below), or by asking the .tar.gz or zip installation file (for the successive versions) to the author. See Contact section at the end. 
+
+Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
 If you use package **rnris** and like it, do not hesitate to **mark a star** on this GithHub web-page. You may also register as watchers for receiving alerts for some important updates. For both of these operations, you need to be connected on your account.
 
