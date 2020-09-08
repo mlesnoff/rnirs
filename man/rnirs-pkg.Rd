@@ -3,13 +3,19 @@
 \docType{package}
 \encoding{latin1}
 
-\title{Regression and Discrimination (Kernel, Locally Weighting, etc.), and Other Methods for Chemometrics}
+\title{Regression, Discrimination and Other Methods for Chemometrics}
 
 \description{
 
-Package rnirs is a R statistical tool box for chemometrics (but is also generic for any type of data). 
+Package rnirs is a R statistical tool box for chemometrics, but is also generic for any type of data. 
 
-It includes pre-processing and plotting, PLS and PCA regressions and discriminations, kernel methods, locally weighted methods, robust methods, etc. See the **rnirs-package** help page for a detailed list of the functions.
+It includes 
+
+- data pre-processing and plotting
+
+- PLS and PCA (linear and non linear)
+
+- Regression and discrimination: linear methods, non linear kernel methods (including SVM), locally weighted methods, robust methods, etc. 
 
 See https://github.com/mlesnoff/rnirs for last version and installation. 
 

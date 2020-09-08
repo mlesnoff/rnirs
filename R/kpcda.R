@@ -1,30 +1,23 @@
 kpcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm, 
-                 kern = kpol, weights = NULL, print = TRUE, ...) { 
+                 kern = kpol, 
+                 weights = NULL, print = TRUE, ...) { 
   
   namkern <- as.character(substitute(kern))
   
   dots <- list(...)
   
-  if(namkern == "kpol") {
-    if(is.null(dots$degree)) dots$degree <- 1
-    if(is.null(dots$scale)) dots$scale <- 1
-    if(is.null(dots$offset)) dots$offset <- 0
-    kpar <- list(degree =  dots$degree, scale =  dots$scale, offset =  dots$offset)
-    }
-
-  if(namkern == "krbf") {
-    if(is.null(dots$sigma)) dots$sigma <- 1
-    kpar <- list(sigma =  dots$sigma)
-    }
+  z <- formals(kern)
+  nam <- names(z)
+  nam <- nam[-match(c("X", "Y"), nam)]
+  z <- z[nam]
+  ndots <- length(dots)
+  if(ndots > 0)
+    for(i in 1:ndots)
+      if(names(dots[i]) %in% nam)
+        z[[names(dots[i])]] <- dots[[i]]
+  listkpar <- lapply(z, FUN = function(x) sort(unique(x)))
   
-  if(namkern == "ktanh") {
-    if(is.null(dots$scale)) dots$scale <- 1
-    if(is.null(dots$offset)) dots$offset <- 0
-    kpar <- list(scale =  dots$scale, offset =  dots$offset)
-    }
-  kpar <- lapply(kpar, FUN = function(x) sort(unique(x)))
-
-  kpar <- expand.grid(kpar)
+  kpar <- expand.grid(listkpar)
   npar <- ncol(kpar)
   nampar <- names(kpar)
   
@@ -35,20 +28,16 @@ kpcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm,
 
   for(i in 1:nrow(kpar)) {
     
-    if(print)
-      print(kpar[i, ])
+    zkpar <- kpar[i, , drop = FALSE]
     
-    zfm <- switch(namkern,
-                  
-      kpol = .kpcda(Xr, Yr, Xu, Yu, ncomp, da, kern = kpol, weights, 
-                 degree = kpar[i, "degree"], scale = kpar[i, "scale"], offset = kpar[i, "offset"]),
-      
-      krbf = .kpcda(Xr, Yr, Xu, Yu, ncomp, da, kern = krbf, weights, 
-                 sigma = kpar[i, "sigma"]),
-
-      ktanh = .kpcda(Xr, Yr, Xu, Yu, ncomp, da, kern = ktanh, weights, 
-                 scale = kpar[i, "scale"], offset = kpar[i, "offset"])
-      
+    if(print)
+      print(zkpar)
+    
+    zfm <- do.call(
+      .kpcda,
+      c(list(Xr = Xr, Yr = Yr, Xu = Xu, Yu = Yu, 
+             ncomp = ncomp, da = da, kern = kern, weights = weights), 
+        zkpar)
       )
     
     z <- dim(zfm$y)[1] 

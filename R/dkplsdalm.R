@@ -5,26 +5,18 @@ dkplsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   
   dots <- list(...)
   
-  if(namkern == "kpol") {
-    if(is.null(dots$degree)) dots$degree <- 1
-    if(is.null(dots$scale)) dots$scale <- 1
-    if(is.null(dots$offset)) dots$offset <- 0
-    kpar <- list(degree =  dots$degree, scale =  dots$scale, offset =  dots$offset)
-    }
-
-  if(namkern == "krbf") {
-    if(is.null(dots$sigma)) dots$sigma <- 1
-    kpar <- list(sigma =  dots$sigma)
-    }
+  z <- formals(kern)
+  nam <- names(z)
+  nam <- nam[-match(c("X", "Y"), nam)]
+  z <- z[nam]
+  ndots <- length(dots)
+  if(ndots > 0)
+    for(i in 1:ndots)
+      if(names(dots[i]) %in% nam)
+        z[[names(dots[i])]] <- dots[[i]]
+  listkpar <- lapply(z, FUN = function(x) sort(unique(x)))
   
-  if(namkern == "ktanh") {
-    if(is.null(dots$scale)) dots$scale <- 1
-    if(is.null(dots$offset)) dots$offset <- 0
-    kpar <- list(scale =  dots$scale, offset =  dots$offset)
-    }
-  kpar <- lapply(kpar, FUN = function(x) sort(unique(x)))
-
-  kpar <- expand.grid(kpar)
+  kpar <- expand.grid(listkpar)
   npar <- ncol(kpar)
   nampar <- names(kpar)
   
@@ -35,20 +27,15 @@ dkplsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
 
   for(i in 1:nrow(kpar)) {
     
-    if(print)
-      print(kpar[i, ])
+    zkpar <- kpar[i, , drop = FALSE]
     
-    res <- switch(namkern,
-                  
-      kpol = kgram(Xr, Xu, kern = kpol, 
-                 degree = kpar[i, "degree"], scale = kpar[i, "scale"], offset = kpar[i, "offset"]),
-      
-      krbf = kgram(Xr, Xu, kern = krbf, 
-                 sigma = kpar[i, "sigma"]),
-
-      ktanh = kgram(Xr, Xu, kern = ktanh, 
-                 scale = kpar[i, "scale"], offset = kpar[i, "offset"])
-      
+    if(print)
+      print(zkpar)
+    
+    res <- do.call(
+      kgram, 
+      c(list(Xr = Xr, Xu = Xu, kern = kern), 
+        zkpar)
       )
     
     zfm <- plsdalm(res$Kr, Yr, res$Ku, Yu, ncomp, algo = pls.kernel, weights = weights)

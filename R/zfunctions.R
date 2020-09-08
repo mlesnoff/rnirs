@@ -392,14 +392,7 @@
 
   }
 
-.split <- function(x, n = 20, m = 10) {
-  z <- c(1 / m * x, m * x)
-  z1 <- seq(z[1], z[2], length.out = round(n / 2))
-  z2 <- exp(seq(log(z[1]), log(z[2]), length.out = round(n / 2)))
-  z2 <- z2[-c(1, length(z2))]
-  z3 <- seq(.8, 1.2, by = .1) * x
-  sort(unique(round(c(z1, z2, z3), digits = 10)))
-  }
+
 
 .xmean <- function(X, weights = NULL, row = FALSE) {
   

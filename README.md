@@ -1,25 +1,34 @@
-## rnirs 1.8-6
-## Regression and Discrimination (Kernel, Locally Weighting, etc.), and Other Methods for Chemometrics  
+## Regression, Discrimination and Other Methods for Chemometrics  
+## rnirs 1.8-7
 
-Package rnirs is a R statistical tool box for chemometrics (but is also generic for any type of data). 
+Package rnirs is a R statistical tool box for chemometrics, but is also generic for any type of data. 
 
-It includes pre-processing and plotting, PLS and PCA regressions and discriminations, kernel methods, locally weighted methods, robust methods, etc. See the **rnirs-package** help page for a detailed list of the functions.
+It includes tools for
 
-The changes in the package versions are reported in the **NEWS** file above. 
+- data checking, pre-processing and plotting
+- PLS and PCA (linear and non linear)
+- Regression and discrimination: linear methods, non linear kernel methods (including SVM), locally weighted methods (e.g. LWPLSR and LWPLSDA), robust methods, etc. 
+
+See the **rnirs-package** help page for a detailed list of the functions.
 
 You can install and update the package directly from GitHub (see below), or by asking the .tar.gz or zip installation file (for the successive versions) to the author. See Contact section at the end. 
 
 Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
+The changes in the package versions are reported in the **NEWS** file above. 
+
 If you use package **rnris** and like it, do not hesitate to **mark a star** on this GithHub web-page. You may also register as watchers for receiving alerts for some important updates. For both of these operations, you need to be connected on your account.
 
-**rnris** is dependent to the following 5 packages (available on CRAN):
+**rnris** is dependent to the following 6 packages available on CRAN:
 
-- data.table      (for fast internal data management)
-- FNN             (for fast search of nearest neighbours) 
-- matrixStats     (for fast column- and row-wise operations on matrices)
-- ptw             (for the ALS detrend algorithm)
-- signal          (for the Savitsky-Golay derivation algorithm)
+| Package | Use in rnris |
+|---|---|
+| data.table | Fast data management |
+| FNN | Fast search of nearest neighbours |
+| kernlab | Core SVM algorithm |
+| matrixStats | Fast column- and row-wise operations on matrices |
+| ptw | ALS detrend algorithm |
+| signal | Savitsky-Golay derivation algorithm |
 
 ## Main features 
 

@@ -9,12 +9,13 @@ locw <- function(
   ...
   ) {
   
-  .fun <- match.fun(fun)
   dots <- list(...)
 
   if("print" %in% names(formals(fun)))
     dots$print <- FALSE
 
+  fun <- match.fun(fun)
+  
   Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
   n <- nrow(Yr)
   q <- ncol(Yr)
@@ -49,7 +50,7 @@ locw <- function(
         Yu = Yu[i, , drop = FALSE]), 
       dots
       )
-    fm[[i]] <- do.call(.fun, param)
+    fm[[i]] <- do.call(fun, param)
     
     fm[[i]]$nn <- ind
     
