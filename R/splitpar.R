@@ -1,4 +1,6 @@
-splitpar <- function(x, lim = x * c(.1, 10), n = 20) {
+splitpar <- function(x, a1 = .1, a2 = 10, n = 20) {
+  
+  lim <- x * c(a1, a2)
   
   z1 <- seq(lim[1], lim[2], length.out = round(n / 2))
   z2 <- exp(seq(log(lim[1]), log(lim[2]), length.out = round(n / 2)))

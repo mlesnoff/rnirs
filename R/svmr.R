@@ -1,12 +1,13 @@
 svmr <- function(Xr, Yr, Xu, Yu = NULL,
-                 C = 1, epsilon = .1, kern = c("poly", "rbf", "tanh"), 
+                 C = 1, epsilon = .1, kern = krbf, 
                  print = TRUE, ...) {
   
-  kern <- match.arg(kern)
-  
-  namkern <- as.character(substitute(kern))
-  
-  
+  if(is.character(kern)) {
+    namkern <- kern
+    kern <- get(kern)
+    }
+  else
+    namkern <- as.character(substitute(kern))
   
   Xr <- .matrix(Xr)
   Xu <- .matrix(Xu)
@@ -22,34 +23,32 @@ svmr <- function(Xr, Yr, Xu, Yu = NULL,
   
   dots <- list(...)
   
-  if(kern == "poly") {
-    zkern <- polydot
-    if(is.null(dots$degree)) dots$degree <- 1
-    if(is.null(dots$scale)) dots$scale <- 1
-    if(is.null(dots$offset)) dots$offset <- 1
-    kpar <- list(degree = dots$degree, scale = dots$scale, offset = dots$offset)
-    }
-  if(kern == "rbf") {
-    zkern <- rbfdot
-    if(is.null(dots$sigma)) dots$sigma <- 1
-    kpar <- list(sigma = dots$sigma)
-    }
-  if(kern == "tanh") {
-    zkern <- tanhdot
-    if(is.null(dots$scale)) dots$scale <- 1
-    if(is.null(dots$offset)) dots$offset <- 0
-    kpar <- list(scale = dots$scale, offset = dots$offset)
-    }
-  kpar <- lapply(kpar, FUN = function(x) sort(unique(x)))
+  z <- formals(kern)
+  nam <- names(z)
+  nam <- nam[-match(c("X", "Y"), nam)]
+  z <- z[nam]
+  ndots <- length(dots)
+  if(ndots > 0)
+    for(i in 1:ndots)
+      if(names(dots[i]) %in% nam)
+        z[[names(dots[i])]] <- dots[[i]]
+  listkpar <- lapply(z, FUN = function(x) sort(unique(x)))
   
-  listpar <- c(list(C = C, epsilon = epsilon), kpar) 
+  listpar <- c(list(C = C, epsilon = epsilon), listkpar) 
   param <- expand.grid(listpar)
   npar <- ncol(param)
-
+  
+  zkern <- switch(
+    namkern,
+    krbf = rbfdot,
+    kpol = polydot,
+    ktanh = tanhdot
+    )
+  
   r <- fit <- y <- vector(mode = "list", length = npar)
   
   if(print){
-    cat(paste("\n Kernel: ", kern, "\n", sep = ""))
+    cat(paste("\n Kernel: ", namkern, "\n", sep = ""))
     cat("\n Parameters: \n")
     print(listpar)
     cat(paste("\n Nb combinations: ", nrow(param), "\n\n", sep = ""))
@@ -71,7 +70,7 @@ svmr <- function(Xr, Yr, Xu, Yu = NULL,
     ### sigma <- 17 ; krbf(1:10, 2:11, sigma = sigma) ; rbfdot(1 / (2 * sigma^2))(1:10, 2:11)
     ### sigma.rbfdot = 1 / (2 * sigma.krbf^2)
     
-    zkpar <- z[, -(1:2), drop = FALSE]
+    zkpar <- z[, -match(c("C", "epsilon"), names(z)), drop = FALSE]
     fkern <- do.call(zkern, zkpar)
 
     res <- kernlab::ksvm(
