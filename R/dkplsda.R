@@ -9,16 +9,27 @@ dkplsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm,
     namkern <- as.character(substitute(kern))
   
   dots <- list(...)
+  namdot <- names(dots)
+  
+  z <- namdot[namdot %in% names(formals(da))]
+  if (length(z) > 0) 
+    dots.da <- dots[z]
+  else dots.da <- NULL
+  
+  z <- namdot[namdot %in% names(formals(kern))]
+  if (length(z) > 0) 
+    dots.kern <- dots[z]
+  else dots.kern <- NULL
   
   z <- formals(kern)
   nam <- names(z)
   nam <- nam[-match(c("X", "Y"), nam)]
   z <- z[nam]
-  ndots <- length(dots)
+  ndots <- length(dots.kern)
   if(ndots > 0)
     for(i in 1:ndots)
-      if(names(dots[i]) %in% nam)
-        z[[names(dots[i])]] <- dots[[i]]
+      if(names(dots.kern[i]) %in% nam)
+        z[[names(dots.kern[i])]] <- dots.kern[[i]]
   listkpar <- lapply(z, FUN = function(x) sort(unique(x)))
   
   kpar <- expand.grid(listkpar)
