@@ -1,5 +1,5 @@
-## Regression, Discrimination and Other Methods for Chemometrics  
-## rnirs 1.8-7
+## rnirs - Regression, Discrimination and Other Methods for Chemometrics  
+## Version 1.8-7
 
 Package rnirs is a R statistical tool box for chemometrics, but is also generic for any type of data. 
 
@@ -11,7 +11,7 @@ It includes tools for
 
 See the **rnirs-package** help page for a detailed list of the functions.
 
-You can install and update the package directly from GitHub (see below), or by asking the .tar.gz or zip installation file (for the successive versions) to the author. See Contact section at the end. 
+You can install and update the package directly from GitHub (see below), or by asking the .tar.gz or zip installation file (for the successive versions) to the author. See 'Contact' section at the end. 
 
 Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
@@ -51,7 +51,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - Usual
         - Robust
     - Non Linear Kernel
-        - KPLS
+        - KPLS (Rosipal & Trejo 2001)
         - KPCA
         - Direct KPLS and KPCA
     - FDA
@@ -66,41 +66,44 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
         - KRR (LS-SVM)
         - INLR
         - On latent variables
-            - KPLSR
+            - KPLSR (Rosipal & Trejo 2001)
             - KPCR 
-        - Direct Kernel Regressions
+            - Direct KPLSR and KPCR
+        - SVM-R
     - Locally Weighted (LW)
-        - KNN-WR
-        - KNN-LW-PLSR
-        - Generic KNN-LW function
+        - KNN-Weighted Regression
+        - KNN-LWPLSR
+        - Generic KNN-LW model building function
 * **Discrimination (DA)**
-    - DA methods
-        - Using Regressions on the Y-Dummy table
+    - Probabilistic 
+        - Parametric: LDA, QDA
+        - Non-parametric (Gaussian kernel density estimation)
+    - Distance based
+        - SIMCA-DA
+        - DIS-DA
+    - Linear 
+        - regressions on the Y-Dummy table
             - DA-LM
             - DA-RR
-            - DA-KRR (DA-LS-SVM)
             - DA-GLM
-        - Other methods
-            - LDA, QDA
-            - Non-parametric
-            - SIMCA
-            - etc.
-    - On Latent variables
-        - Linear
+        - On Latent variables
             - PLSDA
-            - PCDA
-        - Non Linear Kernel
+            - PCDA 
+    - Non Linear Kernel
+        - DA-KRR (DA-LS-SVM)
+        - On Latent variables
             - KPLSDA
             - KPCDA
-            - Direct Kernel Discriminations
+            - Direct KPLSDA and KPCDA
+        - SVM-C
     - Locally Weighted (LW)
-        - KNN-WDA
-        - KNN-LW-PLSDA
-        - Generic KNN-LW function
+        - KNN-Weighted DA
+        - KNN-LWPLSDA
+        - Generic KNN-LW model building function
 * **Multiblock**
     - Orthogonalization of a matrix to another matrix
     - Block-selection
-    - Block-scaling
+    - Block-scaling (for MB-PLSR or MB-PLSDA)
     - Block-dimension reduction by PLS or PCA
     - Block-dimension reduction by SO-PLS or SO-PCA
 * **Model stacking**
@@ -111,7 +114,7 @@ If you use package **rnris** and like it, do not hesitate to **mark a star** on 
 * **Graphics**
 * **Miscellaneous functions**
 
-You can write **??rnirs** in the R console for details.
+You can write **??rnirs** in the R console for getting details.
 
 ## Installation from Github
 
@@ -174,6 +177,7 @@ A. First, install the following packages from the CRAN
 
 - **data.table**
 - **FNN**
+- **kernlab**
 - **matrixStats**
 - **ptw**
 - **signal**

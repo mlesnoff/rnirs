@@ -9,13 +9,13 @@
 
 Package rnirs is a R statistical tool box for chemometrics, but is also generic for any type of data. 
 
-It includes 
+It includes tools for
 
-- data pre-processing and plotting
+- data checking, pre-processing and plotting
 
 - PLS and PCA (linear and non linear)
 
-- Regression and discrimination: linear methods, non linear kernel methods (including SVM), locally weighted methods, robust methods, etc. 
+- Regression and discrimination: linear methods, non linear kernel methods (including SVM), locally weighted methods (e.g. LWPLSR and LWPLSDA), robust methods, etc. 
 
 See https://github.com/mlesnoff/rnirs for last version and installation. 
 
@@ -100,7 +100,7 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 \tabular{ll}{
   \code{\link{kpol}} \tab Polynomial \cr
   \code{\link{krbf}} \tab Gausssian RBF \cr
-  \code{\link{ktanh}} \tab Hyperbolic tangente \cr
+  \code{\link{ktanh}} \tab Hyperbolic tangent \cr
   }
 
 ------------ \bold{PCA}
@@ -188,12 +188,13 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 \tabular{ll}{
   \code{\link{krr}} \tab Kernel ridge regression (LS-SVM)\cr
   \code{\link{inlr}} \tab Blocks for INLR (Berglund & Wold 1997)\cr
+  \code{\link{svmr}} \tab SVM regression\cr
   }
   
 \eqn{** On latent variables (using kpls.nipals and kpca)}
 
 \tabular{ll}{
-  \code{\link{kplsr}} \tab Kernel PLSR\cr
+  \code{\link{kplsr}} \tab Kernel PLSR ( (Rosipal & Trejo 2001))\cr
   \code{\link{kpcr}} \tab Kernel PCR\cr
   }
 
@@ -201,13 +202,14 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 
 \tabular{ll}{
   \code{\link{dkplsr}} \tab Direct Kernel PLSR\cr
+  \code{\link{dkpcr}} \tab Direct Kernel PCR\cr
   Or use \code{\link{kgram}}
   }
 
 ------------ \bold{Locally weighted}
 
 \tabular{ll}{
-  \code{\link{knnr}} \tab KNN-WR \cr
+  \code{\link{knnr}} \tab KNN-Weighted regression \cr
   }
 
 \eqn{** On latent variables}
@@ -224,29 +226,26 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 
 \bold{*************************************** DISCRIMINATION}
 
------------- \bold{Discrimination methods (DA)}
-
-\eqn{** DA using Regressions on the Y-Dummy table}
-
-(The column of the fitted Y-dummy table with the maximum predicted value
-is taken as the predicted class)
-
-\tabular{ll}{
-  \code{\link{dalm}} \tab DA using multivariate linear regression\cr
-  \code{\link{darr}} \tab DA using linear ridge regression\cr
-  \code{\link{dakrr}} \tab DA using non linear kernel ridge regression (LS-SVM)\cr
-  \code{\link{daglm}} \tab DA using generalized linear models\cr
-  }
-
-\eqn{** Other DA methods}
+------------ \bold{Probabilistic}
 
 \tabular{ll}{
   \code{\link{daprob}} \tab Probablistic DA (parametric and non-parametric LDA and QDA)\cr
+  }
+
+------------ \bold{Distance-based}
+
+\tabular{ll}{
   \code{\link{dadis}} \tab DA using the dissimilarity to the class centers\cr
   \code{\link{dasdod}} \tab DA using a Simca index\cr
   }
 
 ------------ \bold{Linear}
+
+\tabular{ll}{
+  \code{\link{dalm}} \tab DA using multivariate linear regression\cr
+  \code{\link{darr}} \tab DA using linear ridge regression\cr
+  \code{\link{daglm}} \tab DA using generalized linear models\cr
+  }
 
 \eqn{** On latent variables}
 
@@ -258,6 +257,11 @@ is taken as the predicted class)
   }
 
 ------------ \bold{Non Linear Kernel}
+
+\tabular{ll}{
+  \code{\link{dakrr}} \tab DA using non linear kernel ridge regression\cr
+  \code{\link{svmc}} \tab SVM-C\cr
+  }
 
 \eqn{** On latent variables (using kpls.nipals and kpca)}
 
@@ -279,7 +283,7 @@ is taken as the predicted class)
 ------------ \bold{Locally weighted}
 
 \tabular{ll}{
-  \code{\link{knnda}} \tab KNN-WDA \cr
+  \code{\link{knnda}} \tab KNN-Weighted DA \cr
   }
 
 \eqn{** On latent variables}
@@ -309,6 +313,11 @@ is taken as the predicted class)
   \code{\link{blockscal}} \tab Block scaling\cr
   \code{\link{blockpls}} \tab Block dimension reduction by PLS or PCA\cr
   \code{\link{blocksopls}}, \code{\link{blocksopca}} \tab Block dimension reduction by SO-PLS or SO-PCA\cr
+  }
+
+\bold{*************************************** MODEL TUNING}
+\tabular{ll}{
+  \code{\link{splitpar}} \tab Split a parameter value within an interval\cr 
   }
 
 \bold{*************************************** MODEL STACKING}

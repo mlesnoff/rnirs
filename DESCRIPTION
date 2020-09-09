@@ -1,6 +1,6 @@
 Package: rnirs
 Type: Package
-Title: Regression and Discrimination (Kernel, Locally Weighting, etc.), and Other Methods for Chemometrics
+Title: Regression, Discrimination and Other Methods for Chemometrics
 Version: 1.8-7
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
