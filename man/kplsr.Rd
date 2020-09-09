@@ -8,7 +8,7 @@
 
 \description{
 
-KPLSR, KPCR or DKPLSR
+KPLSR, KPCR
 
 Function \code{kplsr} fits KPLSR models with the NIPALS algorithm (implemented in \code{\link{kpls.nipals}}) such as described in Rosipal & Trejo (2001). 
 
@@ -18,7 +18,11 @@ The kernel Gram matrices \eqn{K} are internally centered before the analyses, bu
 
 Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
-\bold{Note:} These kernel algorithms are time expensive when \eqn{n > 500}, especially KPLSR due to the iterative deflation of the \eqn{n x n} training Gram matrix \eqn{K}. A much faster alternative to KPLSR is to run a "direct kernel PLSR" (DKPLSR) (Bennett & Embrechts 2003), i.e. to build preliminary kernel Gram matrices (such as doing a pre-processing on \eqn{X}), and then to run a usual PLSR algorithm on them. This is what does function \code{dkplsr}. See also examples in function \code{\link{kgram}}.   
+DKPLSR
+
+The true kernel algorithms above are time expensive when \eqn{n > 500}, especially KPLSR due to the iterative deflation of the \eqn{n x n} training Gram matrix \eqn{K}. A much faster alternative to KPLSR is to run a "direct kernel PLSR" (DKPLSR) (Bennett & Embrechts 2003), i.e. to build preliminary kernel Gram matrices (such as doing a pre-processing on \eqn{X}), and then to run a usual PLSR algorithm on them. This is what does function \code{dkplsr}. See also examples in function \code{\link{kgram}}.   
+
+See also the tuning facility with \code{\link{splitpar}}.
 
 }
 

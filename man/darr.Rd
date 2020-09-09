@@ -21,6 +21,8 @@ Row observations can eventually be weighted with a priori weights (using argumen
 
 \bold{Note:} An alternative to \code{dakrr} is to run a "direct" kernel approach (e.g. Bennett & Embrechts 2003), i.e. to build preliminary kernel Gram matrices (such as doing a pre-processing on \eqn{X}), and then to run a DA-RR on them. See examples in function \code{\link{kgram}}.
 
+See also the tuning facility with \code{\link{splitpar}}.
+
 }
 
 \usage{

@@ -11,9 +11,9 @@
 
 \description{
 
-KPLSDA, KPCDA or DKPLSDA
+KPLSDA, KPCDA
 
-Discrimination (DA) based on latent variables (scores) of KPLS (Rosipal & Trejo 2001) or KPCA (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
+Discrimination (DA) based on latent variables (scores) computed from KPLS (Rosipal & Trejo 2001) or KPCA (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
 
 Functions \code{kplsda} and \code{kplsdalm} do the same as \code{\link{plsda}} and \code{\link{plsdalm}}, respectively, but using KPLS scores returned by \code{\link{kpls}}.
 
@@ -23,7 +23,11 @@ The kernel Gram matrices \eqn{K} are internally centered before the analyses, bu
 
 Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
-\bold{Note:} These kernel algorithms are time expensive when \eqn{n > 500}, especially KPLSDA due to the iterative deflation of the \eqn{n x n} training Gram matrix \eqn{K}. A much faster alternative to KPLSDA is to run a "direct kernel PLSDA" (DKPLSDA) (Bennett & Embrechts 2003), i.e. to build preliminary kernel Gram matrices (such as doing a pre-processing on \eqn{X}), and then to run a usual PLSDA algorithm on them. This is what do functions \code{dkplsda} and  \code{dkplsdalm}. See also examples in function \code{\link{kgram}}.   
+DKPLSDA
+
+The true kernel algorithms above are time expensive when \eqn{n > 500}, especially KPLSDA due to the iterative deflation of the \eqn{n x n} training Gram matrix \eqn{K}. A much faster alternative to KPLSDA is to run a "direct kernel PLSDA" (DKPLSDA) (Bennett & Embrechts 2003), i.e. to build preliminary kernel Gram matrices (such as doing a pre-processing on \eqn{X}), and then to run a usual PLSDA algorithm on them. This is what do functions \code{dkplsda} and  \code{dkplsdalm}. See also examples in function \code{\link{kgram}}.
+
+See also the tuning facility with \code{\link{splitpar}}.
 
 }
 
