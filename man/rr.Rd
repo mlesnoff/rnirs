@@ -30,9 +30,9 @@ rr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, weights = NULL)
 
 \item{Yu}{A \eqn{m x q} matrix or data frame, or a vector of length \eqn{m}, of the true responses for \eqn{Xu}. Default to \code{NULL}.}
 
-\item{lambda}{A scalar or numeric vector (giving several values of \eqn{lambda}) defining the regularization parameter value(s).}
+\item{lambda}{A value, or vector of values, of the regularization parameter \eqn{lambda}.}
 
-\item{unit}{Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6, ...} means that \code{lambda = 12e-6}.}
+\item{unit}{A saclar. Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6, ...} means that \code{lambda = 12e-6}.}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 

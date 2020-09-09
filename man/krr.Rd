@@ -35,9 +35,9 @@ krr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
 
 \item{Yu}{A \eqn{m x q} matrix or data frame, or a vector of length \eqn{m}, of the true responses for \eqn{Xu}. Default to \code{NULL}.}
 
-\item{lambda}{A scalar or numeric vector defining the regularization parameter value(s).}
+\item{lambda}{A value, or vector of values, of the regularization parameter \eqn{lambda}.}
 
-\item{unit}{Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6, ...} corresponds to a value \code{lambda = 12e-6}.}
+\item{unit}{A scalar. Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6, ...} corresponds to a value \code{lambda = 12e-6}.}
 
 \item{kern}{A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax and other available kernel functions.}
 
@@ -45,7 +45,7 @@ krr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
 
 \item{print}{Logical (default = \code{TRUE}). If \code{TRUE}, fitting information are printed.}
 
-\item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern}. The value set in the kernel parameters (e.g. \code{degree} for \code{\link{kpol}}) can be a vector of several parameter values.}
+\item{...}{Optionnal arguments to pass in the kernel function defined in \code{kern}. The value set in the kernel parameters (e.g. \code{degree} for \code{\link{kpol}})  can be a scalar or a vector of several values.}
 
 }
 

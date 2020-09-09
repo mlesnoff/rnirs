@@ -4,11 +4,11 @@ News for package rnirs
 
 - New functions
 
-  svmr
+  svmr          : SVM regression.
   
-  svmc
+  svmc          : SVM discrimination.
   
-  splitpar
+  splitpar      : Facility for tuning models.
 
 
 

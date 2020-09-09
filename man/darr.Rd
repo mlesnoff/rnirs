@@ -45,9 +45,9 @@ dakrr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
 
 \item{Yu}{A vector of length \eqn{m}, or a \eqn{m x 1} matrix, of the true response (class membership). Default to \code{NULL}.}
 
-\item{lambda}{A scalar or numeric vector (giving several values of \eqn{lambda}) defining the regularization parameter value(s).}
+\item{lambda}{A value, or vector of values, of the regularization parameter \eqn{lambda}.}
 
-\item{unit}{Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6, ...} means that \code{lambda = 12e-6}.}
+\item{unit}{A scalar. Unit used for lambda (Default to \code{unit = 1}). For instance, \code{lambda = 12, unit = 1e-6, ...} means that \code{lambda = 12e-6}.}
 
 \item{kern}{For \code{dakrr}. A function defining the considered kernel (Default to \code{\link{kpol}}). See \code{\link{kpol}} for syntax and other available kernel functions.}
 
@@ -55,7 +55,7 @@ dakrr(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
 
 \item{print}{For \code{dakrr}. Logical (default = \code{TRUE}). If \code{TRUE}, fitting information are printed.}
 
-\item{...}{For \code{dakrr}. Optionnal arguments to pass in the kernel function defined in \code{kern}. The value set in the kernel parameters (e.g. \code{degree} for \code{\link{kpol}}) can be a vector of several parameter values.}
+\item{...}{For \code{dakrr}. Optionnal arguments to pass in the kernel function defined in \code{kern}. The value set in the kernel parameters (e.g. \code{degree} for \code{\link{kpol}}) can be a scalar or a vector of several values.}
 
 }
 
