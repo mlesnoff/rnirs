@@ -202,7 +202,6 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 
 \tabular{ll}{
   \code{\link{dkplsr}} \tab Direct Kernel PLSR\cr
-  \code{\link{dkpcr}} \tab Direct Kernel PCR\cr
   Or use \code{\link{kgram}}
   }
 
