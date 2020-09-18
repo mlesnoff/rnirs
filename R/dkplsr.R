@@ -1,20 +1,25 @@
 dkplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
                  kern = kpol, weights = NULL, print = TRUE, ...) { 
   
-  
-  namkern <- as.character(substitute(kern))
+  if(is.character(kern)) {
+    namkern <- kern
+    kern <- get(kern)
+    }
+  else
+    namkern <- as.character(substitute(kern))
   
   dots <- list(...)
+  namdots <- names(dots)
+  ndots <- length(dots)
   
   z <- formals(kern)
   nam <- names(z)
   nam <- nam[-match(c("X", "Y"), nam)]
   z <- z[nam]
-  ndots <- length(dots)
   if(ndots > 0)
     for(i in 1:ndots)
-      if(names(dots[i]) %in% nam)
-        z[[names(dots[i])]] <- dots[[i]]
+      if(namdots[i] %in% nam)
+        z[[namdots[i]]] <- dots[[i]]
   listkpar <- lapply(z, FUN = function(x) sort(unique(x)))
   
   kpar <- expand.grid(listkpar)
@@ -32,8 +37,6 @@ dkplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
     
     if(print)
       print(zkpar)
-
-    res <- kgram(Xr = Xr, Xu = Xu, kern = kern, sigma = 1)
     
     res <- do.call(
       kgram, 

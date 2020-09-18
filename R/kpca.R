@@ -1,5 +1,8 @@
 kpca <- function(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
   
+  if(is.character(kern))
+    kern <- get(kern)
+
   Xr <- .matrix(Xr)
   n <- dim(Xr)[1]
   

@@ -9,14 +9,14 @@ dkplsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm,
     namkern <- as.character(substitute(kern))
   
   dots <- list(...)
-  namdot <- names(dots)
+  namdots <- names(dots)
   
-  z <- namdot[namdot %in% names(formals(da))]
+  z <- namdots[namdots %in% names(formals(da))]
   if (length(z) > 0) 
     dots.da <- dots[z]
   else dots.da <- NULL
   
-  z <- namdot[namdot %in% names(formals(kern))]
+  z <- namdots[namdots %in% names(formals(kern))]
   if (length(z) > 0) 
     dots.kern <- dots[z]
   else dots.kern <- NULL

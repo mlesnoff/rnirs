@@ -9,16 +9,17 @@ kplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
     namkern <- as.character(substitute(kern))
   
   dots <- list(...)
+  namdots <- names(dots)
+  ndots <- length(dots)
   
   z <- formals(kern)
   nam <- names(z)
   nam <- nam[-match(c("X", "Y"), nam)]
   z <- z[nam]
-  ndots <- length(dots)
   if(ndots > 0)
     for(i in 1:ndots)
-      if(names(dots[i]) %in% nam)
-        z[[names(dots[i])]] <- dots[[i]]
+      if(namdots[i] %in% nam)
+        z[[namdots[i]]] <- dots[[i]]
   listkpar <- lapply(z, FUN = function(x) sort(unique(x)))
   
   kpar <- expand.grid(listkpar)
