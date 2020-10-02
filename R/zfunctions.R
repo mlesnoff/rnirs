@@ -375,12 +375,20 @@
     s1 <- sample(1:n, size = 50 * nsim, replace = TRUE)
     s2 <- sample(1:n, size = 50 * nsim, replace = TRUE)
     u <- which(s1 - s2 != 0)
-    s1 <- s1[u][1:nsim]
-    s2 <- s2[u][1:nsim]
+    
+    s1 <- s1[u]
+    s2 <- s2[u]
     set.seed(seed = NULL)
     
-    for(j in 1:nsim)
-      zP[, j] <- tX[, s1[j]] - tX[, s2[j]]
+    k <- j <- 1
+    while(k <= nsim) {
+      z <- tX[, s1[j]] - tX[, s2[j]]
+      if(sum(z) != 0) {
+        zP[, k] <- z
+        k <- k + 1
+        }
+      j <- j + 1
+      }
       
     P <- cbind(P, zP)
     
@@ -391,8 +399,6 @@
   P
 
   }
-
-
 
 .xmean <- function(X, weights = NULL, row = FALSE) {
   

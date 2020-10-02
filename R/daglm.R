@@ -1,4 +1,5 @@
-daglm <- function(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit")){
+daglm <- function(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit"),
+                  weights = NULL){
   
   Xr <- .matrix(Xr)
   n <- dim(Xr)[1]
@@ -29,14 +30,20 @@ daglm <- function(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit")){
   
   else {
   
+    if(is.null(weights))
+      weights <- rep(1 / n, n)
+    else
+      weights <- weights / sum(weights) 
+    
     Yrdummy <- dummy(Yr)
     
     z <- matrix(nrow = m, ncol = nclas)
     for(i in 1:nclas) {
       
       dat <- data.frame(Yr = Yrdummy[, i], Xr)
-      fm <- suppressWarnings(glm(Yr ~ ., family = family, data = dat))
-      #fm <- suppressWarnings(glm(Yr ~ ., family = family, data = dat, weights = weights))
+      fm <- suppressWarnings(glm(Yr ~ ., family = family, data = dat, 
+                                 weights = weights))
+      #fm <- suppressWarnings(glm(Yr ~ ., family = family, data = dat))
       z[, i] <- predict(fm, newdata = data.frame(Xu), type = "response")
       
       }

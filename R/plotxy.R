@@ -1,4 +1,4 @@
-plotxy <- function(X, asp = 1, col = NULL, 
+plotxy <- function(X, asp = 1, col = NULL, alpha.f = .5,
   group = NULL, legend = TRUE, legend.title = NULL, ncol = 1,
   zeroes = FALSE, circle = FALSE, ellipse = FALSE,
   labels = FALSE,
@@ -28,6 +28,8 @@ plotxy <- function(X, asp = 1, col = NULL,
     if(is.null(col))
       col <- "#045a8d"
     
+    col <- adjustcolor(col, alpha.f)
+    
     if(!labels)
       points(X, col = col, ...)
     else
@@ -51,6 +53,8 @@ plotxy <- function(X, asp = 1, col = NULL,
       }
     else
       col <- palette.colors(n = nlev, palette = "ggplot2", recycle = TRUE)
+    
+    col <- adjustcolor(col, alpha.f)
     
     for(i in 1:nlev) {
       

@@ -15,6 +15,8 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   if(is.null(colnam.Y)) colnam.Y <- "y1"
     
   Yr <- as.factor(Yr)
+  nclas <- length(unique(Yr))
+  
   ni <- c(table(Yr))
   nclas <- length(ni)
 
@@ -26,7 +28,7 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
     fm <- pca(Xr, Xu, ncomp = ncomp)
     y <- rep(as.character(Yu), ncomp)
     fit <- rep(lev, m * ncomp)
-    dummyfit <- NULL
+    zdumfit <- NULL
     }
   ### END
   
@@ -39,11 +41,11 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
       )
     
     m <- length(fm$fit$ncomp[fm$fit$ncomp == 1])
-    dummyfit <- fm$fit[fm$fit$ncomp > 0, ] 
+    zdumfit <- fm$fit[fm$fit$ncomp > 0, ] 
     
     # if ex-aequos, the first is selected
-    fit <- dummyfit
-    fit <- fit[, (ncol(fit) - nclas + 1):ncol(fit)]
+    k <- ncol(zdumfit)
+    fit <- zdumfit[, (k - nclas + 1):k]
     fit <- apply(fit, FUN = .findmax, MARGIN = 1) 
     fit <- sapply(fit, FUN = function(x) lev[x])
     
@@ -63,10 +65,17 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   fit <- data.frame(dat, fit, stringsAsFactors = FALSE)
   r <- data.frame(dat, r)
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
+  
+  dummyfit <- list()
+  for(i in 1:ncomp) {
+    u <- which(zdumfit$ncomp == i)
+    dummyfit[[i]] <- zdumfit[u, -(1:ncol(dat))]
+    row.names(dummyfit[[i]]) <- rownam.Xu
+    }
 
   list(y = y, fit = fit, r = r,
     Tr = fm$Tr, Tu = fm$Tu, P = fm$P, W = fm$W, R = fm$R, C = fm$C, TT = fm$TT,
     xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
-    T.ortho = fm$T.ortho, ni = ni, dummyfit = dummyfit)       
+    T.ortho = fm$T.ortho, dummyfit = dummyfit, ni = ni)       
     
   }

@@ -10,7 +10,7 @@
 
 Calculation and plotting of prediction error rates (RMSEP, SEP, etc. or classification error rate)  for models with quantitative or qualitative responses. 
 
-Note: In function \code{mse}, The \eqn{R2} rate is calculated by \eqn{R2 = 1 - MSEP(fitted model) / MSEP(no model)}. For predictions over CV or Test sets, and/or for non linear models, it can be different from the square of the correlation coefficient between the observed values and prediction. 
+Note: In function \code{mse}, The \eqn{R2} rate is calculated by \eqn{R2 = 1 - MSEP(fitted model) / MSEP(no model)}, where  \eqn{MSEP = Sum((y_i - fit_i)^2)/n} and "no model" is the overall mean of \eqn{y}. For predictions over CV or Test sets, and/or for non linear models, it can be different from the square of the correlation coefficient between the observed values and prediction. 
 
 See examples in \code{\link{plsr}}, \code{\link{plsda}}, etc.
 

@@ -1,20 +1,25 @@
-scordis <- function(fm, typcut = c("param", "mad", "boxplot")) {
+scordis <- function(fm, 
+                    ncomp = NULL, typcut = c("param", "mad", "boxplot")) {
   
   if(is.null(fm$Tr))
     names(fm)[which(names(fm) == "T")] <- "Tr"
   
   typcut <- match.arg(typcut)
   
-  ncomp <- dim(fm$Tr)[2]
+  if(is.null(ncomp))
+    ncomp <- dim(fm$Tr)[2]
+  else 
+    ncomp <- min(ncomp, dim(fm$Tr)[2])
   
   if(fm$T.ortho) {
-    tt <- colSums(fm$weights * fm$Tr * fm$Tr)
+    tt <- colSums(fm$weights * fm$Tr[, 1:ncomp, drop = FALSE] * fm$Tr[, 1:ncomp, drop = FALSE])
     S <- diag(tt, nrow = ncomp, ncol = ncomp)
     }
   else 
     S <- NULL
   
-  res <- dis(fm$Tr, fm$Tu, rep(0, ncomp), "mahalanobis", S)
+  res <- dis(fm$Tr[, 1:ncomp, drop = FALSE], fm$Tu[, 1:ncomp, drop = FALSE], 
+             rep(0, ncomp), "mahalanobis", S)
   
   dr <- res$dr
   
@@ -34,7 +39,7 @@ scordis <- function(fm, typcut = c("param", "mad", "boxplot")) {
   dr$gh <- d^2 / ncomp
   
   du <- NULL
-  if(!is.null(fm$Tu)) {
+  if(!is.null(fm$Tu[, 1:ncomp, drop = FALSE])) {
     du <- res$du
     du$dstand <- du$d / cutoff
     du$gh <- du$d^2 / ncomp

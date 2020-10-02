@@ -19,7 +19,7 @@ When the number of classes is higher than two, this method  can be affected by a
 }
 
 \usage{
-daglm(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit"))
+daglm(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit"), weights = NULL)
 }
 
 \arguments{
@@ -33,6 +33,8 @@ daglm(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit"))
 \item{Yu}{A vector of length \eqn{m}, or a \eqn{m x 1} matrix, of the true response (class membership). Default to \code{NULL}.}
 
 \item{family}{Specify the GLIM model used by function \code{\link{glm}}. See function \code{\link{family}}. By default, a logistic binomial regression model is fitted.}
+
+\item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the training observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
 }
 

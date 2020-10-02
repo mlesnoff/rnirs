@@ -89,7 +89,7 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
   
   list(y = y, fit = fit, r = r, posterior = posterior, ds = ds, prior = prior, 
-       ni = ni, fm = fm)
+       ni = ni)
 
   }
   

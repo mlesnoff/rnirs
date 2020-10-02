@@ -1,4 +1,5 @@
-odis <- function(fm, Xr, Xu = NULL, typcut = c("param", "mad", "boxplot")) {
+odis <- function(fm, Xr, Xu = NULL, ncomp = NULL, 
+                 typcut = c("param", "mad", "boxplot")) {
   
   if(is.null(fm$Tr))
     names(fm)[which(names(fm) == "T")] <- "Tr"
@@ -9,11 +10,14 @@ odis <- function(fm, Xr, Xu = NULL, typcut = c("param", "mad", "boxplot")) {
   n <- dim(X)[1]
   rownam <- row.names(X)
   
-  X <- .center(X, fm$xmeans)
+  if(is.null(ncomp))
+    ncomp <- dim(fm$Tr)[2]
+  else 
+    ncomp <- min(ncomp, dim(fm$Tr)[2])
   
-  ncomp <- dim(fm$Tr)[2]
+  X <- .center(X, fm$xmeans)
 
-  E <- X - tcrossprod(fm$Tr, fm$P)
+  E <- X - tcrossprod(fm$Tr[, 1:ncomp, drop = FALSE], fm$P[, 1:ncomp, drop = FALSE])
   
   d <- sqrt(rowSums(E * E))
   
@@ -49,7 +53,7 @@ odis <- function(fm, Xr, Xu = NULL, typcut = c("param", "mad", "boxplot")) {
     Tu <- .projscor(fm, Xu)
     Xu <- .center(Xu, fm$xmeans)
     
-    E <- Xu - tcrossprod(Tu, fm$P)
+    E <- Xu - tcrossprod(Tu[, 1:ncomp, drop = FALSE], fm$P[, 1:ncomp, drop = FALSE])
     
     d <- sqrt(rowSums(E * E))
     

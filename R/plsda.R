@@ -23,21 +23,20 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ..
   Tu <- .projscor(fm, .matrix(Xu))
   m <- dim(Tu)[1]
   
-  r <- y <- fit <- vector("list", ncomp)
+  zfm <- r <- y <- fit <- vector("list", ncomp)
   for(a in 1:ncomp) {
     
-    zfm <- do.call(
+    zfm[[a]] <- do.call(
       da, 
       c(list(Xr = fm$T[, 1:a, drop = FALSE], Yr = Yr,
         Xu = Tu[, 1:a, drop = FALSE], Yu = Yu), dots.da)
       )
     
-    y[[a]] <- zfm$y
-    fit[[a]] <- zfm$fit
-    r[[a]] <- zfm$r
+    y[[a]] <- zfm[[a]]$y
+    fit[[a]] <- zfm[[a]]$fit
+    r[[a]] <- zfm[[a]]$r
     
     }
-  ni <- zfm$ni
   
   y <- setDF(rbindlist(y))
   fit <- setDF(rbindlist(fit))
@@ -48,11 +47,11 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ..
   y <- data.frame(dat, y, stringsAsFactors = FALSE)
   fit <- data.frame(dat, fit, stringsAsFactors = FALSE)
   r <- data.frame(dat, r, stringsAsFactors = FALSE)
-
+  
   list(y = y, fit = fit, r = r,
     Tr = fm$T, Tu = Tu, P = fm$P, W = fm$W, R = fm$R, C = fm$C, TT = fm$TT,
     xmeans = fm$xmeans, ymeans = fm$ymeans, weights = fm$weights,
-    T.ortho = fm$T.ortho, ni = ni)
+    T.ortho = fm$T.ortho, da.models = zfm, ni = zfm$ni)
 
   }
 
