@@ -4,12 +4,12 @@ scordis <- function(fm,
   if(is.null(fm$Tr))
     names(fm)[which(names(fm) == "T")] <- "Tr"
   
-  typcut <- match.arg(typcut)
-  
   if(is.null(ncomp))
     ncomp <- dim(fm$Tr)[2]
   else 
     ncomp <- min(ncomp, dim(fm$Tr)[2])
+  
+  typcut <- match.arg(typcut)
   
   if(fm$T.ortho) {
     tt <- colSums(fm$weights * fm$Tr[, 1:ncomp, drop = FALSE] * fm$Tr[, 1:ncomp, drop = FALSE])

@@ -152,6 +152,14 @@
   x
   }
 
+.gain <- function(x, y = NULL) {
+  if(is.null(y))
+    y <- x
+  u <- 2:length(x)
+  r <- 1 - c(y[u], NA) / x
+  r
+  }
+
 .knnda <- function(Xr = NULL, Yr, Xu = NULL, Yu = NULL, weights = NULL) {
 
   colnam.Yr <- colnames(Yr)

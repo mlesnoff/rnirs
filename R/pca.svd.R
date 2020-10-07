@@ -15,7 +15,7 @@ pca.svd <- function(X, ncomp, weights = NULL) {
   
   res <- svd(sqrt(weights) * X, nu = 0, nv = ncomp)
   P <- res$v
-  sv <- res$d[1:ncomp]
+  sv <- res$d   #[1:ncomp]
   
   T <- X %*% P
   ## If weights > 0

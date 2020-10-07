@@ -2,13 +2,15 @@ News for package rnirs
 
 ##----------------- Version 1.8-8
 
-- Re-organisation of some outputs in discrimination functions.
+- Re-organisation of some outputs in functions implementing discrimination.
 
 - Argument 'ncomp' added to functions scordis and odis.
 
-- Argument 'alpha.f' (opacity) added to function plotxy.
+- Argument 'alpha.f' (color opacity for points) added to function plotxy.
 
 - Argument 'weights' added to function daglm.
+
+- In pca.eigen, ...: output 'eig' contains the full set of eigenvalues (not only the first 'ncomp')  
 
 
 ##----------------- Version 1.8-7

@@ -5,6 +5,8 @@ pca.eigen <- function(X, ncomp, weights = NULL) {
   n <- zdim[1]
   p <- zdim[2]
   
+  #ncomp <- min(ncomp, p)
+  
   if(is.null(weights))
     weights <- rep(1 / n, n)
   else
@@ -15,7 +17,7 @@ pca.eigen <- function(X, ncomp, weights = NULL) {
 
   res <- eigen(crossprod(sqrt(weights) * X), symmetric = TRUE)
   P <- res$vectors[, 1:ncomp, drop = FALSE]
-  eig <- res$values#[1:ncomp]
+  eig <- res$values  #[1:ncomp]
   eig[eig < 0] <- 0
   sv <- sqrt(eig)
 

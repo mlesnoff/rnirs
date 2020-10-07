@@ -15,10 +15,10 @@ pca.eigenk <- function(X, ncomp, weights = NULL) {
 
   zX <- sqrt(weights) * X
   res <- eigen(tcrossprod(zX), symmetric = TRUE)
-  eig <- res$values[1:ncomp]
+  eig <- res$values    #[1:ncomp]
   eig[eig < 0] <- 0
   sv <- sqrt(eig)
-  P <- crossprod(zX, .scale(res$vectors[, 1:ncomp, drop = FALSE], scale = sv))
+  P <- crossprod(zX, .scale(res$vectors[, 1:ncomp, drop = FALSE], scale = sv[1:ncomp]))
   
   T <- X %*% P
    

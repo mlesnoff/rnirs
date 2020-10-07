@@ -4,20 +4,19 @@ odis <- function(fm, Xr, Xu = NULL, ncomp = NULL,
   if(is.null(fm$Tr))
     names(fm)[which(names(fm) == "T")] <- "Tr"
   
+  if(is.null(ncomp))
+    ncomp <- dim(fm$Tr)[2]
+  else 
+    ncomp <- min(ncomp, dim(fm$Tr)[2])
+
   typcut <- match.arg(typcut)
   
   X <- .matrix(Xr)
   n <- dim(X)[1]
   rownam <- row.names(X)
   
-  if(is.null(ncomp))
-    ncomp <- dim(fm$Tr)[2]
-  else 
-    ncomp <- min(ncomp, dim(fm$Tr)[2])
-  
-  X <- .center(X, fm$xmeans)
-
-  E <- X - tcrossprod(fm$Tr[, 1:ncomp, drop = FALSE], fm$P[, 1:ncomp, drop = FALSE])
+  E <- .center(X, fm$xmeans) - tcrossprod(fm$Tr[, 1:ncomp, drop = FALSE], 
+                                          fm$P[, 1:ncomp, drop = FALSE])
   
   d <- sqrt(rowSums(E * E))
   
@@ -51,9 +50,9 @@ odis <- function(fm, Xr, Xu = NULL, ncomp = NULL,
     rownam <- row.names(Xu)
     
     Tu <- .projscor(fm, Xu)
-    Xu <- .center(Xu, fm$xmeans)
-    
-    E <- Xu - tcrossprod(Tu[, 1:ncomp, drop = FALSE], fm$P[, 1:ncomp, drop = FALSE])
+
+    E <- .center(Xu, fm$xmeans) - tcrossprod(Tu[, 1:ncomp, drop = FALSE], 
+                                             fm$P[, 1:ncomp, drop = FALSE])
     
     d <- sqrt(rowSums(E * E))
     
