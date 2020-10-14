@@ -6,6 +6,8 @@ pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE,
   n <- zdim[1]
   p <- zdim[2]
   
+  ncomp <- min(ncomp, n, p)
+  
   if(is.null(weights))
     weights <- rep(1 / n, n)
   else

@@ -5,6 +5,8 @@ pca.sph <- function(X, ncomp, weights = NULL) {
   n <- zdim[1]
   p <- zdim[2]
   
+  ncomp <- min(ncomp, n, p)
+  
   if(is.null(weights))
     weights <- rep(1 / n, n)
   else

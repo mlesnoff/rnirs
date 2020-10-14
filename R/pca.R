@@ -5,6 +5,8 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   n <- zdim[1]
   p <- zdim[2]
   
+  ncomp <- min(ncomp, n, p)
+  
   if(is.null(algo))
     if(n < p)
       algo <- pca.eigenk
@@ -22,12 +24,24 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   ## = trace of Cov(Xr)
   ## = sum(diag(crossprod(fm$weights * Xr, Xr)))
   
-  pvar <- tt / xsstot
+  zvar <- c(0, tt)
+  pvar <-  zvar / xsstot
   cumpvar <- cumsum(pvar)
   
-  z <- data.frame(ncomp = 1:ncomp, var = tt, pvar = pvar, cumpvar = cumpvar)
-  row.names(z) <- 1:ncomp
-  explvarx <- z
+  zncomp <- 0:ncomp
+ 
+  z <- data.frame(ncomp = zncomp, var = zvar, pvar = pvar, cumpvar = cumpvar)
+  row.names(z) <- zncomp
+  explvar <- z
+  
+  ssr <- n * (xsstot - cumsum(zvar))
+  dof.mod <- p + n * zncomp + p * zncomp - zncomp - zncomp^2
+  dof.ssr <- n * p - dof.mod
+
+  z <- data.frame(ncomp = zncomp, ssr = ssr, 
+                  dof.mod = dof.mod, dof.ssr = dof.ssr, msep = ssr / dof.ssr)
+  row.names(z) <- zncomp
+  mse <- z
   
   contr.ind <- .scale(zTT, center = rep(0, ncomp), tt)
   
@@ -57,7 +71,7 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   
   list(Tr = fm$T, Tu = Tu, P = fm$P, R = fm$R, eig = fm$eig,
     xmeans = fm$xmeans, weights = fm$weights, 
-    explvarx = explvarx, contr.ind = contr.ind, coord.var = coord.var, 
+    explvar = explvar, mse = mse, contr.ind = contr.ind, coord.var = coord.var, 
     contr.var = contr.var, cor.circle = cor.circle, T.ortho = fm$T.ortho) 
   
   }

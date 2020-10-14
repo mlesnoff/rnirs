@@ -5,6 +5,8 @@ pca.svd <- function(X, ncomp, weights = NULL) {
   n <- zdim[1]
   p <- zdim[2]
   
+  ncomp <- min(ncomp, n, p)
+  
   if(is.null(weights))
     weights <- rep(1 / n, n)
   else
@@ -15,7 +17,8 @@ pca.svd <- function(X, ncomp, weights = NULL) {
   
   res <- svd(sqrt(weights) * X, nu = 0, nv = ncomp)
   P <- res$v
-  sv <- res$d   #[1:ncomp]
+  sv <- res$d[1:min(n, p)]
+  sv[sv < 0] <- 0
   
   T <- X %*% P
   ## If weights > 0

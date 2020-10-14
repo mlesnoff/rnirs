@@ -152,9 +152,13 @@
   x
   }
 
-.gain <- function(x, y = NULL) {
-  if(is.null(y))
-    y <- x
+.gain <- function(x) {
+  zdiff <- c(rev(diff(rev(x))), NA)
+  r <- zdiff / abs(x)
+  r
+  }
+
+.gain.xy <- function(x, y) {
   u <- 2:length(x)
   r <- 1 - c(y[u], NA) / x
   r

@@ -7,24 +7,21 @@ selncomp.wold <- function(obj, nam = "rmsep", alpha = .01,
   
   obj <- obj[order(obj$ncomp), ]
   
-  ncompmin <- min(obj$ncomp)
-  ncompmax <- max(obj$ncomp)
-  ncomp <- ncompmax - ncompmin + 1
+  res <- obj[, c("ncomp", nam)]
   
-  obj$valref <- obj$val <- obj[, nam]
+  z <- obj[, nam]
   if(typ == "integral")
-    obj$valref <- cumsum(obj$val)
+    z <- cumsum(z)
   if(typ == "smooth")
-    obj$valref <- lowess(obj$ncomp, obj$val, ...)$y
+    z <- lowess(obj$ncomp, z, ...)$y
   
-  res <- obj[, c("ncomp", "val", "valref")]
-  res$valref1 <- res$valref[1:ncomp]
-  res$valref2 <- c(res$valref[2:ncomp], NA)
-  res$r <- 1 - res$valref2 / res$valref1
+  res$valref <- z
+  res$diff <- c(rev(diff(rev(z))), NA)
+  res$r <- res$diff / abs(z)
   if(typ == "integral")
     res$r <- -res$r
   
-  opt <- res$ncomp[res$val == min(res$val)][1]
+  opt <- res$ncomp[res$valref == min(res$valref)][1]
   sel <- res$ncomp[res$r < alpha][1]
   if(correct)
     sel <- min(opt, sel)
@@ -34,11 +31,13 @@ selncomp.wold <- function(obj, nam = "rmsep", alpha = .01,
   if(plot) {
     
     par(mfrow = c(1, 2))
-    plotmse(obj, nam = nam)
+    
+    plot(res$ncomp, res[, nam], typ = "b", col = "#045a8d",
+      las = 1, pch = 16, xlab = "Nb. components", ylab = nam)
     abline(v = c(opt, sel), col = c("grey", "blue"), lty = 2)
     if(typ == "smooth") {
       
-      lines(obj[, c("ncomp", "valref")], typ = "l", col = "red")
+      lines(res[, c("ncomp", "valref")], typ = "l", col = "red")
       
       legend("topright", legend = c("Raw", "Smoothed"),
         box.col = "grey70", ncol = 1,
@@ -46,10 +45,9 @@ selncomp.wold <- function(obj, nam = "rmsep", alpha = .01,
       
       }
       
-    z <- res[1:(nrow(res) - 1), c("ncomp", "r")]
-    plot(z, typ = "l", col = "grey40",
+    plot(res$ncomp, res$r, typ = "l", col = "grey40",
       xlab = "Nb. components", ylab = "% Gain")
-    points(z, col = "grey40", pch = 16)
+    points(res$ncomp, res$r, col = "grey40", pch = 16)
     abline(h = alpha, col = "blue", lty = 2)
     
     par(mfrow = c(1, 1))

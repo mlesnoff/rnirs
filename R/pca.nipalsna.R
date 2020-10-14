@@ -5,6 +5,8 @@ pca.nipalsna <- function(X, ncomp,
   n <- nrow(X)
   p <- ncol(X)
   
+  ncomp <- min(ncomp, n, p)
+  
   xmeans <- colMeans(X, na.rm = TRUE)
   X <- .center(X, xmeans)
   
