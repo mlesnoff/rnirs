@@ -344,6 +344,28 @@
   
   }
 
+.qqnorm <- function(x, alpha = 1, print = FALSE) {
+  
+  x <- (x - mean(x)) / sd(x)
+  z <- qqnorm(x, plot = FALSE)
+  
+  a <- (1 - alpha) / 2
+  lim <- quantile(x, probs = c(a, 1 - a))
+  u <- which(x >= lim[1] & x <= lim[2])
+  
+  zx <- x[u]
+  zy <- z$x[u]
+
+  if(print) {
+    plot(zx, zy, col = "red",
+         xlab = "Standart Normal Quantiles", ylab = "Standart Data")
+    abline(0, 1, col = "grey50")
+    }
+  
+  cor(zx, zy)^2
+  
+  }
+
 .resid.pls <- function(fm, Y, ncomp = NULL) {
   
   Y <- .matrix(Y, row = FALSE, prefix.colnam = "y")
