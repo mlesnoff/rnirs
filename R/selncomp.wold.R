@@ -5,6 +5,12 @@ selncomp.wold <- function(obj, nam = "rmsep", alpha = .01,
   
   typ <- match.arg(typ)
   
+  if(is.vector(obj)){
+    n <- length(obj)
+    obj <- data.frame(ncomp = 0:(n - 1), val = obj)
+    nam <- "val"
+    }
+  
   obj <- obj[order(obj$ncomp), ]
   
   res <- obj[, c("ncomp", nam)]
