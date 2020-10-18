@@ -33,7 +33,7 @@ selncomp.wold <- function(obj, nam = "rmsep", alpha = .01,
     par(mfrow = c(1, 2))
     
     plot(res$ncomp, res[, nam], typ = "b", col = "#045a8d",
-      las = 1, pch = 16, xlab = "Nb. components", ylab = "Value", main = toupper(nam))
+      las = 1, pch = 16, xlab = "Nb. components", ylab = "Value", main = nam)
     abline(v = c(opt, sel), col = c("grey", "blue"), lty = 2)
     if(typ == "smooth") {
       
@@ -46,7 +46,7 @@ selncomp.wold <- function(obj, nam = "rmsep", alpha = .01,
       }
       
     plot(res$ncomp, res$r, typ = "l", col = "grey40",
-      xlab = "Nb. components", ylab = "Proportion", main = "Relative Gain")
+      xlab = "Nb. components", ylab = "Proportion", main = "Relative gain")
     points(res$ncomp, res$r, col = "grey40", pch = 16)
     abline(h = alpha, col = "blue", lty = 2)
     
