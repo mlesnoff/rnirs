@@ -12,6 +12,12 @@ News for package rnirs
 
 - In pca.eigen, ...: output 'eig' contains the full set of eigenvalues (not only the first 'ncomp') 
 
+- change alpha in pca robust
+
+- segmcvkfold renamed in segmcv.kfold
+
+- segmcvmc renamed in segmcv.test
+
 - New functions
 
   plotjit

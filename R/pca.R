@@ -6,6 +6,7 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   p <- zdim[2]
   
   ncomp <- min(ncomp, n, p)
+  zncomp <- 0:ncomp
   
   if(is.null(algo))
     if(n < p)
@@ -30,18 +31,9 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   
   ssr <- n * (xsstot - cumsum(zvar))
   
-  zncomp <- 0:ncomp
- 
   z <- data.frame(ncomp = zncomp, ssr = ssr, var = zvar, pvar = pvar, cumpvar = cumpvar)
   row.names(z) <- zncomp
   explvar <- z
-  
-  #dof.mod <- p + n * zncomp + p * zncomp - zncomp - zncomp^2
-  #dof.ssr <- n * p - dof.mod
-  #z <- data.frame(ncomp = zncomp, ssr = ssr, 
-  #                dof.mod = dof.mod, dof.ssr = dof.ssr, msep = ssr / dof.ssr)
-  #row.names(z) <- zncomp
-  #mse <- z
   
   contr.ind <- .scale(zTT, center = rep(0, ncomp), tt)
   

@@ -91,6 +91,37 @@
   
   }
 
+.distvec <- function(P0, P, acos = FALSE) {
+  
+  ## "Distances between two matrix-column spaces
+  ## P0 and P = orthonormal matrices of same dimension
+  
+  P0 <- .matrix(P0)
+  P <- .matrix(P)
+  
+  ## Vector correlation coefficient "q" (Hotelling 1936)
+  ## Ye & Weiss Jasa 2003 p. 973-974
+  ## Luo & Li Biometrika 2016
+  ## q = det(P0'P) = det(P'P0P0'P)^.5 
+  q <- det(crossprod(P0, P))
+  ## Same as:
+  ## eig = eig(P0'P) ; q = cumprod(eig)[k]
+  ## eig = eig(P'P0P0'P) ; q = cumprod(eig)[k]^.5
+  
+  ## Some other authors (robust pls) use as a measure of angle:
+  ## eig = eig(P0'P) ; min(eig(P0'P))[1]
+  ## eig = eig(P'P0P0'P) ; min(eig(P0'P))[1]^.5
+  
+  ## Distance
+  if(!acos)
+    ## Output bounded in [0, 1] 
+    1 - abs(q)
+  else
+    ## Output in radiants (right angle = pi / 2)
+    acos(q)
+  
+  }
+
 .dw <- function(x) {
   x <- c(x)
   n <- length(x)
@@ -344,27 +375,82 @@
   
   }
 
-.qqnorm <- function(x, alpha = 1, print = FALSE) {
+.qqnorm <- function(x, alpha = 0, plot = FALSE) {
   
-  x <- (x - mean(x)) / sd(x)
+  x <- c(x)
+  
+  a <- alpha / 2
+  lim <- quantile(x, probs = c(a, 1 - a))
+  y <- x[x >= lim[1] & x <= lim[2]]
+  
+  y <- (y - mean(y)) / sd(y)
+  z <- qqnorm(y, plot = FALSE)
+  zx <- z$x
+
+  if(plot) {
+    plot(zx, y, col = "#045a8d",
+         xlab = "Standart Normal Quantiles", ylab = "Standardized Data")
+    abline(lm(y ~ zx), col = "red", lty = 1)
+    abline(0, 1, col = "grey50", lty = 2)
+    }
+  
+  list(x = zx, y = y)
+  
+  }
+
+.qqt <- function(x, alpha = 0, df = 1, plot = FALSE) {
+  
+  x <- c(x)
+  y <- (x - mean(x)) / sd(x)
+  
+  .Fn <- ecdf(y)
+  p <- .Fn(y)
+  ## For escaping that qt(p) returns Inf
+  p[p == 1] <- 1 - 1e-3
+  
+  a <- alpha / 2
+  lim <- quantile(y, probs = c(a, 1 - a))
+  u <- which(y >= lim[1] & y <= lim[2])
+  
+  zx <- qt(p = p, df = df)[u]
+  zy <- y[u]
+
+  if(plot) {
+    plot(zx, zy, col = "#045a8d",
+         xlab = "Students' t Quantiles", ylab = "Standardized Data")
+    abline(lm(zy ~ zx), col = "red", lty = 1)
+    }
+  
+  list(x = zx, y = zy)
+  
+  }
+
+
+.qqnorm2 <- function(x, alpha = .50, plot = FALSE) {
+  
+  #x <- (x - mean(x)) / sd(x)
+  #x <- (x - median(x)) / mad(x)
   z <- qqnorm(x, plot = FALSE)
   
-  a <- (1 - alpha) / 2
+  a <- alpha / 2
   lim <- quantile(x, probs = c(a, 1 - a))
   u <- which(x >= lim[1] & x <= lim[2])
   
   zx <- x[u]
   zy <- z$x[u]
 
-  if(print) {
-    plot(zx, zy, col = "red",
-         xlab = "Standart Normal Quantiles", ylab = "Standart Data")
-    abline(0, 1, col = "grey50")
+  if(plot) {
+    plot(zx, zy, col = "#045a8d",
+         xlab = "Standart Normal Quantiles", ylab = "Standardized Data")
+    abline(lm(zy ~ zx), col = "red", lty = 1)
+    abline(0, 1, col = "grey50", lty = 2)
     }
   
-  cor(zx, zy)^2
+  list(x = zx, y = zy)
   
   }
+
+
 
 .resid.pls <- function(fm, Y, ncomp = NULL) {
   

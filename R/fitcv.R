@@ -27,9 +27,10 @@ fitcv <- function(X, Y, fun, segm, print = FALSE, ...) {
       s <- sort(listsegm[[j]])
       
       if(print)
-        cat("\n\n------------------------- Repetition: ", i, "  Segment: ", j,
-          "\n\nRow numbers of X to predict: \ns =", s,
-          "\n(The models are fitted on X[-s, ], Y[-s].)\n\n")
+        cat("(rep=", i, " segm=", j, ")  ", sep = "")
+        #cat("\n\n------------------------- Repetition: ", i, "  Segment: ", j,
+        #  "\n\nRow numbers of X to predict: \ns =", s,
+        #  "\n(The models are fitted on X[-s, ], Y[-s].)\n\n")
       
       fm <- fun(
         X[-s, , drop = FALSE], 

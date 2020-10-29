@@ -10,17 +10,17 @@ plotmse <- function(obj, namx = "ncomp", nam = "rmsep", group = NULL,  col = NUL
   
   fg <- "grey70"
     
-  plot(obj[, 1:2], 
-    #xlab = "Nb. components", 
-    #ylab = toupper(nam),
+  plot(
+    obj[, 1:2], 
     type = "n",
     xaxt = "n", las = 1, fg = fg,
     ...
     )
+  
   if(namx == "ncomp") {
-    labs <- u <- 0:max(obj$ncomp)
+    labs <- 0:max(obj$ncomp)
     labs[1 + seq(1, max(obj$ncomp), by = 2)] <- NA
-    axis(side = 1, at = u, labels = labs, fg = fg)
+    axis(side = 1, at = labs, labels = labs, fg = fg)
     }
   else
     axis(side = 1)
@@ -30,8 +30,8 @@ plotmse <- function(obj, namx = "ncomp", nam = "rmsep", group = NULL,  col = NUL
     if(is.null(col))
       col <- "#045a8d"
 
-    do.call(lines,
-      c(list(x = obj[, 1], y = obj[, 2], col = col), dots))
+    do.call(lines, 
+            c(list(x = obj[, 1], y = obj[, 2], col = col), dots))
   
     }
   
