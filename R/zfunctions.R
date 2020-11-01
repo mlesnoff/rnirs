@@ -91,41 +91,57 @@
   
   }
 
-.distvec <- function(P0, P, acos = FALSE) {
+.corvec <- function(P0, P, typ = c("maxsub", "hot", "mult")) {
   
-  ## "Distances between two matrix-column spaces
-  ## P0 and P = orthonormal matrices of same dimension
+  ## Correlation between two matrix-column spaces
+  ## P0 and P must be orthonormal matrices of same dimension
+  
+  typ <- match.arg(typ)
   
   P0 <- .matrix(P0)
   P <- .matrix(P)
   
-  ## Vector correlation coefficient "q" (Hotelling 1936)
-  ## Ye & Weiss Jasa 2003 p. 973-974
-  ## Luo & Li Biometrika 2016
-  ## q = det(P0'P) = det(P'P0P0'P)^.5 
-  q <- det(crossprod(P0, P))
-  ## Same as:
-  ## eig = eig(P0'P) ; q = cumprod(eig)[k]
-  ## eig = eig(P'P0P0'P) ; q = cumprod(eig)[k]^.5
+  if(typ == "maxsub") {
+    
+    ## Krzanowski, 1979, Hubert et al 2005, Engelen et al. 2005
+    q <- min(eigen(crossprod(P, P0) %*% crossprod(P0, P))$value^.5)[1]
   
-  ## Some other authors (robust pls) use as a measure of angle:
-  ## eig = eig(P0'P) ; min(eig(P0'P))[1]
-  ## eig = eig(P'P0P0'P) ; min(eig(P0'P))[1]^.5
+    }
+
+  if(typ == "hot") {
   
-  ## Distance
-  if(!acos)
-    ## Output bounded in [0, 1] 
-    1 - abs(q)
-  else
-    ## Output in radiants (right angle = pi / 2)
-    acos(q)
+    ## Vector correlation coefficient "q" (Hotelling 1936)
+    ## Ye & Weiss Jasa 2003 p. 973-974
+    ## Luo & Li Biometrika 2016
+    ## q = det(P0'P) = det(P'P0P0'P)^.5
+    ## q is bounded within [0, 1]
+    q <- det(crossprod(P0, P))
+    ## Same as:
+    ## eig = eig(P0'P) ; q = cumprod(eig)[k]
+    ## eig = eig(P'P0P0'P) ; q = cumprod(eig)[k]^.5
+
+    }
+  
+  if(typ == "mult") {
+    
+    ## El Ghaziri, E.M. Qannari 2015
+    P0 <- .center(P0)
+    P <- .center(P)
+    A <- sum(diag(crossprod(P0, P)))
+    B <- sum(diag(crossprod(P0, P0)))
+    C <- sum(diag(crossprod(P, P)))
+    q <- A / (B * C)
+    
+    }
+  
+  q <- abs(q)
+  
   
   }
 
 .dw <- function(x) {
   x <- c(x)
-  n <- length(x)
-  sum((x[2:n] - x[1:(n - 1)])^2) / sum(x * x)
+  sum(diff(x)^2) / sum(x * x)
   }
 
 .ellips <- function(shape, center = rep(0, ncol(shape)), radius = 1) {
@@ -311,11 +327,14 @@
     if(row) X <- matrix(X, nrow = 1)
       else X <- matrix(X, ncol = 1)
   
-  if(!is.matrix(X)) X <- as.matrix(X)
+  if(!is.matrix(X)) 
+    X <- as.matrix(X)
   
-  if(is.null(row.names(X))) row.names(X) <- 1:dim(X)[1]
+  if(is.null(row.names(X))) 
+    row.names(X) <- 1:dim(X)[1]
   
-  if(is.null(colnames(X))) colnames(X) <- paste(prefix.colnam, 1:dim(X)[2], sep = "")
+  if(is.null(colnames(X)))
+    colnames(X) <- paste(prefix.colnam, 1:dim(X)[2], sep = "")
   
   X
   
@@ -375,29 +394,6 @@
   
   }
 
-.qqnorm <- function(x, alpha = 0, plot = FALSE) {
-  
-  x <- c(x)
-  
-  a <- alpha / 2
-  lim <- quantile(x, probs = c(a, 1 - a))
-  y <- x[x >= lim[1] & x <= lim[2]]
-  
-  y <- (y - mean(y)) / sd(y)
-  z <- qqnorm(y, plot = FALSE)
-  zx <- z$x
-
-  if(plot) {
-    plot(zx, y, col = "#045a8d",
-         xlab = "Standart Normal Quantiles", ylab = "Standardized Data")
-    abline(lm(y ~ zx), col = "red", lty = 1)
-    abline(0, 1, col = "grey50", lty = 2)
-    }
-  
-  list(x = zx, y = y)
-  
-  }
-
 .qqt <- function(x, alpha = 0, df = 1, plot = FALSE) {
   
   x <- c(x)
@@ -416,41 +412,15 @@
   zy <- y[u]
 
   if(plot) {
+    xlab <- paste("Students' t Quantiles (df = ", df, ")", sep = "")
     plot(zx, zy, col = "#045a8d",
-         xlab = "Students' t Quantiles", ylab = "Standardized Data")
+         xlab = xlab, ylab = "Standardized Data")
     abline(lm(zy ~ zx), col = "red", lty = 1)
     }
   
   list(x = zx, y = zy)
   
   }
-
-
-.qqnorm2 <- function(x, alpha = .50, plot = FALSE) {
-  
-  #x <- (x - mean(x)) / sd(x)
-  #x <- (x - median(x)) / mad(x)
-  z <- qqnorm(x, plot = FALSE)
-  
-  a <- alpha / 2
-  lim <- quantile(x, probs = c(a, 1 - a))
-  u <- which(x >= lim[1] & x <= lim[2])
-  
-  zx <- x[u]
-  zy <- z$x[u]
-
-  if(plot) {
-    plot(zx, zy, col = "#045a8d",
-         xlab = "Standart Normal Quantiles", ylab = "Standardized Data")
-    abline(lm(zy ~ zx), col = "red", lty = 1)
-    abline(0, 1, col = "grey50", lty = 2)
-    }
-  
-  list(x = zx, y = zy)
-  
-  }
-
-
 
 .resid.pls <- function(fm, Y, ncomp = NULL) {
   
@@ -533,6 +503,57 @@
   colSums(weights * X)   
   
   }
+
+.xmedspa <- function(X, delta = 1e-6) {
+  
+  X <- .matrix(X, row = FALSE)
+  
+  ##### COPY OF FUNCTION 'spatial.median' AVAILABLE IN THE SCRIPT PcaLocantore.R
+  ##### OF PACKAGE rrcov v.1.4-3 on R CRAN (Thanks to V. Todorov, 2016)
+
+  x <- X
+  
+  dime = dim(x)
+  n=dime[1]
+  p=dime[2]
+  delta1=delta*sqrt(p)
+  
+  #mu0=apply(x,2,median)
+  mu0=matrixStats::colMedians(x)
+  
+  h=delta1+1
+  tt=0
+  while(h>delta1){
+    tt=tt+1
+    TT=matrix(mu0,n,p,byrow=TRUE)
+    U=(x-TT)^2
+    
+    #w=sqrt(apply(U,1,sum))
+    w=sqrt(matrixStats::rowSums2(U))
+    
+    w0=median(w)
+    ep=delta*w0
+
+    z=(w<=ep)
+    w[z]=ep
+    w[!z]=1/w[!z]
+    w=w/sum(w)
+    x1=x
+    for(i in 1:n)
+      x1[i,]=w[i]*x[i,]
+    
+    #mu=apply(x1,2,sum)
+    mu=matrixStats::colSums2(x1)
+    
+    h=sqrt(sum((mu-mu0)^2))
+    mu0=mu
+    }
+
+  ##### END
+  
+  mu0
+    
+}
 
 .xnorm <- function(X, weights = NULL, row = FALSE) {
   
@@ -647,56 +668,6 @@
   
   }
 
-.xmedspa <- function(X, delta = 1e-6) {
-  
-  X <- .matrix(X, row = FALSE)
-  
-  ##### COPY OF FUNCTION 'spatial.median' AVAILABLE IN THE SCRIPT PcaLocantore.R
-  ##### OF PACKAGE rrcov v.1.4-3 on R CRAN (Thanks to V. Todorov, 2016)
-
-  x <- X
-  
-  dime = dim(x)
-  n=dime[1]
-  p=dime[2]
-  delta1=delta*sqrt(p)
-  
-  #mu0=apply(x,2,median)
-  mu0=matrixStats::colMedians(x)
-  
-  h=delta1+1
-  tt=0
-  while(h>delta1){
-    tt=tt+1
-    TT=matrix(mu0,n,p,byrow=TRUE)
-    U=(x-TT)^2
-    
-    #w=sqrt(apply(U,1,sum))
-    w=sqrt(matrixStats::rowSums2(U))
-    
-    w0=median(w)
-    ep=delta*w0
-
-    z=(w<=ep)
-    w[z]=ep
-    w[!z]=1/w[!z]
-    w=w/sum(w)
-    x1=x
-    for(i in 1:n)
-      x1[i,]=w[i]*x[i,]
-    
-    #mu=apply(x1,2,sum)
-    mu=matrixStats::colSums2(x1)
-    
-    h=sqrt(sum((mu-mu0)^2))
-    mu0=mu
-    }
-
-  ##### END
-  
-  mu0
-    
-}
 
 
 

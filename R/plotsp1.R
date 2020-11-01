@@ -12,9 +12,11 @@ plotsp1 <- function(X, col = NULL, zeroes = FALSE, ...) {
     
     a <- readLines(n = 1)
 
-    z<- X[i, , drop = FALSE]
-    plotsp(z, col = col, ...)
-    text(x = min(as.numeric(colnames(z))), y = max(z), pos = 4, labels = i, cex = 1.2)
+    z <- X[i, , drop = FALSE]
+    plotsp(z, col = col, main = i, ...)
+    #text(x = min(as.numeric(colnames(z))), 
+    #     y = max(z),
+    #     pos = 4, labels = i, cex = 1.2)
       
     if(zeroes)
       abline(h = 0, lty = 2, col = "grey70")

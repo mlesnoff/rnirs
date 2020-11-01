@@ -17,6 +17,10 @@ fitcv <- function(X, Y, fun, segm, print = FALSE, ...) {
   
   for(i in 1:nrep) {
     
+    if(print)
+      cat("/ rep=", i, " ", sep = "") 
+      
+    
     listsegm <- segm[[i]]
     nsegm <- length(listsegm)
     
@@ -27,7 +31,7 @@ fitcv <- function(X, Y, fun, segm, print = FALSE, ...) {
       s <- sort(listsegm[[j]])
       
       if(print)
-        cat("(rep=", i, " segm=", j, ")  ", sep = "")
+        cat("segm=", j, " ", sep = "")
         #cat("\n\n------------------------- Repetition: ", i, "  Segment: ", j,
         #  "\n\nRow numbers of X to predict: \ns =", s,
         #  "\n(The models are fitted on X[-s, ], Y[-s].)\n\n")
@@ -58,6 +62,8 @@ fitcv <- function(X, Y, fun, segm, print = FALSE, ...) {
     r[[i]]$rep <- fit[[i]]$rep <- y[[i]]$rep <- rep(i, m) 
   
     }
+  
+  cat("/ End. \n\n")
   
   y <- setDF(rbindlist(y))
   fit <- setDF(rbindlist(fit))

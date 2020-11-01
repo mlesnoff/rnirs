@@ -14,9 +14,11 @@ News for package rnirs
 
 - change alpha in pca robust
 
-- segmcvkfold renamed in segmcv.kfold
+- Renamed functioo
 
-- segmcvmc renamed in segmcv.test
+  selncomp.wold to  selwold
+  segmcvkfold   to  segm.kf                   segmcv.kf
+  segmcvmc      to  segm.ts                   segmcv.ts
 
 - New functions
 
