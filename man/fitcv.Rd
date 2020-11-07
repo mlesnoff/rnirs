@@ -24,7 +24,7 @@ fitcv(X, Y, fun, segm, print = FALSE, ...)
 
 \item{fun}{A function defining the prediction model to cross-validate.}
 
-\item{segm}{A list of the test segments. Typically, output of function \code{\link{segmcvkfold}} or \code{\link{segmcvmc}}.} 
+\item{segm}{A list of the test segments. Typically, output of function \code{\link{segmkf}} or \code{\link{segmts}}.} 
 
 \item{print}{Logical. If \code{TRUE}, fitting information are printed.}
 
@@ -45,8 +45,8 @@ headm(Xr)
 ################ Cross-validation of a PLSR model
 
 n <- nrow(Xr)
-segm <- segmcvkfold(n = n, K = 5, typ = "random", nrep = 3)   # = Repeated random K-fold CV
-#segm <- segmcvmc(n = n, m = 40, nrep = 30)                   # = Monte Carlo CV
+segm <- segmkf(n = n, K = 5, typ = "random", nrep = 3)      # = Repeated K-fold CV
+#segm <- segmts(n = n, m = 40, nrep = 30)                   # = Repeated Test-set CV
 fm <- fitcv(
   Xr, yr,
   fun = plsr,
@@ -93,7 +93,7 @@ fun <- function(Xr, Yr, Xu, Yu = NULL, k, ncomp, ncompdis) {
   }
 
 n <- nrow(Xr)
-segm <- segmcvkfold(n = n, K = 5, typ = "random", nrep = 1)
+segm <- segmkf(n = n, K = 5, typ = "random", nrep = 1)
 fm <- fitcv(
   Xr, yr,
   fun = fun,
