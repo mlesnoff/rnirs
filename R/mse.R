@@ -44,6 +44,7 @@ mse <- function(fm, formula = ~ 1, nam = NULL, digits = 3) {
   # End
   rho <- rho$rho
   
+  z$msep <- msep
   z$mad <- mad
   z$rmsep <- rmsep
   z$sep <- sep
@@ -53,7 +54,7 @@ mse <- function(fm, formula = ~ 1, nam = NULL, digits = 3) {
   
   z$cor2 <- rho^2
   
-  znam <- c("mad", "rmsep", "sep", "b","r2", "cor2")
+  znam <- c("msep", "mad", "rmsep", "sep", "b","r2", "cor2")
   z[, znam] <- round(z[, znam], digits = digits)
 
   z

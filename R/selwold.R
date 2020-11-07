@@ -71,6 +71,7 @@ selwold <- function(obj, nam = "rmsep", alpha = .01,
     points(zncomp, r, pch = 16, col = col)
     axis(side = 1, at = labs, labels = labs, fg = fg)
     abline(v = c(opt, sel), col = c("grey", "blue"), lty = 2)
+    abline(h = min(r), col = "grey")
     
     if(typ == "smooth") {
       lines(zncomp, val, typ = "l", col = "red")
@@ -88,7 +89,7 @@ selwold <- function(obj, nam = "rmsep", alpha = .01,
       )
     points(zncomp, R, pch = 16, col = col)
     axis(side = 1, at = labs, labels = labs, fg = fg)
-    abline(h = alpha, col = "blue", lty = 2)
+    abline(h = c(0, alpha), col = c("grey", "blue"), lty = 1:2)
     
     par(mfrow = c(1, 1))
     

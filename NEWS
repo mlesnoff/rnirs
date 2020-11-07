@@ -17,8 +17,8 @@ News for package rnirs
 - Renamed functioo
 
   selncomp.wold to  selwold
-  segmcvkfold   to  segm.kf                   segmcv.kf
-  segmcvmc      to  segm.ts                   segmcv.ts
+  segmcvkfold   to  segmkf                   
+  segmcvmc      to  segmts                   
 
 - New functions
 

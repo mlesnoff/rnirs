@@ -18,11 +18,12 @@ The function uses function \code{\link{sgolayfilt}}.
 
 \item{X}{A matrix or data frame. The column names of \eqn{X} must be integers (usually the wavelengths).}
 
+\item{m}{A derivation order.}
+
 \item{n}{A filter length (must be odd), i.e. number of colums in matrix \eqn{X} that defines the calculation window.}
 
 \item{p}{A polynomial order.}
 
-\item{m}{A derivation order.}
 
 \item{ts}{A scaling factor (e.g. the step between two wavelengths in matrix \eqn{X}), see argument \code{ts} in function \code{\link{sgolayfilt}}. This has not impact on the form of the output.}
 
