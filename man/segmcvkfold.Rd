@@ -1,6 +1,6 @@
-\name{segmcvkfold}
-\alias{segmcvkfold}
-\alias{segmcvmc}
+\name{segmkf}
+\alias{segmkf}
+\alias{segmts}
 \encoding{latin1}
 
 \title{Segments for cross-validation}
@@ -9,18 +9,18 @@
 
 Build a list of test segments for cross-validation (CV), eventually (randomly) repeated. Each segment is a vector of indexes of row observations (unless argument \code{y} is used).
 
-- Function \code{segmcvkfold} returns the \eqn{K} segments of a K-fold CV.
+- Function \code{segmkf} returns the \eqn{K} segments of a K-fold CV.
 
-- Function \code{segmcvmc} returns a segment (of length \eqn{m}) randomly sampled in the data set. This corresponds to a Monte Carlo CV.
+- Function \code{segmts} returns a segment (of length \eqn{m}) randomly sampled in the data set. This corresponds to a Monte Carlo CV.
 
 }
 
 \usage{
 
-segmcvkfold(n, y = NULL, K = 5, type = c("random", "consecutive", "interleaved"),
+segmkf(n, y = NULL, K = 5, type = c("random", "consecutive", "interleaved"),
   nrep = 1, seed = NULL) 
 
-segmcvmc(n, y = NULL, m, nrep, seed = NULL) 
+segmts(n, y = NULL, m, nrep, seed = NULL) 
 
 }
 
@@ -46,19 +46,19 @@ segmcvmc(n, y = NULL, m, nrep, seed = NULL)
 
 #### K-fold
 
-segmcvkfold(n = 10, K = 3)
+segmkf(n = 10, K = 3)
 
-segmcvkfold(n = 10, K = 3, type = "interleaved")
+segmkf(n = 10, K = 3, type = "interleaved")
 
 # Leave-one-out
-segmcvkfold(n = 10, K = 10)
+segmkf(n = 10, K = 10)
 
 # replicated
-segmcvkfold(n = 10, K = 3, nrep = 2)
+segmkf(n = 10, K = 3, nrep = 2)
 
 #### Monte Carlo
 
-segmcvmc(n = 10, m = 3, nrep = 5)
+segmts(n = 10, m = 3, nrep = 5)
 
 #### With classes
 
@@ -66,9 +66,9 @@ n <- 10
 y <- rep(LETTERS[1:5], 2)
 y
 
-segmcvkfold(n = n, y = y, K = 3, nrep = 1)
+segmkf(n = n, y = y, K = 3, nrep = 1)
 
-segmcvmc(n = n, y = y, m = 3, nrep = 1)
+segmts(n = n, y = y, m = 3, nrep = 1)
 
 }
 

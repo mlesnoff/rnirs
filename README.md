@@ -1,5 +1,5 @@
 ## rnirs - Regression, Discrimination and Other Methods for Chemometrics  
-## Version 1.8-8
+## Version 1.9-0
 
 Package rnirs is a R statistical tool box for chemometrics, but is also generic for any type of data. 
 

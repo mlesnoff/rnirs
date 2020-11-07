@@ -5,7 +5,8 @@ mse <- function(fm, formula = ~ 1, nam = NULL, digits = 3) {
 
   f <- as.character(formula)[2]
   
-  if(is.null(nam)) nam <- names(y)[ncol(y)] 
+  if(is.null(nam)) 
+    nam <- names(y)[ncol(y)] 
   
   y$e <- y[, nam] - fit[, nam]
   

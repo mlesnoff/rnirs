@@ -328,10 +328,10 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 \bold{*************************************** CROSS-VALIDATION AND ERROR RATES}
 
 \tabular{ll}{
-  \code{\link{segmcvkfold}}, \code{\link{segmcvmc}} \tab Segments for cross-validation \cr
+  \code{\link{segmkf}}, \code{\link{segmts}} \tab Segments for K-Fold and Tes-set cross-validation \cr
   \code{\link{fitcv}} \tab Cross-validation of a prediction model \cr
   \code{\link{mse}}, \code{\link{err}} \tab Error rates of prediction models\cr 
-  \code{\link{selncomp.wold}} \tab Selection of the number of components in a PLSR/DA or PCR/DA model \cr
+  \code{\link{selwold}} \tab Selection of the number of components in a PLSR/DA or PCR/DA model(Wold's criterion) \cr
   }
 
 \bold{*************************************** GRAPHICS}
