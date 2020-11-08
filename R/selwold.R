@@ -1,4 +1,4 @@
-selwold <- function(obj, nam = "rmsep", alpha = .01, 
+selwold <- function(obj, nam = "msep", alpha = .01, 
   typ = c("raw", "smooth", "integral"), 
   correct = TRUE, digits = 3,
   plot = TRUE, ...
@@ -59,16 +59,20 @@ selwold <- function(obj, nam = "rmsep", alpha = .01,
     else
       labs <- seq(xmin, xmax, by = 10)
     
+    zval <- val
+    if(typ == "smooth")
+      zval <- r
+    
     par(mfrow = c(1, 2))
     
     plot(
-      zncomp, r, 
+      zncomp, zval, 
       typ = "l", col = col, pch = 16,
       xaxt = "n", las = 1, fg = fg, las = 1, 
       xlim = c(xmin - eps, xmax + eps), xaxs = "i",
       xlab = "Nb. components", ylab = "Value", main = toupper(nam)
       )
-    points(zncomp, r, pch = 16, col = col)
+    points(zncomp, zval, pch = 16, col = col)
     axis(side = 1, at = labs, labels = labs, fg = fg)
     abline(v = c(opt, sel), col = c("grey", "blue"), lty = 2)
     abline(h = min(r), col = "grey")

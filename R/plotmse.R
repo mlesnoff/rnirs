@@ -16,7 +16,8 @@ plotmse <- function(obj, namx = "ncomp", nam = "msep", group = NULL,  col = NULL
     xaxt = "n", las = 1, fg = fg,
     ...
     )
-  
+  abline(h = min(obj[, nam]), col = "grey")
+         
   if(namx == "ncomp") {
     labs <- 0:max(obj$ncomp)
     labs[1 + seq(1, max(obj$ncomp), by = 2)] <- NA

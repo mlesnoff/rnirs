@@ -1,4 +1,4 @@
-pls.rob <- function(X, Y, ncomp, ncompw = 10, alpha = .70,
+pls.rob <- function(X, Y, ncomp, ncompw = 10, alpha = .30,
                     typcut = c("param", "mad"), weights = NULL, ...) {
   
   typcut <- match.arg(typcut)
@@ -18,7 +18,7 @@ pls.rob <- function(X, Y, ncomp, ncompw = 10, alpha = .70,
   fm <- pca.rob(X, ncompw, typcut = typcut, weights = weights, ...)
   #fm <- pca.sph(X, min(ncompw, n, p), ...)
   r <- out.sdod(fm, X, typcut = typcut)
-  wx <- .talworth(r, quantile(r, alpha))
+  wx <- .talworth(r, quantile(r, 1 - alpha))
 
   fm <- pls.kernel(X, Y, ncomp = ncompw, weights = weights * wx)
   r <- .resid.pls(fm, Y)$r

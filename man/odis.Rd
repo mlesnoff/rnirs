@@ -15,7 +15,7 @@
 
 \usage{
 
-odis(fm, Xr, Xu = NULL, typcut = c("param", "mad", "boxplot"))
+odis(fm, Xr, Xu = NULL, ncomp = NULL, typcut = c("param", "mad", "boxplot"))
 
 lodis(fm, Xr, Xu, typcut = c("param", "mad", "boxplot"))
 
@@ -28,6 +28,8 @@ lodis(fm, Xr, Xu, typcut = c("param", "mad", "boxplot"))
 \item{Xr}{The matrix or data frame of reference (= training) observations that was used for building the preliminary model \code{fm}.}
 
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations (\eqn{Xu} is not used in the calculation of the median and MAD used for calculating the standardized distances; see Details).}
+
+\item{ncomp}{Number of components to consider for the distance calculations. If \code{NULL} (default), the maximum number of components is considered.} 
 
 \item{typcut}{Character string defining the type of cutoff for the distance (see the code). Possible values are \code{"param"} (default) (parametric Gaussian quantile for the transformed distance, such as in Hubert et al. 2005 p.66, except that MCD location and scale estimates have been replaced by median and MAD), \code{"mad"} (\eqn{median(d) + 2.5 * mad(d)}) or \code{"boxplot"} (\eqn{Q3 + 1.5 IQR).}}
 

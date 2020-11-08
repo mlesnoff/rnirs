@@ -24,9 +24,9 @@ Spherical PCA (see Locantore et al. 1990, Maronna 2005, Daszykowski et al. 2007)
 
 Robust PCA combining outlyingness measures and weighted PCA (WPCA). Rows of matrix \eqn{X} receive weights depending on outlyingness. The algorithm is in the same spirit (but quite different) as the ROBPCA method (Hubert et al. 2005, 2009). It is built in the two following steps. Note that the second step is facultative (argument \code{step2}). 
 
-Step 1 intends to detect and remove multivariate \eqn{X-}outliers that have potentially bad leverages. First, the Stahel-Donoho outlyingness (Maronna and Yohai, 1995) is computed for each of the rows of matrix \eqn{X} (see \code{\link{out.stah}}). Noting \eqn{alpha} a proportion (by default in the function, \eqn{alpha = .70},  as in Hubert et al. 2005, 2009), the  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w1 = 0} (the other receive a weight \eqn{w1 = 1}). Then, a robust Euclidean outlyingness (see \code{\link{out.eucl}}) is calculated. The  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w2 = 0} (the other receive a weight \eqn{w2 = 1}). The final weight for Step 1 is \eqn{w = w1 * w2}), which is used for a first weighted PCA.  
+Step 1 intends to detect and remove multivariate \eqn{X-}outliers that have potentially bad leverages. First, the Stahel-Donoho outlyingness (Maronna and Yohai, 1995) is computed for each of the rows of matrix \eqn{X} (see \code{\link{out.stah}}). Noting \eqn{1 - alpha} a proportion (by default in the function, \eqn{alpha = .30},  as in Hubert et al. 2005, 2009), the  \eqn{alpha * n} observations that have the highest outlyingness receive a weight \eqn{w1 = 0} (the other receive a weight \eqn{w1 = 1}). Then, a robust Euclidean outlyingness (see \code{\link{out.eucl}}) is calculated. The  \eqn{(alpha * n} observations that have the highest outlyingness receive a weight \eqn{w2 = 0} (the other receive a weight \eqn{w2 = 1}). The final weight for Step 1 is \eqn{w = w1 * w2}), which is used for a first weighted PCA.  
 
-Step2 (facultative) intends to detect outliers in the robust score space computed in Step 1. The score and orthogonal distances, standardized by given cutoffs (see \code{\link{scordis}} and \code{\link{odis}}), of each of the \eqn{n} observations are calculated from this score space. An outlyingness is computed by \eqn{(.5 * SD.stand^2 + .5 * OD.stand^2)^.5}. The  \eqn{(1 - alpha) * n} observations that have the highest outlyingness receive a weight \eqn{w = 0} (the other receive a weight \eqn{w = 1}), and a new weighted PCA is fitted.
+Step2 (facultative) intends to detect outliers in the robust score space computed in Step 1. The score and orthogonal distances, standardized by given cutoffs (see \code{\link{scordis}} and \code{\link{odis}}), of each of the \eqn{n} observations are calculated from this score space. An outlyingness is computed by \eqn{(.5 * SD.stand^2 + .5 * OD.stand^2)^.5}. The  \eqn{alpha * n} observations that have the highest outlyingness receive a weight \eqn{w = 0} (the other receive a weight \eqn{w = 1}), and a new weighted PCA is fitted.
 
 Data are internally centered before the analyses, but they are not column-wise scaled (there is no argument \code{scale} in the functions). If needed, the user has to do the scaling before using the functions. 
 
@@ -38,7 +38,7 @@ pca.cr(X, ncomp, obj = mad, nsim = 0)
 
 pca.sph(X, ncomp, weights = NULL)
 
-pca.rob(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, 
+pca.rob(X, ncomp, nsim = 1500, alpha = .30, step2 = TRUE, 
                     weights = NULL, ...)
 
 }
@@ -55,7 +55,7 @@ pca.rob(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE,
 
 \item{weights}{For \code{pca.sph} and \code{pca.rob}. A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
-\item{alpha}{For \code{pca.rob}. Proportion \eqn{1 - alpha} is used for hard rejection of outliers in Step 1 (default to \code{alpha = .70}).}
+\item{alpha}{For \code{pca.rob}. Proportion \eqn{alpha} of the data used as hard rejection (outliers) in Step 1 (default to \code{alpha = .30}, i.e. 30pct are rejected).}
 
 \item{step2}{For \code{pca.rob}. If \code{TRUE} (default), Step 2 is implemented.}
 

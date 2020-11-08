@@ -15,7 +15,7 @@
 
 \usage{
 
-scordis(fm, typcut = c("param", "mad", "boxplot"))
+scordis(fm, ncomp = NULL, typcut = c("param", "mad", "boxplot"))
 
 lscordis(fm, typcut = c("param", "mad", "boxplot"))
 
@@ -24,6 +24,8 @@ lscordis(fm, typcut = c("param", "mad", "boxplot"))
 \arguments{
 
 \item{fm}{For \code{scordis}, output of functions \code{\link{pca}}, \code{\link{pls}} or \code{\link{plsr}}. For \code{lscordis}, output of functions  \code{\link{locw}},  \code{\link{lwplsr}}, etc.}
+
+\item{ncomp}{Number of components to consider for the distance calculations. If \code{NULL} (default), the maximum number of components is considered.} 
 
 \item{typcut}{Character string defining the type of cutoff for the distance (see the code). Possible values are \code{"param"} (default) (parametric Chi-square quantile, such as in Hubert et al. 2005 p.66), \code{"mad"} (\eqn{median(d) + 2.5 * mad(d)}) or \code{"boxplot"} (\eqn{Q3 + 1.5 IQR).}}
 

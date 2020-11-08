@@ -1,4 +1,4 @@
-pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE, 
+pca.rob <- function(X, ncomp, nsim = 1500, alpha = .30, step2 = TRUE, 
                     weights = NULL, ...) {
   
   X <- .matrix(X)
@@ -19,10 +19,10 @@ pca.rob <- function(X, ncomp, nsim = 1500, alpha = .70, step2 = TRUE,
     algo <- pca.eigen
   
   r <- out.stah(X, nsim = nsim)
-  w1 <- .talworth(r, quantile(r, alpha))
+  w1 <- .talworth(r, quantile(r, 1 - alpha))
 
   r <- out.eucl(X)
-  w2 <- .talworth(r, quantile(r, alpha))
+  w2 <- .talworth(r, quantile(r, 1 - alpha))
   
   w <- w1 * w2
 

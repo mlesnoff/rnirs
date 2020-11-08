@@ -1,8 +1,8 @@
 News for package rnirs
 
-##----------------- Version 1.8-8
+##----------------- Version 1.9-0
 
-- Renamed functioo
+- Renamed functions
 
   selncomp.wold to  selwold
   segmcvkfold   to  segmkf                   
@@ -18,9 +18,9 @@ News for package rnirs
 
 - Argument 'weights' added to function daglm.
 
-- In pca.eigen, ...: output 'eig' contains the full set of eigenvalues (not only the first 'ncomp') 
+- In pca.eigen, ...: output 'eig' contains the full set of eigenvalues (not only the first 'ncomp'). 
 
-- change definition of argument alpha in pca robust
+- change definition of argument alpha in pca.rob and pls.rob (was 1 - alpha before).
 
 - Re-organisation of some outputs in discrimination functions.
 
