@@ -1,32 +1,48 @@
 News for package rnirs
 
-##----------------- Version 1.9-0
+##------------------------------------- Version 1.9-0
 
 - Renamed functions
 
-  selncomp.wold to  selwold
-  segmcvkfold   to  segmkf                   
-  segmcvmc      to  segmts                   
+    kentson         to sampks
+  
+    selncomp.wold   to  selwold
+  
+    segmcvkfold     to  segmkf                   
+    segmcvmc        to  segmts                   
+
 
 - New functions
 
-  plotjit
+    plotjit
   
-- Argument 'ncomp' added to functions scordis and odis.
 
-- Argument 'alpha.f' (color opacity for points) added to function plotxy.
+- Function sampclas has changed.
 
-- Argument 'weights' added to function daglm.
 
-- In pca.eigen, ...: output 'eig' contains the full set of eigenvalues (not only the first 'ncomp'). 
+- New arguments
 
-- change definition of argument alpha in pca.rob and pls.rob (was 1 - alpha before).
+    . Argument 'ncomp' added to functions scordis and odis.
+
+    . Argument 'alpha.f' (color opacity for points) added function plotxy.
+
+    . Argument 'weights' added to function daglm.
+    
+    . Argument 'alpha' in functions pca.rob and pls.rob has changed of definition (was '1 - alpha' before).
+
+
+- New outputs
+
+    Output 'eig' in functions pca.eigen, etc. now contains the full set of eigenvalues (not only the first 'ncomp' values). 
+
+    Output 'explvarx' in functions pca and kpca  has been renamed to 'explvar'.
+    
 
 - Re-organisation of some outputs in discrimination functions.
 
 
 
-##----------------- Version 1.8-7
+##------------------------------------- Version 1.8-7
 
 - New functions
 
@@ -38,26 +54,26 @@ News for package rnirs
 
 
 
-##----------------- Version 1.8-6
+##------------------------------------- Version 1.8-6
 
 - Various code cleaning
 
 
-##----------------- Version 1.8-5
+##------------------------------------- Version 1.8-5
 
 - Bug correction in kpls (Xu = NULL did not work)
 
 - Various code cleaning
 
 
-##----------------- Version 1.8-4
+##------------------------------------- Version 1.8-4
 
 - New argument "cri" in function lwplsr, lwplsda and lwplsdalm
 
 - Various code cleaning
 
 
-##----------------- Version 1.8-3
+##------------------------------------- Version 1.8-3
 
 - New argument "namx" in function plotmse
 
@@ -69,14 +85,14 @@ News for package rnirs
   dkplsda      Direct kernel PLSDA
   dkplsdalm    Direct kernel PLSDA
 
-##----------------- Version 1.8-2
+##------------------------------------- Version 1.8-2
 
 - Various code cleaning
 
 - Ghange of the default value of argument "h" in function lwplsr, lwplsda, lwplsdalm 
 
 
-##----------------- Version 1.8-1
+##------------------------------------- Version 1.8-1
 
 - New functions
 
@@ -93,7 +109,7 @@ News for package rnirs
 - Various internal modifications
 
 
-##----------------- Version 1.8-0
+##------------------------------------- Version 1.8-0
 
 - Function matpoly renamed to "inls"
 
@@ -113,7 +129,7 @@ News for package rnirs
   pls.iw              Robust PLS algorithm (iterative Re-Weighting)
   
 
-##----------------- Version 1.7-6
+##------------------------------------- Version 1.7-6
 
 - New functions
 
@@ -124,34 +140,34 @@ News for package rnirs
     kpcdalm   Kernel PCDA
     
     
-##----------------- Version 1.7-5
+##------------------------------------- Version 1.7-5
 
 - Overall code cleaning and consistency modifications
 
 
-##----------------- Version 1.7-4
+##------------------------------------- Version 1.7-4
 
 - Modification of functions pinv and lmridge
 
 
-##----------------- Version 1.7-3
+##------------------------------------- Version 1.7-3
 
 - New function: lmridge
 
 
-##----------------- Version 1.7-2
+##------------------------------------- Version 1.7-2
 
 - Internal modifications of functions pca, pcr, plsr, plsda, plsdalm
 
 
-##----------------- Version 1.7-1
+##------------------------------------- Version 1.7-1
 
 - New function: pca.eigenk
 
 - Structural modification of functions pca.svd, pca.eigen and pca.eigen
 
 
-##----------------- Version 1.7-0
+##------------------------------------- Version 1.7-0
 
 - New functions:
 
@@ -173,14 +189,14 @@ News for package rnirs
 - New argument "colblocks" in functions blocscal, blockpls, blocksopca, blocksopls. 
 
 
-##----------------- Version 1.6-18
+##------------------------------------- Version 1.6-18
 
 - Internal modification of function pca (the default algorithm is now pca.eigen).
 
 - Add of the argument "kernel" in pca.svd and pca.eigen (faster for wide matrices).
 
 
-##----------------- Version 1.6-17
+##------------------------------------- Version 1.6-17
 
 - Functions kenston and matdis have been made faster.
 
@@ -191,12 +207,12 @@ News for package rnirs
 - New function: pls.rannar (PLS algorithm for wied matrices) 
 
 
-##----------------- Version 1.6-16
+##------------------------------------- Version 1.6-16
 
 - Modification of function pca.rob.
 
 
-##----------------- Version 1.6-15
+##------------------------------------- Version 1.6-15
 
 - Modification of function pca.rob.
 
@@ -209,7 +225,7 @@ News for package rnirs
     out.eucl (Outlyinness from Euclidean distance)
 
 
-##----------------- Version 1.6-14
+##------------------------------------- Version 1.6-14
 
 - Package matrixStats (available on CRAN) has been added in the dependencies.
 This package is used for making faster some parts of the functions. 
@@ -218,7 +234,7 @@ It must now be installed for using rnirs.
 - Function scale (package base; used internally) has been replaced by the faster functions .center and .scale, available in zfunctions.R. 
 
 
-##----------------- Version 1.6-13
+##------------------------------------- Version 1.6-13
 
 - Modifications in functions stahel and pca.rob. Some arguments or default values have changed. 
 
@@ -227,7 +243,7 @@ It must now be installed for using rnirs.
 - Correction of eigen-values output in function pca.nipalsna.
 
 
-##----------------- Version 1.6-12
+##------------------------------------- Version 1.6-12
 
 - Default values of argument "nsim" in functions stahel and pca.rob has changed.
 
@@ -236,7 +252,7 @@ It must now be installed for using rnirs.
 - Correction of a small bug in pca.sph (sv calculation).
 
 
-##----------------- Version 1.6-11
+##------------------------------------- Version 1.6-11
 
 - Fonction influ.pls has been temporarely removed.
 
@@ -249,25 +265,25 @@ It must now be installed for using rnirs.
 - Changes in functions pca.cr and pca.rob: argument "nrep" has been replaced by "nsim". 
 
 
-##----------------- Version 1.6-10
+##------------------------------------- Version 1.6-10
 
 - Fonction fda has been renamed to fda.svd (FDA using SVD), and
 a new function fda (using eigen decomposition) has been created.
 
 
-##----------------- Version 1.6-9
+##------------------------------------- Version 1.6-9
 
 - Default value of argument prior in function daprob has changed.
 
 
 
-##----------------- Version 1.6-8
+##------------------------------------- Version 1.6-8
 
 - Meaning of parameter theta in functions dasdod has been modified (multiplies OD instead of SD).
 
 
 
-##----------------- Version 1.6-7
+##------------------------------------- Version 1.6-7
 
 - Functions fda, centers and matB have been made faster.
 
@@ -276,31 +292,31 @@ a new function fda (using eigen decomposition) has been created.
 - Code cleaning in discrimination functions.
 
 
-##----------------- Version 1.6-6
+##------------------------------------- Version 1.6-6
 
 - Function dasdod have been simplified. Some arguments have been removed.
 
 
-##----------------- Version 1.6-5
+##------------------------------------- Version 1.6-5
 
 - Function pca.rob has been added.
 
 
-##----------------- Version 1.6-4
+##------------------------------------- Version 1.6-4
 
 - Modification of cutoff calculation in scordis and odis. Cutoff calculations have been removed from function dis.
 
 - Function pca.rob has been temporarily removed.
 
 
-##----------------- Version 1.6-3
+##------------------------------------- Version 1.6-3
 
 - Simplification and improvement of function pca.rob. Some arguments have been removed.
 
 - Object xss have been renamed eigs in all the PCA functions.
 
 
-##----------------- Version 1.6-2
+##------------------------------------- Version 1.6-2
 
 - Simplification of functions dis, scordis, odis, lscordis, lodis. Standardized distances
 are calculated in a more direct way. Arguments cri and out have been removed.
@@ -308,7 +324,7 @@ are calculated in a more direct way. Arguments cri and out have been removed.
 - Order of arguments in .dis and .mah have changed.
 
 
-##----------------- Version 1.6-1
+##------------------------------------- Version 1.6-1
 
 - Removing the dependence of package rnirs to packages ggplot2, gridExtra and scales.
 Functions plotxy and plotmse use now basic R functions for graphics.
@@ -318,7 +334,7 @@ Functions plotxy and plotmse use now basic R functions for graphics.
 - Small bug corrceted in .detrend.lowess and .detrend.als
 
 
-##----------------- Version 1.6-0
+##------------------------------------- Version 1.6-0
 
 - New functions:
 
@@ -331,7 +347,7 @@ Functions plotxy and plotmse use now basic R functions for graphics.
     .stahel (Stahel-Donoho outlyingness)
 
 
-##----------------- Version 1.5-3
+##------------------------------------- Version 1.5-3
 
 - For better consistency between the functions using row weighting (argument "weights"),
 the weights are now automaticaly "normalized" to sum to 1 before the next computations. 
@@ -352,12 +368,12 @@ the weights are now automaticaly "normalized" to sum to 1 before the next comput
 - Various code cleaning.
 
 
-##----------------- Version 1.5-2
+##------------------------------------- Version 1.5-2
 
 - Better management of weights = 0 in pca.svd.
 
 
-##----------------- Version 1.5-1
+##------------------------------------- Version 1.5-1
 
 - For facilitating package maintenance and evolution, 
 
@@ -369,7 +385,7 @@ have been renamed to pca.svd, pca.eigen, pca.nipals, pls.kernel and pls.nipals
 (c) Functions knnwr and knnwda have been renamed knnr and knnda 
 
 
-###----------------- Version 1.5-0
+###------------------------------------- Version 1.5-0
 
 - Function wkern has been renamed to wdist, and slightly modified (in particular for the management of the outliers). This may vary slightly the numerical results of
 functions using wdist.
@@ -397,7 +413,7 @@ functions using wdist.
 - Various code cleaning.
 
 
-###----------------- Version 1.4-1
+###------------------------------------- Version 1.4-1
 
 - Improvement of function headm.
 
@@ -406,55 +422,55 @@ functions using wdist.
 - Argument "baseline" in function detrend has been removed (see examples).
 
 
-###----------------- Version 1.4-0
+###------------------------------------- Version 1.4-0
 
 - New function stackavg.cla
 
 
-###----------------- Version 1.3-7
+###------------------------------------- Version 1.3-7
 
 - Bug correction in lwlplsdalm. The bug concerned only the case where the knn selection selected samples having all the same class.
 
 - Modification of help page of function kenston. 
 
 
-###----------------- Version 1.3-6
+###------------------------------------- Version 1.3-6
 
 - Modifications in few help pages.
 
 
-###----------------- Version 1.3-5
+###------------------------------------- Version 1.3-5
 
 - Correction of a small bug in function plsdalm (consistency with functions sdis, odis).
 
 
-###----------------- Version 1.3-4
+###------------------------------------- Version 1.3-4
 
 - Add of variable contributions in outputs of function pca.
 
 
-###----------------- Version 1.3-3
+###------------------------------------- Version 1.3-3
 
 - Correction of a bug in function plotxy (colors with group).
 
 - Modification of help pages of functions blockscal, blockpls and blocksopls.
 
 
-###----------------- Version 1.3-2
+###------------------------------------- Version 1.3-2
 
 - New functions lscordis and lodis.
 
 - Slight modification of outputs of function locw.
 
 
-###----------------- Version 1.3-1
+###------------------------------------- Version 1.3-1
 
 - Correction of a small bug in function plotxy.
 
 - Modifictaion of examples.
 
 
-###----------------- Version 1.3-0
+###------------------------------------- Version 1.3-0
 
 - Correction of a small bug in function fda.
 
@@ -477,7 +493,7 @@ functions using wdist.
 - Few modifications of outpits of functions locw, lwplsr, etc.
 
 
-###----------------- Version 1.2-3
+###------------------------------------- Version 1.2-3
 
 - Package ptw has been added and is now required.
 
@@ -490,22 +506,22 @@ functions using wdist.
 - Function selw was removed.
 
 
-###----------------- Version 1.2-2
+###------------------------------------- Version 1.2-2
 
 - Correction of a small bug in function fitcv.
 
 
-###----------------- Version 1.2-1
+###------------------------------------- Version 1.2-1
 
 - Correction of the example in the help page of function orthog.
 
 
-###----------------- Version 1.2-0
+###------------------------------------- Version 1.2-0
 
 - New functions:  blocksopls, blocksopca.
 
 
-###----------------- Version 1.1-2
+###------------------------------------- Version 1.1-2
 
 - New function:  headm.
 
@@ -514,7 +530,7 @@ functions using wdist.
 - Function blockreduct has been renamed to blockpls.
 
 
-###----------------- Version 1.1-1
+###------------------------------------- Version 1.1-1
 
 - New functions:    
 
@@ -524,7 +540,7 @@ functions using wdist.
 . orthog.
 
 
-###----------------- Version 1.1-0
+###------------------------------------- Version 1.1-0
 
 - Major code cleaning in the functions for improving memory management. 
 
@@ -536,34 +552,34 @@ locw was removed.
 - Function pcr was removed.
 
 
-###----------------- Version 1.0-10
+###------------------------------------- Version 1.0-10
 
 - For facilitating the learning of the package, all the examples in the vignettes
 have been moved again in the example sections of the help pages. 
 Vignettes have been removed.
 
-###----------------- Version 1.0-9
+###------------------------------------- Version 1.0-9
 
 - Bug correction in plotmse. Now, "group" must be a column of "obj".
 
 
-###----------------- Version 1.0-8
+###------------------------------------- Version 1.0-8
 
 - Minor correction of DESCRIPTION file.
 
 - Minor changes in examples of  help pages.
 
-###----------------- Version 1.0-7
+###------------------------------------- Version 1.0-7
 
 - For compatibility with CRAN rules: Long and/or documented examples moved from the help pages to vignettes.
 
 
-###----------------- Version 1.0-6
+###------------------------------------- Version 1.0-6
 
 - Function stackmod: simplification (y is now univariate) and correction of potential minor bug.
 
 
-###----------------- Version 1.0-5
+###------------------------------------- Version 1.0-5
 
 - Minor changes in documentations.
 

@@ -1,4 +1,4 @@
-kenston <- function(X, m, diss = c("euclidean", "mahalanobis", "correlation")) {
+sampks <- function(X, m, diss = c("euclidean", "mahalanobis", "correlation")) {
 
   diss <- match.arg(diss)
   

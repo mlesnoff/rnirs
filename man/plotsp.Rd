@@ -93,7 +93,7 @@ plotsp(X, blocks = blocks)
 fm <- pca(X, ncomp = 50)
 P <- fm$P
 
-plotsp1(t(P), main = "Loadings", ylab = "Value")
+plotsp1(t(P), ylab = "Value")
 
 }
 

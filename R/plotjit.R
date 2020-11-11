@@ -1,27 +1,24 @@
-plotxy <- function(X, asp = 1, col = NULL, alpha.f = .8,
-  group = NULL, legend = TRUE, legend.title = NULL, ncol = 1,
-  zeroes = FALSE, circle = FALSE, ellipse = FALSE,
-  labels = FALSE,
+plotjit <- function(x, y, group = NULL, 
+  jit = 1, col = NULL, alpha.f = .8,
+  legend = TRUE, legend.title = NULL, ncol = 2, med = TRUE,
   ...) {
   
-  X <- as.data.frame(X[, 1:2])
-  rownam <- row.names(X)
+  if(!is.factor(x))
+    x <- as.factor(x)
+  
+  zx <- as.numeric(x)
+  Class <- jitter(zx, factor = jit)
+  ncla <- length(levels(x))
   
   fg <- "grey70"
   
-  plot(X, 
+  plot(Class, y,
     type = "n", xaxt = "n",
     las = 1, fg = fg,
-    asp = asp,
     ...
     )
-  axis(side = 1, fg = fg, asp = asp, ...)
-  
-  if(zeroes)
-    abline(h = 0, v = 0, lty = 2, col = fg)
-      
-  if(circle)
-    lines(.ellips(diag(2), c(0, 0), 1)$X, col = fg)
+  axis(side = 1, fg = fg, at = 1:ncla, 
+       labels = as.character(levels(x)))
   
   if(is.null(group)) {
     
@@ -30,15 +27,10 @@ plotxy <- function(X, asp = 1, col = NULL, alpha.f = .8,
     
     col <- adjustcolor(col, alpha.f)
     
-    if(!labels)
-      points(X, col = col, ...)
-    else
-      text(X[, 1], X[, 2], rownam, col = col)
-    
-    if(ellipse)
-      lines(.ellips(cov(X), .xmean(X), sqrt(qchisq(.95, df = 2)))$X, col = "grey")
+    points(Class, y, col = col, ...)
   
     }
+  
   else {
       
     if(!is.factor(group))
@@ -58,16 +50,10 @@ plotxy <- function(X, asp = 1, col = NULL, alpha.f = .8,
     
     for(i in 1:nlev) {
       
-      z <- X[group == levs[i], , drop = FALSE]
-      zrownam <- row.names(z)
+      zClass <- Class[group == levs[i]]
+      zy <- y[group == levs[i]]
       
-      if(!labels)
-        points(z, col = col[i], ...)
-      else
-        text(z[, 1], z[, 2], zrownam, col = col[i], ...)
-      
-      if(ellipse)
-        lines(.ellips(cov(z), .xmean(z), sqrt(qchisq(.95, df = 2)))$X, col = col[i])
+      points(zClass, zy, col = col[i], ...)
 
       }
 
@@ -86,8 +72,17 @@ plotxy <- function(X, asp = 1, col = NULL, alpha.f = .8,
         title = legend.title)
       
       }
+
     
+  
     }
   
-  
+  if(med) {
+    zx <- unique(x)
+    for(i in 1:length(zx)) {
+      s <- x == zx[i]
+      points(mean(Class[s]), median(y[s]), col = "blue", pch = 16, cex = 1.5)
+      }
+    }
+
   }

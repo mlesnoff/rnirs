@@ -1,46 +1,44 @@
-sampclas <- function(X, y, m = 1, meth = c("random")) {
+sampclas <- function(x, y = NULL, m = 1, seed = NULL) {
   
-  meth <- match.arg(meth)
+  x <- as.integer(c(x))
   
-  X <- .matrix(X)
-  n <- nrow(X)
+  n <- length(x)
+  ni <- tabulate(as.factor(x))
+  nclas <- length(ni)
+  lev <- sort(unique(x))
 
-  y <- as.factor(y)
-  ni <- tabulate(y)
-  nclus <- length(ni)
-  lev <- as.character(levels(y))
+  if(length(m) == 1) 
+    m <- rep(m, nclas)
+  else
+    if(length(m) != nclas)
+      stop("\n\n  Length of argument 'm' must be =1 or =the number of classes in vector'x'. \n\n") 
   
-  if(length(m) == 1) m <- rep(m, nclus)
-  
-  z <- data.frame(rownum = 1:n, y = y)
-  
-  for(i in 1:nclus) {
+  s <- list()
+  set.seed(seed = seed) 
+  for(i in 1:nclas) {
     
-    u <- z[as.numeric(z$y) == i, , drop = FALSE]
+    m[i] <- min(m[i], ni[i])
     
-    if(length(u) == 0) {
-      zs <- NULL
-      zm <- 0
-      }
+    zs <- which(x == lev[i])
+    
+    
+    if(is.null(y)) {
+      s[[i]] <- sort(sample(zs, size = m[i], replace = FALSE))
+      } 
     else {
-      n.u <- nrow(u)
-      zm <- m[i]
-      if(n.u < zm) zm <- n.u
-      if(meth == "random") 
-        zs <- sort(sample(u$rownum, size = zm))
+      zy <- y[zs]
+      ## "order(y) = 3 7 etc." means: the 1st lower value is the component 3 of the vector,
+      ## the 2nd lower value is the component 7 of the vector,
+      id <- order(zy)
+      u <- round(seq(1, ni[i], length = m[i]))
+      s[[i]] <- sort(zs[id[u]])
       }
-    
-    if(i == 1) s <- zs else s <- c(s, zs)
-    if(i == 1) ns <- zm else ns <- c(ns, zm)
-    
+  
     }
+  set.seed(seed = NULL)
+  
+  names(s) <- lev
 
-  p <- ni / sum(ni) 
-  
-  tab <- data.frame(y = lev, n = ni, p = p, m = ns)
-  tab$psamp <- tab$m / sum(tab$m)
-  tab[, c("p", "psamp")] <- round(tab[, c("p", "psamp")], digits = 3)
-  
-  list(s = s, tab = tab, y = z$y)
+  s
   
   }

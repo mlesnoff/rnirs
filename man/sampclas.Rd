@@ -6,32 +6,40 @@
 
 \description{
 
-Random sampling row observations of a data set within pre-defined classes.
+Stratified sampling of observations on pre-defined classes.
+
+If argument \code{y = NULL} (default), the sampling is random within each class. If not, the sampling is systematic, i.e. not random (grid), over the quantitative variable \eqn{y}.
 
 }
 
 \usage{
 
-sampclas(X, y, m = 1, meth = c("random"))
+sampclas(x, y = NULL, m = 1, seed = NULL)
 
 }
 
 \arguments{
 
-\item{X}{A \eqn{n x p} matrix or data frame in which row observations are selected.}
+\item{x}{A integer vector of length \eqn{n} defining the class membership of the observations.}
 
-\item{y}{A vector of length \eqn{n} defining the class membership of the observations.}
 
-\item{m}{An integer defining the equal number of observation(s) to select per class, or a vector of integers defining the number to select for each class. In the last case, the vector must have a length equal to the number of classes.}
+\item{y}{A vector of length \eqn{n} defining the quantitative variable for the systematic sampling. If \code{NULL} (default), the sampling is random.}
 
-\item{meth}{Method of selection of the observations in each class. In the present version of the function, the only possible value is "random".}
+
+\item{m}{Either an integer defining the (equal) number of observation(s) to select per class, or a vector of integers defining the number to select for each class. In the last case, the vector must have a length equal to the number of classes.}
+
+\item{seed}{An integer defining the seed for the random simulations, or \code{NULL} (default). See \code{\link{set.seed}}.}
+
 
 }
 
 \value{
-A list with various outputs, such as:
-\item{s}{A vector of the row indexes to select in the data \eqn{X}.}
+
+A vector of the indexes (i.e. component numbers in \eqn{x}) of the selected observations.
+
 }
+
+
 
 \references{
 
@@ -41,35 +49,44 @@ Naes, T., 1987. The design of calibration in near infra-red reflectance analysis
 
 \examples{
 
+x <- sample(c(1, 3, 4), size = 20, replace = TRUE)
+x
+table(x)
+
+s <- sampclas(x, m = 2, seed = 1)
+s
+unlist(s)
+
+y <- rnorm(length(x))
+sampclas(x, y, m = 2)
+
+########## Representative stratified sampling from an unsupervised clustering
+
 data(datcass)
-
 X <- datcass$Xr
+y <- datcass$yr
+n <- nrow(X)
 
-fm <- pca.svd(X, ncomp = 10)
-nclas <- 3
-z <- kmeans(x = fm$T, centers = nclas, nstart = 25, iter.max = 50)
-names(z)
-y <- z$cluster
+fm <- pca.eigenk(X, ncomp = 10)
+z <- kmeans(x = fm$T, centers = 3, nstart = 25, iter.max = 50)
+x <- z$cluster
+z <- table(x)
+p <- z / n
+p
 
-u <- sampclas(X = fm$T, y = y, m = 5)
-names(u)
-u$tab
-u$y
-u$s
-u$y[u$s]
+psamp <- .20
+m <- round(psamp * n * p)
+m
 
-comp <- c(1, 2)
-#comp <- c(2, 3)
-par(mfrow = c(1, 2))
-plot(fm$T[, comp], col = y)
-plot(fm$T[, comp], col = "grey")
-points(fm$T[u$s, comp], col = u$y[u$s], pch = 19)
-par(mfrow = c(1, 1))
+## Random
 
-u <- sampclas(X = fm$T, y = y, m = c(2, 0, 10))
-u$tab
-u$s
-u$y[u$s]
+s <- sampclas(x, m = m, seed = 1)
+s
+
+## Systematic for y
+
+s <- sampclas(x, y, m = m)
+s
 
 }
 

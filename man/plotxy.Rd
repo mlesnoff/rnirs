@@ -2,12 +2,12 @@
 \alias{plotxy}
 \encoding{latin1}
 
-\title{2d scatter plot}
+\title{2-d scatter plot}
 
-\description{2d scatter plot.}
+\description{2-dimension scatter plot.}
 
 \usage{
-plotxy(X, asp = 1, col = NULL, 
+plotxy(X, asp = 1, col = NULL, alpha.f = .8,
   group = NULL, legend = TRUE, legend.title = NULL, ncol = 1,
   zeroes = FALSE, circle = FALSE, ellipse = FALSE,
   labels = FALSE,
@@ -21,6 +21,8 @@ plotxy(X, asp = 1, col = NULL,
 \item{asp}{Scalar. Giving the aspect ratio y/x. The value \code{asp = 0} is the default in \code{\link{plot.default}} (no constraints on the ratio). See \code{\link{plot.default}}.}
 
 \item{col}{A color, or a vector of colors (of length equal to the number of groups), defining the color(s) of the points.}
+
+\item{alpha.f}{Scalar modifying the opacity of the points in the graphics; typically in [0,1]. See \code{\link{adjustcolor}}.}
 
 \item{group}{A vector of length \eqn{n} defining groups of observations to be plotted with different colors (default to \code{NULL}).}
 

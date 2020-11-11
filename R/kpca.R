@@ -30,7 +30,7 @@ kpca <- function(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
   z <- data.frame(ncomp = 1:ncomp, var = eig, pvar = eig / xsstot)
   z$cumpvar <- cumsum(z$pvar)
   row.names(z) <- 1:ncomp
-  explvarx <- z
+  explvar <- z
   
   Tu <- NULL
   if(!is.null(Xu)) {
@@ -52,7 +52,7 @@ kpca <- function(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
   colnames(T) <- colnames(A) <-  paste("comp", 1:ncomp, sep = "")
   
   list(Tr = T, Tu = Tu, 
-    eig = eig, sv = sv, explvarx = explvarx, values = fm$values,
+    eig = eig, sv = sv, explvar = explvar, values = fm$values,
     weights = weights, T.ortho = TRUE) 
   
   }

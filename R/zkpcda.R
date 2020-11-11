@@ -62,7 +62,7 @@
 
   list(y = y, fit = fit, r = r,
     Tr = fm$Tr, Tu = fm$Tu, eig = fm$eig, sv = fm$sv,
-    weights = fm$weights, explvarx = fm$explvarx, 
+    weights = fm$weights, explvarx = fm$explvar, 
     T.ortho = fm$T.ortho, ni = ni)
 
   }

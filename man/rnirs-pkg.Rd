@@ -53,7 +53,7 @@ See https://github.com/mlesnoff/rnirs for last version and installation.
 ------------ \bold{Sampling}
 
 \tabular{ll}{
-  \code{\link{kenston}} \tab Kennard-Stone sampling \cr
+  \code{\link{sampks}} \tab Kennard-Stone sampling \cr
   \code{\link{sampclas}} \tab Within-class sampling\cr
   }
 

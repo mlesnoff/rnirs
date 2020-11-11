@@ -99,7 +99,7 @@ fm$P
 
 ### Proportion of explained X-variance
 
-z <- fm$explvarx
+z <- fm$explvar
 z
 barplot(100 * z$pvar, names.arg = paste("comp", z$ncomp), 
   ylab = "Pct. of variance explained")
@@ -146,7 +146,7 @@ T <- rbind(Tr, Tu)
 row.names(T) <- 1:nrow(T)
 group <- c(rep("Reference", nrow(Tr)), rep("Unknown", nrow(Tu)))
 plotxy(T, group = group, pch = 16, zeroes = TRUE)
-plotxy(T, group = group, labels = TRUE, zeroes = TRUE)
+plotxy(T, group = group, labels = TRUE, zeroes = TRUE, alpha.f = 1)
 
 }
 
