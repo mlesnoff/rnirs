@@ -51,7 +51,7 @@ https://github.com/mlesnoff/rnirs
 
 - **pca**: PCA with the available algorithms below
 
-- **Algorithms for usual PLS**
+- **Algorithms for usual PCA**
 
   - pca.eigen: EIGEN decomposition
   - pca.eigenk: EIGEN for wide matrices (kernel form)
@@ -82,8 +82,8 @@ https://github.com/mlesnoff/rnirs
 
 ### <span style="color:green"> FDA </span>
 
-- **fda**: EIGEN decomposition of a compromise
-- **fda.svd**: Weighted SVD decomposition of class centers
+- **fda**: Using EIGEN decomposition of a compromise
+- **fda.svd**: Using weighted SVD decomposition of class centers
 
 ### <span style="color:green"> Non Linear Kernel </span>
 
