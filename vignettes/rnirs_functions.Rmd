@@ -131,7 +131,7 @@ https://github.com/mlesnoff/rnirs
   - **plsr**: PLSR
   - **Auxiliary functions**
     - **bcoef**: b-coefficients for PLSR and PCR models
-    - Same other functions as for PCA/PLS
+    - Same other auxiliary functions as for PCA/PLS
 
 ### <span style="color:blue"> Non Linear </span> 
 
@@ -254,7 +254,7 @@ https://github.com/mlesnoff/rnirs
 - **pinv**: Moore-Penrose pseudo-inverse
 - **sourcedir**: Source every R functions in a directory
 - **wdist**: Weights for distances
-- See also the auxiliary functions in files **z...R**
+- See also the **auxiliary functions** in files **z...R**
 
 ## CONTACT
 
