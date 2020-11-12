@@ -1,5 +1,79 @@
 ## rnirs - Regression, Discrimination and Other Methods for Chemometrics  
-## Version 1.9-0
+## **Version 1.9-0**
+
+### **Keywords**
+
+Regression (R), Discrimination (DA), Factorial Analyses (PCA, PLS, FDA), Latent variables (PCR/DA, PLSR/DA), Ridge R/DA, Non Linear Kernel (KPCR/DA, KPLSR/DA, SVMR/DA), Local and Locally Weighting (KNNR/DA, KNN-LWPLSR/DA), Signal pre-processing, Plotting, Chemometrics, Spectral data
+
+### **News**
+
+See the NEWS of the last version by writing in the R console
+```{r}
+news(package = "rnirs")
+```
+### **Dependent packages**
+
+**rnris** is dependent to the following 6 packages available on CRAN:
+
+| Package | Which use in rnris? |
+|---|---|
+| data.table | Fast data management |
+| FNN | Fast search of nearest neighbours |
+| kernlab | SVM core algorithms |
+| matrixStats | Fast column- and row-wise operations on matrices |
+| ptw | ALS detrend algorithm |
+| signal | Savitsky-Golay derivation algorithm |
+
+### **Usage**
+
+Load **rnirs**. Write in the R console
+
+```{r}
+library(rnirs)
+```
+**To get an overview of the available functions**
+
+Write in the R console
+
+```{r}
+??rnirs
+```
+### **Contact**
+
+matthieu.lesnoff@cirad.fr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Package rnirs is a R statistical tool box for chemometrics, but is also generic for any type of data. 
 
@@ -19,16 +93,6 @@ The changes in the package versions are reported in the **NEWS** file above.
 
 If you use package **rnris** and like it, do not hesitate to **mark a star** on this GithHub web-page. You may also register as watchers for receiving alerts for some important updates. For both of these operations, you need to be connected on your account.
 
-**rnris** is dependent to the following 6 packages available on CRAN:
-
-| Package | Use in rnris |
-|---|---|
-| data.table | Fast data management |
-| FNN | Fast search of nearest neighbours |
-| kernlab | Core SVM algorithm |
-| matrixStats | Fast column- and row-wise operations on matrices |
-| ptw | ALS detrend algorithm |
-| signal | Savitsky-Golay derivation algorithm |
 
 ## Main features 
 
@@ -184,22 +248,4 @@ A. First, install the following packages from the CRAN
 
 B. Then, install the file **rnirs_....tar.gz** (Menu "Packages", "Install", and then "Install From Package Archive Files")
 
-## Usage
-
-Load **rnirs**. Write in the R console
-
-```{r}
-library(rnirs)
-```
-**To get an overview of the available functions**
-
-Write in the R console
-
-```{r}
-??rnirs
-```
-### Contact
-
-Matthieu Lesnoff
-matthieu.lesnoff@cirad.fr
 

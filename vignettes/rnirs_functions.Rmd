@@ -1,0 +1,111 @@
+---
+title: "Package rnirs"
+#author: "Matthieu Lesnoff (Cirad, UMR Selmet, Montpellier, France)"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Examples of data analyses}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE) 
+```
+
+## DATA MANAGEMENT
+
+### **Checking**
+
+- **checkdupl**, **rmdupl**: Find or remove duplicated row observations between two data sets
+- **checkna**: Find and count NA values in a data set
+
+### **Summary**
+
+- **centr**: Centers of classes
+- **dtaggregate**: Summary statistics with data subsets
+- **summ**: Summary of the variables of a data set
+
+### **Preprocessing**
+
+- **dderiv**: Derivation by finite difference
+- **detrend**: Detrend transformation (polynom, lowess, als)
+- **mavg**: Smoothing by moving average
+- **savgol**: Savitsky-Golay filtering (derivation)
+- **snv**: Standard-normal-deviation transformation
+
+## SAMPLING
+
+- **sampks**: Kennard-Stone sampling 
+- **sampclas**: Within-class (stratified) sampling
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Data summary and preprocessing
+
+* *checkdupl*: Duplicated rows between two data sets
+* *checkna*: NA values in a data set
+* *summ*: Summary of the variables of a data set
+* *selw*: Selection of wavelength ranges in spectra
+* *detrend*: Detrend transformation
+* *snv*: Standard-normal-deviation transformation
+* *dderiv*: Derivation by finite difference
+* *mavg*: Smoothing by moving average
+* *savgol*: Savitsky-Golay filtering
+
+## Factorial analyses
+
+* *pcasvd*: PCA by SVD decomposition
+* *pca, pls*: PCA and PLS orthogonal projections
+* *fda*: Factorial DA
+* *sdis, odis*: Score and orthogonal distances for a PCA or PLS score space
+
+## Quantitative predictive methods
+
+* *plsreg*: PLSR
+* *plsregw*: WLS-PLSR
+* *lplsr*: Local PLSR
+
+## Qualitative (discrimination) predictive methods
+
+* *daprob*: LDA and QDA (Probabilistic DA)
+* *dadis*: Distance-based DA
+* *daknn*: KNN DA
+* *daglm*: GLIM DA
+* *plsda*: PLSDA
+* *lplsda*: Local PLSDA
+* *lplsdalm*: Local PLSDA
+
+## Miscellaneous
+
+* *centr*: Centers of classes
+* *dummy*: Table of dummy variables
+* *matcov*: Between and within covariance matrices
+* *matdis*: Distance matrix (between individuals)
+* *getknn*: k-Nearest Neighbor Selection
+* *sampclas*: Within-class sampling
+* *xapprox*:  Matrix Approximation from multivariate scores and loadings
+* *plotsp*: Plotting spectra
+* *plotscor*: Plotting multivariate scores
+* *mse*: MSE, RMSE, SE, Bias and R2 for quantitative predictive models 
+* *err*:  Classification error rates for qualitative predictive models
+* *plotmse*:  Graphics for predictive rates
+* *fitcv*: Cross-validation
+* *fitcv*: Cross-validation for PLSR models
+
