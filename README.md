@@ -1,25 +1,25 @@
 ## rnirs - Regression, Discrimination and Other Methods for Chemometrics  
-## **Version 1.9-0**
+## <span style="color:grey40"> **Version 1.9-0** </span> 
 
-### **Keywords**
+### <span style="color:green"> **Keywords** </span> 
 
 **Regression** (R), **Discrimination** (DA), **Factorial Analyses** (PCA, PLS, FDA), **Latent variables** (PCR/DA, PLSR/DA), **Ridge R/DA**, **Non Linear Kernel** (KPCR/DA, KPLSR/DA, SVMR/DA), **Local and Locally Weighting** (KNNR/DA, KNN-LWPLSR/DA), **Signal pre-processing**, **Plotting**, **Chemometrics**, **Spectral data**
 
-### **News**
+### <span style="color:green"> **News** </span> 
 
 See the **NEWS** of the last version by writing in the R console
 ```{r}
 news(package = "rnirs")
 ```
 
-### **List of the functions**
+### <span style="color:green"> **List of the functions** </span> 
 
 See the **list of the availble functions** by writing in the R console
 ```{r}
 vignette("rnirs_functions")
 ```
 
-### **Dependent packages**
+### <span style="color:green"> **Dependent packages** </span> 
 
 **rnris** is dependent to the following 6 packages available on CRAN:
 
@@ -32,7 +32,7 @@ vignette("rnirs_functions")
 | ptw | ALS detrend algorithm |
 | signal | Savitsky-Golay derivation algorithm |
 
-### **Contact**
+### <span style="color:green"> **Contact** </span> 
 
 Matthieu Lesnoff
 
@@ -42,7 +42,7 @@ Matthieu Lesnoff
 
 **matthieu.lesnoff@cirad.fr**
 
-### **Installation**
+### <span style="color:green"> **Installation** </span> 
 
 You can install and update the package directly from GitHub, or by asking the .tar.gz or zip installation file (for the successive versions) to the author. 
 
