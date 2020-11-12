@@ -3,7 +3,7 @@
 \alias{blocksopca}
 \encoding{latin1}
 
-\title{Block dimension reduction by SO-PLS or SO-PCA}
+\title{Block dimension reduction by SO-PCA or SO-PLS}
 
 \description{
 

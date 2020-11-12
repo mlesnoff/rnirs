@@ -5,11 +5,11 @@
 \alias{pcdalm}
 \encoding{latin1}
 
-\title{PLSDA and PCDA}
+\title{PCDA and PLSDA}
 
 \description{
 
-Discrimination (DA) on PLS or PCA latent variables.
+Discrimination (DA) on PCA or PLS latent variables.
 
 - Function \code{plsda} fits PLSDA models, with various DA methods.
 
@@ -31,13 +31,13 @@ Row observations can eventually be weighted (using argument \code{weights}).
 
 \usage{
 
-plsda(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ...)
-
-plsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,  ...)
-
 pcda(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, da = dalm, ...)
 
 pcdalm(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...)
+
+plsda(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, da = dalm, ...)
+
+plsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel,  ...)
 
 }
 

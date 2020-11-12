@@ -2,7 +2,7 @@
 \alias{blockpls}
 \encoding{latin1}
 
-\title{Block dimension reduction by PLS or PCA}
+\title{Block dimension reduction by PCA or PLS}
 
 \description{
 

@@ -7,7 +7,7 @@
 
 \description{
 
-Prediction of the probability density of observations. Function \code{dmnorm} assumes a multivariate gaussian distribution for the reference (= training) observations. Function \code{dkern.gauss} returns a non parametric estimate using a (multiplicative) multivariate gaussian kernel estimator. 
+Prediction of the probability density of multivariate observations. Function \code{dmnorm} assumes a multivariate gaussian distribution for the reference (= training) observations. Function \code{dkern.gauss} returns a non parametric estimate using a (multiplicative) multivariate gaussian kernel estimator. 
 
 }
 

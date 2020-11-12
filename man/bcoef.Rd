@@ -2,11 +2,11 @@
 \alias{bcoef}
 \encoding{latin1}
 
-\title{b-coefficients for a PCR or PLSR model}
+\title{b-coefficients for PCR and PLSR models}
 
 \description{
 
-Function \code{bcoef} returns the "b-coefficients" (= regression coefficients for the \eqn{X}-matrix), including the intercept) from a PCR or PLSR model. 
+Function \code{bcoef} returns the "b-coefficients" (= regression coefficients for the \eqn{X}-matrix), including the intercept) from PCR and PLSR models. 
 
 The function is implemented only for algorithms providing orthogonal scores.
 

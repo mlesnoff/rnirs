@@ -5,13 +5,13 @@
 
 \encoding{latin1}
 
-\title{kNN-LWPLSR & DA}
+\title{KNN-LWPLSR & DA}
 
 \description{
 
-- Function \code{lwplsr} fits kNN-LWPLSR models 
+- Function \code{lwplsr} fits KNN-LWPLSR models 
 
-- Function \code{lwplsda} fits kNN-LWPLSDA models with various DA methods.
+- Function \code{lwplsda} fits KNN-LWPLSDA models with various DA methods.
 
 - Function \code{lwplsdalm} is a faster equivalent of \code{lwplsda(..., da = dalm, ...)}.
 
@@ -23,9 +23,9 @@ Note that the weights, and therefore the predictive WPLSR model, change for each
 
 The basic versions of LWPLSR (e.g. Sicard & Sabatier 2006, Kim et al 2011) use, for each observation to predict, all the \eqn{n} training observation. This can be very time consuming, in particular for large \eqn{n}. 
 
-A faster and often more efficient strategy is to preliminary select, in the training set, a number of \eqn{k} nearest neighbors to the observation to predict (this is referred to as \eqn{"weighting 1"} in function \code{\link{locw}}) and then to apply LWPLSR only to this pre-selected neighborhood (this is referred to as\eqn{weighting "2"} in \code{\link{locw}}). This strategy corresponds to kNN-LWPLSR (Lesnoff et al. 2020). 
+A faster and often more efficient strategy is to preliminary select, in the training set, a number of \eqn{k} nearest neighbors to the observation to predict (this is referred to as \eqn{"weighting 1"} in function \code{\link{locw}}) and then to apply LWPLSR only to this pre-selected neighborhood (this is referred to as\eqn{weighting "2"} in \code{\link{locw}}). This strategy corresponds to KNN-LWPLSR (Lesnoff et al. 2020). 
 
-kNN-LWPLSDA uses the same principle, though WPLSDA is used in place of WPLSR.
+KNN-LWPLSDA uses the same principle, though WPLSDA is used in place of WPLSR.
 
 In functions \code{lwplsr}, \code{lwplsda} and \code{lwplsdalm}, the dissimilarities used for computing the weights can be calculated from the original \eqn{X-}data, i.e. without preliminary dimension reduction, or when using argument \code{ncompdis}, from preliminary computed global PLS scores (Lesnoff et al. 2020).  
 
@@ -147,7 +147,7 @@ Xu <- detrend(Xu)
 dim(Xr)
 dim(Xu)
 
-###### A kNN-LWPLSR model where:
+###### A KNN-LWPLSR model where:
 ## The dissimilarities between the observations are defined
 ## by the Mahalanobis distances calculated in a global PLS score space
 ## of ncompdis = 10 components.
@@ -225,7 +225,7 @@ headm(Xu)
 table(yr)
 table(yu)
 
-###### A kNN-LWPLSDA model (with dalm) where:
+###### A KNN-LWPLSDA model (with dalm) where:
 ## The dissimilarities between the observations are defined
 ## by the Mahalanobis distances calculated from a global PLS score space
 ## of ncompdis = 10 components.

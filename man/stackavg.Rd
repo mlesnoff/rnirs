@@ -7,15 +7,15 @@
 
 \description{
 
-Model stacking (= averaging or ensemblism) for regression (quantitative response) and discrimination (qualitative response) models. 
+Model stacking (here = averaging) for regression (quantitative response) and discrimination (qualitative response) models. 
 
-In function \code{stackavg}, the stacking is unidimensional (the stacked variable is defined in argument \code{nam}) and implemented by:
+Functions \code{stackavg} and  \code{stackavg.cla} calculate "averages", eventually with \eqn{a priori} weighting, of univariate predictions returned by a set of different models:
 
-- arithmetic mean of the quantitative predictions for the regression models;
+- Arithmetic mean of the quantitative predictions for regression models;
 
-- vote of the predicted classes for the discrimination models. 
+- Vote of the predicted classes for discrimination models. 
 
-A weighting of the row observations is allowed (argument \code{weights}).
+A weighting of the predictions in the mean and vote is allowed (argument \code{weights}).
 
 }
 

@@ -3,15 +3,15 @@
 \alias{knnda}
 \encoding{latin1}
 
-\title{kNN-WR/WDA}
+\title{KNN Regression and Discrimination}
 
 \description{
 
-Functions \code{knnr} and \code{knnda} build kNN (eventually locally weighted) regression models for a quantitative (\code{knnr}) or qualitative (\code{knnda}) univariate response \eqn{y}.
+Functions \code{knnr} and \code{knnda} build KNN (eventually locally weighted) regression and discrimination models, respectively, for an univariate response \eqn{y}.
 
 The functions use functions \code{\link{getknn}} and \code{\link{locw}}. See the code for details
 
-For each new observation to predict, the principle of kNN regression models (R and DA) is to select a number of \eqn{k} nearest neighbors and to calculate the prediction by the average of the response \eqn{y} (for regression) or the most frequent class in \eqn{y} (for discrimination) over this neighborhood. The kNN selection step is referred to as \eqn{weighting "1"} in \code{\link{locw}}. In standard kNN regression models, the statistical weight of each of the \eqn{k} neighbors is \eqn{1/k}. In locally weighted kNN regression models, the statistical weights of the neighbors depend from the dissimilarities (preliminary calculated) between the observation to predict and the \eqn{k} neighbors. This step is referred to as \eqn{weighting "2"} in \code{\link{locw}}.
+For each new observation to predict, the principle of KNN regression models (R and DA) is to select a number of \eqn{k} nearest neighbors and to calculate the prediction by the average of the response \eqn{y} (for regression) or the most frequent class in \eqn{y} (for discrimination) over this neighborhood. The KNN selection step is referred to as \eqn{weighting "1"} in \code{\link{locw}}. In standard KNN regression models, the statistical weight of each of the \eqn{k} neighbors is \eqn{1/k}. In locally weighted KNN regression models, the statistical weights of the neighbors depend from the dissimilarities (preliminary calculated) between the observation to predict and the \eqn{k} neighbors. This step is referred to as \eqn{weighting "2"} in \code{\link{locw}}.
 
 In \code{knnr} and \code{knnda}, the dissimilarities can be calculated from the original (i.e. not compressed) data or from preliminary computed global PLS scores.  
 
@@ -102,7 +102,7 @@ Xu <- detrend(Xu)
 headm(Xr)
 headm(Xu)
 
-## A kNN-WR model where:
+## A KNN-WR model where:
 ## The dissimilarities between the observations are defined
 ## by the Mahalanobis distances calculated from a global PLS score space
 ## of ncompdis = 10 components.

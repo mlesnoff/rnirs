@@ -4,21 +4,21 @@
 \alias{dkplsr}
 \encoding{latin1}
 
-\title{Non linear kernel PLSR and PCR Models}
+\title{Non linear kernel PCR and PLSR Models}
 
 \description{
 
-KPLSR, KPCR
-
-Function \code{kplsr} fits KPLSR models with the NIPALS algorithm (implemented in \code{\link{kpls.nipals}}) such as described in Rosipal & Trejo (2001). 
+\bold{KPCR and KPLSR}
 
 Function \code{kpcr} fits a KPCR model, i.e. a regression on latent variables (scores) of KPCA  (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001), computed by \code{\link{kpca}}.
+
+Function \code{kplsr} fits KPLSR models with the NIPALS algorithm (implemented in \code{\link{kpls.nipals}}) such as described in Rosipal & Trejo (2001). 
 
 The kernel Gram matrices \eqn{K} are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.
 
 Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 
-DKPLSR
+\bold{DKPLSR}
 
 The true kernel algorithms above are time expensive when \eqn{n > 500}, especially KPLSR due to the iterative deflation of the \eqn{n x n} training Gram matrix \eqn{K}. A much faster alternative to KPLSR is to run a "direct kernel PLSR" (DKPLSR) (Bennett & Embrechts 2003), i.e. to build preliminary kernel Gram matrices (such as doing a pre-processing on \eqn{X}), and then to run a usual PLSR algorithm on them. This is what does function \code{dkplsr}. See also examples in function \code{\link{kgram}}.   
 
@@ -28,10 +28,10 @@ See also the tuning facility with \code{\link{splitpar}}.
 
 \usage{
 
-kplsr(Xr, Yr, Xu, Yu = NULL, ncomp, 
+kpcr(Xr, Yr, Xu, Yu = NULL, ncomp, 
                  kern = kpol, weights = NULL, print = TRUE, ...)
 
-kpcr(Xr, Yr, Xu, Yu = NULL, ncomp, 
+kplsr(Xr, Yr, Xu, Yu = NULL, ncomp, 
                  kern = kpol, weights = NULL, print = TRUE, ...)
 
 dkplsr(Xr, Yr, Xu, Yu = NULL, ncomp, 

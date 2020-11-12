@@ -3,7 +3,7 @@
 \alias{rmdupl}
 \encoding{latin1}
 
-\title{Find or remove duplicated row observations between two data sets}
+\title{Find and remove duplicated row observations between two data sets}
 
 \description{
 

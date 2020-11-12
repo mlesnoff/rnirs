@@ -8,7 +8,7 @@
 
 CovSel: Variable selection for highly multivariate and multi-response calibration (Roger et al. 2011).
 
-Row observations can eventullay be weighted (not in the original article). 
+The function can give a priori weights to the observations with argument \code{weights} (not in the original article).
 
 }
 

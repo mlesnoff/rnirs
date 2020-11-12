@@ -3,11 +3,11 @@
 \alias{pcr}
 \encoding{latin1}
 
-\title{PLSR and PCR Models}
+\title{OCR and PLSR PCR Models}
 
 \description{
 
-Regression on PLS or PCA latent variables (scores). The functions are implemented only for algorithms providing orthogonal scores.
+Regression on PCA or PLS latent variables (scores). The functions are implemented only for algorithms providing orthogonal scores.
 
 Data are internally centered (column-wise) before the analyses, but they are not scaled (there is no argument \code{scale} in the functions). If needed, the user has to do the scaling before using the function.  
 
@@ -17,9 +17,9 @@ Row observations can eventually be weighted (using argument \code{weights}).
 
 \usage{
 
-plsr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...)
-
 pcr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...)
+
+plsr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...)
 
 }
 

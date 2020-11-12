@@ -3,13 +3,15 @@
 \alias{pca}
 \encoding{latin1}
 
-\title{PLS and PCA}
+\title{PCA and PLS}
 
 \description{
 
-Partial least squares (PLS) and principal component (PCA) analyses.
+Principal component (PCA) and partial least squares (PLS) analyses.
 
-Functions \code{pls} fit PLS1 or PLS2 models, and \code{pca} PCA models.
+Function  \code{pca} fits PCA models.
+
+Functions \code{pls} fit PLS1 or PLS2 models. 
 
 Data are internally centered (column-wise) before the analyses, but they are not scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.  
 
@@ -19,9 +21,9 @@ Row observations can eventually be weighted with a priori weights (using argumen
 
 \usage{
 
-pls(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...)
-
 pca(Xr, Xu = NULL, ncomp, algo = NULL, ...)
+
+pls(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...)
 
 }
 
@@ -70,24 +72,6 @@ set.seed(NULL)
 
 Xr <- X[1:8, ] ; Yr <- Y[1:8, ] 
 Xu <- X[9:10, ] ; Yu <- Y[9:10, ] 
-
-##################### PLS
-
-ncomp <- 3
-fm <- pls(Xr, Yr, ncomp = ncomp)
-names(fm)
-fm$Tr
-fm$P
-
-### Proportion of explained X-variance
-
-fm$explvarx
-
-### Projection of Xu on the score space Tr ==> Scores Tu
-
-fm <- pls(Xr, Yr, Xu, ncomp = ncomp)
-fm$Tr
-fm$Tu
 
 ##################### PCA
 
@@ -147,6 +131,24 @@ row.names(T) <- 1:nrow(T)
 group <- c(rep("Reference", nrow(Tr)), rep("Unknown", nrow(Tu)))
 plotxy(T, group = group, pch = 16, zeroes = TRUE)
 plotxy(T, group = group, labels = TRUE, zeroes = TRUE, alpha.f = 1)
+
+##################### PLS
+
+ncomp <- 3
+fm <- pls(Xr, Yr, ncomp = ncomp)
+names(fm)
+fm$Tr
+fm$P
+
+### Proportion of explained X-variance
+
+fm$explvarx
+
+### Projection of Xu on the score space Tr ==> Scores Tu
+
+fm <- pls(Xr, Yr, Xu, ncomp = ncomp)
+fm$Tr
+fm$Tu
 
 }
 

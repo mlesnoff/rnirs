@@ -1,57 +1,56 @@
 ## NEWS for package rnirs
 
-### **Version 1.9-0**
+## **Version 1.9-0**
 
-- **Renamed functions**
+#### **Renamed functions**
 
-  * kentson         to sampks
+- **kentson** to **sampks**
   
-  * selncomp.wold   to  selwold
+- **selncomp.wold** to  **selwold**  (with slight modification)
   
-  * segmcvkfold     to  segmkf                   
-  * segmcvmc        to  segmts                   
+- **segmcvkfold** to  **segmkf**                   
+- **segmcvmc** to  **segmts**                   
 
+#### **New functions**
 
-- **New functions**
-
-  * plotjit   : Jittered plot
+- **plotjit**: Jittered plot
   
-  * sampdp    : Duplex sampling algorithm 
+- **sampdp**: Duplex sampling algorithm 
   
+#### **New arguments**
 
-- **Function sampclas has changed.**
-
-
-- **New arguments**
-
-  * Argument 'ncomp' added to functions scordis and odis.
+- Argument **ncomp** added to functions **scordis** and **odis**
   
-  * Argument 'alpha.f' (color opacity for points) added function plotxy.
+- Argument **alpha.f** (color opacity for points) added function **plotxy**
   
-  * Argument 'weights' added to function daglm.
+- Argument **weights** added to function **daglm**
   
-  * Argument 'alpha' in functions pca.rob and pls.rob has changed of definition (was '1 - alpha' before).
+- Argument **alpha** in functions **pca.rob** and **pls.rob** has changed of definition (was **1 - alpha** before)
 
+#### **New outputs**
 
-- **New outputs**
-
-  * Output 'eig' in functions pca.eigen, etc. now contains the full set of eigenvalues (not only the first 'ncomp' values).
+- Output **eig** in functions **pca.eigen**, etc. now contains the full set of eigenvalues (not only the first **ncomp** values)
   
-  * Output 'explvarx' in functions pca and kpca  has been renamed to 'explvar'.
+- Output **explvarx** in functions **pca** and **kpca** has been renamed to **explvar**
     
+#### **Other**
 
-- **Re-organisation of some outputs in discrimination functions.**
+- Function **sampclas** has changed
+
+- Re-organisation of some outputs in discrimination functions
 
 
-### **Version 1.8-7**
 
-- **New functions**
 
-  * svmr          : SVM regression.
+## **Version 1.8-7**
+
+#### **New functions**
+
+- **svmr**: SVM regression
   
-  * svmc          : SVM discrimination (classification).
+- **svmc**: SVM discrimination (classification)
   
-  * splitpar      : Auxiliary function for tuning models.
+- **splitpar**: Auxiliary function for tuning models
 
 
 

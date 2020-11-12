@@ -7,13 +7,13 @@
 \alias{dkplsdalm}
 \encoding{latin1}
 
-\title{Non linear kernel PLSDA and PCDA models}
+\title{Non linear kernel PCDA and PLSDA models}
 
 \description{
 
-KPLSDA, KPCDA
+KPCDA and KPLSDA 
 
-Discrimination (DA) based on latent variables (scores) computed from KPLS (Rosipal & Trejo 2001) or KPCA (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001).
+Discrimination (DA) based on latent variables (scores) computed from KPCA (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001) or  KPLS (Rosipal & Trejo 2001).
 
 Functions \code{kplsda} and \code{kplsdalm} do the same as \code{\link{plsda}} and \code{\link{plsdalm}}, respectively, but using KPLS scores returned by \code{\link{kpls}}.
 
@@ -33,16 +33,16 @@ See also the tuning facility with \code{\link{splitpar}}.
 
 \usage{
 
-kplsda(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm, 
-                 kern = kpol, weights = NULL, print = TRUE, ...)
-
-kplsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, 
-                 kern = kpol, weights = NULL, print = TRUE, ...)
-
 kpcda(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm, 
                  kern = kpol, weights = NULL, print = TRUE, ...)
 
 kpcdalm(Xr, Yr, Xu, Yu = NULL, ncomp, 
+                 kern = kpol, weights = NULL, print = TRUE, ...)
+
+kplsda(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm, 
+                 kern = kpol, weights = NULL, print = TRUE, ...)
+
+kplsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, 
                  kern = kpol, weights = NULL, print = TRUE, ...)
 
 dkplsda(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm, 
