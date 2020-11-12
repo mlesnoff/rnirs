@@ -12,7 +12,7 @@ See the **NEWS** of the last version by writing in the R console
 news(package = "rnirs")
 ```
 
-### <span style="color:green"> **List of the functions** </span> 
+### <span style="color:green"> **Contents** </span> 
 
 See the **list of the availble functions** by writing in the R console
 ```{r}
