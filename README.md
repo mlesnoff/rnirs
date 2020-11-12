@@ -7,10 +7,18 @@
 
 ### **News**
 
-See the NEWS of the last version by writing in the R console
+See the **NEWS** of the last version by writing in the R console
 ```{r}
 news(package = "rnirs")
 ```
+
+### **List of the functions**
+
+See the **list of the availble functions** by writing in the R console
+```{r}
+vignette("rnirs_functions")
+```
+
 ### **Dependent packages**
 
 **rnris** is dependent to the following 6 packages available on CRAN:
