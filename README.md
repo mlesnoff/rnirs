@@ -48,7 +48,7 @@ You can install and update the package directly from GitHub, or by asking the .t
 
 Using Rstudio is recommended for installation and usage (https://www.rstudio.com/products/rstudio/download/).
 
-#### **From Github**
+#### **----------------- From Github**
 
 **Warning:** The new R base version 4.0.0 requires re-installing all the packages. The easiest way is to remove all the folders where have been installed the packages by the previous version, and then open Rstudio, going in the Package menu and re-installing them automatically with dependencies.
 
@@ -103,7 +103,7 @@ Which would you like to update?"
 ```
 it is recommended to skip updates.
 
-#### **From an archive file rnirs_....tar.gz with Rstudio**
+#### **----------------- From an archive file rnirs_....tar.gz with Rstudio**
 
 A. First, install the following packages from the CRAN
 
