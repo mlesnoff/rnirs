@@ -19,19 +19,19 @@ https://github.com/mlesnoff/rnirs
 
 ## DATA MANAGEMENT 
 
-### <span style="color:blue"> Checking </span> 
+### <span style="color:green"> Checking </span> 
 
 - **checkdupl**: Find duplicated row observations between two data sets 
 - **rmdupl**: Remove duplicated row observations between two data sets
 - **checkna**: Find and count NA values in a data set
 
-### <span style="color:blue"> Summary </span> 
+### <span style="color:green"> Summary </span> 
 
 - **centr**: Centers of classes
 - **dtaggregate**: Summary statistics with data subsets
 - **summ**: Summary of the variables of a data set
 
-### <span style="color:blue"> Preprocessing </span> 
+### <span style="color:green"> Preprocessing </span> 
 
 - **dderiv**: Derivation by finite difference
 - **detrend**: Detrend transformation (polynom, lowess, als)
@@ -39,7 +39,7 @@ https://github.com/mlesnoff/rnirs
 - **savgol**: Savitsky-Golay filtering (derivation)
 - **snv**: Standard-normal-deviation transformation
 
-### <span style="color:blue"> Sampling </span> 
+### <span style="color:green"> Sampling </span> 
 
 - **sampclas**: Within-class (stratified) sampling
 - **sampdp**: Duplex sampling 
@@ -47,7 +47,7 @@ https://github.com/mlesnoff/rnirs
 
 ## MULTIVARIATE FACTORIAL ANALYSES
 
-### <span style="color:blue"> PCA </span> 
+### <span style="color:green"> PCA </span> 
 
 - **pca**: PCA with the available algorithms below
 
@@ -65,7 +65,7 @@ https://github.com/mlesnoff/rnirs
   - pca.rob: Robust weighting
   - pca.sph: Spherical PCA (Locantore 1999) \cr
 
-### <span style="color:blue"> PLS </span>
+### <span style="color:green"> PLS </span>
 
 - **pls**: PLS with the available algorithms below.
 
@@ -80,12 +80,12 @@ https://github.com/mlesnoff/rnirs
   - **pls.iw**: Iterative re-weighting
   - **pls.rob**: Weighting
 
-### <span style="color:blue"> FDA </span>
+### <span style="color:green"> FDA </span>
 
 - **fda**: EIGEN decomposition of a compromise
 - **fda.svd**: Weighted SVD decomposition of class centers
 
-### <span style="color:blue"> Non Linear Kernel </span>
+### <span style="color:green"> Non Linear Kernel </span>
 
 - **KPCA (Scholkopf et al. 2002)**
 
@@ -106,13 +106,13 @@ https://github.com/mlesnoff/rnirs
   - **krbf**: Gausssian RBF
   - **ktanh**: Hyperbolic tangent
 
-### <span style="color:blue"> Outlyingness Multivariate Measures (Outliers) </span> 
+### <span style="color:green"> Outlyingness Multivariate Measures (Outliers) </span> 
 
 - **out.eucl**: Outlyingness using Euclidean distance
 - **out.sdod**: Outlyingness based on a score space
 - **out.stah**: Stahel-Donoho outlyingness
 
-### <span style="color:blue"> Auxilliary functions </span>
+### <span style="color:green"> Auxilliary functions </span>
 
 - **scordis, **lscordis**: Score distances for a score space
 - **odis**, **lodis**: Orthogonal distances for a score space
@@ -120,7 +120,7 @@ https://github.com/mlesnoff/rnirs
 
 ## REGRESSION MODELS
 
-### <span style="color:blue"> Linear </span> 
+### <span style="color:green"> Linear </span> 
 
 - **lmr**: Multiple linear regression
 - **rr**: Ridge Regression\cr
@@ -133,7 +133,7 @@ https://github.com/mlesnoff/rnirs
     - **bcoef**: b-coefficients for PLSR and PCR models
     - Same other auxiliary functions as for PCA/PLS
 
-### <span style="color:blue"> Non Linear </span> 
+### <span style="color:green"> Non Linear </span> 
 
 - **inlr**: Blocks for INLR (Berglund & Wold 1997)
 
@@ -158,7 +158,7 @@ https://github.com/mlesnoff/rnirs
       
 ## DA MODELS (DISCRIMINATION) 
 
-### <span style="color:blue"> DA methods </span> 
+### <span style="color:green"> DA methods </span> 
 
 - **Probabilistic**
 
@@ -174,7 +174,7 @@ https://github.com/mlesnoff/rnirs
   - **dalm**: Using multivariate linear regression
   - **darr**: Using linear ridge regression
   
-### <span style="color:blue"> Linear </span> 
+### <span style="color:green"> Linear </span> 
 
 - **On latent variables**
   - **pcda**: PCDA using any above DA method
@@ -182,7 +182,7 @@ https://github.com/mlesnoff/rnirs
   - **plsda**: PLSDA using any above DA method
   - **plsdalm**: same as **plsda(dalm)** but faster
   
-### <span style="color:blue"> Non Linear </span> 
+### <span style="color:green"> Non Linear </span> 
   
 - **Kernel**
   - **dakrr**: Using kernel ridge regression
