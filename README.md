@@ -1,9 +1,9 @@
-## **Package rnirs - Regression, Discrimination and Other Methods for Chemometrics**  
+## **rnirs - Regression, Discrimination and Other Methods for Chemometrics**  
 ## <span style="color:grey70"> **Version 1.9-0** </span> 
 
-### <span style="color:green"> **Keywords** </span> 
+### <span style="color:green"> **Key features** </span> 
 
-**Regression** (R), **Discrimination** (DA), **Factorial Analyses** (PCA, PLS, FDA), **Latent variables** (PCR/DA, PLSR/DA), **Ridge R/DA**, **Non Linear Kernel** (KPCR/DA, KPLSR/DA, SVMR/DA), **Local and Locally Weighting** (KNNR/DA, KNN-LWPLSR/DA), **Signal pre-processing** (derivation, detrend, etc.) , **Cross-validation**, **Plotting**, **Chemometrics**, **Spectral data**
+**Regression** (R), **Discrimination** (DA), **Factorial Analyses** (PCA, PLS, FDA), **Partial Least Squares**, **Latent variables** (PCR/DA, PLSR/DA), **Ridge R/DA**, **Non Linear Kernel** (KPCA, KPLS, KPCR/DA, KPLSR/DA, SVMR/DA), **Local and Locally Weighting** (KNNR/DA, KNN-LWPLSR/DA), **Signal pre-processing** (derivation, detrend, etc.) , **Cross-validation**, **Plotting**, **Chemometrics**, **Spectral data**
 
 ### <span style="color:green"> **News** </span> 
 
@@ -15,7 +15,6 @@ news(package = "rnirs")
 ```
 
 ### <span style="color:green"> **Contents**  </span> 
-
 
 Click [**here**](https://github.com/mlesnoff/rnirs/blob/master/doc/rnirs_functions_github.md) to see the **list of the available functions** 
 
@@ -50,7 +49,7 @@ or write in the R console
 install.packages("remotes")
 ```
 
-#### <span style="color:green"> 2. Install package </span> 
+#### <span style="color:green"> 2. Install package **rnirs** </span> 
 
 **Most recent version**
 Write in the R console
