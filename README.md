@@ -57,6 +57,13 @@ Write in the R console
 ```{r}
 remotes::install_github("mlesnoff/rnirs", dependencies = TRUE)
 ```
+In case of the following question during installation process:
+```{r}
+These packages have more recent versions available.
+Which would you like to update?"
+```
+it is recommended to skip updates (usually choice **3** = None)
+
 **Any given tagged version**
 
 e.g. with tag "v1.9-0"
