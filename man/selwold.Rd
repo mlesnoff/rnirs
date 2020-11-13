@@ -2,19 +2,23 @@
 \alias{selwold}
 \encoding{latin1}
 
-\title{Heuristic selection of the number of components in a PLSR or PLSDA model with the Wold's criterion}
+\title{Heuristic selection of the number of components in a PCR/PLSR or PCDA/PLSDA model with the Wold's criterion}
 
 \description{
 
-The function helps to select the number of components in a PLSR or PLSDA model using a heuristic criterion (Wold, 1978). 
+The function helps to select the number of components in a PCR/PLSR or PCDA/PLSDA model using the heuristic "Wold criterion". 
 
-The criterion is \eqn{R = 1 - r(a+1) / r(a)} where \eqn{r} is the observed error rate quantifying the model performance (rmsep, msep, classification error rate, etc.) and \eqn{a} the model dimension (= nb. components). \eqn{R} represents the relative gain in efficiency after a new dimension is added to the model. The iterations continue until \eqn{R} becomes lower than a threshold value \eqn{alpha}. By default and as an indication, \eqn{alpha} is set to .01 in the function, but the user should set any more relevant value for his data, depending on his objective of parcimony.
+The criterion is the "precision gain ratio" \eqn{R = 1 - r(a+1) / r(a)} where \eqn{r} is the observed error rate quantifying the model performance (rmsep, msep, classification error rate, etc.) and \eqn{a} the model dimension (= nb. components). 
 
-In some cases, the observed error rate \eqn{r} is erratic, making difficult interpreting the \eqn{R} variations. This is for instance frequent with the classification error rate used in discrimination. For such a situation, \code{selwold} proposes two alternative to the observed error rate \eqn{r} (using argument \code{typ}):
+\eqn{R} represents the relative gain in efficiency after a new dimension is added to the model. The iterations continue until \eqn{R} becomes lower than a threshold value \eqn{alpha}. By default and as an indication, \eqn{alpha} is set to .01 in the function, but the user should set any more relevant value for his data, depending on his objective of parcimony.
+
+In the original article, Wold (1978; see also Bro et al. 2008) defined ratios comparing training vs. CV residual sums of squares (SSR and PRESS, respectively). Instead, function \code{selwold} compares homogeneous residual sums of squares, usually the PRESS, such as for instance in Li et al. (2002) and Andries et al. (2011). This homogeneous approach is equivalent to the "punish factor" described in Westad & Martens (2000).  
+
+In some cases, the observed error rate \eqn{r} is erratic, making difficult interpreting the \eqn{R} variations. In particular, this often occurs for classification error rates (discrimination). For such a situation, \code{selwold} proposes two better alternative to the observed error rate \eqn{r}, using argument \code{typ}:
 
 - \code{typ = "integral"}. \eqn{R} is calculated from the area under the observed error rate curve \eqn{r}. In that case, ratio \eqn{R} becomes \eqn{R = c.r(a+1) / c.r(a) - 1}, where \eqn{c.r} is the cumulated error rate ("area" under the curve).
 
-- \code{typ = "smoothed"}. \eqn{R} is calculated on a non-parametric smoothing  (using function \code{\link{lowess}}) of \eqn{r}.
+- \code{typ = "smoothed"}. \eqn{R} is calculated on a non-parametric smoothing of \eqn{r}. The smoothing is implemented with function \code{\link{lowess}}.
 
 }
 
@@ -46,6 +50,14 @@ selwold(obj, nam = "msep", alpha = .01,
 }
 
 \references{
+
+Andries, J.P.M., Vander Heyden, Y., Buydens, L.M.C., 2011. Improved variable reduction in partial least squares modelling based on Predictive-Property-Ranked Variables and adaptation of partial least squares complexity. Analytica Chimica Acta 705, 292-305. https://doi.org/10.1016/j.aca.2011.06.037
+
+Bro, R., Kjeldahl, K., Smilde, A.K., Kiers, H.A.L., 2008. Cross-validation of component models: A critical look at current methods. Anal Bioanal Chem 390, 1241-1251. https://doi.org/10.1007/s00216-007-1790-1
+
+Li, B., Morris, J., Martin, E.B., 2002. Model selection for partial least squares regression. Chemometrics and Intelligent Laboratory Systems 64, 79-89. https://doi.org/10.1016/S0169-7439(02)00051-5
+
+Westad, F., Martens, H., 2000. Variable Selection in near Infrared Spectroscopy Based on Significance Testing in Partial Least Squares Regression. J. Near Infrared Spectrosc., JNIRS 8, 117–124.
 
 Wold S. Cross-Validatory Estimation of the Number of Components in Factor and Principal Components Models. Technometrics. 1978;20(4):397-405
 

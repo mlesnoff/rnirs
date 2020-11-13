@@ -2,11 +2,16 @@
   
     packageStartupMessage(
       "Package rnirs version : 1.9-0 \n
-      --- See ??rnirs for an overview of available functions. \n
       
-      --- See at: https://github.com/mlesnoff/rnirs
-      --- (1) if they are a more recent version
-      --- (2) the NEWS file for the changes with the previous version.\n" 
+      --- To see what changed in the new version, write: 
+      --- news(package = 'rnirs')
+      
+      --- To see the available functions, write:
+      --- vignette('rnirs_functions')
+
+      --- Check at: https://github.com/mlesnoff/rnirs 
+      --- for eventual updates
+       
       )
 
   }
