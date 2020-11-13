@@ -52,6 +52,7 @@ install.packages("remotes")
 ### <span style="color:green"> 2. Install package **rnirs** </span> 
 
 **Most recent version**
+
 Write in the R console
 ```{r}
 remotes::install_github("mlesnoff/rnirs", dependencies = TRUE)
@@ -59,7 +60,8 @@ remotes::install_github("mlesnoff/rnirs", dependencies = TRUE)
 **Any given tagged version**
 
 e.g. with tag "v1.9-0"
-Write in the R console
+
+write in the R console
 ```{r}
 remotes::install_github("mlesnoff/rnirs@v1.9-0", dependencies = TRUE)
 ```
