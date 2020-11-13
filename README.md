@@ -7,7 +7,11 @@
 
 ### <span style="color:green"> **News** </span> 
 
-See the **NEWS** of the last version by writing in the R console
+See the **NEWS** of the last version: 
+
+https://github.com/mlesnoff/rnirs/blob/master/inst/NEWS.md
+
+or write in the R console
 ```{r}
 news(package = "rnirs")
 ```
