@@ -10,7 +10,7 @@
       --- vignette('rnirs_functions')
 
       --- Check at: https://github.com/mlesnoff/rnirs 
-      --- for eventual updates
+      --- for eventual updates"
        
       )
 
