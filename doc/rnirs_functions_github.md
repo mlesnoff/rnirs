@@ -1,19 +1,4 @@
----
-title: "R Package rnirs"
-#author: "Matthieu Lesnoff (Cirad, UMR Selmet, Montpellier, France)"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Examples of data analyses}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
-  chunk_output_type: console
----
-
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(echo = TRUE) 
-```
+# **R Package rnirs**
 
 **https://github.com/mlesnoff/rnirs**
 

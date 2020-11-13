@@ -7,11 +7,16 @@
 
 \description{
 
-Build a list of test segments for cross-validation (CV), eventually (randomly) repeated. Each segment is a vector of indexes of row observations (unless argument \code{y} is used).
+Build segments for two cross-validation strategies: K-Fold CV, and test-set (or Monte Carlo) CV. 
 
-- Function \code{segmkf} returns the \eqn{K} segments of a K-fold CV.
+The CV can eventually be randomly repeated. For each repetition:
 
-- Function \code{segmts} returns a segment (of length \eqn{m}) randomly sampled in the data set. This corresponds to a Monte Carlo CV.
+- Function \code{segmkf} (K-fold CV) returns the \eqn{K} segments.
+
+- Function \code{segmts} (test-set CV) returns a segment (of a given length \eqn{m}) randomly sampled in the data set.
+
+
+Each segment is a vector of indexes of row observations (unless argument \code{y} is used). 
 
 }
 
@@ -34,9 +39,9 @@ segmts(n, y = NULL, m, nrep, seed = NULL)
 
 \item{type}{The type K-fold CV. Possible values are "random" (default), "consecutive" and "interleaved".}
 
-\item{m}{The length of the segment in the Monte Carlo CV.}
+\item{m}{The length of the segment in the test-set CV.}
 
-\item{nrep}{The number of replications of the repeated CV.}
+\item{nrep}{The number of replications of the repeated CV. Default to \code{nrep = 1}.}
 
 \item{seed}{An integer defining the seed for the random simulation, or \code{NULL} (default). See \code{\link{set.seed}}.}
 
@@ -53,10 +58,10 @@ segmkf(n = 10, K = 3, type = "interleaved")
 # Leave-one-out
 segmkf(n = 10, K = 10)
 
-# replicated
+# repeated
 segmkf(n = 10, K = 3, nrep = 2)
 
-#### Monte Carlo
+#### Test-set (repeated)
 
 segmts(n = 10, m = 3, nrep = 5)
 
