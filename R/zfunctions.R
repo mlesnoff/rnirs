@@ -490,6 +490,16 @@
 
   }
 
+.subsetC <- function(X, cols, values) {
+  rows <- Reduce(
+    "&", 
+    lapply(
+      seq_along(cols), function(z) X[, cols[z]] == values[z]
+      )
+    )
+  X[rows, ]
+  }
+
 .xmean <- function(X, weights = NULL, row = FALSE) {
   
   X <- .matrix(X, row = row)

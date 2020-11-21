@@ -1,5 +1,16 @@
 ## NEWS for package rnirs
 
+## **Version 1.9-1**
+
+#### **Bug corrections**
+
+- **selwold**: bug corrected when **typ = "integral"**
+
+
+
+
+
+
 ## **Version 1.9-0**
 
 #### **Renamed functions**

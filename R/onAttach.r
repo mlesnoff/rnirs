@@ -1,7 +1,7 @@
 .onAttach <- function(libname, pkgname){
   
     packageStartupMessage(
-      "Package rnirs version : 1.9-0 \n
+      "Package rnirs version : 1.9-1
       
       --- To see what changed in the new version, write: 
       --- news(package = 'rnirs')
@@ -10,7 +10,7 @@
       --- vignette('rnirs_functions')
 
       --- Check at: https://github.com/mlesnoff/rnirs 
-      --- for eventual updates"
+      --- for eventual updates \n"
        
       )
 

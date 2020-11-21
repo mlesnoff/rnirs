@@ -1,5 +1,5 @@
 ## **rnirs - Regression, Discrimination and Other Methods for Chemometrics**  
-## <span style="color:grey70"> **Version 1.9-0** </span> 
+## <span style="color:grey70"> **Version 1.9-1** </span> 
 
 ## <span style="color:green"> **Key features** </span> 
 

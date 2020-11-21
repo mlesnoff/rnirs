@@ -1,31 +1,25 @@
-selwold <- function(obj, nam = "msep", alpha = .01, 
+selwold <- function(y, start = 0, 
   typ = c("raw", "smooth", "integral"), 
-  correct = TRUE, digits = 3,
-  plot = TRUE, ...
+  alpha = .01, digits = 3,
+  plot = c("R", "diff", "none"),
+  xlab = "Index", ylab = "Value", main = "y",
+  ...
   ) {
   
   typ <- match.arg(typ)
+  plot <- match.arg(plot)
   
-  if(is.vector(obj)){
-    obj <- data.frame(ncomp = 1:length(obj), y = obj)
-    nam <- "y"
-    }
-
-  res <- obj[order(obj$ncomp), c("ncomp", nam)]
-  
-  zncomp <- res$ncomp
-  r <- res[, nam]
+  zindex <- start:(start + length(y) - 1)
   
   ## val = Value on which are calculated diff and R
   val <- switch(
     typ,
-    raw = r,
-    smooth = lowess(zncomp, r, ...)$y,
-    integral = cumsum(r)
+    raw = y,
+    smooth = lowess(zindex, y, ...)$y,
+    integral = cumsum(y + abs(min(y)))
     )
   
   zdiff <- -diff(val)
-  
   R <- zdiff / abs(val[-length(val)])
   if(typ == "integral")
     R <- -R
@@ -33,72 +27,86 @@ selwold <- function(obj, nam = "msep", alpha = .01,
   zdiff <- c(zdiff, NA)
   R <- c(R, NA)
 
-  res$val <- val
-  res$diff <- zdiff
-  res$R <- R
+  opt <- zindex[y == min(y)][1]
+  sel <- zindex[R < alpha][1]
+  if(is.na(sel))
+    sel <- opt
+  #if(correct)
+  sel <- min(opt, sel)
   
-  opt <- res$ncomp[r == min(r)][1]
-  sel <- res$ncomp[R < alpha][1]
-  if(correct)
-    sel <- min(opt, sel)
+  dat <- data.frame(index = zindex, y = y)
+  n <- dim(dat)[1]
+  dat$val <- val
+  dat$diff <- -zdiff
+  dat$R <- round(R, digits = digits)
+  row.names(dat) <- 1:n
 
-  res$R <- round(res$R, digits = digits)
-
-  if(plot) {
+  if(plot %in% c("R", "diff")) {
     
     fg <- "grey70"
-    xmin <- min(zncomp)
-    xmax <- max(zncomp)
     col <- "#045a8d"
+    xmin <- min(zindex)
+    xmax <- max(zindex)
     eps <- .8
-    
-    n <- nrow(res)
     
     if(n <= 55)
       labs <- seq(xmin, xmax, by = 2)
     else
       labs <- seq(xmin, xmax, by = 10)
     
-    zval <- val
-    if(typ == "smooth")
-      zval <- r
-    
     par(mfrow = c(1, 2))
     
     plot(
-      zncomp, zval, 
-      typ = "l", col = col, pch = 16,
+      zindex, y, 
+      type = "l", col = col, pch = 16,
       xaxt = "n", las = 1, fg = fg, las = 1, 
       xlim = c(xmin - eps, xmax + eps), xaxs = "i",
-      xlab = "Nb. components", ylab = "Value", main = toupper(nam)
+      xlab = xlab, ylab = ylab, main = main
       )
-    points(zncomp, zval, pch = 16, col = col)
+    points(zindex, y, pch = 16, col = col)
+    if(plot == "R")
+    points(sel:opt, y[zindex %in% sel:opt], pch = 16, col = "grey", cex = 1.2)
+    points(opt, y[zindex == opt], pch = 16, col = "red", cex = 1.2)
     axis(side = 1, at = labs, labels = labs, fg = fg)
-    abline(v = c(opt, sel), col = c("grey", "blue"), lty = 2)
-    abline(h = min(r), col = "grey")
+    abline(h = min(y), col = "grey")
     
     if(typ == "smooth") {
-      lines(zncomp, val, typ = "l", col = "red")
+      lines(zindex, val, typ = "l", col = "red")
       legend("topright", legend = c("Raw", "Smoothed"),
         box.col = "grey70", ncol = 1,
         col = c("#045a8d", "red"), lty = 1, xjust = 1, yjust = 1)
       }
-      
-    plot(
-      zncomp, R, 
-      typ = "l", pch = 16, col = col,
-      xaxt = "n", las = 1, fg = fg, las = 1,
-      xlim = c(xmin - eps, xmax - 1 + eps), xaxs = "i",
-      xlab = "Nb. components", ylab = "R", main = "Relative gain"
-      )
-    points(zncomp, R, pch = 16, col = col)
-    axis(side = 1, at = labs, labels = labs, fg = fg)
-    abline(h = c(0, alpha), col = c("grey", "blue"), lty = 1:2)
+    
+    if(plot == "R") {
+      plot(
+        zindex, R, 
+        type = "l", pch = 16, col = col,
+        xaxt = "n", las = 1, fg = fg, las = 1,
+        xlim = c(xmin - eps, xmax - 1 + eps), xaxs = "i",
+        xlab = xlab, ylab = "R", main = "Relative gain"
+        )
+      points(zindex, R, pch = 16, col = col)
+      axis(side = 1, at = labs, labels = labs, fg = fg)
+      abline(h = c(0, alpha), col = c("grey", "blue"), lty = 1:2)
+    }
+    
+    if(plot == "diff") {
+      plot(
+        zindex, -zdiff, 
+        typ = "l", pch = 16, col = col,
+        xaxt = "n", las = 1, fg = fg, las = 1,
+        xlim = c(xmin - eps, xmax - 1 + eps), xaxs = "i",
+        xlab = xlab, ylab = "diff", main = "Difference"
+        )
+      points(zindex, -zdiff, pch = 16, col = col)
+      axis(side = 1, at = labs, labels = labs, fg = fg)
+      abline(h = median(-zdiff, na.rm = TRUE), col = "grey")
+    }
     
     par(mfrow = c(1, 1))
     
     }
 
-  list(res = res, sel = sel, opt = opt)
+  list(res = dat, opt = opt, sel = sel)
     
   }
