@@ -2,52 +2,78 @@
 \alias{selwold}
 \encoding{latin1}
 
-\title{Heuristic selection of the number of components in a PCR/PLSR or PCDA/PLSDA model with the Wold's criterion}
+\title{Heuristic selection of the number of components in latent variable models with the Wold's criterion}
 
 \description{
 
-The function helps to select the number of components in a PCR/PLSR or PCDA/PLSDA model using the heuristic "Wold criterion". 
+The function helps to select the number of components in latent variable models (e.g. PCR/PLSR or PCDA/PLSDA) using the heuristic "Wold criterion". 
 
 The criterion is the "precision gain ratio" \eqn{R = 1 - r(a+1) / r(a)} where \eqn{r} is the observed error rate quantifying the model performance (rmsep, msep, classification error rate, etc.) and \eqn{a} the model dimension (= nb. components). 
 
-\eqn{R} represents the relative gain in efficiency after a new dimension is added to the model. The iterations continue until \eqn{R} becomes lower than a threshold value \eqn{alpha}. By default and as an indication, \eqn{alpha} is set to .01 in the function, but the user should set any more relevant value for his data, depending on his objective of parcimony.
+\eqn{R} represents the relative gain in efficiency after a new dimension is added to the model. The iterations continue until \eqn{R} becomes lower than a threshold value \eqn{alpha}. By default and as an indication, \eqn{alpha} is set to .01 in the function, but the user should set any more relevant value depending on his data and objective of parcimony.
 
-In the original article, Wold (1978; see also Bro et al. 2008) defined ratios comparing training vs. CV residual sums of squares (SSR and PRESS, respectively). Instead, function \code{selwold} compares homogeneous residual sums of squares, usually the PRESS, such as for instance in Li et al. (2002) and Andries et al. (2011). This homogeneous approach is equivalent to the "punish factor" described in Westad & Martens (2000).  
+In the original article, Wold (1978; see also Bro et al. 2008) used ratios of \bold{cross-validated} vs. \bold{training} residual sums of squares (PRESS over SSR) for model selection. Instead, function \code{selwold} only compares homogeneous values (input vector \eqn{r}), for instance PRESS values such as in Li et al. (2002) and Andries et al. (2011). This last approach is equivalent to the "punish factor" described in Westad & Martens (2000).
 
-In some cases, the observed error rate \eqn{r} is erratic, making difficult interpreting the \eqn{R} variations. In particular, this often occurs for classification error rates (discrimination). For such a situation, \code{selwold} proposes two better alternative to the observed error rate \eqn{r}, using argument \code{typ}:
+In addition to \eqn{R}, function \code{selwold} also calculates the delta values \eqn{diff = r(a+1) - r(a)}.
 
-- \code{typ = "integral"}. \eqn{R} is calculated from the area under the observed error rate curve \eqn{r}. In that case, ratio \eqn{R} becomes \eqn{R = c.r(a+1) / c.r(a) - 1}, where \eqn{c.r} is the cumulated error rate ("area" under the curve).
+In some cases, particularly for classification (discrimination), the observed error rate \eqn{r} is erratic, making difficult interpreting the \eqn{R} variations. For such a situation, \code{selwold} proposes to calculate \eqn{R} and \eqn{diff} on two other possible values than the raw error rate \eqn{r}, using argument \code{typ}:
 
-- \code{typ = "smoothed"}. \eqn{R} is calculated on a non-parametric smoothing of \eqn{r}. The smoothing is implemented with function \code{\link{lowess}}.
+- \code{typ = "smooth"}. \eqn{R} and \eqn{diff} are calculated from a non-parametric smoothing of \eqn{r}. The smoothing is implemented with function \code{\link{lowess}}.
+
+- \code{typ = "integral"}. \eqn{R}  and \eqn{diff} are calculated from the area under the observed error rate curve \eqn{r}. In this case, ratio \eqn{R} becomes \eqn{R = c.r(a+1) / c.r(a) - 1}, where \eqn{c.r} is the cumulated error rate ("area" under the curve).
+
+
+
+Note that any other values than error rates (e.g. singular values returned by a PCA) can be used as input \eqn{r} of \code{selwold}.
 
 }
 
 \usage{
-selwold(obj, nam = "msep", alpha = .01, 
+selwold(r, start = 0, 
   typ = c("raw", "smooth", "integral"), 
-  correct = TRUE, digits = 3, plot = TRUE, ...
+  alpha = .01, digits = 3,
+  plot = c("R", "diff", "none"),
+  xlab = "Index", ylab = "Value", main = "r",
+  ...
   )
   }
 
 \arguments{
 
-\item{obj}{A dataframe containing at least two vectors describing the numbers of components (which has to be named \code{ncomp}) and the values of a given error rate \eqn{r}.}
+\item{r}{A vector of a given error rate \eqn{r} (or any other value).}
 
-\item{nam}{Name (character string) of the column corresponding to the error rate \eqn{r}. Default is \code{nam = "msep"}.}
+\item{start}{Starting value for indexing the elements of vector \code{r} (default to 0). The index is returned in the output data.frame and the plots..}
 
-\item{typ}{Type of calculation of the criterium \eqn{R}. Possible values are \code{"raw"} (default; usual calculation on the observed error rate), \code{"smooth"} and \code{"integral"}.}
+\item{typ}{Type of value used for calculating \eqn{R} and \eqn{diff}. Possible values are \code{"raw"} (default; calculations on \eqn{r}), \code{"smooth"} (on the smoothing of \eqn{r}) and \code{"integral"} (on the area under \eqn{r}).}
 
-\item{alpha}{Proportion \eqn{alpha} used as threshold for selecting the number of components.}
+\item{alpha}{Proportion \eqn{alpha} used as threshold for \eqn{R}.}
 
-\item{correct}{Logical indicating if the selected number of components is corrected if it is higher than the number of components corresponding to the minimal error rate. Default to \code{TRUE}.}
+\item{digits}{The number of digits for \eqn{R}.}
 
-\item{digits}{The number of digits for the numerical outputs.}
+\item{plot}{Output plotted in the right side of the graphic window. Possible values are \code{"R"} (default), \code{"diff"} or \code{"none"} (no plot).}
 
-\item{plot}{Logical indicating is a plot is dobservedn. Default to \code{TRUE}.}
+\item{xlab}{x-axis label of the plot of \eqn{r} (left-side in the graphic window).}
+
+\item{ylab}{y-axis label of the plot of \eqn{r} (left-side in the graphic window).}
+
+\item{main}{Title of the plot of \eqn{r} (left-side in the graphic window).}
 
 \item{...}{Other arguments to pass in function \code{\link{lowess}}.}
 
 }
+
+\value{
+
+A list of outputs (see examples), such as:
+
+\item{res}{Data.frame with variables: \code{r} (raw input \eqn{r}), \code{val} (eventually tranformed \eqn{r}), \code{diff} (calculated on \code{val}) and \code{R} (calculated on \code{val})..}
+
+\item{opt}{The index of the minimum for \eqn{r}.}
+
+\item{sel}{The index of the selection from the \eqn{R} threshold (usually a parcimonious number of components).}
+
+}
+
 
 \references{
 
@@ -85,20 +111,26 @@ head(z)
 z[z$msep == min(z$msep), ]
 plotmse(z)
 
-u <- selwold(z, alpha = .01)
+u <- selwold(z$msep, alpha = .01,
+  xlab = "Nb. components")
 u$res
-u$sel
 u$opt
+u$sel
 
-u <- selwold(z, typ = "integral", alpha = .05)
-u$res
-u$sel
-u$opt
+u <- selwold(z$msep, plot = "diff",
+  xlab = "Nb. components")
 
-u <- selwold(z, typ = "smooth", f = 1/2)   ## Smoothing not useful here
+u <- selwold(z$msep, typ = "smooth", f = 1/3,         ## Smoothing not useful here
+  xlab = "Nb. components")   
 u$res
-u$sel
 u$opt
+u$sel
+
+u <- selwold(z$msep, typ = "integral", alpha = .05,
+  xlab = "Nb. components")
+u$res
+u$opt
+u$sel
 
 }
 

@@ -2,11 +2,9 @@
 
 ## **Version 1.9-1**
 
-#### **Bug corrections**
+#### **Modification of functions**
 
-- **selwold**: bug corrected when **typ = "integral"**
-
-
+- **selwold**: The function has changed. Only vectors are allowed as input. More generic. New plots.
 
 
 

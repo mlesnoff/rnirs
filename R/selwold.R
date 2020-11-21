@@ -1,22 +1,22 @@
-selwold <- function(y, start = 0, 
+selwold <- function(r, start = 0, 
   typ = c("raw", "smooth", "integral"), 
   alpha = .01, digits = 3,
   plot = c("R", "diff", "none"),
-  xlab = "Index", ylab = "Value", main = "y",
+  xlab = "Index", ylab = "Value", main = "r",
   ...
   ) {
   
   typ <- match.arg(typ)
   plot <- match.arg(plot)
   
-  zindex <- start:(start + length(y) - 1)
+  zindex <- start:(start + length(r) - 1)
   
   ## val = Value on which are calculated diff and R
   val <- switch(
     typ,
-    raw = y,
-    smooth = lowess(zindex, y, ...)$y,
-    integral = cumsum(y + abs(min(y)))
+    raw = r,
+    smooth = lowess(zindex, r, ...)$y,
+    integral = cumsum(r + abs(min(r)))
     )
   
   zdiff <- -diff(val)
@@ -27,14 +27,14 @@ selwold <- function(y, start = 0,
   zdiff <- c(zdiff, NA)
   R <- c(R, NA)
 
-  opt <- zindex[y == min(y)][1]
+  opt <- zindex[r == min(r)][1]
   sel <- zindex[R < alpha][1]
   if(is.na(sel))
     sel <- opt
   #if(correct)
   sel <- min(opt, sel)
   
-  dat <- data.frame(index = zindex, y = y)
+  dat <- data.frame(index = zindex, r = r)
   n <- dim(dat)[1]
   dat$val <- val
   dat$diff <- -zdiff
@@ -57,18 +57,18 @@ selwold <- function(y, start = 0,
     par(mfrow = c(1, 2))
     
     plot(
-      zindex, y, 
+      zindex, r, 
       type = "l", col = col, pch = 16,
       xaxt = "n", las = 1, fg = fg, las = 1, 
       xlim = c(xmin - eps, xmax + eps), xaxs = "i",
       xlab = xlab, ylab = ylab, main = main
       )
-    points(zindex, y, pch = 16, col = col)
+    points(zindex, r, pch = 16, col = col)
     if(plot == "R")
-    points(sel:opt, y[zindex %in% sel:opt], pch = 16, col = "grey", cex = 1.2)
-    points(opt, y[zindex == opt], pch = 16, col = "red", cex = 1.2)
+    points((sel + 1):opt, r[zindex %in% (sel + 1):opt], pch = 16, col = "grey", cex = 1.2)
+    points(opt, r[zindex == opt], pch = 16, col = "red", cex = 1.2)
     axis(side = 1, at = labs, labels = labs, fg = fg)
-    abline(h = min(y), col = "grey")
+    abline(h = min(r), col = "grey")
     
     if(typ == "smooth") {
       lines(zindex, val, typ = "l", col = "red")
