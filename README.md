@@ -5,6 +5,13 @@
 
 **Regression** (R), **Discrimination** (DA), **Factorial Analyses** (PCA, PLS, FDA), **Partial Least Squares**, **Latent variables** (PCR/DA, PLSR/DA), **Ridge R/DA**, **Non Linear Kernel** (KPCA, KPLS, KPCR/DA, KPLSR/DA, SVMR/DA), **Local and Locally Weighting** (KNNR/DA, KNN-LWPLSR/DA), **Signal pre-processing** (derivation, detrend, etc.) , **Cross-validation**, **Plotting**, **Chemometrics**, **Spectral data**
 
+Click [**here**](https://github.com/mlesnoff/rnirs/blob/master/doc/rnirs_functions_github.md) to see the **list of the available functions** 
+
+or write in the R console
+```{r}
+vignette("rnirs_functions")
+```
+
 ## <span style="color:green"> **News** </span> 
 
 Click [**here**](https://github.com/mlesnoff/rnirs/blob/master/inst/NEWS.md) to see **what changed** in the last version 
@@ -12,15 +19,6 @@ Click [**here**](https://github.com/mlesnoff/rnirs/blob/master/inst/NEWS.md) to 
 or write in the R console
 ```{r}
 news(package = "rnirs")
-```
-
-## <span style="color:green"> **Contents**  </span> 
-
-Click [**here**](https://github.com/mlesnoff/rnirs/blob/master/doc/rnirs_functions_github.md) to see the **list of the available functions** 
-
-or write in the R console
-```{r}
-vignette("rnirs_functions")
 ```
 
 ## <span style="color:green"> **Dependent packages** </span> 
