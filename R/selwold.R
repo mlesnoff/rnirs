@@ -65,7 +65,9 @@ selwold <- function(r, start = 0,
       )
     points(zindex, r, pch = 16, col = col)
     if(plot == "R")
-    points((sel + 1):opt, r[zindex %in% (sel + 1):opt], pch = 16, col = "grey", cex = 1.2)
+      if(sel < opt)
+        points((sel + 1):opt, r[zindex %in% (sel + 1):opt], 
+               pch = 16, col = "grey", cex = 1.2)
     points(opt, r[zindex == opt], pch = 16, col = "red", cex = 1.2)
     axis(side = 1, at = labs, labels = labs, fg = fg)
     abline(h = min(r), col = "grey")
