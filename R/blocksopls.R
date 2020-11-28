@@ -22,15 +22,15 @@ blocksopls <- function(Xr, Yr, Xu = NULL, ncomp,
     fm <- list()
     fm$Tu <- fm$Tr <- NA
     
-    Xr <- rnirs:::.matrix(Xr)
-    Yr <- rnirs:::.matrix(Yr, row = FALSE, prefix.colnam = "y")   
+    Xr <- .matrix(Xr)
+    Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")   
     n <- dim(Xr)[1]
     dots <- list(...)
     ymeans <- .xmean(Yr, weights = list(...)$weights)
     fm$Fitr <- matrix(rep(ymeans, n), nrow = n, byrow = TRUE)
     
     if(!is.null(Xu)) {
-      Xu <- rnirs:::.matrix(Xu)
+      Xu <- .matrix(Xu)
       m <- dim(Xu)[1]
       fm$Fitu <- matrix(rep(ymeans, m), nrow = m, byrow = TRUE)
       }

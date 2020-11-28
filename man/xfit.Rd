@@ -13,9 +13,13 @@ Function \code{xssr} calculates the sum of the squared \eqn{X-}residuals \eqn{SS
 
 }
 
-\usage{xfit(T, P, xmeans = rep(0, dim(P)[1]))}
+\usage{
 
-\usage{xssr(X, T, P, xmeans = rep(0, dim(P)[1]))}
+xfit(T, P, xmeans = rep(0, dim(P)[1]))
+
+xssr(X, T, P, xmeans = rep(0, dim(P)[1]))
+
+}
 
 \arguments{
 

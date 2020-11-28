@@ -2,34 +2,6 @@
 
 **https://github.com/mlesnoff/rnirs**
 
-## DATA MANAGEMENT 
-
-### <span style="color:green"> Checking </span> 
-
-- **checkdupl**: Find duplicated row observations between two data sets 
-- **rmdupl**: Remove duplicated row observations between two data sets
-- **checkna**: Find and count NA values in a data set
-
-### <span style="color:green"> Summary </span> 
-
-- **centr**: Centers of classes
-- **dtaggregate**: Summary statistics with data subsets
-- **summ**: Summary of the variables of a data set
-
-### <span style="color:green"> Preprocessing </span> 
-
-- **dderiv**: Derivation by finite difference
-- **detrend**: Detrend transformation (polynom, lowess, als)
-- **mavg**: Smoothing by moving average
-- **savgol**: Savitsky-Golay filtering (derivation)
-- **snv**: Standard-normal-deviation transformation
-
-### <span style="color:green"> Sampling </span> 
-
-- **sampclas**: Within-class (stratified) sampling
-- **sampdp**: Duplex sampling 
-- **sampks**: Kennard-Stone sampling 
-
 ## MULTIVARIATE FACTORIAL ANALYSES
 
 ### <span style="color:green"> PCA </span> 
@@ -101,7 +73,7 @@
 
 - **scordis, **lscordis**: Score distances for a score space
 - **odis**, **lodis**: Orthogonal distances for a score space
-- **xfit**: Matrix Approximation from multivariate scores and loadings
+- **xfit**, **xssr**: Matrix fitting from multivariate scores and loadings, and SSR calculation
 
 ## REGRESSION MODELS
 
@@ -141,7 +113,7 @@
   - **Generic function**
     - **locw**: building KNN-locally weighted models
       
-## DA MODELS (DISCRIMINATION) 
+## DISCRIMINATION MODELS (DA) 
 
 ### <span style="color:green"> DA methods </span> 
 
@@ -188,10 +160,6 @@
   - **knnda**: KNN DA
   - **lwplsda**: KNN-LWPLSDA
 
-## SELECTION OF VARIABLES 
-
-- **covsel**: COVSEL algorithm
-
 ## MULTIBLOCK
 
 - **orthog**: Orthogonalization of a matrix to another matrix
@@ -200,6 +168,10 @@
 - **blocksel**: Block selection in a matrix
 - **blocksopca**: Block dimension reduction by SO-PCA
 - **blocksopls**: Block dimension reduction by SO-PLS
+
+## SELECTION OF VARIABLES 
+
+- **covsel**: COVSEL algorithm
 
 ## MODEL TUNING
 
@@ -227,6 +199,34 @@
 - **plotsp**, **plostsp1**: Plotting spectra, loadings, or more generally row observations of a data set
 - **plotxy**: 2-d scatter plot
 
+## PRE-PROCESSING 
+
+- **dderiv**: Derivation by finite difference
+- **detrend**: Detrend transformation (polynom, lowess, als)
+- **mavg**: Smoothing by moving average
+- **savgol**: Savitsky-Golay filtering (derivation)
+- **snv**: Standard-normal-deviation transformation
+
+## DATA SAMPLING 
+
+- **sampclas**: Within-class (stratified) sampling
+- **sampdp**: Duplex sampling 
+- **sampks**: Kennard-Stone sampling 
+
+## DATA MANAGEMENT
+
+### <span style="color:green"> Checking </span> 
+
+- **checkdupl**: Find duplicated row observations between two data sets 
+- **rmdupl**: Remove duplicated row observations between two data sets
+- **checkna**: Find and count NA values in a data set
+
+### <span style="color:green"> Summary </span> 
+
+- **centr**: Centers of classes
+- **dtaggregate**: Summary statistics with data subsets
+- **summ**: Summary of the variables of a data set
+
 ## AUXILIARY
 
 - **dis**: Dissimilarities between row observations of a matrix and a given vector
@@ -245,9 +245,9 @@
 
 **Matthieu Lesnoff**
 
-- Cirad, UMR Selmet, Montpellier, France
+- Cirad, [**UMR Selmet**](https://umr-selmet.cirad.fr/en), Montpellier, France
 
-- ChemHouse, Montpellier
+- [**ChemHouse**](https://www.chemproject.org/ChemHouse), Montpellier
 
 **matthieu.lesnoff@cirad.fr**
 

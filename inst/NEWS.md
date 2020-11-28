@@ -3,11 +3,11 @@
 
 ## **Version 1.9-2**
 
-### **New functions**
+#### **New functions**
 
-- **xssr**: 
+- **xssr**: Sum of squared X-residuals from scores and loadings
 
-#### **Modification of functions**
+#### **Modified functions**
 
 - **blocksopls**, **blocksopca**: Input "ncomp" can now have components = 0. 
 Thanks to Evelyne Vigneau (Inrae France)
@@ -29,7 +29,7 @@ Thanks to Evelyne Vigneau (Inrae France)
 
 ## **Version 1.9-1**
 
-#### **Modification of functions**
+#### **Modified functions**
 
 - **selwold**: The function has changed. Only vectors are allowed as input. More generic. New plots.
 
