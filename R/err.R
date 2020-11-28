@@ -1,18 +1,21 @@
 err <- function(fm, formula = ~ 1, nam = NULL, digits = 4) {
   
-  y <- fm$y
-  fit <- fm$fit
-
   f <- as.character(formula)[2]
     
-  if(is.null(nam)) nam <- names(y)[ncol(y)]
+  dat <- fm$y
   
-  y$e <- as.numeric(y[, nam] != fit[, nam])
+  if(is.null(nam)) 
+    nam <- names(dat)[ncol(dat)] 
   
-  y$nbpred <- rep(1, nrow(y))
+  dat$y <- dat[, nam]
+  dat$fit <- fm$fit[, nam]
+
+  dat$e <- as.numeric(dat$y != dat$fit)
   
-  z <- dtaggregate(formula(paste("nbpred ~", f)), data = y, FUN = sum)
-  z$e <- dtaggregate(formula(paste("e ~", f)), data = y, FUN = sum)$e
+  dat$nbpred <- rep(1, nrow(dat))
+  
+  z <- dtaggregate(formula(paste("nbpred ~", f)), data = dat, FUN = sum)
+  z$e <- dtaggregate(formula(paste("e ~", f)), data = dat, FUN = sum)$e
   z$errp <- z$e / z$nbpred
   
   znam <- "errp"

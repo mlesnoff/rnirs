@@ -1,5 +1,8 @@
-blocksopca <- function(Xr, Xu = NULL, blocks, colblocks = NULL, ncomp, ...) {
+blocksopca <- function(Xr, Xu = NULL, ncomp, 
+                        blocks, colblocks = NULL, ...) {
   
+  ## If argument 'blocks = NULL',
+  ## an object 'blocks' (= a list with the block indexes) is created
   if(!is.null(colblocks)) {
     lev <- levels(as.factor(colblocks))
     nlev <- length(lev)
@@ -13,54 +16,23 @@ blocksopca <- function(Xr, Xu = NULL, blocks, colblocks = NULL, ncomp, ...) {
   if(length(ncomp) == 1) 
     ncomp <- rep(ncomp, nbl)
   
-  zblocks <- data.frame(numcol = 1:sum(ncomp), bl = rep(1:nbl, ncomp))
+  ## Case 'sum(ncomp) = 0'
+  if(sum(ncomp) == 0) {
   
-  newdat <- blocksel(Xr, blocks)
-  Xr <- newdat$X
-  newblocks <- newdat$blocks
-  
-  ### TRICK WHEN Xu IS NULL
-  nullXu <- FALSE
-  if(is.null(Xu)) {
-    Xu <- Xr[1, , drop = FALSE]
-    nullXu <- TRUE
-    }
-  else
-    Xu <- blocksel(Xu, blocks)$X
-  ### END
-  
-  m <- dim(Xu)[1]
-  
-  fm <- pca(
-    Xr[, newblocks[[1]], drop = FALSE],
-    Xu[, newblocks[[1]], drop = FALSE],
-    ncomp = ncomp[1], ...
-    )
-  Tr <- fm$Tr
-  Tu <- fm$Tu
-  
-  blocks[[1]] <- zblocks$numcol[zblocks$bl == 1]
-
-  for(i in 2:nbl) {
-  
-    z <- orthog(Tr, Xr[, newblocks[[i]], drop = FALSE], fm$weights)
+    fm <- list()
+    fm$Tu <- fm$Tr <- NA
+    fm$blocks <- NA
+    fm$ncomp <- ncomp
     
-    fm <- pca(
-      z$Y,
-      Xu[, newblocks[[i]], drop = FALSE] - cbind(rep(1, m), Tu) %*% z$b,
-      ncomp = ncomp[i], ...
-      )
-  
-    Tr <- cbind(Tr, fm$Tr)
-    Tu <- cbind(Tu, fm$Tu)
-    
-    blocks[[i]] <- zblocks$numcol[zblocks$bl == i]
-
     }
   
-  if(nullXu)
-    Tu <- NULL
+  ## Other cases
+  else {
+    u <- which(ncomp > 0)
+    fm <- .blocksopca(Xr = Xr, Xu = Xu, ncomp = ncomp[u], 
+                      blocks = blocks[u], ...)
+    }
   
-  list(Tr = Tr, Tu = Tu, blocks = blocks)  
-
+  fm
+    
   }

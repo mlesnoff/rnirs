@@ -1,7 +1,7 @@
 ## **rnirs - Regression, Discrimination and Other Methods for Chemometrics**  
 ## <span style="color:grey70"> **Version 1.9-1** </span> 
 
-## <span style="color:green"> **Key Feature** </span> 
+## <span style="color:green"> **Key Features** </span> 
 
 **Regression** (R), **Discrimination** (DA), **Factorial Analyses** (PCA, PLS, FDA), **Partial Least Squares**, **Latent variables** (PCR/DA, PLSR/DA), **Ridge R/DA**, **Non Linear Kernel** (KPCA, KPLS, KPCR/DA, KPLSR/DA, SVMR/DA), **Local and Locally Weighting** (KNNR/DA, KNN-LWPLSR/DA), **Signal pre-processing** (derivation, detrend, etc.) , **Cross-validation**, **Plotting**, **Chemometrics**, **Spectral data**
 

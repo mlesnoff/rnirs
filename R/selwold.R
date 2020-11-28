@@ -31,7 +31,6 @@ selwold <- function(r, start = 0,
   sel <- zindex[R < alpha][1]
   if(is.na(sel))
     sel <- opt
-  #if(correct)
   sel <- min(opt, sel)
   
   dat <- data.frame(index = zindex, r = r)

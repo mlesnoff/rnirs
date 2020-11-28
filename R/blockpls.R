@@ -10,9 +10,13 @@ blockpls <- function(Xr, Yr = NULL, Xu = NULL, blocks, colblocks = NULL, ncomp, 
   
   nbl <- length(blocks)
   
-  if(length(ncomp) == 1) ncomp <- rep(ncomp, nbl)
+  if(length(ncomp) == 1) 
+    ncomp <- rep(ncomp, nbl)
   
-  zblocks <- data.frame(numcol = 1:sum(ncomp), bl = rep(1:nbl, ncomp))
+  zblocks <- data.frame(
+    numcol = 1:sum(ncomp), 
+    bl = rep(1:nbl, ncomp)
+    )
   
   newdat <- blocksel(Xr, blocks)
   Xr <- newdat$X

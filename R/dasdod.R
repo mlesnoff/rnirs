@@ -31,7 +31,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp, nmin = 5,  ...){
   ### CASE WHERE ALL THE TRAINING OBSERVATIONS HAVE THE SAME CLASS
   if(nclas == 1) {
     fit <- rep(lev, m)
-    pvarcla <- ncomp <- index <- odstand <- sdstand <- od <- sd <- NULL
+    pvarcla <- ncomp <- index <- zod <- zsd <- od <- sd <- NULL
     }
   ### END
   
@@ -73,11 +73,11 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp, nmin = 5,  ...){
 
       }
     
-    sdstand <- .scale(sd, rep(0, nclas), cutsd)
-    odstand <- .scale(od, rep(0, nclas), cutod)
+    zsd <- .scale(sd, rep(0, nclas), cutsd)
+    zod <- .scale(od, rep(0, nclas), cutod)
     
-    rownames(odstand) <- rownames(sdstand) <- rownames(od) <- rownames(sd) <- rownam.Xu
-    colnames(odstand) <- colnames(sdstand) <- colnames(od) <- colnames(sd) <- lev
+    rownames(zod) <- rownames(zsd) <- rownames(od) <- rownames(sd) <- rownam.Xu
+    colnames(zod) <- colnames(zsd) <- colnames(od) <- colnames(sd) <- lev
     
     }
   
@@ -85,7 +85,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp, nmin = 5,  ...){
   ntheta <- length(theta)
   index <- vector(length = ntheta, mode = "list")
   for(i in 1:ntheta)
-    index[[i]] <- data.frame(sqrt((1 - theta[i]) * sdstand^2 + theta[i] * odstand^2))
+    index[[i]] <- data.frame(sqrt(theta[i] * zsd^2 + (1 - theta[i]) * zod^2))
   index <- setDF(rbindlist(index))
   colnames(index) <- lev
   
@@ -108,7 +108,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp, nmin = 5,  ...){
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
   
   list(y = y, fit = fit, r = r, index = index, sd = sd, od = od,
-    sdstand = sdstand, odstand = odstand, cutsd = cutsd, cutod = cutod, 
+    sdstand = zsd, odstand = zod, cutsd = cutsd, cutod = cutod, 
     ncomp = ncomp, pvarcla = pvarcla, ni = ni)
     
   }

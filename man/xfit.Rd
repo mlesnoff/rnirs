@@ -1,22 +1,42 @@
 \name{xfit}
 \alias{xfit}
+\alias{xssr}
 \encoding{latin1}
 
-\title{Matrix Approximation from multivariate scores and loadings}
+\title{Matrix fitting from multivariate scores and loadings, and SSR calculation}
 
 \description{
-Calculation of the approximate of a matrix \eqn{X} from multivariate (e.g. PCA or PLS) scores and loadings.
+
+Function \code{xfit} calculates the estimate of a matrix \eqn{X} (say \eqn{Xfit}) from given multivariate (e.g. PCA or PLS) scores and loadings of dimension \eqn{a}.
+
+Function \code{xssr} calculates the sum of the squared \eqn{X-}residuals \eqn{SSR[i] = sum(E[i]^2) (i = 0, ..., a)}, where \eqn{E[i] = X - Xfit[i]}, and \eqn{X[0]} the centered matrix \eqn{X}, The returned SSR is a vector of length \eqn{a + 1}.
+
 }
 
-\usage{xfit(T, P, xmeans = NULL)}
+\usage{xfit(T, P, xmeans = rep(0, dim(P)[1]))}
+
+\usage{xssr(X, T, P, xmeans = rep(0, dim(P)[1]))}
 
 \arguments{
+
+\item{X}{Only for \code{xssr}. The \eqn{n x p} matrix or data frame \eqn{X} for which SSR are calculated.}
+
 \item{T}{A \eqn{n x a} scores matrix, or data.frame, calculated from a \eqn{n x p} matrix \eqn{X}.}
+
 \item{P}{A \eqn{p x a} loadings matrix, or data.frame, that will be applied to \eqn{T}.}
+
 \item{xmeans}{An eventual centering vector (length \eqn{p}) used for \eqn{X} before calculating \eqn{T}.}
+
 }
 
-\value{Approximate of matrix \eqn{X}.}
+\value{
+
+\item{For \code{xfit}:}{Fitted matrix \eqn{X}.}
+
+\item{For \code{xssr}:}{SSR vector of length \eqn{a + 1} (\eqn{SSR[i]  i = 0, ..., a}).}
+
+
+}
 
 \examples{
 
@@ -24,8 +44,6 @@ data(datcass)
 
 Xr <- datcass$Xr
 Xu <- datcass$Xu
-Xr <- savgol(snv(Xr), n = 21, p = 2, m = 2)
-Xu <- savgol(snv(Xu), n = 21, p = 2, m = 2)
 
 headm(Xr)
 headm(Xu)
@@ -34,23 +52,29 @@ ncomp <- 2
 #ncomp <- 10
 fm <- pca(Xr, Xu, ncomp = ncomp)
 
-## Approximation of Xr
+##################### Approximation of Xr
 
-Xr_approx <- xfit(fm$Tr, fm$P, fm$xmeans)
-headm(Xr_approx)
+Xr.fit <- xfit(fm$Tr, fm$P, fm$xmeans)
+headm(Xr.fit)
 
 s <- sample(1:nrow(Xr), size = 1)
 plotsp(Xr[s, , drop = FALSE], col = "red", zeroes = TRUE)
-plotsp(Xr_approx[s, , drop = FALSE], col = "blue", add = TRUE, lty = 2)
+plotsp(Xr.fit[s, , drop = FALSE], col = "blue", add = TRUE, lty = 2)
 
-## Approximation of Xu
+##################### Approximation of Xu
 
-Xu_approx <- xfit(fm$Tu, fm$P, fm$xmeans)
-headm(Xu_approx)
+Xu.fit <- xfit(fm$Tu, fm$P, fm$xmeans)
+headm(Xu.fit)
 
 s <- sample(1:nrow(Xu), size = 1)
 plotsp(Xu[s, , drop = FALSE], col = "red", zeroes = TRUE)
-plotsp(Xu_approx[s, , drop = FALSE], col = "blue", add = TRUE, lty = 2)
+plotsp(Xu.fit[s, , drop = FALSE], col = "blue", add = TRUE, lty = 2)
+
+##################### SSR
+
+xssr(Xr, fm$Tr, fm$P, fm$xmeans)
+
+xssr(Xu, fm$Tu, fm$P, fm$xmeans)
 
 }
 

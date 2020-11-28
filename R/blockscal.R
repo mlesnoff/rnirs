@@ -37,6 +37,8 @@ blockscal <- function(Xr, Xu = NULL, blocks, colblocks = NULL, weights = NULL) {
 
   if(!is.null(Xu)) {
     
+    Xu <- .matrix(Xu)
+    
     for(i in 1:nbl)  
       Xu[, newblocks[[i]]] <- Xu[, newblocks[[i]], drop = FALSE] / xdisptot[i]
     

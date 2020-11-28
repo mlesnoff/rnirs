@@ -1,48 +1,47 @@
 mse <- function(fm, formula = ~ 1, nam = NULL, digits = 3) {
   
-  y <- fm$y
-  fit <- fm$fit
-
   f <- as.character(formula)[2]
   
+  dat <- fm$y
+  
   if(is.null(nam)) 
-    nam <- names(y)[ncol(y)] 
+    nam <- names(dat)[ncol(dat)] 
   
-  y$e <- y[, nam] - fit[, nam]
-  
-  y$e2 <- y$e^2
-  
-  y$nbpred <- rep(1, nrow(y))
-  
-  z <- dtaggregate(formula = formula(paste("nbpred ~", f)), data = y, FUN = sum)
+  dat$y <- dat[, nam]
+  dat$fit <- fm$fit[, nam]
 
-  e2 <- dtaggregate(formula = formula(paste("e2 ~", f)), data = y, FUN = sum)$e2
+  dat$e <- dat$y - dat$fit
+  dat$e2 <- dat$e^2
+  
+  dat$nbpred <- rep(1, nrow(dat))
+  
+  z <- dtaggregate(formula = formula(paste("nbpred ~", f)), data = dat, FUN = sum)
+
+  e2 <- dtaggregate(formula = formula(paste("e2 ~", f)), data = dat, FUN = sum)$e2
   msep <- e2 / z$nbpred
   rmsep <- sqrt(msep)
   
   .var <- function(x) {n <- length(x) ; (n - 1) / n * var(x)}
-  sep2 <- dtaggregate(formula = formula(paste("e ~", f)), data = y, FUN = .var)$e
-  sep <- sqrt(sep2)
+  sep <- sqrt(dtaggregate(formula = formula(paste("e ~", f)), data = dat, FUN = .var)$e)
   
-  b <- -dtaggregate(formula = formula(paste("e ~", f)), data = y, FUN = mean)$e
+  b <- -dtaggregate(formula = formula(paste("e ~", f)), data = dat, FUN = mean)$e
 
-  mad <- dtaggregate(formula = formula(paste("e ~", f)), data = y, FUN = mad)$e
+  mad <- dtaggregate(formula = formula(paste("e ~", f)), data = dat, FUN = mad)$e
   
-  y$y <- y[, nam]
+  ## R2
   .foo <- function(x) {sum((x - mean(x))^2)}
-  y.e2 <- dtaggregate(formula = formula(paste("y ~", f)), data = y, FUN = .foo)$y
+  y.e2 <- dtaggregate(formula = formula(paste("y ~", f)), data = dat, FUN = .foo)$y
   y.msep <- y.e2 / z$nbpred
+  r2 <- 1 - msep / y.msep 
   
-  ydt <- y
-  ydt$y.dt <- y[, nam]
-  ydt$fit.dt <- fit[, nam]
-  ydt <- setDT(ydt)
+  ## Corr2
+  datdt <- setDT(dat)
   rvar <- attr(terms(formula), "term.labels")
-  rho <- suppressWarnings(ydt[, by = rvar, 
-    list(rho = cor(eval(parse(text = "y.dt")), eval(parse(text = "fit.dt"))))])
-  # Generates a Note in Package Checking
-  #rho <- suppressWarnings(ydt[, by = rvar, list(rho = cor(y.dt, fit.dt))])
-  # End
+  rho <- suppressWarnings(datdt[, by = rvar, 
+    list(rho = cor(eval(parse(text = "y")), eval(parse(text = "fit"))))])
+  ## below, this generates a Note in Package Checking
+  #rho <- suppressWarnings(datdt[, by = rvar, list(rho = cor(y, fit))])
+  ## End
   rho <- rho$rho
   
   z$msep <- msep
@@ -50,9 +49,7 @@ mse <- function(fm, formula = ~ 1, nam = NULL, digits = 3) {
   z$rmsep <- rmsep
   z$sep <- sep
   z$b <- b 
-  
-  z$r2 <- 1 - msep / y.msep 
-  
+  z$r2 <- r2
   z$cor2 <- rho^2
   
   znam <- c("msep", "mad", "rmsep", "sep", "b","r2", "cor2")

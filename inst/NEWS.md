@@ -1,10 +1,41 @@
 ## NEWS for package rnirs
 
+
+## **Version 1.9-2**
+
+### **New functions**
+
+- **xssr**: 
+
+#### **Modification of functions**
+
+- **blocksopls**, **blocksopca**: Input "ncomp" can now have components = 0. 
+Thanks to Evelyne Vigneau (Inrae France)
+
+- **dasdod**: Meaning of parameter **theta** has changed (before was **1 - theta**)
+
+- **xfit**: Internal changes
+
+- **mse**: Internal changes
+
+- **err**: Internal changes
+
+
+
+
+
+
+
+
 ## **Version 1.9-1**
 
 #### **Modification of functions**
 
 - **selwold**: The function has changed. Only vectors are allowed as input. More generic. New plots.
+
+
+
+
 
 
 
@@ -47,6 +78,10 @@
 - Function **sampclas** has changed
 
 - Re-organisation of some outputs in discrimination functions
+
+
+
+
 
 
 

@@ -12,7 +12,7 @@ For each new observation to predict, the function calculates a "SIMCA" index (ou
 
 A PCA is implemented for each class (= model representing the class). Two distances, referred to as SD and OD, are calculated for each new observation to predict and class. SD is the "score distance", i.e. the Mahalanobis distance between the projection of the new observation in the PCA score space and the center of this space. OD is the "orthogonal distance" (\eqn{X}-residual), i.e. the Euclidean distance between the new observation and its projection on the score space.
 
-The SIMCA index used in function \code{dasdod} is \eqn{d = sqrt((1 - theta) * (SD / cutsd)^2 + theta * (OD / cutod)^2)}, where \eqn{cutsd} and \eqn{cutod} are cutoffs for the SD and OD distributions in the class, and \eqn{theta} is a proportion. Proportion \eqn{theta} is automatically varied from 0 ot 1 (with step=.1) in the function, and results are providen for each \eqn{theta}.
+The SIMCA index used in function \code{dasdod} is \eqn{d = sqrt(theta * (SD / cutsd)^2 + (1 - theta) * (OD / cutod)^2)}, where \eqn{cutsd} and \eqn{cutod} are cutoffs for the SD and OD distributions in the class, and \eqn{theta} is a proportion. Proportion \eqn{theta} is automatically varied from 0 ot 1 (with step=.1) in the function, and results are providen for each \eqn{theta}.
 
 The values \eqn{SD / cutdsd} and \eqn{OD / cutdod} are "standardized" SD and OD, respectively. The test observations that show standardized SD or OD higher than 1 may be considered as outliers for the class. In a soft classification context, observations with standardized SD or OD lower than 1 may be considered as belonging to the class. 
 
@@ -101,7 +101,7 @@ Xr <- snv(Xr)
 Xu <- snv(Xu)
 
 ncomp <- 15
-fm <- dasdod(Xr, yr, Xu, yu, ncomp = ncomp, algo = pca.svd)
+fm <- dasdod(Xr, yr, Xu, yu, ncomp = ncomp)
 names(fm)
 head(fm$y)
 head(fm$fit)

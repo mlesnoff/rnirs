@@ -29,9 +29,10 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   pvar <-  zvar / xsstot
   cumpvar <- cumsum(pvar)
   
-  ssr <- n * (xsstot - cumsum(zvar))
+  ## Weighted SSR (not usefull here)
+  #ssr <- n * (xsstot - cumsum(zvar))
   
-  z <- data.frame(ncomp = zncomp, ssr = ssr, var = zvar, pvar = pvar, cumpvar = cumpvar)
+  z <- data.frame(ncomp = zncomp, var = zvar, pvar = pvar, cumpvar = cumpvar)
   row.names(z) <- zncomp
   explvar <- z
   

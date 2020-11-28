@@ -1,13 +1,8 @@
-xfit <- function(T, P, xmeans = NULL) {
+xfit <- function(T, P, xmeans = rep(0, dim(P)[1])) {
 
   T <- .matrix(T)
   P <- .matrix(P)
 
-  X <- tcrossprod(T, P)
-  
-  if(!is.null(xmeans))
-    X <- .center(X, -xmeans)
+  .center(tcrossprod(T, P), -xmeans)
 
-  X
-  
   }

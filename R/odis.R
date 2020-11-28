@@ -18,7 +18,15 @@ odis <- function(fm, Xr, Xu = NULL,
   E <- .center(X, fm$xmeans) - tcrossprod(fm$Tr[, 1:ncomp, drop = FALSE], 
                                           fm$P[, 1:ncomp, drop = FALSE])
   
+  ## Same as:
+  ## E <- Xr - xfit(fm$Tr[, 1:ncomp, drop = FALSE],
+  ##                fm$P[, 1:ncomp, drop = FALSE], fm$xmeans)
+  ## End
+  
   d <- sqrt(rowSums(E * E))
+  
+  cri <- 2.5
+  #cri <- 3
   
   cutoff <- switch(
     typcut, 
@@ -26,7 +34,7 @@ odis <- function(fm, Xr, Xu = NULL,
       z <- d^(2/3)
       (median(z) + mad(z) * qnorm(p = .975))^(3/2)
       },
-    mad = median(d) + 2.5 * mad(d),
+    mad = median(d) + cri * mad(d),
     boxplot = {
       z <- fivenum(d)
       z <- z[4] + 1.5 * diff(z[c(2, 4)])
@@ -53,7 +61,11 @@ odis <- function(fm, Xr, Xu = NULL,
 
     E <- .center(Xu, fm$xmeans) - tcrossprod(Tu[, 1:ncomp, drop = FALSE], 
                                              fm$P[, 1:ncomp, drop = FALSE])
-    
+    ## Same as:
+    ## E <- Xu - xfit(fm$Tu[, 1:ncomp, drop = FALSE],
+    ##              fm$P[, 1:ncomp, drop = FALSE], fm$xmeans)
+    ## End
+   
     d <- sqrt(rowSums(E * E))
     
     dstand <- d / cutoff 

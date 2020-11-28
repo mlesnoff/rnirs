@@ -23,11 +23,14 @@ scordis <- function(fm,
   
   dr <- res$dr
   
+  cri <- 2.5
+  #cri <- 3
+  
   d <- dr$d
   cutoff <- switch(
     typcut, 
     param = qchisq(p = .975, df = ncomp)^.5,
-    mad = median(d) + 2.5 * mad(d),
+    mad = median(d) + cri * mad(d),
     boxplot = {
       z <- fivenum(d)
       z <- z[4] + 1.5 * diff(z[c(2, 4)])

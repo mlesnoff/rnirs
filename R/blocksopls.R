@@ -1,5 +1,8 @@
-blocksopls <- function(Xr, Yr, Xu = NULL, blocks, colblocks = NULL, ncomp, ...) {
+blocksopls <- function(Xr, Yr, Xu = NULL, ncomp, 
+                        blocks, colblocks = NULL, ...) {
   
+  ## If argument 'blocks = NULL',
+  ## an object 'blocks' (= a list with the block indexes) is created
   if(!is.null(colblocks)) {
     lev <- levels(as.factor(colblocks))
     nlev <- length(lev)
@@ -7,74 +10,45 @@ blocksopls <- function(Xr, Yr, Xu = NULL, blocks, colblocks = NULL, ncomp, ...) 
     for(i in 1:nlev)
       blocks[[i]] <- which(colblocks == lev[i])  
     }
-  
+
   nbl <- length(blocks)
   
   if(length(ncomp) == 1) 
     ncomp <- rep(ncomp, nbl)
   
-  zblocks <- data.frame(numcol = 1:sum(ncomp), bl = rep(1:nbl, ncomp))
+  ## Case 'sum(ncomp) = 0'
+  if(sum(ncomp) == 0) {
   
-  newdat <- blocksel(Xr, blocks)
-  Xr <- newdat$X
-  newblocks <- newdat$blocks
-  
-  ### TRICK WHEN Xu IS NULL
-  nullXu <- FALSE
-  if(is.null(Xu)) {
-    Xu <- Xr[1, , drop = FALSE]
-    nullXu <- TRUE
-    }
-  else
-    Xu <- blocksel(Xu, blocks)$X
-  ### END
-  
-  n <- dim(Xr)[1]
-  m <- dim(Xu)[1]
-  
-  fm <- pls(
-    Xr[, newblocks[[1]], drop = FALSE],
-    Yr,
-    Xu[, newblocks[[1]], drop = FALSE],
-    ncomp = ncomp[1], ...
-    )
-  Tr <- fm$Tr
-  Tu <- fm$Tu
-  Ymeansr <- matrix(rep(fm$ymeans, n), nrow = n, byrow = TRUE)
-  Ymeansu <- matrix(rep(fm$ymeans, m), nrow = m, byrow = TRUE)
-  beta <- t(fm$C)
-  Fitr <- Ymeansr + fm$Tr %*% beta
-  Fitu <- Ymeansu + fm$Tu %*% beta
-
-  blocks[[1]] <- zblocks$numcol[zblocks$bl == 1]
-
-  for(i in 2:nbl) {
-  
-    z <- orthog(Tr, Xr[, newblocks[[i]], drop = FALSE], fm$weights)
+    fm <- list()
+    fm$Tu <- fm$Tr <- NA
     
-    fm <- pls(
-      z$Y,
-      Yr - Fitr,
-      Xu[, newblocks[[i]], drop = FALSE] - cbind(rep(1, m), Tu) %*% z$b,
-      ncomp = ncomp[i], ...
-      )
-  
-    Tr <- cbind(Tr, fm$Tr)
-    Tu <- cbind(Tu, fm$Tu)
+    Xr <- rnirs:::.matrix(Xr)
+    Yr <- rnirs:::.matrix(Yr, row = FALSE, prefix.colnam = "y")   
+    n <- dim(Xr)[1]
+    dots <- list(...)
+    ymeans <- .xmean(Yr, weights = list(...)$weights)
+    fm$Fitr <- matrix(rep(ymeans, n), nrow = n, byrow = TRUE)
     
-    Ymeansr <- matrix(rep(fm$ymeans, n), nrow = n, byrow = TRUE)
-    Ymeansu <- matrix(rep(fm$ymeans, m), nrow = m, byrow = TRUE)
-    beta <- t(fm$C)
-    Fitr <- Fitr + Ymeansr + fm$Tr %*% beta
-    Fitu <- Fitu + Ymeansu + fm$Tu %*% beta
+    if(!is.null(Xu)) {
+      Xu <- rnirs:::.matrix(Xu)
+      m <- dim(Xu)[1]
+      fm$Fitu <- matrix(rep(ymeans, m), nrow = m, byrow = TRUE)
+      }
+    else
+      fm$Fitu <- NA
     
-    blocks[[i]] <- zblocks$numcol[zblocks$bl == i]
-
+    fm$blocks <- NA
+    fm$ncomp <- ncomp
+    
     }
   
-  if(nullXu) Fitu <- Tu <- NULL
+  ## Other cases
+  else {
+    u <- which(ncomp > 0)
+    fm <- .blocksopls(Xr = Xr, Yr = Yr, Xu = Xu, ncomp = ncomp[u], 
+                      blocks = blocks[u], ...)
+    }
   
-  list(Tr = Tr, Tu = Tu, Fitr = Fitr, Fitu = Fitu, 
-    blocks = blocks, ncomp = ncomp)  
-
+  fm
+    
   }
