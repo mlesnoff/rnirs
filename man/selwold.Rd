@@ -30,7 +30,7 @@ Note that any other values than error rates (e.g. singular values returned by a 
 
 \usage{
 selwold(r, start = 0, 
-  typ = c("raw", "smooth", "integral"), 
+  type = c("raw", "smooth", "integral"), 
   alpha = .01, digits = 3,
   plot = c("R", "diff", "none"),
   xlab = "Index", ylab = "Value", main = "r",
@@ -44,7 +44,7 @@ selwold(r, start = 0,
 
 \item{start}{Starting value for indexing the elements of vector \code{r} (default to 0). The index is returned in the output data.frame and the plots..}
 
-\item{typ}{Type of value used for calculating \eqn{R} and \eqn{diff}. Possible values are \code{"raw"} (default; calculations on \eqn{r}), \code{"smooth"} (on the smoothing of \eqn{r}) and \code{"integral"} (on the area under \eqn{r}).}
+\item{type}{Type of value used for calculating \eqn{R} and \eqn{diff}. Possible values are \code{"raw"} (default; calculations on \eqn{r}), \code{"smooth"} (on the smoothing of \eqn{r}) and \code{"integral"} (on the area under \eqn{r}).}
 
 \item{alpha}{Proportion \eqn{alpha} used as threshold for \eqn{R}.}
 
@@ -120,13 +120,13 @@ u$sel
 u <- selwold(z$msep, plot = "diff",
   xlab = "Nb. components")
 
-u <- selwold(z$msep, typ = "smooth", f = 1/3,         ## Smoothing not useful here
+u <- selwold(z$msep, type = "smooth", f = 1/3,         ## Smoothing not useful here
   xlab = "Nb. components")   
 u$res
 u$opt
 u$sel
 
-u <- selwold(z$msep, typ = "integral", alpha = .05,
+u <- selwold(z$msep, type = "integral", alpha = .05,
   xlab = "Nb. components")
 u$res
 u$opt

@@ -1,5 +1,26 @@
 ## NEWS for package rnirs
 
+## **Version 1.9-2**
+
+#### **Renamed functions**
+
+- **fitcv** to **cvfit** 
+
+#### **New functions**
+
+#### **Modified functions**
+
+- **pca.nipalsna**: Argument "gramschmidt" renamed to "gs", argument "maxit"  
+increased to 200, plus internal changes 
+
+- **selwold**: Argument "typ" renamed to "type"
+
+
+
+
+
+
+
 
 ## **Version 1.9-2**
 
@@ -10,7 +31,7 @@
 #### **Modified functions**
 
 - **blocksopls**, **blocksopca**: Input "ncomp" can now have components = 0. 
-Thanks to Evelyne Vigneau (Inrae France)
+Thanks to Evelyne Vigneau (Oniris France)
 
 - **dasdod**: Meaning of parameter **theta** has changed (before was **1 - theta**)
 

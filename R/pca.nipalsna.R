@@ -1,5 +1,5 @@
 pca.nipalsna <- function(X, ncomp, 
-  gramschmidt = TRUE, tol = .Machine$double.eps^0.5, maxit = 100) {
+  gs = TRUE, tol = .Machine$double.eps^0.5, maxit = 200) {
   
   X <- .matrix(X)
   n <- nrow(X)
@@ -15,8 +15,10 @@ pca.nipalsna <- function(X, ncomp,
   nr <- n
   nc <- p
   eig <- rep(NA, length = ncomp)
+  
+  gramschmidt <- gs
 
-  ##################### FUNCTION "nipals" OF PACKAGE "nipals" (K. Wright)
+  ##################### FUNCTION "nipals" OF PACKAGE "nipals" v0.7 (K. Wright, CRAN)
   ##################### = NIPALS WITH NA VALUES
   
   ##################### START 

@@ -1,4 +1,4 @@
-fitcv <- function(X, Y, fun, segm, print = FALSE, ...) {
+cvfit <- function(X, Y, fun, segm, print = FALSE, ...) {
   
   fun <- match.fun(FUN = fun)
 

@@ -1,19 +1,19 @@
 selwold <- function(r, start = 0, 
-  typ = c("raw", "smooth", "integral"), 
+  type = c("raw", "smooth", "integral"), 
   alpha = .01, digits = 3,
   plot = c("R", "diff", "none"),
   xlab = "Index", ylab = "Value", main = "r",
   ...
   ) {
   
-  typ <- match.arg(typ)
+  type <- match.arg(type)
   plot <- match.arg(plot)
   
   zindex <- start:(start + length(r) - 1)
   
   ## val = Value on which are calculated diff and R
   val <- switch(
-    typ,
+    type,
     raw = r,
     smooth = lowess(zindex, r, ...)$y,
     integral = cumsum(r + abs(min(r)))
@@ -21,7 +21,7 @@ selwold <- function(r, start = 0,
   
   zdiff <- -diff(val)
   R <- zdiff / abs(val[-length(val)])
-  if(typ == "integral")
+  if(type == "integral")
     R <- -R
   
   zdiff <- c(zdiff, NA)
@@ -71,8 +71,8 @@ selwold <- function(r, start = 0,
     axis(side = 1, at = labs, labels = labs, fg = fg)
     abline(h = min(r), col = "grey")
     
-    if(typ == "smooth") {
-      lines(zindex, val, typ = "l", col = "red")
+    if(type == "smooth") {
+      lines(zindex, val, type = "l", col = "red")
       legend("topright", legend = c("Raw", "Smoothed"),
         box.col = "grey70", ncol = 1,
         col = c("#045a8d", "red"), lty = 1, xjust = 1, yjust = 1)
@@ -94,7 +94,7 @@ selwold <- function(r, start = 0,
     if(plot == "diff") {
       plot(
         zindex, -zdiff, 
-        typ = "l", pch = 16, col = col,
+        type = "l", pch = 16, col = col,
         xaxt = "n", las = 1, fg = fg, las = 1,
         xlim = c(xmin - eps, xmax - 1 + eps), xaxs = "i",
         xlab = xlab, ylab = "diff", main = "Difference"

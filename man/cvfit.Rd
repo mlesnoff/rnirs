@@ -1,18 +1,18 @@
-\name{fitcv}
-\alias{fitcv}
+\name{cvfit}
+\alias{cvfit}
 \encoding{latin1}
 
 \title{Cross-validation of a prediction model}
 
 \description{
 
-\code{fitcv} is a generic function for implementing cross-validation of a prediction model. Argument \code{fun} defines the function implementing the model has to be cross-validated.
+\code{cvfit} is a generic function for implementing cross-validation of a prediction model. Argument \code{fun} defines the function implementing the model has to be cross-validated.
 
 }
 
 \usage{
 
-fitcv(X, Y, fun, segm, print = FALSE, ...)
+cvfit(X, Y, fun, segm, print = FALSE, ...)
 
 }
 
@@ -47,7 +47,7 @@ headm(Xr)
 n <- nrow(Xr)
 segm <- segmkf(n = n, K = 5, typ = "random", nrep = 3)      # = Repeated K-fold CV
 #segm <- segmts(n = n, m = 40, nrep = 30)                   # = Repeated Test-set CV
-fm <- fitcv(
+fm <- cvfit(
   Xr, yr,
   fun = plsr,
   ncomp = 20,
@@ -94,7 +94,7 @@ fun <- function(Xr, Yr, Xu, Yu = NULL, k, ncomp, ncompdis) {
 
 n <- nrow(Xr)
 segm <- segmkf(n = n, K = 5, typ = "random", nrep = 1)
-fm <- fitcv(
+fm <- cvfit(
   Xr, yr,
   fun = fun,
   k = 50,

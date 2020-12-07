@@ -42,8 +42,8 @@ pca.eigenk(X, ncomp, weights = NULL)
 pca.nipals(X, ncomp, weights = NULL,
   tol = .Machine$double.eps^0.5, maxit = 100)
 
-pca.nipalsna(X, ncomp, gramschmidt = TRUE,
-  tol = .Machine$double.eps^0.5, maxit = 100)
+pca.nipalsna(X, ncomp, gs = TRUE,
+  tol = .Machine$double.eps^0.5, maxit = 200)
   
 }
 
@@ -57,7 +57,7 @@ pca.nipalsna(X, ncomp, gramschmidt = TRUE,
 
 \bold{Specific arguments of} \code{pca.nipalsna}
 
-\item{gramschmidt}{Logical. If TRUE (default), when there are missing data, a Gram-Schmidt orthogonalization is implemented at each iteration of the NIPALS algorithm. This slightly corrects the scores to insure that they are orthogonal. See vignettes in package \code{nipals}.}
+\item{gs}{Logical. If TRUE (default), when there are missing data, a Gram-Schmidt orthogonalization is implemented at each iteration of the NIPALS algorithm. This slightly corrects the scores to insure that they are orthogonal. See vignettes in package \code{nipals}.}
 
 \item{tol}{Tolerance for testing convergence of the NIPALS iterations for each principal component.}
 

@@ -91,24 +91,24 @@
   
   }
 
-.corvec <- function(P0, P, typ = c("maxsub", "hot", "mult")) {
+.corvec <- function(P0, P, type = c("maxsub", "hot", "mult")) {
   
   ## Correlation between two matrix-column spaces
   ## P0 and P must be orthonormal matrices of same dimension
   
-  typ <- match.arg(typ)
+  type <- match.arg(type)
   
   P0 <- .matrix(P0)
   P <- .matrix(P)
   
-  if(typ == "maxsub") {
+  if(type == "maxsub") {
     
     ## Krzanowski, 1979, Hubert et al 2005, Engelen et al. 2005
     q <- min(eigen(crossprod(P, P0) %*% crossprod(P0, P))$value^.5)[1]
   
     }
 
-  if(typ == "hot") {
+  if(type == "hot") {
   
     ## Vector correlation coefficient "q" (Hotelling 1936)
     ## Ye & Weiss Jasa 2003 p. 973-974
@@ -122,7 +122,7 @@
 
     }
   
-  if(typ == "mult") {
+  if(type == "mult") {
     
     ## El Ghaziri, E.M. Qannari 2015
     P0 <- .center(P0)
@@ -341,7 +341,7 @@
   }
 
 .nipals <- function(X, weights = NULL, 
-  tol = .Machine$double.eps^0.5, maxit = 100) {
+  tol = .Machine$double.eps^0.5, maxit = 200) {
   
   ## Find p such as ||X - t'p|| = min, with ||p|| = 1
   ## t = X %*% p
@@ -354,11 +354,10 @@
     weights <- weights / sum(weights)
   
   t <- X[, which.max(.xvar(X, weights = weights))]
-  ztol <- 1
-  iter <- 1
-    
+  
+  iter <- ztol <- 1
   while(ztol > tol & iter <= maxit) {
-    
+     
     ## Regression of X on t
     p <- crossprod(weights * X, t) / sum(weights * t * t)
     p <- p / sqrt(sum(p * p))
