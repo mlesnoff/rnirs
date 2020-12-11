@@ -1,6 +1,5 @@
 \name{ximput.ia}
 \alias{ximput.ia}
-\alias{xssr}
 \encoding{latin1}
 
 \title{Missing Data Imputation using PCA and the Iterative Algorithm (IA)}
@@ -21,12 +20,12 @@ It can also be considered as an expectation-maximmization (EM) algorithm. The "E
 
 \usage{
 
-ximput.ia <- function(X, ncomp, algo = NULL,
-                   start = c("nipals", "means"),
-                   tol = .Machine$double.eps^0.5, 
-                   maxit = 10000,
-                   gs = TRUE,
-                   print = TRUE, ...)
+ximput.ia(X, ncomp, algo = NULL,
+  start = c("nipals", "means"),
+  tol = .Machine$double.eps^0.5, 
+  maxit = 10000,
+  gs = TRUE,
+  print = TRUE, ...)
 
 }
 
@@ -48,6 +47,8 @@ ximput.ia <- function(X, ncomp, algo = NULL,
 
 \item{print}{Logical. If code{TRUE}, fitting information are printed.}
 
+\item{...}{Optionnal arguments to pass through function \code{algo}.}
+
 }
 
 \references{
@@ -65,13 +66,13 @@ Walczak, B., Massart, D.L., 2001. Dealing with missing data: Part I. Chemometric
 \examples{
 
 data(datoctane)
-X <- dataoctane$X
+X <- datoctane$X
 ## removing outliers
-X <- z[-c(25:26, 36:39), ]
-n <- nrow(X)
-p <- ncol(X)
+zX <- X[-c(25:26, 36:39), ]
+n <- nrow(zX)
+p <- ncol(zX)
 N <- n * p
-plotsp(X)
+plotsp(zX)
 
 ############################ NAs simulated in a row of X
 

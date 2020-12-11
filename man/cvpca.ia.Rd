@@ -85,23 +85,22 @@ Walczak, B., Massart, D.L., 2001. Dealing with missing data: Part I. Chemometric
 
 }
 
-
 \examples{
 
 data(datoctane)
 X <- datoctane$X
 ## removing outliers
-X <- z[-c(25:26, 36:39), ]
-n <- nrow(X)
-p <- ncol(X)
+zX <- X[-c(25:26, 36:39), ]
+n <- nrow(zX)
+p <- ncol(zX)
 N <- n * p
-plotsp(X)
+plotsp(zX)
 
 ##### IA
 
 K <- 5
 segm <- segmkf(n = N, K = K, nrep = 1, seed = 1)
-#segm <- segmts(n = N, m = N / K, nrep = 15)
+#segm <- segmts(n = N, m = N / K, nrep = K)
 ncomp <- 10
 fm <- cvpca.ia(zX, ncomp, segm = segm, maxit = 1)     ## NIPALS alone
 #fm <- cvpca.ia(zX, ncomp, segm = segm)               ## With iterations

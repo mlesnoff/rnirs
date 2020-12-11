@@ -1,0 +1,35 @@
+plotxna <- function(X, pch = 16, col = "red", asp = 1, ...) {
+  
+  X <- .matrix(X)
+  zdim <- dim(X)
+  n <- zdim[1]
+  p <- zdim[2]
+
+  z <- which(is.na(X), arr.ind = TRUE) 
+
+  fg <- "grey70"
+  eps <- .1
+  xlim <- c(1 - eps, p + eps)
+  ylim <- c(1 - eps, n + eps)
+
+  xlabs <- round(seq(1, p, length = 20))
+  ylabs <- round(seq(1, n, length = 20))
+  
+  plot(NULL,
+       asp = asp,
+       fg = fg,
+       xaxt = "n", yaxt = "n", xaxs = "i",
+       xlim = xlim, ylim =  ylim,
+       xlab = "Columns", ylab = "Rows",
+       ...)
+
+  axis(side = 1, at = xlabs, labels = xlabs)
+  axis(side = 2, at = ylabs, labels = ylabs, las = 1)
+  
+  points(z[, 2], z[, 1], pch = pch, col = col)
+  
+  
+  abline(h = 1:n, v = 1:p, col = "grey")
+
+  }
+

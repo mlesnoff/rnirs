@@ -98,7 +98,7 @@ yr <- datcass$yr
 
 n <- nrow(Xr)
 segm <- segmkf(n = n, K = 5, typ = "random", nrep = 1)
-fm <- fitcv(
+fm <- cvfit(
   Xr, yr,
   fun = plsr,
   ncomp = 20,
