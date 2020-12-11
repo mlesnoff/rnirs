@@ -8,7 +8,7 @@ segmts <- function(n, y = NULL, m, nrep = 1, seed = NULL) {
   
   zn <- n
   if(!is.null(y)) {
-    if(length(y) != n) stop("y must be of size n")
+    if(length(y) != n) stop("y must be of size n.")
     yagg <- unique(y)
     zn <- length(yagg)
     }

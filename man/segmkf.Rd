@@ -16,7 +16,9 @@ The CV can eventually be randomly repeated. For each repetition:
 - Function \code{segmts} (test-set CV) returns a segment (of a given length \eqn{m}) randomly sampled in the data set.
 
 
-Each segment is a vector of indexes of row observations (unless argument \code{y} is used). 
+Each segment is a vector of the selected indexes of the observations.
+
+If argument \code{y} (vector of classes of length \eqn{n}) is not \code{NULL}, the CV (K-fold or Test-set) is done within each class first, and then the indexes are gathered in the segment.
 
 }
 
@@ -31,9 +33,9 @@ segmts(n, y = NULL, m, nrep, seed = NULL)
 
 \arguments{
 
-\item{n}{The number of row observations in the data set. If \code{y = NULL}, the cross-validation is implemented on \code{1:n}. If \code{y != NULL}, the cross-validation is implemented on the classes contained in \code{y} (but the functions return the row observations corresponding to the selected classes).}
+\item{n}{The total number of row observations in the data set. If \code{y = NULL}, the cross-validation is implemented on \code{1:n}. If \code{y != NULL}, the cross-validation is implemented within each class contained in \code{y} (but the functions return the row observations corresponding to the selected classes).}
 
-\item{y}{A vector of classes to be cross-validated instead of the row observations. Default to \code{NULL}.}
+\item{y}{A vector of classes. Must be of length \eqn{n}). Default to \code{NULL}.}
 
 \item{K}{The number segments in the K-fold CV.}
 

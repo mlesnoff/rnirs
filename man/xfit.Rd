@@ -3,7 +3,7 @@
 \alias{xssr}
 \encoding{latin1}
 
-\title{Matrix fitting from multivariate scores and loadings, and SSR calculation}
+\title{Matrix fitting from scores and loadings matrices and SSR calculation}
 
 \description{
 

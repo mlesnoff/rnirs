@@ -61,7 +61,7 @@ headm(fm$r)
 
 z <- mse(fm, ~ ncomp)
 headm(z)
-z[z$rmsep == min(z$rmsep), ]
+z[z$msep == min(z$msep), ]
 plotmse(z)
 plotmse(z, nam = "r2", ylim = c(0, 1))
 abline(h = 1, lty = 2, col = "grey")
@@ -107,7 +107,7 @@ headm(fm$fit)
 
 z <- mse(fm, ~ k + ncomp)
 headm(z)
-z[z$rmsep == min(z$rmsep), ]
+z[z$msep == min(z$msep), ]
 plotmse(z, group = z$k)
 
 }

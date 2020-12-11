@@ -1,6 +1,6 @@
-## NEWS for package rnirs
+## NEWS for package **rnirs**
 
-## **Version 1.9-2**
+## **Version 1.9-3**
 
 #### **Renamed functions**
 
@@ -8,6 +8,20 @@
 
 #### **New functions**
 
+- Missing data imputation (MDI) in a matrix
+
+  - **ximput.ia**: IA algorithm
+  
+  - **plotxna**: Plotting missing data in a matrix
+  
+- CV for PCA models
+
+  - **cvpca.ia**: PCA CV with IA algorithm
+
+  - **cvpca.tri**: PCA CV with ekf-TRI algorithm
+  
+  - **cvpca.trickf**: PCA CV with ckf-TRI algorithm
+  
 #### **Modified functions**
 
 - **pca.nipalsna**: Argument "gramschmidt" renamed to "gs", argument "maxit"  
@@ -19,6 +33,7 @@ increased to 200, plus internal changes
 
 
 
+  
 
 
 

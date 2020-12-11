@@ -1,5 +1,5 @@
-mdi.ia <- function(X, ncomp, algo = NULL,
-                   start = c("nipals", "mean"),
+ximput.ia <- function(X, ncomp, algo = NULL,
+                   start = c("nipals", "means"),
                    tol = .Machine$double.eps^0.5, 
                    maxit = 10000,
                    gs = TRUE,
@@ -25,13 +25,15 @@ mdi.ia <- function(X, ncomp, algo = NULL,
       algo <- pca.eigen
   
   s <- which(is.na(X))
+  if(length(s) == 0)
+    stop("\n\nThere are no missing data in matrix X.\n\n")
   
   if(start == "nipals") {
     fm <- pca.nipalsna(X, ncomp, gs = gs)
     fit <- xfit(fm$T[, 1:ncomp, drop = FALSE], fm$P[, 1:ncomp, drop = FALSE], fm$xmeans)[s]
     }
   
-  if(start == "mean") {
+  if(start == "means") {
     xmeans <- matrixStats::colMeans2(X, na.rm = TRUE)     ## to do: Add weight
     fit <- matrix(rep(xmeans, n), nrow = n, byrow = TRUE)[s]
     }
@@ -58,7 +60,14 @@ mdi.ia <- function(X, ncomp, algo = NULL,
   if(print & iter > 1)
     cat("\n\n")
   
+  if(maxit == 1)
+    tol <- NA
+  else
+    tol <- ztol[-1]
+  
+  conv <- ifelse(maxit > 1 & iter == maxit, FALSE, TRUE) 
+  
   list(X = X, T = fm$T, P = fm$P, xmeans = fm$xmeans, 
-       fit = X[s], s = s, niter = iter, tol = ztol) 
+       fit = X[s], s = s, niter = iter, tol = tol, conv = conv) 
 
   }

@@ -1,7 +1,8 @@
 cvpca.ia <- function(X, ncomp, algo = NULL,
                      segm,
+                     start = "nipals",
                      tol = .Machine$double.eps^0.5, 
-                     maxit = 1, 
+                     maxit = 10000, 
                      print = TRUE, ...) {
 
   X <- .matrix(X)
@@ -21,7 +22,7 @@ cvpca.ia <- function(X, ncomp, algo = NULL,
   
   res <- list()
   SSR <- matrix(nrow = nsegm, ncol = ncomp + 1)
-  niter <- numeric()
+  niter <- matrix(nrow = nrep, ncol = nsegm)
   for(i in 1:nrep) {
     
     if(print)
@@ -37,14 +38,13 @@ cvpca.ia <- function(X, ncomp, algo = NULL,
       if(print)
         cat("segm=", j, " ", sep = "")
       
-      Xna <- X
-      Xna[s] <- NA
+      Xna <- replace(X, s, NA)
       
-      fm <- mdi.ia(Xna, ncomp = ncomp,
-                   start = "nipals",
+      fm <- ximput.ia(Xna, ncomp = ncomp,
+                   start = start,
                    tol = tol, maxit = maxit, print = FALSE, ...)
       
-      niter[j] <- fm$niter
+      niter[i, j] <- fm$niter
       
       for(a in 1:ncomp) {
         
@@ -73,6 +73,10 @@ cvpca.ia <- function(X, ncomp, algo = NULL,
     cat("/ End.")
   cat("\n\n")
   
+  row.names(niter) <- paste("rep", 1:nrep, sep = "")
+  colnames(niter) <- paste("segm", 1:nsegm, sep = "")
+  conv <- ifelse(maxit > 1 & niter == maxit, FALSE, TRUE) 
+  
   z <- setDF(rbindlist(res))
   z$msep <- z$ssr / N
   res <- z
@@ -91,7 +95,9 @@ cvpca.ia <- function(X, ncomp, algo = NULL,
   z$se <- sqrt(s2 / nrep)
   res.summ <- z
   
-  list(res.summ = res.summ, res = res, opt = opt, 
-       niter = niter)
+  opt.summ <- z$ncomp[z$msep == min(z$msep)]
+  
+  list(res.summ = res.summ, opt.summ = opt.summ, 
+       res = res, opt = opt, niter = niter, conv = conv)
 
   }

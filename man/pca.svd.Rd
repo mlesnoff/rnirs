@@ -122,10 +122,10 @@ fm
 ## Replacement of the missing data in X2
 ## by their NIPALS estimates
 
-Xhat <- xfit(fm$T, fm$P, fm$xmeans)
-Xhat
+Xfit <- xfit(fm$T, fm$P, fm$xmeans)
+Xfit
 u <- which(is.na(X2))
-Xfull <- replace(X2, u, Xhat[u])
+Xfull <- replace(X2, u, Xfit[u])
 Xfull
 
 }

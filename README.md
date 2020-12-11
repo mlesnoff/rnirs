@@ -1,9 +1,47 @@
-## **rnirs - Regression, Discrimination and Other Methods for Chemometrics**  
+## **rnirs - Regression and Discrimination for Chemometrics**  
 ## <span style="color:grey70"> **Version 1.9-3** </span> 
 
 ## <span style="color:green"> **Key Features** </span> 
 
-**Factorial Analyses** (PCA, PLS, FDA, Non Linear Kernel PCA and PLS), **Partial Least Squares Regression and Discrimination** (PLSR, PLSDA, Non Linear KPLSR and KPLSDA), **Principal Component Regression and Discrimination**  (PCR, PCDA, Non Linear Kernel PCR and PCDA), **Ridge Regression and Discrimination** (RR, RDA, Non Linear Kernel RR and RDA), **Support Vector Machine Regression and Discrimination** (SVMR, SVMDA), **K-Nearest Neighbours Regression and Discrimination** (KNNR, KNNDA), **Locally Weighted PLS Regression and Discrimination** (LWPLSR, LWPLSDA), **Multiblocks Dimension Reductions** (MB-PCA, MB-PLS, SO-PCA, SO-PLS), **Signal Pre-processing** (derivation, detrend, etc.) , **Cross-Validation**, **Plotting** 
+- **Factorial analyses** 
+  - PCA, PLS, FDA
+  - Robust PCA and PLS
+  - Non Linear Kernel PCA and PLS
+
+- **Regression**
+  - PCR, PLSR
+  - Ridge (RR)
+  - Robust PCR and PLSR
+  - Non Linear Kernels
+    - KPCR, KPLSR
+    - KRR (LS-SVMR)
+    - SVMR
+  - Local methods
+    - KNNR
+    - KNN-LWPLSR 
+
+- **Discrimination**
+  - PCDA, PLSDA
+  - Ridge (RR)
+  - Robust PCDA and PLSDA
+  - Non Linear Kernels
+    - KPCDA, KPLSDA
+    - KRDA (LS-SVMC)
+    - SVMC
+  - Local methods: KNNDA, KNN-LWPLSDA
+
+- **Multi-block data reduction**
+  - MB-PCA, MB-PLS
+  - SOPCA, SOPLS
+
+- **Cross-validation (CV)**
+
+- **Missing data imputation (MDI)**
+
+- **Signal pre-processing**
+
+- **Plotting**
+
 
 **Click** [**here**](https://github.com/mlesnoff/rnirs/blob/master/doc/rnirs_functions_github.md) **to see the list of the available functions** 
 
@@ -38,7 +76,7 @@ news(package = "rnirs")
 
 Using [**Rstudio**](https://www.rstudio.com/products/rstudio/download/) is recommended for installation and usage
 
-### <span style="color:green"> 1.  Install package **remotes** from CRAN </span>
+### <span style="color:green"> 1.  Install package **'remotes'** from CRAN </span>
 
 Use the **Rstudio** menu 
 
@@ -47,7 +85,7 @@ or write in the R console
 install.packages("remotes")
 ```
 
-### <span style="color:green"> 2. Install package **rnirs** </span> 
+### <span style="color:green"> 2. Install package **'rnirs'** </span> 
 
 **a) Most recent version**
 
