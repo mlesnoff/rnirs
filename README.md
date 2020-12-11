@@ -91,7 +91,8 @@ install.packages("remotes")
 
 Write in the R console
 ```{r}
-remotes::install_github("mlesnoff/rnirs", dependencies = TRUE)
+remotes::install_github("mlesnoff/rnirs", dependencies = TRUE, 
+  build_vignettes = TRUE)
 ```
 In case of the following question during installation process:
 ```{r}
@@ -106,7 +107,8 @@ e.g. with tag "v1.9-0"
 
 write in the R console
 ```{r}
-remotes::install_github("mlesnoff/rnirs@v1.9-0", dependencies = TRUE)
+remotes::install_github("mlesnoff/rnirs@v1.9-0", dependencies = TRUE, 
+  build_vignettes = FALSE)
 ```
 
 ### <span style="color:green"> 3. Usage </span>
