@@ -86,7 +86,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### <span style="color:green"> Auxilliary functions </span>
 
-- ***scordis, ***lscordis*** Score distances for a score space
+- ***scordis***, ***lscordis*** Score distances for a score space
 - ***odis***, ***lodis*** Orthogonal distances for a score space
 - ***xfit*** Matrix fitting from multivariate scores and loadings, 
 - ***xssr*** SSR calculation for a matrix fitting
