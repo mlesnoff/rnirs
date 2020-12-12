@@ -115,11 +115,12 @@ ns <- B <- 50   ## Should be increased for more stability
 u <- plsrdf.cov(zX, y, ncomp = ncomp, B = B)
 v <- plsrdf.div(zX, y, ncomp = ncomp, ns = ns)
 
-plot(0:ncomp, u$df, type = "b", col = "red",
+zncomp <- 0:ncomp
+plot(zncomp, u$df, type = "b", col = "red",
      ylim = c(0, 15),
      xlab = "Nb components", ylab = "df")
-lines(0:ncomp, v$df, col = "blue", type = "b")                 
-lines(0:ncomp, zncomp + 1, col = "grey40")   ## Naive df
+lines(zncomp, v$df, col = "blue", type = "b")                 
+lines(zncomp, zncomp + 1, col = "grey40")   ## Naive df
 abline(h = 1, lty = 2, col = "grey")
 
 }
