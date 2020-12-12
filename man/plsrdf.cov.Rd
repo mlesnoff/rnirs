@@ -89,10 +89,11 @@ Statistics 35, 2173–2192. https://doi.org/10.1214/009053607000000127
 
 \examples{
 
-## This reproduces below the example given by Krämer & Sugiyama 2011 (Fig. 1, center)
+## Below is an example reproducing the numerical illustration
+## given by Kramer & Sugiyama 2011 (Fig. 1, center) 
 ## on the Ozone data.
-## Note that function "pls.model" of package "plsdof" (Kramer & Braun 2019)
-## automatically scales the X matrix.
+## Note that function "pls.model" of the R package "plsdof" v0.2-9 (Kramer & Braun 2019)
+## automatically scales the X matrix before PLS.
 
 data(datozone)
 
