@@ -1,9 +1,12 @@
 plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
-  algo = pls.kernel, ...) {
+                    algo = NULL, ...) {
 
   Xu <- .matrix(Xu)
   m <- dim(Xu)[1]
   rownam.Xu <- row.names(Xu)
+
+  if(is.null(algo))
+    algo <- pls.kernel
 
   dots <- list(...)
   namdot <- names(dots)

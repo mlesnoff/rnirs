@@ -3,11 +3,13 @@
 \alias{pcr}
 \encoding{latin1}
 
-\title{OCR and PLSR PCR Models}
+\title{PCR and PLSR Models}
 
 \description{
 
-Regression on PCA or PLS latent variables (scores). The functions are implemented only for algorithms providing orthogonal scores.
+Regression on PCA or PLS latent variables (scores). 
+
+Functions \code{pcr} and \code{plsr} assume PCA and PLS algorithms providing orthogonal scores.
 
 Data are internally centered (column-wise) before the analyses, but they are not scaled (there is no argument \code{scale} in the functions). If needed, the user has to do the scaling before using the function.  
 
@@ -19,7 +21,7 @@ Row observations can eventually be weighted (using argument \code{weights}).
 
 pcr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...)
 
-plsr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...)
+plsr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...)
 
 }
 
@@ -33,9 +35,9 @@ plsr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...)
 
 \item{Yu}{A \eqn{m x q} matrix or data frame, or a vector of length \eqn{m}, of the true responses for \eqn{Xu}. Default to \code{NULL}.}
 
-\item{ncomp}{The number of PLS scores (= components = latent variables) to consider.}
+\item{ncomp}{The maximal number of PLS scores (= components = latent variables) to consider.}
 
-\item{algo}{For \code{plsr}, a function (algorithm) implementing a PLS on the training data set. Default to \code{\link{pls.kernel}}. For \code{pcr}, a function (algorithm) implementing a PCA. Default to \code{NULL}: if \eqn{n < p}, \code{\link{pca.eigenk}} is used; in the other case, \code{\link{pca.eigen}} is used.}
+\item{algo}{For \code{plsr}, a function (algorithm) implementing a PLS on the training data set. Default to  \code{NULL} (\code{\link{pls.kernel}} is used). For \code{pcr}, a function (algorithm) implementing a PCA. Default to \code{NULL}: if \eqn{n < p}, \code{\link{pca.eigenk}} is used; in the other case, \code{\link{pca.eigen}} is used.}
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 

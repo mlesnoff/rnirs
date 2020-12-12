@@ -7,6 +7,8 @@
 
 \description{
 
+Octane data.
+
 Near infrared absorbance spectra (NIR) of \eqn{n} = 39 gasoline samples over \eqn{p} = 226 wavelengths (1102 nm to 1552 nm, step = 2 nm).
 
 Samples 25, 26, and 36-39 contain added alcohol (outliers).
@@ -21,9 +23,9 @@ Samples 25, 26, and 36-39 contain added alcohol (outliers).
 
 \source{
 
-- K.H. Esbensen, S. Schoenkopf and T. Midtgaard Multivariate Analysis in Practice, Trondheim, Norway: Camo, 1994.
+K.H. Esbensen, S. Schoenkopf and T. Midtgaard Multivariate Analysis in Practice, Trondheim, Norway: Camo, 1994.
 
-- Package rrcov (CRAN)
+Todorov, V. 2020. rrcov: Robust Location and Scatter Estimation and Robust Multivariate Analysis with High Breakdown. R Package version 1.5-5. https://cran.r-project.org/.
 
 }
 

@@ -47,7 +47,7 @@ pca.rob(X, ncomp, nsim = 1500, alpha = .30, step2 = TRUE,
 
 \item{X}{A \eqn{n x p} matrix or data frame of variables.}
 
-\item{ncomp}{The number of PCA scores (i.e. components) to be calculated.}
+\item{ncomp}{The maximal number of PCA scores (= components = latent variables) to be calculated.}
 
 \item{obj}{For \code{pca.cr}. The objective function (projection index) to maximize with the PP scores. Default to \code{obj = mad}. }
 

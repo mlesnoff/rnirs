@@ -1,4 +1,4 @@
-plotxna <- function(X, pch = 16, col = "red", asp = 1, ...) {
+plotxna <- function(X, pch = 16, col = "red", grid = TRUE, asp = 0, ...) {
   
   X <- .matrix(X)
   zdim <- dim(X)
@@ -11,9 +11,19 @@ plotxna <- function(X, pch = 16, col = "red", asp = 1, ...) {
   eps <- .1
   xlim <- c(1 - eps, p + eps)
   ylim <- c(1 - eps, n + eps)
+  
+  if(n < 50)
+    xlength <- p
+  else
+    xlength <- 20
+  
+  if(p < 50)
+    ylength <- p
+  else
+    ylength <- 20
 
-  xlabs <- round(seq(1, p, length = 20))
-  ylabs <- round(seq(1, n, length = 20))
+  xlabs <- round(seq(1, p, length = xlength))
+  ylabs <- round(seq(1, n, length = ylength))
   
   plot(NULL,
        asp = asp,
@@ -23,13 +33,14 @@ plotxna <- function(X, pch = 16, col = "red", asp = 1, ...) {
        xlab = "Columns", ylab = "Rows",
        ...)
 
+  
   axis(side = 1, at = xlabs, labels = xlabs)
   axis(side = 2, at = ylabs, labels = ylabs, las = 1)
   
   points(z[, 2], z[, 1], pch = pch, col = col)
   
-  
-  abline(h = 1:n, v = 1:p, col = "grey")
+  if(grid)
+    bline(h = 1:n, v = 1:p, col = "grey")
 
   }
 

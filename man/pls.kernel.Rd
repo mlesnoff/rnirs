@@ -40,7 +40,7 @@ pls.rannar(X, Y, ncomp, weights = NULL)
 
 \item{Y}{A \eqn{n x q} matrix or data frame (or vector of length \eqn{n} for PLS1) of responses.}
 
-\item{ncomp}{The number of scores (i.e. components) to be calculated.}
+\item{ncomp}{The maximal number of scores (i.e. components = latent variables) to be calculated.}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 

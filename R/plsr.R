@@ -1,8 +1,12 @@
-plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = pls.kernel, ...) {
+plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
+                 algo = NULL, ...) {
   
   Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
   q <- dim(Yr)[2]
   colnam.Y <- colnames(Yr)
+  
+  if(is.null(algo))
+    algo <- pls.kernel
 
   fm <- algo(Xr, Yr, ncomp, ...)
   if(!fm$T.ortho)

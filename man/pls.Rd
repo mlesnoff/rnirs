@@ -23,7 +23,7 @@ Row observations can eventually be weighted with a priori weights (using argumen
 
 pca(Xr, Xu = NULL, ncomp, algo = NULL, ...)
 
-pls(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...)
+pls(Xr, Yr, Xu = NULL, ncomp, algo = NULL, ...)
 
 }
 
@@ -35,9 +35,9 @@ pls(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...)
 
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations to be projected in the calculated reference score space (\eqn{Xu} is not used in the calculation of this score space). Default to \code{NULL}.}
 
-\item{ncomp}{The number of PCA or PLS scores (i.e. components) to be calculated.}
+\item{ncomp}{The maximal number of PCA or PLS scores (= components = latent varaibles) to be calculated.}
 
-\item{algo}{For \code{pls}, a function implementing a PLS (default to \code{\link{pls.kernel}}). For \code{pca}, a function (algorithm) implementing a PCA. Default to \code{NULL}: if \eqn{n < p}, \code{\link{pca.eigenk}} is used; in the other case, \code{\link{pca.eigen}} is used. }
+\item{algo}{For \code{pls}, a function implementing a PLS. Default to  \code{NULL} (\code{\link{pls.kernel}} is used). For \code{pca}, a function (algorithm) implementing a PCA. Default to \code{NULL}: if \eqn{n < p}, \code{\link{pca.eigenk}} is used; in the other case, \code{\link{pca.eigen}} is used. }
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 

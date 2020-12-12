@@ -1,9 +1,12 @@
-pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = pls.kernel, ...) {
+pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = NULL, ...) {
 
   Xr <- .matrix(Xr)
   n <- dim(Xr)[1]
   
   Y <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
+
+  if(is.null(algo))
+    algo <- pls.kernel    
 
   fm <- algo(Xr, Y, ncomp, ...)
   

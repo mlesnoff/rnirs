@@ -51,7 +51,7 @@ pca.nipalsna(X, ncomp, gs = TRUE,
 
 \item{X}{A \eqn{n x p} matrix or data frame of variables.}
 
-\item{ncomp}{The number of PCA scores (i.e. components) to be calculated.}
+\item{ncomp}{The maximal number of PCA scores (= components = latent variables) to be calculated.}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 

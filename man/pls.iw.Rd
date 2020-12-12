@@ -35,9 +35,9 @@ pls.iw(X, Y, ncomp, ncompw = 10, a = 3,
 
 \item{Y}{A \eqn{n x 1} matrix or data frame, or vector of length \eqn{n}, of responses.}
 
-\item{ncomp}{The number of scores (i.e. components) to be calculated in the final PLS.}
+\item{ncomp}{The maximal number of scores (components = latent variables) to be calculated in the final PLS.}
 
-\item{ncompw}{The number of scores (i.e. components) used for optimizing the WPLS weights.}
+\item{ncompw}{The number of scores used for optimizing the WPLS weights.}
 
 \item{a}{The cutoff value for the tricubic weight function (\code{.tricube}).}
 

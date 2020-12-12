@@ -1,5 +1,21 @@
 ## NEWS for package **rnirs**
 
+## **Version 1.9-4**
+
+#### **Modified functions**
+
+- **plotxna**: New argument "grid"
+
+- **pls**, **plsr**, **plsdalm**, **plsda**: argument "algo" set to NULL (this has no implication)
+
+
+
+
+
+  
+
+
+
 ## **Version 1.9-3**
 
 #### **Renamed functions**

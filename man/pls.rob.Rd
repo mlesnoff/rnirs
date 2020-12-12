@@ -37,9 +37,9 @@ pls.rob(X, Y, ncomp, ncompw = 10, alpha = .30,
 
 \item{Y}{A \eqn{n x 1} matrix or data frame, or vector of length \eqn{n}, of responses.}
 
-\item{ncomp}{The number of scores (i.e. components) to be calculated in the final PLS.}
+\item{ncomp}{The maximal number of scores (= components = latent variables) to be calculated in the final PLS.}
 
-\item{ncompw}{The number of scores (i.e. components) used for computing the X- and y-outliers (Steps 1 and 2).}
+\item{ncompw}{The number of scores used for computing the X- and y-outliers (Steps 1 and 2).}
 
 \item{alpha}{Proportion \eqn{alpha} of the data used as hard rejection of X-outliers in Step 1 (See \code{\link{pca.rob}}). Default to \code{alpha = .30}, i.e. 30pct are rejected.}
 

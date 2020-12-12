@@ -7,7 +7,7 @@
 \description{Plot the location of missing data in a matrix.}
 
 \usage{
-plotxna(X, pch = 16, col = "red", asp = 1, ...)
+plotxna(X, pch = 16, col = "red", asp = 0, ...)
 }
 
 \arguments{
@@ -35,7 +35,7 @@ N <- n * p
 s <- sample(1:N, size = 50)
 zX <- replace(X, s, NA)
 plotxna(zX)
-plotxna(zX, asp = 0)
+plotxna(zX, asp = 1)
 
 }
 

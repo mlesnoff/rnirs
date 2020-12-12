@@ -1,7 +1,7 @@
 Package: rnirs
 Type: Package
 Title: Regression, Discrimination and Other Methods for Chemometrics
-Version: 1.9-3
+Version: 1.9-4
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Description: Package for regression and discrimination, with special focus on chemometrics.
