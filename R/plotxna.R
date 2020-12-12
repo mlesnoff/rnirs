@@ -1,4 +1,4 @@
-plotxna <- function(X, pch = 16, col = "red", grid = TRUE, asp = 0, ...) {
+plotxna <- function(X, pch = 16, col = "red", grid = FALSE, asp = 0, ...) {
   
   X <- .matrix(X)
   zdim <- dim(X)
@@ -40,7 +40,7 @@ plotxna <- function(X, pch = 16, col = "red", grid = TRUE, asp = 0, ...) {
   points(z[, 2], z[, 1], pch = pch, col = col)
   
   if(grid)
-    bline(h = 1:n, v = 1:p, col = "grey")
+    abline(h = 1:n, v = 1:p, col = "grey")
 
   }
 

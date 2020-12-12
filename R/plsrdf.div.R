@@ -7,6 +7,8 @@ plsrdf.div <- function(X, Y, ncomp, algo = NULL,
   X <- .matrix(X)
   n <- dim(X)[1]
   
+  ns <- min(ns, n) 
+  
   y <- c(Y)
   eps <- mean(y) * eps
   

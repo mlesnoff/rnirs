@@ -2,6 +2,17 @@
 
 ## **Version 1.9-4**
 
+#### **New functions**
+
+- Degrees of freedom for PLSR1 models
+
+  - **plsrdf.cov**
+  - **plsrdf.div**
+
+- Mallows Cp for PLSR1 models
+
+  - **plsrdf.cov**
+
 #### **Modified functions**
 
 - **plotxna**: New argument "grid"

@@ -14,8 +14,11 @@ plsrdf.cov <- function(X, Y, ncomp, algo = NULL,
   #for(a in 1:ncomp)
   #  ssr[a] <- sum(.resid.pls(fm, Y, ncomp = a)$r^2)
   ## End
-  ## Biased estimate
-  s2 <- ssr[ncomp + 1] / (ncomp + 1)
+  ## Low biased model estimate
+  k <- min(ncomp, 30)
+  s2 <- ssr[k + 1] / (k + 1)
+
+  #s2 <- ssr[ncomp + 1] / (ncomp + 1)
     
   zY <- matrix(rep(Y, B), nrow = n, ncol = B, byrow = FALSE)
   set.seed(seed = seed)

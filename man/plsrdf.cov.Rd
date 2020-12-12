@@ -31,7 +31,7 @@ plsrdf.div(X, Y, ncomp, algo = NULL,
 
 \item{X}{A \eqn{n x p} matrix or data frame of training observations.}
 
-\item{Y}{Avector of length \eqn{n} of training responses. }
+\item{Y}{A vector of length \eqn{n} of training responses. }
 
 \item{ncomp}{The maximal number of PLS scores (= components = latent variables) to consider.}
 
@@ -42,6 +42,8 @@ plsrdf.div(X, Y, ncomp, algo = NULL,
 \item{ns}{For \code{plsrdf.div}. Number of observations in the data receiving perturbation. The maximum is \eqn{n}.}
 
 \item{meth.samp}{For \code{plsrdf.div}. When \eqn{ns < n}, method used for sampling the observations receiving a perturbation. Possible values are "syst" (default; observations are sampled regularly over \eqn{y}) or "random".}
+
+\item{eps}{For \code{plsrdf.div}. The \eqn{epsilon} quantity used for scaling the perturbation analysis.}
 
 \item{seed}{An integer defining the seed for the random simulation, or \code{NULL} (default). See \code{\link{set.seed}}.}
 
@@ -79,6 +81,9 @@ Kramer, N., Sugiyama, M., 2011. The Degrees of Freedom of Partial Least Squares 
 
 Kramer, N., Braun, M. L. 2019. plsdof: Degrees of Freedom and Statistical Inference for Partial Least Squares Regression. R package version 0.2-9. https://cran.r-project.org
 
+Stein, C.M., 1981. Estimation of the Mean of a Multivariate Normal
+Distribution. The Annals of Statistics 9, 1135–1151.
+
 Ye, J., 1998. On Measuring and Correcting the Effects of Data Mining and Model Selection. Journal of
 the American Statistical Association 93, 120–131. https://doi.org/10.1080/01621459.1998.10474094
 
@@ -101,15 +106,14 @@ z <- datozone$X
 u <- which(!is.na(rowSums(z)))    ## Removing rows with NAs
 X <- z[u, -4]
 y <- z[u, 4]
-n <- nrow(X)
 dim(X)
 
-zX <- .scale(Xr, colMeans(Xr), colVars(Xr)^.5)    ## Scaling for consistency with plsdof
+zX <- scale(X)    ## Scaling for consistency with plsdof
 
 ncomp <- 12
 ns <- B <- 50   ## Should be increased for more stability
-u <- plsrdf.cov(zX, yr, ncomp = ncomp, B = B)
-v <- plsrdf.div(zX, yr, ncomp = ncomp, ns = ns)
+u <- plsrdf.cov(zX, y, ncomp = ncomp, B = B)
+v <- plsrdf.div(zX, y, ncomp = ncomp, ns = ns)
 
 plot(0:ncomp, u$df, type = "b", col = "red",
      ylim = c(0, 15),
