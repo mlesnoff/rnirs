@@ -118,8 +118,8 @@ v <- plsrdf.div(zX, y, ncomp = ncomp, ns = ns)
 plot(0:ncomp, u$df, type = "b", col = "red",
      ylim = c(0, 15),
      xlab = "Nb components", ylab = "df")
-lines(zncomp, v$df, col = "blue", type = "b")                 
-lines(zncomp, zncomp + 1, col = "grey40")   ## Naive df
+lines(0:ncomp, v$df, col = "blue", type = "b")                 
+lines(0:ncomp, zncomp + 1, col = "grey40")   ## Naive df
 abline(h = 1, lty = 2, col = "grey")
 
 }

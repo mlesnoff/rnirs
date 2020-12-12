@@ -19,6 +19,9 @@
 
 - **pls**, **plsr**, **plsdalm**, **plsda**: argument "algo" set to NULL (this has no implication)
 
+#### **New data set**
+
+- **datozone**
 
 
 
@@ -56,6 +59,9 @@ increased to 200, plus internal changes
 
 - **selwold**: Argument "typ" renamed to "type"
 
+#### **New data set**
+
+- **datoctane**
 
 
 
