@@ -71,7 +71,7 @@
 
 ### <span style="color:green"> Auxilliary functions </span>
 
-- ***scordis, ***lscordis*** Score distances for a score space
+- ***scordis***, ***lscordis*** Score distances for a score space
 - ***odis***, ***lodis*** Orthogonal distances for a score space
 - ***xfit*** Matrix fitting from multivariate scores and loadings, 
 - ***xssr*** SSR calculation for a matrix fitting
@@ -175,6 +175,9 @@
   - ***cvpca.ia***: IA algorithm
   - ***cvpca.tri***: ekf-TRI algorithm
   - ***cvpca.trickf***: ckf-TRI algorithm
+- **Model complexity (df) and Mallows Cp for PLSR1**
+  - ***plsrdf.cov***, ***plsr.div** Monte Carlo estimation of PLSR1 numbers of degrees of freedom 
+  - ***plsrcp*** Mallows Cp criterion for PLSR1 models
 - **Prediction error rate**
   - ***mse*** For regression models
   - ***err*** For discrimination models
@@ -260,3 +263,4 @@
 - [**ChemHouse**](https://www.chemproject.org/ChemHouse), Montpellier
 
 **matthieu.lesnoff@cirad.fr**
+
