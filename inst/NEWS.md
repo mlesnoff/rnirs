@@ -11,7 +11,7 @@
 
 - Mallows Cp for PLSR1 models
 
-  - **plsrdf.cov**
+  - **plsrcp**
 
 #### **Modified functions**
 
