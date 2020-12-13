@@ -1,6 +1,6 @@
-\name{plsrdf.cov}
-\alias{plsrdf.cov}
-\alias{plsrdf.div}
+\name{dfplsr.cov}
+\alias{dfplsr.cov}
+\alias{dfplsr.div}
 \encoding{latin1}
 
 \title{Degrees of freedom of PLSR1 Models}
@@ -9,19 +9,19 @@
 
 Monte Carlo methods for estimating the model complexity \eqn{df} (number of degrees of freedom) of PLSR1 models.
 
-- In \code{plsrdf.cov}, the covariances presented by Efron 2004 (Eq. 2.16) are calculated  by parametric bootstrap. The residual variance \eqn{sigma^2} is estimated from a low-biased model.
+- In \code{dfplsr.cov}, the covariances presented by Efron 2004 (Eq. 2.16) are calculated  by parametric bootstrap. The residual variance \eqn{sigma^2} is estimated from a low-biased model.
 
-- In \code{plsrdf.div}, the divergencies \eqn{dy_fit/dy} presented by Ye (1998) and Efron (2004) are calculated by perturbation analysis. This is a "Stein unbiased risk estimation" (SURE) of \eqn{df}.
+- In \code{dfplsr.div}, the divergencies \eqn{dy_fit/dy} presented by Ye (1998) and Efron (2004) are calculated by perturbation analysis. This is a "Stein unbiased risk estimation" (SURE) of \eqn{df}.
 
 }
 
 \usage{
 
-plsrdf.cov(X, Y, ncomp, algo = NULL,
+dfplsr.cov(X, Y, ncomp, algo = NULL,
   B = 50,
   seed = NULL, print = TRUE, ...)
 
-plsrdf.div(X, Y, ncomp, algo = NULL, 
+dfplsr.div(X, Y, ncomp, algo = NULL, 
   ns = 10, meth.samp = c("syst", "random"), eps = 1e-4, 
   seed = NULL, print = TRUE, ...) 
 
@@ -37,13 +37,13 @@ plsrdf.div(X, Y, ncomp, algo = NULL,
 
 \item{algo}{a PLS algorithm. Default to  \code{NULL} (\code{\link{pls.kernel}} is used).}
 
-\item{B}{For \code{plsrdf.cov}. Number of bootstrap replications.}
+\item{B}{For \code{dfplsr.cov}. Number of bootstrap replications.}
 
-\item{ns}{For \code{plsrdf.div}. Number of observations in the data receiving perturbation. The maximum is \eqn{n}.}
+\item{ns}{For \code{dfplsr.div}. Number of observations in the data receiving perturbation. The maximum is \eqn{n}.}
 
-\item{meth.samp}{For \code{plsrdf.div}. When \eqn{ns < n}, method used for sampling the observations receiving a perturbation. Possible values are "syst" (default; observations are sampled regularly over \eqn{y}) or "random".}
+\item{meth.samp}{For \code{dfplsr.div}. When \eqn{ns < n}, method used for sampling the observations receiving a perturbation. Possible values are "syst" (default; observations are sampled regularly over \eqn{y}) or "random".}
 
-\item{eps}{For \code{plsrdf.div}. The \eqn{epsilon} quantity used for scaling the perturbation analysis.}
+\item{eps}{For \code{dfplsr.div}. The \eqn{epsilon} quantity used for scaling the perturbation analysis.}
 
 \item{seed}{An integer defining the seed for the random simulation, or \code{NULL} (default). See \code{\link{set.seed}}.}
 
@@ -94,10 +94,10 @@ Statistics 35, 2173–2192. https://doi.org/10.1214/009053607000000127
 
 \examples{
 
-## Below is an example reproducing the numerical illustration
-## given by Kramer & Sugiyama 2011 (Fig. 1, center) 
-## on the Ozone data.
-## Note that function "pls.model" of the R package "plsdof" v0.2-9 (Kramer & Braun 2019)
+## The example below reproduces the numerical illustration
+## given by Kramer & Sugiyama 2011 on the Ozone data (Fig. 1, center).
+## Note that function "pls.model" used for df calculations
+## in the R package "plsdof" v0.2-9 (Kramer & Braun 2019)
 ## automatically scales the X matrix before PLS.
 
 data(datozone)
@@ -112,15 +112,19 @@ zX <- scale(X)    ## Scaling for consistency with plsdof
 
 ncomp <- 12
 ns <- B <- 50   ## Should be increased for more stability
-u <- plsrdf.cov(zX, y, ncomp = ncomp, B = B)
-v <- plsrdf.div(zX, y, ncomp = ncomp, ns = ns)
+u <- dfplsr.cov(zX, y, ncomp = ncomp, B = B)
+v <- dfplsr.div(zX, y, ncomp = ncomp, ns = ns)
+
+df.kramer <- c(1.000000, 3.712373, 6.456417, 11.633565, 12.156760, 11.715101, 12.349716,
+  12.192682, 13.000000, 13.000000, 13.000000, 13.000000, 13.000000)
 
 zncomp <- 0:ncomp
-plot(zncomp, u$df, type = "b", col = "red",
+plot(zncomp, u$df, type = "l", col = "red",
      ylim = c(0, 15),
      xlab = "Nb components", ylab = "df")
-lines(zncomp, v$df, col = "blue", type = "b")                 
+lines(zncomp, v$df, col = "blue")                 
 lines(zncomp, zncomp + 1, col = "grey40")   ## Naive df
+points(zncomp, df.kramer, pch = 16)
 abline(h = 1, lty = 2, col = "grey")
 
 }

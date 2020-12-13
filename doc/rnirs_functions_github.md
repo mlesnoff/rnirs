@@ -176,8 +176,8 @@
   - ***cvpca.tri***: ekf-TRI algorithm
   - ***cvpca.trickf***: ckf-TRI algorithm
 - **Model complexity (df) and Mallows Cp for PLSR1**
-  - ***plsrdf.cov***, ***plsr.div** Monte Carlo estimation of PLSR1 numbers of degrees of freedom 
-  - ***plsrcp*** Mallows Cp criterion for PLSR1 models
+  - ***dfplsr.cov***, ***dfplsr.div** Monte Carlo estimation of PLSR1 numbers of degrees of freedom 
+  - ***cpplsr*** Mallows Cp criterion for PLSR1 models
 - **Prediction error rate**
   - ***mse*** For regression models
   - ***err*** For discrimination models

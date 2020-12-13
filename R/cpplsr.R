@@ -1,4 +1,4 @@
-plsrcp <- function(X, Y, ncomp, algo = NULL,
+cpplsr <- function(X, Y, ncomp, algo = NULL,
                    type = c("aicc", "aic", "bic"),
                    methdf = c("cov", "div", "naive"),
                    B = 50, eps = 1e-4, seed = NULL,
@@ -18,11 +18,11 @@ plsrcp <- function(X, Y, ncomp, algo = NULL,
   ssr <- z$nbpred * z$msep
   
   if(methdf == "cov") 
-    df <- plsrdf.cov(X, Y, ncomp = ncomp, algo = algo, 
+    df <- dfplsr.cov(X, Y, ncomp = ncomp, algo = algo, 
                     B = B, seed = seed, print = print, ...)$df
   
   if(methdf == "div") 
-    df <- plsrdf.div(X, Y, ncomp = ncomp, algo = algo, 
+    df <- dfplsr.div(X, Y, ncomp = ncomp, algo = algo, 
                      ns = B, eps = eps, seed = seed, print = print, ...)$df
   
   if(methdf == "naive")

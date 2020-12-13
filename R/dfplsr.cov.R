@@ -1,4 +1,4 @@
-plsrdf.cov <- function(X, Y, ncomp, algo = NULL,
+dfplsr.cov <- function(X, Y, ncomp, algo = NULL,
                        B = 50, 
                        seed = NULL, print = TRUE, ...) {
   

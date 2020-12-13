@@ -1,5 +1,27 @@
 ## NEWS for package **rnirs**
 
+## **Version 1.9-5**
+
+#### **Renamed functions**
+
+  - **dfplsr.cov** to **dfplsr.cov**
+  - **dfplsr.div** to **dfplsr.div**
+  - **plsrcp** to **cpplsr**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## **Version 1.9-4**
 
 #### **New functions**

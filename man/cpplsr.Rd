@@ -1,5 +1,5 @@
-\name{plsrcp}
-\alias{plsrcp}
+\name{cpplsr}
+\alias{cpplsr}
 \encoding{latin1}
 
 \title{Mallows Cp for PLSR1 Models}
@@ -8,7 +8,7 @@
 
 Calculation of the Mallows \eqn{Cp} criterion for PLSR1 models.
 
-For a model with \eqn{a} components, function \code{plsrcp} calculates \eqn{Cp} by:
+For a model with \eqn{a} components, function \code{cpplsr} calculates \eqn{Cp} by:
 
 \eqn{Cp(a) = SSR(a) / n + alpha * df(a) * sigma^2 / n}  
 
@@ -22,7 +22,7 @@ Depending on argument \code{type}, \eqn{alpha} is equal to either \eqn{2} (AIC p
 
 \usage{
 
-plsrcp(X, Y, ncomp, algo = NULL,
+cpplsr(X, Y, ncomp, algo = NULL,
   type = c("aicc", "aic", "bic"),
   methdf = c("cov", "div", "naive"),
   B = 50, eps = 1e-4, seed = NULL,
@@ -107,7 +107,7 @@ yr <- datcass$yr
 
 ncomp <- 20
 B <- 30
-z <- plsrcp(Xr, yr, ncomp = ncomp, 
+z <- cpplsr(Xr, yr, ncomp = ncomp, 
             type = "aicc",
             methdf = "cov", B = B,
             )

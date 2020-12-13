@@ -1,4 +1,4 @@
-plsrdf.div <- function(X, Y, ncomp, algo = NULL, 
+dfplsr.div <- function(X, Y, ncomp, algo = NULL, 
                        ns = 10, meth.samp = c("syst", "random"), eps = 1e-4, 
                        seed = NULL, print = TRUE, ...) {
   
