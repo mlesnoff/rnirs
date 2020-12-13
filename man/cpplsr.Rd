@@ -14,7 +14,7 @@ For a model with \eqn{a} components, function \code{cpplsr} calculates \eqn{Cp} 
 
 where \eqn{SSR} is the sum of squared residuals for the current model, \eqn{df(a)} the estimated model complexity (nb. model's degrees of freedom), \eqn{sigma^2} the irreductible error variance estimated from a low biased model, \eqn{alpha} a penalty coefficient, and \eqn{n} the number of training observations.  
 
-Depending on argument \code{methdf}, model complexity \eqn{df} can be estimated from fonctions \code{\link{plsrdf.cov}} or \code{\link{plsrdf.div}}, or from the crude rule of thumb \eqn{1 + theta * a} where \eqn{theta} is a given scalar higher or equal to 1 (\eqn{theta = 1} is the naive \eqn{df} estimation ; in general, it generates significant underestimations of \eqn{Cp}.).
+Depending on argument \code{methdf}, model complexity \eqn{df} can be estimated from fonctions \code{\link{dfplsr.cov}} or \code{\link{dfplsr.div}}, or from the crude rule of thumb \eqn{1 + theta * a} where \eqn{theta} is a given scalar higher or equal to 1 (\eqn{theta = 1} is the naive \eqn{df} estimation ; in general, it generates significant underestimations of \eqn{Cp}.).
 
 Depending on argument \code{type}, \eqn{alpha} is equal to either \eqn{2} (AIC penalty), \eqn{2 * n / (n - df - 1)} (small sample size correction AICc penalty) or \eqn{log(n)} (BIC penalty).
 
@@ -43,11 +43,11 @@ cpplsr(X, Y, ncomp, algo = NULL,
 
 \item{methdf}{The method used for estimating \eqn{df}. Possible values are \code{"cov"} (default), \code{"div"} or \code{"naive"}.}
 
-\item{B}{For \code{methdf = "cov"}: the number of bootstrap replications (see \code{\link{plsrdf.cov}}). For \code{methdf = "dif"}: the number of observations in the data receiving perturbation (maximum is \eqn{n}; see \code{\link{plsrdf.cov}}).}
+\item{B}{For \code{methdf = "cov"}: the number of bootstrap replications (see \code{\link{dfplsr.cov}}). For \code{methdf = "dif"}: the number of observations in the data receiving perturbation (maximum is \eqn{n}; see \code{\link{dfplsr.cov}}).}
 
 \item{type}{Type of penalty coefficient. Possible values are \code{"aicc"} (default), \code{"aic"} or \code{"bic"}. See \bold{Description} section.}
 
-\item{eps}{For \code{methdf = "dif"}. The \eqn{epsilon} quantity used for scaling the perturbation analysis (see \code{plsrdf.div}).}
+\item{eps}{For \code{methdf = "dif"}. The \eqn{epsilon} quantity used for scaling the perturbation analysis (see \code{dfplsr.div}).}
 
 \item{seed}{An integer defining the seed for the random simulation, or \code{NULL} (default). See \code{\link{set.seed}}.}
 
