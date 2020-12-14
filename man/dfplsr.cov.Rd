@@ -22,7 +22,7 @@ dfplsr.cov(X, Y, ncomp, algo = NULL,
   seed = NULL, print = TRUE, ...)
 
 dfplsr.div(X, Y, ncomp, algo = NULL, 
-  ns = 10, meth.samp = c("syst", "random"), eps = 1e-4, 
+  ns = 50, meth.samp = c("syst", "random"), eps = 1e-4, 
   seed = NULL, print = TRUE, ...) 
 
 }

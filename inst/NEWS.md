@@ -1,5 +1,19 @@
 ## NEWS for package **rnirs**
 
+## **Version 1.9-6**
+
+#### **New functions**
+
+  **cvpca.rw
+
+#### **Modified functions**
+
+  - **summ**: outputs changed
+
+
+
+
+
 ## **Version 1.9-5**
 
 #### **Renamed functions**
@@ -7,16 +21,6 @@
   - **dfplsr.cov** to **dfplsr.cov**
   - **dfplsr.div** to **dfplsr.div**
   - **plsrcp** to **cpplsr**
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -47,8 +51,6 @@
 
 
 
-
-  
 
 
 

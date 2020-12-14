@@ -1,5 +1,5 @@
 ## **rnirs - Regression and Discrimination for Chemometrics**  
-## <span style="color:grey70"> **Version 1.9-5** </span> 
+## <span style="color:grey70"> **Version 1.9-6** </span> 
 
 ## <span style="color:green"> **Key Features** </span> 
 
@@ -43,12 +43,16 @@
 - **Plotting**
 
 
+## <span style="color:green"> **Available functions** </span> 
+
 **Click** [**here**](https://github.com/mlesnoff/rnirs/blob/master/doc/rnirs_functions_github.md) **to see the list of the available functions** 
 
 or write in the R console
 ```{r}
 vignette("rnirs_functions")
 ```
+
+After installation, all the functions have a **help page with documented examples**. 
 
 ## <span style="color:green"> **News** </span> 
 

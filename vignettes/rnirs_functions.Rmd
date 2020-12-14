@@ -187,9 +187,10 @@ knitr::opts_chunk$set(echo = TRUE)
 - ***segmts*** Building segments for test-set CV
 - ***cvfit*** Generic function for cross-validating a model
 - **Specific CV for PCA**
-  - ***cvpca.ia***: IA algorithm
-  - ***cvpca.tri***: ekf-TRI algorithm
-  - ***cvpca.trickf***: ckf-TRI algorithm
+  - ***cvpca.ia*** IA algorithm
+  - ***cvpca.tri*** ekf-TRI algorithm
+  - ***cvpca.ckf*** ckf-TRI algorithm
+  - ***cvpca.rw*** Row-wise algorithm
 - **Model complexity (df) and Mallows Cp for PLSR1**
   - ***dfplsr.cov***, ***dfplsr.div** Monte Carlo estimation of PLSR1 numbers of degrees of freedom 
   - ***cpplsr*** Mallows Cp criterion for PLSR1 models

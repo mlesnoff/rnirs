@@ -2,19 +2,26 @@
 \alias{cvpca.ia}
 \alias{cvpca.tri}
 \alias{cvpca.ckf}
+\alias{cvpca.rw}
 \encoding{latin1}
 
 \title{Cross-validation of a PCA model by Missing Data Imputation}
 
 \description{
 
-The general principle is to replace segments (i.e sub-samples \eqn{{x_ij}}) of matrix \eqn{X} by missing values, and then to estimate these segments by algorithms of missing data imputation (MDI). PRESS are then calculated on these segments.
+The general principle is to remove parts (i.e sets of elements \eqn{x_ij}) from the matrix \eqn{X} of dimension \eqn{n x p}, and then to estimate these parts by a given algorithm. PRESS and MSEP are then calculated over these estimates.
 
-- \code{cvpca.ia}: For a given segment, the location of the missing data is simulated randomly in matrix \eqn{X}. Missing data are then estimated by the PCA "iterative algorithm" (IA), see function \code{\link{ximput.ia}}. If NIPALS is used in the first iteration, the algorithm can be slow for large matrix  \eqn{X}. It is also recommanded to check the convergence of the MDI estimations in the outputs. 
+\bold{1) CV by missing data imputation (MDI)}
 
-- \code{cvpca.tri}: This is the "efficient ekf-TRI" algorithm proposed by Camacho & Ferrer 2012 (p.370), referred to as "Algorithm2" in Saccenti & Camacho 2015a. It returns equal results (but with faster computation time) to algorithm "ekf-TRI". This algorithm is for instance presented by Camacho & Ferrer 2012 (see "Algorithm2"). A given segment is defined by a selection of rows in \eqn{X}. Then, for each row of the segment, sets of colums are successively considered as missing, and the corresponding missing data \eqn{x_ij} are estimated with the trimmed score method (TRI) (e.g. Nelson et al. 1996, Arteag & Ferrer 2002). In the present version of the function, each column is removed one by one, which is a column leave-one out (LOO).  
+- \code{cvpca.ia}: Matrix \eqn{X} is composed of \eqn{N = n*p} elements \eqn{x_ij} in which sub-samples (segments) will be successively selected. Assume that a K-FOLD CV is implemented (the principle is the same for a test-set CV). Each segment is defined by a set of elements \eqn{x_ij}, of size around \eqn{m = N / K}. If the sampling is random (usual situation), the location of the \eqn{m} elements in the matrix will be distributed randomly. Then, the  \eqn{m} elements are considered as missing, and estimated jointly (i.e. in the same time). The estimation uses the PCA "iterative algorithm" (IA) implemented in function \code{\link{ximput.ia}} (see the corresponding help page). Note: If the first iteration uses NIPALS, the algorithm can be slow for large matrix \eqn{X}. It is also recommanded to check the convergence of the algorithm (output \code{conv}). 
+
+- \code{cvpca.tri}: This is the "efficient ekf-TRI" algorithm proposed by Camacho & Ferrer 2012 (p.370), referred to as "Algorithm2" in Saccenti & Camacho 2015a. It returns equal results as the "ekf-TRI" algorithm, but is much faster. Algorithm "ekf-TRI" is presented for instance by Camacho & Ferrer 2012 (see "Algorithm 2"). A given segment is defined by a selection of rows in \eqn{X}. Then, for each row of the segment, sets of colums are successively considered as missing, and the corresponding missing elemnts are estimated with the trimmed score method (TRI) (e.g. Nelson et al. 1996, Arteaga & Ferrer 2002). In the present version of the function, each column is removed one by one, which is a "column leave-one out" process (LOO).  
   
-- \code{cvpca.ckf}: This is the "ckf-TRI" algorithm proposed by Saccenti & Camacho 2015 ("Algorithm3" p.469). It can be considered as a simplification of the "efficient ekf-TRI". The TRI is still used for missing data imputation but data are only removed column-wise. Only one PCA model is fitted (there are no selections of rows), and the algorithm is therfore very fast compared to others.
+- \code{cvpca.ckf}: This is the "ckf-TRI" algorithm proposed by Saccenti & Camacho 2015 ("Algorithm3" p.469). It can be considered as a simplification of the "efficient ekf-TRI". TRI is still used for missing data imputation but data are only removed column-wise. Note: Only one PCA model is fitted (there are no selections of rows), and the algorithm is therefore very fast compared to others.
+
+\bold{2) Row-wise classical CV}
+
+- \code{cvpca.rw}: This is the "row-wise" algorithm (see e.g. Bro et al. 2008 p.1242, or "Algorithm 1" in Camacho & Ferrer 2012 p.362). Rows are removed from the matrix and then are predicted using scores and loadings computed from the non-removed part. Note: This algorithm is the simplest, the most similar to usual CV and quite fast. Unfortunately, it underestimates the prediction error that is normally targetted by the CV procedure. It is therefore not usefull for model selection objectives. The underestimation comes from the fact that the removed part, say \eqn{Xnew}, is directly used for computing the predictions \eqn{Xnew_fit} (\eqn{Xnew_fit = Xnew * P * P'}). \eqn{Xnew} and \eqn{Xnew_fit} are therefore not independant, while independance is precisely what CV procedure intends to do. The consequence is that \eqn{MSEP = PRESS / N} tends to decrease continuously (without "U" curve), such as \eqn{MSEC}. A tentative has been made for capturing the consumption of degrees of freedom due to non indepnedance by replaciing \eqn{N} by \eqn{N - n*a} (where \eqn{a} is the PCA dimension) for the MSEP denominator (see eg. discussion in Bro et al. 2008). But in practice, this correction is generally not sufficient for removing the non-independance effect.    
 
 }
 
@@ -131,6 +138,16 @@ fm <- cvpca.ckf(zX, ncomp)
 names(fm)
 fm$opt
 z <- fm$res
+u <- selwold(z$msep[-1], start = 1, alpha = 0, main = "MSEP_CV")
+
+##### ROW-WISE
+
+K <- 5
+ncomp <- 20
+segm <- segmkf(n = n, K = K, nrep = 1, seed = 1)
+fm <- cvpca.rw(zX, ncomp, segm = segm)             
+names(fm)
+fm$opt
 u <- selwold(z$msep[-1], start = 1, alpha = 0, main = "MSEP_CV")
 
 }

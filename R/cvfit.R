@@ -63,7 +63,8 @@ cvfit <- function(X, Y, fun, segm, print = FALSE, ...) {
   
     }
   
-  cat("/ End. \n\n")
+  if(print)
+    cat("/ End. \n\n")
   
   y <- setDF(rbindlist(y))
   fit <- setDF(rbindlist(fit))

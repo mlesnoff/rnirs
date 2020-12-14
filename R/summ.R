@@ -21,7 +21,7 @@ summ <- function(X, nam = NULL, digits = 3){
     z <- X[, nam[j]]
     if(is.numeric(z)) {
       z <- z[!is.na(z)]
-      v <- c(NbVal = length(z), summary(z), Stdev = sd(z), nbNA = n - length(z))
+      v <- c(NbVal = length(z), summary(z), Stdev = sd(z), NbNA = n - length(z))
       } else
         v <- c(rep(NA, 9), 0)
         
@@ -30,13 +30,13 @@ summ <- function(X, nam = NULL, digits = 3){
     }
   tab <- round(tab, digits = digits)
   if(is.vector(tab)) tab <- as.matrix(t(tab))
-  tab <- data.frame(nam = nam, tab)
-  nam <- c("nam", "NbVal", "Mean", "Min.", "Max.","Stdev", 
-    "Median", "X1st.Qu.", "X3rd.Qu.", "nbNA")
+  tab <- data.frame(Name = nam, tab)
+  nam <- c("Name", "NbVal", "Mean", "Min.", "Max.","Stdev", 
+    "Median", "X1st.Qu.", "X3rd.Qu.", "NbNA")
   tab <- tab[, nam]
   row.names(tab) <- 1:nrow(tab)
     
-  tab
+  list(tab = tab, ntot = n)
 
   }
  
