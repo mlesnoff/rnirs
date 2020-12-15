@@ -40,7 +40,7 @@ Following this, it comes that
 
 cppca(X, ncomp, algo = NULL,
   segm = segm,
-  typ = c("aicc", "aic", "bic"), 
+  type = c("aicc", "aic", "bic"), 
   k = 10,
   print = TRUE, ...)
 
@@ -53,6 +53,8 @@ cppca(X, ncomp, algo = NULL,
 \item{ncomp}{The maximal number of scores (= components = latent variables) to consider.}
 
 \item{algo}{a PCA algorithm. Default to  \code{NULL} (see \code{\link{pca}}).}
+
+\item{segm}{A list of the test segments. Typically, output of function \code{\link{segmkf}} or \code{\link{segmts}}.} 
 
 \item{type}{Type of penalty coefficient. Possible values are \code{"aicc"} (default), \code{"aic"} or \code{"bic"}. See \bold{Description} section.}
 
