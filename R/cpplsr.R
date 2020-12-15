@@ -37,22 +37,27 @@ cpplsr <- function(X, Y, ncomp, algo = NULL,
     type,
     aic = ssr + 2 * s2 * df,
     aicc = ssr + 2 * s2 * df * n / (n - df - 1),
-    bic = ssr + log(n) * s2 * df,
-    fpe = (n + df) / (n - df) * ssr,
-    gcv = n / (df.ssr)^2 * ssr
+    bic = ssr + log(n) * s2 * df
+    ##fpe = (n + df) / (n - df) * ssr,
+    ##gcv = n / (df.ssr)^2 * ssr
     )
   
-  if(type != "gcv")
-    r <- r / n
+  ##if(type != "gcv")
+  ##  r <- r / n
   
   delta <- r - min(r)
   z <- exp(-.5 * delta)
   w <- z / sum(z)
+
+  opt <- which(r == min(r))[1] - 1
 
   res <- data.frame(
     ncomp = 0:ncomp, n = rep(n, ncomp + 1),
     ssr = ssr, df = df, df.ssr = df.ssr,
     crit = r, delta = delta, w = w
     )
+  
+ list(res = res, opt = opt, k = k, s2 = s2)
+  
   
   }

@@ -4,8 +4,10 @@
 
 #### **New functions**
 
-  **cvpca.rw
-
+  - **cvpca.rw: Row wise PCA Cross-validation
+  - **dfpca.div: Degrees of freedom of PCA models
+  - **cppca: Mallows Cp for PCA models
+  
 #### **Modified functions**
 
   - **summ**: outputs changed

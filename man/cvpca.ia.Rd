@@ -123,7 +123,7 @@ u <- selwold(z$msep[-1], start = 1, alpha = 0, main = "MSEP_CV")
 ##### TRI
 
 K <- 5
-ncomp <- 20
+ncomp <- 15
 segm <- segmkf(n = n, K = K, nrep = 1, seed = 1)
 fm <- cvpca.tri(zX, ncomp, segm = segm)             
 names(fm)
@@ -133,7 +133,7 @@ u <- selwold(z$msep[-1], start = 1, alpha = 0, main = "MSEP_CV")
 
 ##### TRI-CKF
 
-ncomp <- 20
+ncomp <- 15
 fm <- cvpca.ckf(zX, ncomp)
 names(fm)
 fm$opt
@@ -143,7 +143,7 @@ u <- selwold(z$msep[-1], start = 1, alpha = 0, main = "MSEP_CV")
 ##### ROW-WISE
 
 K <- 5
-ncomp <- 20
+ncomp <- 15
 segm <- segmkf(n = n, K = K, nrep = 1, seed = 1)
 fm <- cvpca.rw(zX, ncomp, segm = segm)             
 names(fm)

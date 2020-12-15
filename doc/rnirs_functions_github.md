@@ -53,7 +53,7 @@
   - ***kpls*** (uses ***kpls.nipals***)
   - ***kpls.nipals*** NIPALS  
 
-- ***Direct KPCA and KPLS (Bennett & Embrechts 2003)**
+- **Direct KPCA and KPLS (Bennett & Embrechts 2003)**
 
   - ***kgram*** Build Gram matrices for direct kernel models
   
@@ -166,18 +166,22 @@
 - ***stackavg*** Stacking for regression models 
 - ***stackavg.cla*** Stacking for discrimination models
 
-## CROSS-VALIDATION AND ERROR RATES
+## CROSS-VALIDATION, ERROR RATES, DEGREES OF FREEDOM (DOF)
 
 - ***segmkf*** Building segments for K-Fold CV
 - ***segmts*** Building segments for test-set CV
 - ***cvfit*** Generic function for cross-validating a model
 - **Specific CV for PCA**
-  - ***cvpca.ia***: IA algorithm
-  - ***cvpca.tri***: ekf-TRI algorithm
-  - ***cvpca.trickf***: ckf-TRI algorithm
-- **Model complexity (df) and Mallows Cp for PLSR1**
-  - ***dfplsr.cov***, ***dfplsr.div** Monte Carlo estimation of PLSR1 numbers of degrees of freedom 
+  - ***cvpca.ia*** IA algorithm
+  - ***cvpca.tri*** ekf-TRI algorithm
+  - ***cvpca.ckf*** ckf-TRI algorithm
+  - ***cvpca.rw*** Row-wise algorithm
+- **Model complexity (df)**
+  - ***dfplsr.cov***, ***dfplsr.div*** Monte Carlo estimation of df for PLSR1 models 
+  - ***dfpca.div*** Monte Carlo estimation of df for PCA models 
+- **Mallows Cp**
   - ***cpplsr*** Mallows Cp criterion for PLSR1 models
+  - ***cppca*** Mallows Cp criterion for PCA models
 - **Prediction error rate**
   - ***mse*** For regression models
   - ***err*** For discrimination models
@@ -263,4 +267,9 @@
 - [**ChemHouse**](https://www.chemproject.org/ChemHouse), Montpellier
 
 **matthieu.lesnoff@cirad.fr**
+
+### How to cite
+
+Lesnoff, M. 2020. R package rnirs: Regression and Discrimination for Chemometrics. https://github.com/mlesnoff/rnirs. CIRAD, UMR SELMET, Montpellier, France
+
 

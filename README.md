@@ -34,7 +34,7 @@
   - MB-PCA, MB-PLS
   - SOPCA, SOPLS
 
-- **Cross-validation (CV)**
+- **Cross-validation (CV), Error rates, Degrees of Freedom**
 
 - **Missing data imputation (MDI)**
 
@@ -131,4 +131,13 @@ library(rnirs)
 - [**ChemHouse**](https://www.chemproject.org/ChemHouse), Montpellier
 
 **matthieu.lesnoff@cirad.fr**
+
+### How to cite
+
+Lesnoff, M. 2020. R package rnirs: Regression and Discrimination for Chemometrics. https://github.com/mlesnoff/rnirs. CIRAD, UMR SELMET, Montpellier, France
+
+
+
+
+
 

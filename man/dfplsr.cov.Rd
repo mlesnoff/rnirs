@@ -7,11 +7,11 @@
 
 \description{
 
-Monte Carlo methods for estimating the model complexity \eqn{df} (number of degrees of freedom) of PLSR1 models.
+Monte Carlo estimation of the model complexity \eqn{df} (number of degrees of freedom) of PLSR1 models. See in particular Ye 1998 and Efron 2004.
 
 - In \code{dfplsr.cov}, the covariances presented by Efron 2004 (Eq. 2.16) are calculated  by parametric bootstrap. The residual variance \eqn{sigma^2} is estimated from a low-biased model.
 
-- In \code{dfplsr.div}, the divergencies \eqn{dy_fit/dy} presented by Ye (1998) and Efron (2004) are calculated by perturbation analysis. This is a "Stein unbiased risk estimation" (SURE) of \eqn{df}.
+- In \code{dfplsr.div}, the divergencies \eqn{dy_fit/dy} presented by Ye (1998) and Efron (2004) are calculated by perturbation analysis. This is a Stein unbiased risk estimation (SURE) of \eqn{df}.
 
 }
 
@@ -115,6 +115,13 @@ ns <- B <- 50   ## Should be increased for more stability
 u <- dfplsr.cov(zX, y, ncomp = ncomp, B = B)
 v <- dfplsr.div(zX, y, ncomp = ncomp, ns = ns)
 
+#library(plsdof)
+#fm <- pls.model(
+#  Xr, yr, m = ncomp, compute.DoF = TRUE,
+#  compute.jacobian = FALSE,                   ## Krylov
+#  use.kernel = FALSE
+#  )
+#df.kramer <- fm$DoF
 df.kramer <- c(1.000000, 3.712373, 6.456417, 11.633565, 12.156760, 11.715101, 12.349716,
   12.192682, 13.000000, 13.000000, 13.000000, 13.000000, 13.000000)
 
