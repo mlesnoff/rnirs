@@ -50,7 +50,7 @@ plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
     k <- ncol(zdumfit)
     fit <- zdumfit[, (k - nclas + 1):k]
     fit <- apply(fit, FUN = .findmax, MARGIN = 1) 
-    fit <- sapply(fit, FUN = function(x) lev[x])
+    fit <- vapply(fit, FUN = function(x) lev[x], FUN.VALUE = "")
     
     if (!is.null(Yu))
       y <- rep(as.character(Yu), ncomp)

@@ -45,7 +45,8 @@ stackavgcla <- function(fit, y = NULL, formula = ~ 1, nam = NULL, weights = NULL
     }
   
   z <- apply(res[, dum.colnam], FUN = .findmax, MARGIN = 1) 
-  z <- sapply(z, FUN = function(x) lev[x])
+  z <- vapply(z, FUN = function(x) lev[x], FUN.VALUE = "")
+  
   res <- data.frame(res, z, stringsAsFactors = FALSE)
   names(res)[ncol(res)] <- nam
   
@@ -81,7 +82,8 @@ stackavgcla <- function(fit, y = NULL, formula = ~ 1, nam = NULL, weights = NULL
       }
     
     z <- apply(res[, dum.colnam], FUN = .findmax, MARGIN = 1) 
-    z <- sapply(z, FUN = function(x) lev[x])
+    z <- vapply(z, FUN = function(x) lev[x], FUN.VALUE = "")
+    
     res <- data.frame(res, z, stringsAsFactors = FALSE)
     names(res)[ncol(res)] <- nam
     

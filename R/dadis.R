@@ -80,7 +80,7 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
   colnames(d) <- lev
   
   z <- apply(-d, FUN = .findmax, MARGIN = 1) 
-  fit <- sapply(z, FUN = function(x) lev[x])
+  fit <- vapply(z, FUN = function(x) lev[x], FUN.VALUE = "")
   
   }
   

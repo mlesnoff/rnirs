@@ -91,7 +91,7 @@ err(fm)
 
 ##### Nonparametric DA
 
-fm <- daprob(Xr, yr, Xu, yu, dens = dkern.gauss, h = .2)
+fm <- daprob(Xr, yr, Xu, yu, dens = dkerngauss, h = .2)
 err(fm)
 
 }

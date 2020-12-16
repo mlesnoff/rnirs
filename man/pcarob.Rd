@@ -101,13 +101,11 @@ Maronna, R., 2005. Principal Components and Orthogonal Regression Based on Robus
 
 data(datoctane)
 
-## Samples 25, 26, and 36–39 are outliers
+## 6 samples (25, 26, and 36–39) are outliers
 ## (contain added alcohol)
+## See Hubert et al. 2005
 
 X <- datoctane$X
-n <- nrow(zX)
-p <- ncol(zX)
-N <- n * p
 plotsp(X)
 
 ncomp <- 2

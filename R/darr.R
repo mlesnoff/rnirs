@@ -45,7 +45,7 @@ darr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
     dummyfit <- fm$fit[, lev, drop = FALSE]
   
     z <- apply(dummyfit, FUN = .findmax, MARGIN = 1) 
-    fit <- sapply(z, FUN = function(x) lev[x])
+    fit <- vapply(z, FUN = function(x) lev[x], FUN.VALUE = "")
   
     }
 

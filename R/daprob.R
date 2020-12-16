@@ -73,7 +73,7 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
     posterior <- z / rowSums(z)
   
     z <- apply(posterior, FUN = .findmax, MARGIN = 1) 
-    fit <- sapply(z, FUN = function(x) lev[x])
+    fit <- vapply(z, FUN = function(x) lev[x], FUN.VALUE = "")
     
     colnames(posterior) <- colnames(prior) <- colnames(ds) <- lev
     rownames(posterior) <- rownames(prior) <- rownames(ds) <- rownam.Xu

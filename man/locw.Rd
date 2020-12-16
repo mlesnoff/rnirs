@@ -206,7 +206,7 @@ fm <- locw(
   zfm$Tu, yu,
   listnn = listnn,
   listw = NULL,
-  fun = plsda, dens = dkern.gauss,
+  fun = plsda, dens = dkerngauss,
   da = daprob,
   ncomp = ncomp,
   print = TRUE

@@ -90,7 +90,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp, nmin = 5,  ...){
   colnames(index) <- lev
   
   z <- apply(-index, FUN = .findmax, MARGIN = 1) 
-  fit <- sapply(z, FUN = function(x) lev[x])  
+  fit <- vapply(z, FUN = function(x) lev[x], FUN.VALUE = "")
   
   y <- Yu
   r <- as.numeric(y != fit)

@@ -60,7 +60,7 @@ data(datcass)
 
 X <- datcass$Xr
 
-fm <- pca.eigenk(X, ncomp = 10)
+fm <- pca_eigenk(X, ncomp = 10)
 z <- sampdp(fm$T, k = 20, diss = "mahalanobis")
 z
 

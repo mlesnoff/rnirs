@@ -71,7 +71,7 @@ X <- datcass$Xr
 y <- datcass$yr
 n <- nrow(X)
 
-fm <- pca.eigenk(X, ncomp = 10)
+fm <- pca_eigenk(X, ncomp = 10)
 z <- kmeans(x = fm$T, centers = 3, nstart = 25, iter.max = 50)
 x <- z$cluster
 z <- table(x)

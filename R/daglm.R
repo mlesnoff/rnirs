@@ -52,8 +52,8 @@ daglm <- function(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit"),
     dummyfit <- z
   
     z <- apply(dummyfit, FUN = .findmax, MARGIN = 1) 
-    fit <- sapply(z, FUN = function(x) lev[x])
-  
+    fit <- vapply(z, FUN = function(x) lev[x], FUN.VALUE = "")
+ 
     }
 
   y <- Yu

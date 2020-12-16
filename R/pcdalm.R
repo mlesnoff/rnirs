@@ -55,7 +55,7 @@ pcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...) {
     fit <- dummyfit
     fit <- fit[, (ncol(fit) - nclas + 1):ncol(fit)]
     fit <- apply(fit, FUN = .findmax, MARGIN = 1) 
-    fit <- sapply(fit, FUN = function(x) lev[x])
+    fit <- vapply(fit, FUN = function(x) lev[x], FUN.VALUE = "")
     
     if (!is.null(Yu))
       y <- rep(as.character(Yu), ncomp)
