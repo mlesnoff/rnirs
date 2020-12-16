@@ -51,7 +51,7 @@ or write in the R console
 vignette("rnirs_functions")
 ```
 
-After installation, all the functions have a **help page with documented examples**. 
+**After the package installation, all the functions have a help page with documented examples**. 
 
 ## <span style="color:green"> **News** </span> 
 
@@ -133,7 +133,7 @@ library(rnirs)
 
 ### How to cite
 
-Lesnoff, M. 2020. R package rnirs: Regression and Discrimination for Chemometrics. https://github.com/mlesnoff/rnirs. CIRAD, UMR SELMET, Montpellier, France
+Lesnoff, M. 2020. R package rnirs: Dimension reduction, Regression and Discrimination for Chemometrics. https://github.com/mlesnoff/rnirs. CIRAD, UMR SELMET, Montpellier, France
 
 
 
