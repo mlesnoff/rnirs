@@ -3,10 +3,13 @@
 
 ## <span style="color:green"> **Key Features** </span> 
 
-- **Factorial analyses** 
+- **Factorial analyses, Dimension reductions** 
   - PCA, PLS, FDA
   - Robust PCA and PLS
   - Non Linear Kernel PCA and PLS
+  - Multi-block
+    - MB-PCA, MB-PLS
+    - SOPCA, SOPLS
 
 - **Regression**
   - PCR, PLSR
@@ -29,10 +32,6 @@
     - KRDA (LS-SVMC)
     - SVMC
   - Local methods: KNNDA, KNN-LWPLSDA
-
-- **Multi-block data reduction**
-  - MB-PCA, MB-PLS
-  - SOPCA, SOPLS
 
 - **Cross-validation (CV), Error rates, Degrees of Freedom**
 
