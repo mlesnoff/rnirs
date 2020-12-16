@@ -35,7 +35,7 @@
   Kuc <- t(t(Ku - colSums(weights * t(Ku))) - colSums(weights * tK)) + 
     sum(weights * t(weights * tK))
   
-  fm <- kpls.nipals(Xr, Yr, ncomp, kern, weights, ...)
+  fm <- kpls_nipals(Xr, Yr, ncomp, kern, weights, ...)
   Tu <- Kuc %*% fm$R
 
   beta <- t(fm$C)    

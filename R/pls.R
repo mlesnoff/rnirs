@@ -6,7 +6,7 @@ pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = NULL, ...) {
   Y <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
 
   if(is.null(algo))
-    algo <- pls.kernel    
+    algo <- pls_kernel    
 
   fm <- algo(Xr, Y, ncomp, ...)
   

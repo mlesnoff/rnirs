@@ -15,12 +15,12 @@ pls_rob <- function(X, Y, ncomp, ncompw = 10, alpha = .30,
   
   ncompw <- min(ncompw, n, p)
   
-  fm <- pca.rob(X, ncompw, typcut = typcut, weights = weights, ...)
+  fm <- pcarob(X, ncompw, typcut = typcut, weights = weights, ...)
   #fm <- pca.sph(X, min(ncompw, n, p), ...)
-  r <- out.sdod(fm, X, typcut = typcut)
+  r <- outsdod(fm, X, typcut = typcut)
   wx <- .talworth(r, quantile(r, 1 - alpha))
 
-  fm <- pls.kernel(X, Y, ncomp = ncompw, weights = weights * wx)
+  fm <- pls_kernel(X, Y, ncomp = ncompw, weights = weights * wx)
   r <- .resid.pls(fm, Y)$r
   r <- (r - median(r)) / mad(r) 
   cutoff <- switch(
@@ -32,7 +32,7 @@ pls_rob <- function(X, Y, ncomp, ncompw = 10, alpha = .30,
   
   w <- wx * wy
 
-  fm <- pls.kernel(X, Y, ncomp = ncomp, weights = weights * w)
+  fm <- pls_kernel(X, Y, ncomp = ncomp, weights = weights * w)
   
   fm
 

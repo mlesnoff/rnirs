@@ -35,7 +35,7 @@ dfplsrdiv(X, Y, ncomp, algo = NULL,
 
 \item{ncomp}{The maximal number of PLS scores (= components = latent variables) to consider.}
 
-\item{algo}{a PLS algorithm. Default to  \code{NULL} (\code{\link{pls.kernel}} is used).}
+\item{algo}{a PLS algorithm. Default to  \code{NULL} (\code{\link{pls_kernel}} is used).}
 
 \item{B}{For \code{dfplsrcov}. Number of bootstrap replications.}
 

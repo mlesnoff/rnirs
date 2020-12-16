@@ -10,7 +10,7 @@ kpls <- function(Xr, Yr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
   else
     weights <- weights / sum(weights)  
   
-  fm <- kpls.nipals(Xr, Yr, ncomp, kern, weights, ...)
+  fm <- kpls_nipals(Xr, Yr, ncomp, kern, weights, ...)
   
   Tu <- NULL
   if(!is.null(Xu)) {

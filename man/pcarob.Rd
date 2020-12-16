@@ -24,7 +24,7 @@ Spherical PCA (see Locantore et al. 1990, Maronna 2005, Daszykowski et al. 2007)
 
 Robust PCA combining outlyingness measures and weighted PCA (WPCA). Rows of matrix \eqn{X} receive weights depending on outlyingness. The algorithm is in the same spirit (but quite different) as the ROBPCA method (Hubert et al. 2005, 2009). It is built in the two following steps. Note that the second step is facultative (argument \code{step2}). 
 
-Step 1 intends to detect and remove multivariate \eqn{X-}outliers that have potentially bad leverages. First, the Stahel-Donoho outlyingness (Maronna and Yohai, 1995) is computed for each of the rows of matrix \eqn{X} (see \code{\link{out.stah}}). Noting \eqn{1 - alpha} a proportion (by default in the function, \eqn{alpha = .30},  as in Hubert et al. 2005, 2009), the  \eqn{alpha * n} observations that have the highest outlyingness receive a weight \eqn{w1 = 0} (the other receive a weight \eqn{w1 = 1}). Then, a robust Euclidean outlyingness (see \code{\link{out.eucl}}) is calculated. The  \eqn{(alpha * n} observations that have the highest outlyingness receive a weight \eqn{w2 = 0} (the other receive a weight \eqn{w2 = 1}). The final weight for Step 1 is \eqn{w = w1 * w2}), which is used for a first weighted PCA.  
+Step 1 intends to detect and remove multivariate \eqn{X-}outliers that have potentially bad leverages. First, the Stahel-Donoho outlyingness (Maronna and Yohai, 1995) is computed for each of the rows of matrix \eqn{X} (see \code{\link{outstah}}). Noting \eqn{1 - alpha} a proportion (by default in the function, \eqn{alpha = .30},  as in Hubert et al. 2005, 2009), the  \eqn{alpha * n} observations that have the highest outlyingness receive a weight \eqn{w1 = 0} (the other receive a weight \eqn{w1 = 1}). Then, a robust Euclidean outlyingness (see \code{\link{outeucl}}) is calculated. The  \eqn{(alpha * n} observations that have the highest outlyingness receive a weight \eqn{w2 = 0} (the other receive a weight \eqn{w2 = 1}). The final weight for Step 1 is \eqn{w = w1 * w2}), which is used for a first weighted PCA.  
 
 Step2 (facultative) intends to detect outliers in the robust score space computed in Step 1. The score and orthogonal distances, standardized by given cutoffs (see \code{\link{scordis}} and \code{\link{odis}}), of each of the \eqn{n} observations are calculated from this score space. An outlyingness is computed by \eqn{(.5 * SD.stand^2 + .5 * OD.stand^2)^.5}. The  \eqn{alpha * n} observations that have the highest outlyingness receive a weight \eqn{w = 0} (the other receive a weight \eqn{w = 1}), and a new weighted PCA is fitted.
 
@@ -51,7 +51,7 @@ pcarob(X, ncomp, nsim = 1500, alpha = .30, step2 = TRUE,
 
 \item{obj}{For \code{pcacr}. The objective function (projection index) to maximize with the PP scores. Default to \code{obj = mad}. }
 
-\item{nsim}{For \code{pcacr} and \code{pcarob}. Used for the Stahel-Donoho outlyingness calculation (See \code{\link{out.stah}}): a number of randomly simulated PP (projection pursuit) directions considered in addition to the \eqn{n} observations (rows of \eqn{X}).}
+\item{nsim}{For \code{pcacr} and \code{pcarob}. Used for the Stahel-Donoho outlyingness calculation (See \code{\link{outstah}}): a number of randomly simulated PP (projection pursuit) directions considered in addition to the \eqn{n} observations (rows of \eqn{X}).}
 
 \item{weights}{For \code{pcasph} and \code{pcarob}. A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
@@ -59,7 +59,7 @@ pcarob(X, ncomp, nsim = 1500, alpha = .30, step2 = TRUE,
 
 \item{step2}{For \code{pcarob}. If \code{TRUE} (default), Step 2 is implemented.}
 
-\item{...}{For \code{pcarob}. Optional arguments to pass in function \code{\link{out.sdod}}.}
+\item{...}{For \code{pcarob}. Optional arguments to pass in function \code{\link{outsdod}}.}
 
 }
 

@@ -35,7 +35,7 @@ ximputia(X, ncomp, algo = NULL,
 
 \item{ncomp}{The number of components (latent variables) of the PCA model used for imputation.}
 
-\item{algo}{Algorithm (e.g. \code{\link{pca.eigen}}) used for fitting the PCA model. Default to \eqn{NULL} (see \code{\link{pca}}).}
+\item{algo}{Algorithm (e.g. \code{\link{pca_eigen}}) used for fitting the PCA model. Default to \eqn{NULL} (see \code{\link{pca}}).}
 
 \item{start}{Method used for the initialestimate. Possible values are \code{"nipals"} (default) or \code{"means"}.}
 
@@ -43,7 +43,7 @@ ximputia(X, ncomp, algo = NULL,
 
 \item{maxit}{Maximum number of iterations for the IA algorithm.}
 
-\item{gs}{See \code{\link{pca.nipalsna}}.}
+\item{gs}{See \code{\link{pca_nipalsna}}.}
 
 \item{print}{Logical. If code{TRUE}, fitting information are printed.}
 

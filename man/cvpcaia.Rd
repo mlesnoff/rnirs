@@ -50,7 +50,7 @@ cvpcackf(X, ncomp, algo = NULL, ...)
 
 \item{segm}{A list of the test segments. Typically, output of function \code{\link{segmkf}} or \code{\link{segmts}}.} 
 
-\item{algo}{Algorithm (e.g. \code{\link{pca.eigen}}) used for fitting the PCA model. Default to \eqn{NULL} (see \code{\link{pca}}).}
+\item{algo}{Algorithm (e.g. \code{\link{pca_eigen}}) used for fitting the PCA model. Default to \eqn{NULL} (see \code{\link{pca}}).}
 
 \item{start}{Method used for the initial estimate in the IA algorithm. Possible values are \code{"nipals"} (default) or \code{"means"}.}
 

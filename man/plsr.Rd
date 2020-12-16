@@ -37,7 +37,7 @@ plsr(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...)
 
 \item{ncomp}{The maximal number of PLS scores (= components = latent variables) to consider.}
 
-\item{algo}{For \code{plsr}, a function (algorithm) implementing a PLS on the training data set. Default to  \code{NULL} (\code{\link{pls.kernel}} is used). For \code{pcr}, a function (algorithm) implementing a PCA. Default to \code{NULL}: if \eqn{n < p}, \code{\link{pca.eigenk}} is used; in the other case, \code{\link{pca.eigen}} is used.}
+\item{algo}{For \code{plsr}, a function (algorithm) implementing a PLS on the training data set. Default to  \code{NULL} (\code{\link{pls_kernel}} is used). For \code{pcr}, a function (algorithm) implementing a PCA. Default to \code{NULL}: if \eqn{n < p}, \code{\link{pca_eigenk}} is used; in the other case, \code{\link{pca_eigen}} is used.}
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 

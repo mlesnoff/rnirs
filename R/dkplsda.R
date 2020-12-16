@@ -57,7 +57,7 @@ dkplsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm,
     zfm <- do.call(
       plsda, 
       c(list(Xr = res$Kr, Yr = Yr, Xu = res$Ku, Yu = Yu, ncomp = ncomp, 
-             algo = pls.kernel, weights = weights, da = da), dots.da)
+             algo = pls_kernel, weights = weights, da = da), dots.da)
       )
 
     z <- dim(zfm$y)[1] 

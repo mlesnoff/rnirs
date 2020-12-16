@@ -12,7 +12,7 @@ pls_iw <- function(X, Y, ncomp, ncompw = 10, a = 3,
     weights <- weights / sum(weights)  
   
   scale.out <- TRUE
-  r <- out.eucl(X, scale = scale.out)
+  r <- outeucl(X, scale = scale.out)
   wx <- .tricube(r, a = a)
   
   wy <- rep(1, dim(X)[1])
@@ -25,12 +25,12 @@ pls_iw <- function(X, Y, ncomp, ncompw = 10, a = 3,
     
     w <- wx * wy
     
-    fm <- pls.kernel(X, Y, ncomp = ncompw, weights = weights * w)
+    fm <- pls_kernel(X, Y, ncomp = ncompw, weights = weights * w)
     
     ztol <- .xnorm(b - c(fm$C))
     b <- c(fm$C)
     
-    r <- out.eucl(fm$T, scale = scale.out)
+    r <- outeucl(fm$T, scale = scale.out)
 
     wx <- .tricube(r, a = a)
     
@@ -41,7 +41,7 @@ pls_iw <- function(X, Y, ncomp, ncompw = 10, a = 3,
     
     }
   
-  fm <- pls.kernel(X, Y, ncomp = ncomp, weights = fm$weights)
+  fm <- pls_kernel(X, Y, ncomp = ncomp, weights = fm$weights)
   
   fm$niter <- iter
   

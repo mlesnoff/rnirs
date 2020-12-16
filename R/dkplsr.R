@@ -44,7 +44,7 @@ dkplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
         zkpar)
       )
     
-    fm[[i]] <- plsr(res$Kr, Yr, res$Ku, Yu, ncomp, algo = pls.kernel, weights = weights)
+    fm[[i]] <- plsr(res$Kr, Yr, res$Ku, Yu, ncomp, algo = pls_kernel, weights = weights)
     
     z <- dim(fm[[i]]$y)[1] 
     dat <- data.frame(matrix(rep(unlist(kpar[i, ]), z), ncol = npar, byrow = TRUE))

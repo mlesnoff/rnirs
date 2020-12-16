@@ -53,7 +53,7 @@ plsdalm(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL,  ...)
 
 \item{ncomp}{The maximal number of PLS scores (= components = latent variables) to consider.}
 
-\item{algo}{For \eqn{plsda}, a function (algorithm) implementing a PLS. Default to  \code{NULL} (\code{\link{pls.kernel}} is used). For \eqn{pcda}, a function (algorithm) implementing a PCA. Default to \code{NULL}: if \eqn{n < p}, \code{\link{pca.eigenk}} is used; in the other case, \code{\link{pca.eigen}} is used.}
+\item{algo}{For \eqn{plsda}, a function (algorithm) implementing a PLS. Default to  \code{NULL} (\code{\link{pls_kernel}} is used). For \eqn{pcda}, a function (algorithm) implementing a PCA. Default to \code{NULL}: if \eqn{n < p}, \code{\link{pca_eigenk}} is used; in the other case, \code{\link{pca_eigen}} is used.}
 
 \item{da}{A function defining the discriminant method used for the predictions. Default to \code{\link{dalm}}.} 
 

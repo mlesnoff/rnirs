@@ -44,7 +44,7 @@ dkplsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
         zkpar)
       )
     
-    zfm <- plsdalm(res$Kr, Yr, res$Ku, Yu, ncomp, algo = pls.kernel, weights = weights)
+    zfm <- plsdalm(res$Kr, Yr, res$Ku, Yu, ncomp, algo = pls_kernel, weights = weights)
     
     z <- dim(zfm$y)[1] 
     dat <- data.frame(matrix(rep(unlist(kpar[i, ]), z), ncol = npar, byrow = TRUE))

@@ -40,7 +40,7 @@ cvpcaia <- function(X, ncomp, algo = NULL,
       
       Xna <- replace(X, s, NA)
       
-      fm <- ximput.ia(Xna, ncomp = ncomp,
+      fm <- ximputia(Xna, ncomp = ncomp,
                    start = start,
                    tol = tol, maxit = maxit, print = FALSE, ...)
       

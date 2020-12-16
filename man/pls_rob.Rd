@@ -12,7 +12,7 @@ X- and y-outliers are detected in a PCA space and a PLS space, respectively, eac
 
 In details, the three steps are:
 
-- Step1: A robust PCA is implemented (using \code{\link{pca.rob}}) with \eqn{ncompw} components. The SD-OD outlyingness (\code{\link{out.sdod}}) computed on the robust score space are used for detecting X-outliers. The  \eqn{alpha * n} observations (where \eqn{alpha} is a proportion) that have the highest outlyingness receive a weight \eqn{wx = 0} (the other receive a weight \eqn{wx = 1}).
+- Step1: A robust PCA is implemented (using \code{\link{pcarob}}) with \eqn{ncompw} components. The SD-OD outlyingness (\code{\link{outsdod}}) computed on the robust score space are used for detecting X-outliers. The  \eqn{alpha * n} observations (where \eqn{alpha} is a proportion) that have the highest outlyingness receive a weight \eqn{wx = 0} (the other receive a weight \eqn{wx = 1}).
 
 - Step2: A weighted PLS with \eqn{ncompw} components is implemented with weights \eqn{wx}. The y-residuals are robustly centered and scaled by median and MAD, respectively. Observations with residuals higher than a given cutoff (parametric or non parametric; argument \code{typcut}) received a weight \eqn{wy = 0} (the other receive a weight \eqn{wy = 1}).
 
@@ -41,14 +41,14 @@ pls_rob(X, Y, ncomp, ncompw = 10, alpha = .30,
 
 \item{ncompw}{The number of scores used for computing the X- and y-outliers (Steps 1 and 2).}
 
-\item{alpha}{Proportion \eqn{alpha} of the data used as hard rejection of X-outliers in Step 1 (See \code{\link{pca.rob}}). Default to \code{alpha = .30}, i.e. 30pct are rejected.}
+\item{alpha}{Proportion \eqn{alpha} of the data used as hard rejection of X-outliers in Step 1 (See \code{\link{pcarob}}). Default to \code{alpha = .30}, i.e. 30pct are rejected.}
 
 
 \item{typcut}{Type of cutoff used for the y-residuals (centered and scaled) in Step 2. Possible values are \code{"param"} (default; cutoff = -/+ .975 Gaussian quantile) or \code{"mad"} (cutoff = 2.5).}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
-\item{...}{Optional arguments to pass in function \code{\link{out.sdod}} used in \code{\link{pca.rob}}.}
+\item{...}{Optional arguments to pass in function \code{\link{outsdod}} used in \code{\link{pcarob}}.}
 
 }
 

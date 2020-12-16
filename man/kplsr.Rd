@@ -12,7 +12,7 @@
 
 Function \code{kpcr} fits a KPCR model, i.e. a regression on latent variables (scores) of KPCA  (Scholkopf et al. 1997, Scholkopf & Smola 2002, Tipping 2001), computed by \code{\link{kpca}}.
 
-Function \code{kplsr} fits KPLSR models with the NIPALS algorithm (implemented in \code{\link{kpls.nipals}}) such as described in Rosipal & Trejo (2001). 
+Function \code{kplsr} fits KPLSR models with the NIPALS algorithm (implemented in \code{\link{kpls_nipals}}) such as described in Rosipal & Trejo (2001). 
 
 The kernel Gram matrices \eqn{K} are internally centered before the analyses, but the data are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.
 
@@ -83,7 +83,7 @@ Scholkopf, B., Smola, A., Müller, K.-R., 1997. Kernel principal component analy
 
 Scholkopf, B., Smola, A.J., 2002. Learning with kernels: support vector machines, regularization, optimization, and beyond, Adaptive computation and machine learning. MIT Press, Cambridge, Mass.
 
-Tipping, M.E., 2001. Sparse kernel principal component analysis. Advances in neural information processing systems, MIT Press. http://papers.nips.cc/paper/1791-sparse-kernel-principal-component-analysis.pdf
+Tipping, M.E., 2001. Sparse kernel principal component analysis. Advances in neural information processing systems, MIT Press. http://papers_nips.cc/paper/1791-sparse-kernel-principal-component-analysis.pdf
 
 }
 

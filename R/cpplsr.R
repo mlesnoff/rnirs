@@ -18,11 +18,11 @@ cpplsr <- function(X, Y, ncomp, algo = NULL,
   ssr <- z$nbpred * z$msep
   
   if(methdf == "cov") 
-    df <- dfplsr.cov(X, Y, ncomp = ncomp, algo = algo, 
+    df <- dfplsrcov(X, Y, ncomp = ncomp, algo = algo, 
                     B = B, seed = seed, print = print, ...)$df
   
   if(methdf == "div") 
-    df <- dfplsr.div(X, Y, ncomp = ncomp, algo = algo, 
+    df <- dfplsrdiv(X, Y, ncomp = ncomp, algo = algo, 
                      ns = B, eps = eps, seed = seed, print = print, ...)$df
   
   if(methdf == "naive")
