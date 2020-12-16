@@ -173,7 +173,7 @@
 ## MODEL STACKING
 
 - ***stackavg*** Stacking for regression models 
-- ***stackavg.cla*** Stacking for discrimination models
+- ***stackavgcla*** Stacking for discrimination models
 
 ## CROSS-VALIDATION, ERROR RATES, DEGREES OF FREEDOM (DOF)
 
