@@ -1,13 +1,13 @@
 \name{dmnorm}
 \alias{dmnorm}
-\alias{dkern.gauss}
+\alias{dkerngauss}
 \encoding{latin1}
 
 \title{Probability density prediction}
 
 \description{
 
-Prediction of the probability density of multivariate observations. Function \code{dmnorm} assumes a multivariate gaussian distribution for the reference (= training) observations. Function \code{dkern.gauss} returns a non parametric estimate using a (multiplicative) multivariate gaussian kernel estimator. 
+Prediction of the probability density of multivariate observations. Function \code{dmnorm} assumes a multivariate gaussian distribution for the reference (= training) observations. Function \code{dkerngauss} returns a non parametric estimate using a (multiplicative) multivariate gaussian kernel estimator. 
 
 }
 
@@ -15,7 +15,7 @@ Prediction of the probability density of multivariate observations. Function \co
 
 dmnorm(Xr = NULL, Xu, mu = NULL, sigma = NULL, diag = FALSE)
 
-dkern.gauss(Xr, Xu, H = NULL, hs = NULL, a = .5)
+dkerngauss(Xr, Xu, H = NULL, hs = NULL, a = .5)
 
 }
 
@@ -33,7 +33,7 @@ Specific arguments for \code{dmnorm}:
 
 \item{diag}{Logical indicating if the estimated covariance matrix is forced to be diagonal (default to \code{FALSE}). Ignored if sigma is not \code{NULL}.}
 
-Specific arguments for \code{dkern.gauss}:
+Specific arguments for \code{dkerngauss}:
 
 \item{H}{The \eqn{p x p} bandwidth matrix for the kernel estimator. If \code{NULL} (default): if \code{hs} is \code{NULL}, see the code.}
 
@@ -80,11 +80,11 @@ par(mfrow = c(1, 1))
 ## Non-parametric
 
 hs <- .5
-z <- dkern.gauss(Tr[yr == "setosa", ], Tu, hs = hs)$fit$fit
+z <- dkerngauss(Tr[yr == "setosa", ], Tu, hs = hs)$fit$fit
 mfit1 <- matrix(z, nrow = m)
-z <- dkern.gauss(Tr[yr == "versicolor", ], Tu, hs = hs)$fit$fit
+z <- dkerngauss(Tr[yr == "versicolor", ], Tu, hs = hs)$fit$fit
 mfit2 <- matrix(z, nrow = m)
-z <- dkern.gauss(Tr[yr == "virginica", ], Tu, hs = hs)$fit$fit
+z <- dkerngauss(Tr[yr == "virginica", ], Tu, hs = hs)$fit$fit
 mfit3 <- matrix(z, nrow = m)
 
 par(mfrow = c(2, 2))

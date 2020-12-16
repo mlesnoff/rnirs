@@ -1,6 +1,6 @@
 \name{stackavg}
 \alias{stackavg}
-\alias{stackavg.cla}
+\alias{stackavgcla}
 \encoding{latin1}
 
 \title{Stacking for predictions models}
@@ -9,7 +9,7 @@
 
 Model stacking (here = averaging) for regression (quantitative response) and discrimination (qualitative response) models. 
 
-Functions \code{stackavg} and  \code{stackavg.cla} calculate "averages", eventually with \eqn{a priori} weighting, of univariate predictions returned by a set of different models:
+Functions \code{stackavg} and  \code{stackavgcla} calculate "averages", eventually with \eqn{a priori} weighting, of univariate predictions returned by a set of different models:
 
 - Arithmetic mean of the quantitative predictions for regression models;
 
@@ -23,7 +23,7 @@ A weighting of the predictions in the mean and vote is allowed (argument \code{w
 
 stackavg(fit, y = NULL, formula, nam = NULL, weights = NULL)
 
-stackavg.cla(fit, y = NULL, formula, nam = NULL, weights = NULL)
+stackavgcla(fit, y = NULL, formula, nam = NULL, weights = NULL)
 
 }
 
@@ -86,7 +86,7 @@ z[z$errp == min(z$errp), ]
 plotmse(z, nam = "errp")
 
 w <- ifelse(fm$y$ncomp >= 8 & fm$y$ncomp <= 20, 1, 0)
-zfm <- stackavg.cla(fm$fit, fm$y, formula = ~ rownum + rownam, weights = w)
+zfm <- stackavgcla(fm$fit, fm$y, formula = ~ rownum + rownam, weights = w)
 names(zfm)
 head(zfm$y)
 head(zfm$fit)

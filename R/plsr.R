@@ -6,7 +6,7 @@ plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   colnam.Y <- colnames(Yr)
   
   if(is.null(algo))
-    algo <- pls.kernel
+    algo <- pls_kernel
 
   fm <- algo(Xr, Yr, ncomp, ...)
   if(!fm$T.ortho)

@@ -1,5 +1,5 @@
-\name{ximput.ia}
-\alias{ximput.ia}
+\name{ximputia}
+\alias{ximputia}
 \encoding{latin1}
 
 \title{Missing Data Imputation using PCA and the Iterative Algorithm (IA)}
@@ -20,7 +20,7 @@ It can also be considered as an expectation-maximmization (EM) algorithm. The "E
 
 \usage{
 
-ximput.ia(X, ncomp, algo = NULL,
+ximputia(X, ncomp, algo = NULL,
   start = c("nipals", "means"),
   tol = .Machine$double.eps^0.5, 
   maxit = 10000,
@@ -85,7 +85,7 @@ zX[i, s] <- NA
 
 ## Nipals alone
 
-fm <- ximput.ia(zX, ncomp = 5, maxit = 1)   
+fm <- ximputia(zX, ncomp = 5, maxit = 1)   
 names(fm)
 Xfit <- fm$X
 plot(1:p, X[i, ], type = "l")
@@ -93,7 +93,7 @@ points(s, Xfit[i, s], col = "red")
 
 ## With iterations
 
-fm <- ximput.ia(zX, ncomp = 5)              
+fm <- ximputia(zX, ncomp = 5)              
 fm$niter
 fm$conv
 Xfit <- fm$X
@@ -116,9 +116,9 @@ s <- sort(sample(1:N, size = round(N / K)))
 zX[s] <- NA
 ncomp <- 5
 
-fm <- ximput.ia(zX, ncomp, maxit = 1)               ## Nipals alone
-#fm <- ximput.ia(zX, ncomp)                         ## With iterations
-#fm <- ximput.ia(zX, ncomp, start = "means")        ## Initial = means
+fm <- ximputia(zX, ncomp, maxit = 1)               ## Nipals alone
+#fm <- ximputia(zX, ncomp)                         ## With iterations
+#fm <- ximputia(zX, ncomp, start = "means")        ## Initial = means
 fm$niter
 fm$conv
 if(!is.na(fm$tol[1])) plot(fm$tol)

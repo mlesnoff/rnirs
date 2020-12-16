@@ -1,14 +1,14 @@
 \name{fda}
 \alias{fda}
-\alias{fda.svd}
+\alias{fdasvd}
 \encoding{latin1}
 
 \title{Factorial discriminant analysis}
 
 \description{
-Functions \code{fda} and s \code{fda.svd} fit a factorial discriminant analysis (FDA). The functions maximize the compromise \eqn{p'Bp / p'Wp}, i.e. \eqn{max p'Bp} with constraint \eqn{p'Wp = 1}. Vectors \eqn{p} are the linear discrimant coefficients "LD".
+Functions \code{fda} and \code{fdasvd} fit a factorial discriminant analysis (FDA). The functions maximize the compromise \eqn{p'Bp / p'Wp}, i.e. \eqn{max p'Bp} with constraint \eqn{p'Wp = 1}. Vectors \eqn{p} are the linear discrimant coefficients "LD".
 
-Function \code{fda} uses an eigen decomposition of \eqn{W^(-1)B} (if \eqn{W} is singular, W^(-1) can be replaced by a pseudo-inverse, with argument \code{pseudo}), and function \code{fda.svd} a weighted SVD decomposition of the matrix of the class centers. See the code for details.
+Function \code{fda} uses an eigen decomposition of \eqn{W^(-1)B} (if \eqn{W} is singular, W^(-1) can be replaced by a pseudo-inverse, with argument \code{pseudo}), and function \code{fdasvd} a weighted SVD decomposition of the matrix of the class centers. See the code for details.
 
 }
 
@@ -16,7 +16,7 @@ Function \code{fda} uses an eigen decomposition of \eqn{W^(-1)B} (if \eqn{W} is 
 
 fda(Xr, Yr, Xu = NULL, ncomp = NULL, pseudo = FALSE)
 
-fda.svd(Xr, Yr, Xu = NULL, ncomp = NULL, ...)
+fdasvd(Xr, Yr, Xu = NULL, ncomp = NULL, ...)
 
 }
 
@@ -32,7 +32,7 @@ fda.svd(Xr, Yr, Xu = NULL, ncomp = NULL, ...)
 
 \item{pseudo}{For function \code{fda}. Logical indicating if matrix \eqn{W} has to be inverted by pseudo-inverse. Default to \code{FALSE}.}
 
-\item{...}{For function \code{fda.svd}. Optionnal arguments to pass in function \code{\link{pca}}.}
+\item{...}{For function \code{fdasvd}. Optionnal arguments to pass in function \code{\link{pca}}.}
 
 }
 

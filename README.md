@@ -1,9 +1,9 @@
-## **rnirs - Regression and Discrimination for Chemometrics**  
-## <span style="color:grey70"> **Version 1.9-6** </span> 
+## **rnirs - Dimension reduction, Regression and Discrimination for Chemometrics**  
+## <span style="color:grey70"> **Version 1.9-7** </span> 
 
 ## <span style="color:green"> **Key Features** </span> 
 
-- **Factorial analyses, Dimension reductions** 
+- **Factorial analyses, Dimension reduction** 
   - PCA, PLS, FDA
   - Robust PCA and PLS
   - Non Linear Kernel PCA and PLS
@@ -44,7 +44,7 @@
 
 ## <span style="color:green"> **Available functions** </span> 
 
-**Click** [**here**](https://github.com/mlesnoff/rnirs/blob/master/doc/rnirs_functions_github.md) **to see the list of the available functions** 
+**Click** [**HERE**](https://github.com/mlesnoff/rnirs/blob/master/doc/rnirs_functions_github.md) **to see the list of the available functions** 
 
 or write in the R console
 ```{r}
@@ -55,7 +55,7 @@ After installation, all the functions have a **help page with documented example
 
 ## <span style="color:green"> **News** </span> 
 
-Click [**here**](https://github.com/mlesnoff/rnirs/blob/master/inst/NEWS.md) to see **what changed** in the last version 
+Click [**HERE**](https://github.com/mlesnoff/rnirs/blob/master/inst/NEWS.md) to see **what changed** in the last version 
 
 or write in the R console
 ```{r}

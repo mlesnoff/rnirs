@@ -1,13 +1,13 @@
 Package: rnirs
 Type: Package
-Title: Regression, Discrimination and Other Methods for Chemometrics
-Version: 1.9-6
+Title: Dimension reduction, Regression and Discrimination for Chemometrics
+Version: 1.9-7
 Author: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Maintainer: Matthieu Lesnoff <matthieu.lesnoff@cirad.fr>
 Description: Package for regression and discrimination, with special focus on chemometrics.
 VignetteBuilder: knitr
-Imports: data.table, FNN, kernlab, matrixStats, ptw, signal
-Depends: R (>= 3.5.0)
+Imports: stats, graphics, grDevices, data.table, FNN, kernlab, matrixStats, ptw, signal
+Depends: R (>= 4.0)
 Suggests: knitr, rmarkdown
 URL: https://github.com/mlesnoff/rnirs
 License: GPL (>= 2)

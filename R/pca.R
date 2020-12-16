@@ -10,9 +10,9 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
   
   if(is.null(algo))
     if(n < p)
-      algo <- pca.eigenk
+      algo <- pca_eigenk
     else
-      algo <- pca.eigen
+      algo <- pca_eigen
   
   fm <- algo(Xr, ncomp, ...)
 

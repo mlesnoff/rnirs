@@ -11,9 +11,9 @@ pcdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, ...) {
 
   if(is.null(algo))
     if(n < p)
-      algo <- pca.eigenk
+      algo <- pca_eigenk
     else
-      algo <- pca.eigen
+      algo <- pca_eigen
   
   dots <- list(...)
   namdot <- names(dots)

@@ -15,9 +15,9 @@ segmts <- function(n, y = NULL, m, nrep = 1, seed = NULL) {
 
   set.seed(seed = seed)
   
-  for(i in 1:nrep) {
+  for(i in seq_len(nrep)) {
     
-    z <- sample(1:zn, size = m, replace = FALSE)
+    z <- sample(seq_len(zn), size = m, replace = FALSE)
     z <- list(z)
     names(z) <- "segm1"
     
@@ -26,9 +26,9 @@ segmts <- function(n, y = NULL, m, nrep = 1, seed = NULL) {
     }
   
   if(!is.null(y)) {
-    vecn <- 1:n
+    vecn <- seq_len(n)
     zsegm <- segm
-    for(i in 1:nrep) {
+    for(i in seq_len(nrep)) {
       u <- segm[[i]][[1]]
       v <- which(y %in% yagg[u])
       zsegm[[i]][[1]] <- v

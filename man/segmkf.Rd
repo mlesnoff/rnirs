@@ -7,18 +7,19 @@
 
 \description{
 
-Build segments for two cross-validation strategies: K-Fold CV, and test-set (or Monte Carlo) CV. 
+Build segments of observations for K-Fold or "test-set" (i.e. Monte Carlo) cross-validation (CV). 
 
 The CV can eventually be randomly repeated. For each repetition:
 
 - Function \code{segmkf} (K-fold CV) returns the \eqn{K} segments.
 
-- Function \code{segmts} (test-set CV) returns a segment (of a given length \eqn{m}) randomly sampled in the data set.
+- Function \code{segmts} (test-set CV) returns a segment (of a given length) randomly sampled in the data set.
 
+\bold{CV of blocks} 
 
-Each segment is a vector of the selected indexes of the observations.
+Argument \code{y} allows sampling \bold{blocks of observations} instead of observations. This can be useful for instance when there are repetitions in the data. In such a situation, CV should account for the repetition level (if not, error rates will in general be strongly underestimated). For implementing such a CV, object \code{y} must be a a vector of length \eqn{n} defining the blocks (in the same order as the data).
 
-If argument \code{y} (vector of classes of length \eqn{n}) is not \code{NULL}, the CV (K-fold or Test-set) is done within each class first, and then the indexes are gathered in the segment.
+In any cases (\code{y = NULL} or not), the functions return a list of vector(s). Each vector contains the \bold{indexes of the observations} defining the segment.
 
 }
 
@@ -33,15 +34,15 @@ segmts(n, y = NULL, m, nrep, seed = NULL)
 
 \arguments{
 
-\item{n}{The total number of row observations in the data set. If \code{y = NULL}, the cross-validation is implemented on \code{1:n}. If \code{y != NULL}, the cross-validation is implemented within each class contained in \code{y} (but the functions return the row observations corresponding to the selected classes).}
+\item{n}{The total number of row observations in the data set. If \code{y = NULL}, the CV is implemented on \code{1:n}. If \code{y != NULL}, blocks of observations (defined in \code{y}) are sampled instead of observations (but indexes of observations are returned).}
 
-\item{y}{A vector of classes. Must be of length \eqn{n}). Default to \code{NULL}.}
+\item{y}{A vector of length \eqn{n} defining the blocks. Default to \code{NULL}.}
 
-\item{K}{The number segments in the K-fold CV.}
+\item{K}{For \code{segmkf}. The number of folds (i.e. segments) in the K-fold CV.}
 
-\item{type}{The type K-fold CV. Possible values are "random" (default), "consecutive" and "interleaved".}
+\item{type}{For \code{segmkf}. The type K-fold CV. Possible values are "random" (default), "consecutive" and "interleaved".}
 
-\item{m}{The length of the segment in the test-set CV.}
+\item{m}{For \code{segmts}. If \code{y = NULL}, the number of observations in the segment. If not, the number of blocks in the segment.}
 
 \item{nrep}{The number of replications of the repeated CV. Default to \code{nrep = 1}.}
 
@@ -51,7 +52,7 @@ segmts(n, y = NULL, m, nrep, seed = NULL)
 
 \examples{
 
-#### K-fold
+######### K-fold
 
 segmkf(n = 10, K = 3)
 
@@ -60,22 +61,28 @@ segmkf(n = 10, K = 3, type = "interleaved")
 # Leave-one-out
 segmkf(n = 10, K = 10)
 
-# repeated
+# Repeated
 segmkf(n = 10, K = 3, nrep = 2)
 
-#### Test-set (repeated)
+######### Test-set (repeated)
 
 segmts(n = 10, m = 3, nrep = 5)
 
-#### With classes
+######### With blocks
 
 n <- 10
 y <- rep(LETTERS[1:5], 2)
 y
 
-segmkf(n = n, y = y, K = 3, nrep = 1)
+z <- segmkf(n = n, y = y, K = 3, nrep = 1)
+z
+y[z$rep1$segm1]
+y[z$rep1$segm2]
+y[z$rep1$segm3]
 
-segmts(n = n, y = y, m = 3, nrep = 1)
+z <- segmts(n = n, y = y, m = 3, nrep = 1)
+z
+y[z$rep1$segm1]
 
 }
 

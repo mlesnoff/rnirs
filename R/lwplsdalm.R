@@ -44,9 +44,9 @@ lwplsdalm <- function(
       zresn <- getknn(Xr, Xu, k = zk, diss = diss)
       } else { 
           if(nclas == 1)
-            z <- pca.svd(Xr, ncomp = zncompdis)
+            z <- pca_svd(Xr, ncomp = zncompdis)
           else
-            z <- pls.kernel(Xr, dummy(Yr), ncomp = zncompdis)
+            z <- pls_kernel(Xr, dummy(Yr), ncomp = zncompdis)
         zresn <- getknn(z$T, .projscor(z, Xu), k = zk, diss = diss)
         }    
   
@@ -58,7 +58,7 @@ lwplsdalm <- function(
       listnn = zresn$listnn,
       listw = zlistw,
       fun = plsdalm,
-      algo = pls.kernel,
+      algo = pls_kernel,
       ncomp = ncomp,
       stor = stor,
       print = print,

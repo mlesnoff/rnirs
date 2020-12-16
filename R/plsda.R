@@ -2,7 +2,7 @@ plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
                   algo = NULL, da = dalm, ...) {
   
   if(is.null(algo))
-    algo <- pls.kernel
+    algo <- pls_kernel
   
   dots <- list(...)
   namdot <- names(dots)

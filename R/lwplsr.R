@@ -41,7 +41,7 @@ lwplsr <- function(
     if(zncompdis == 0) {
       zresn <- getknn(Xr, Xu, k = zk, diss = diss)
       } else { 
-        z <- pls.kernel(Xr, Yr, ncomp = zncompdis)
+        z <- pls_kernel(Xr, Yr, ncomp = zncompdis)
         zresn <- getknn(z$T, .projscor(z, Xu), k = zk, diss = diss)
         }
     
@@ -53,7 +53,7 @@ lwplsr <- function(
       listnn = zresn$listnn,
       listw = zlistw,
       fun = plsr,
-      algo = pls.kernel,
+      algo = pls_kernel,
       ncomp = ncomp,
       stor = stor,
       print = print,

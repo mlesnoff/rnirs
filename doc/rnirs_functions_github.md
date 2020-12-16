@@ -2,7 +2,7 @@
 
 **https://github.com/mlesnoff/rnirs**
 
-## MULTIVARIATE FACTORIAL ANALYSES
+## MULTIVARIATE FACTORIAL ANALYSES, DIMENSION REDUCTION
 
 ### <span style="color:green"> PCA </span> 
 
@@ -10,17 +10,17 @@
 
 - **Algorithms for usual PCA**
 
-  - ***pca.eigen*** EIGEN decomposition
-  - ***pca.eigenk*** EIGEN for wide matrices (kernel form)
-  - ***pca.svd*** SVD decomposition
-  - ***pca.nipals*** NIPALS
-  - ***pca.nipalsna*** NIPALS allowing missing data
+  - ***pca_eigen*** EIGEN decomposition
+  - ***pca_eigenk*** EIGEN for wide matrices (kernel form)
+  - ***pca_svd*** SVD decomposition
+  - ***pca_nipals*** NIPALS
+  - ***pca_nipalsna*** NIPALS allowing missing data
   
 - **Algorithms for robust PCA**
   
-  - ***pca.sph*** Spherical PCA (Locantore 1999) \cr
-  - ***pca.cr*** Projection-Pursuit PCA (Croux & Ruiz-Gazen 2005)
-  - ***pca.rob*** Robust weighting
+  - ***pcasph*** Spherical PCA (Locantore 1999) \cr
+  - ***pcacr*** Projection-Pursuit PCA (Croux & Ruiz-Gazen 2005)
+  - ***pcarob*** Robust weighting
 
 ### <span style="color:green"> PLS </span>
 
@@ -28,19 +28,19 @@
 
 - **Algorithms for usual PLS**
 
-  - ***pls.kernel*** "Improved Kernel #1" (Dayal & McGregor 1997)
-  - ***pls.nipals*** NIPALS
-  - ***pls.rannar*** Kernel version for wide matrices (Rannar et al. 1994)
+  - ***pls_kernel*** "Improved Kernel #1" (Dayal & McGregor 1997)
+  - ***pls_nipals*** NIPALS
+  - ***pls_rannar*** Kernel version for wide matrices (Rannar et al. 1994)
 
 - **Algorithms for robust PLS1**
 
-  - ***pls.iw*** Iterative re-weighting
-  - ***pls.rob*** Weighting
+  - ***pls_iw*** Iterative re-weighting
+  - ***pls_rob*** Weighting
 
 ### <span style="color:green"> FDA </span>
 
 - ***fda*** Using EIGEN decomposition of a compromise
-- ***fda.svd*** Using weighted SVD decomposition of class centers
+- ***fdasvd*** Using weighted SVD decomposition of class centers
 
 ### <span style="color:green"> Non Linear Kernel </span>
 
@@ -50,8 +50,8 @@
 
 - **KPLS (Rosipal & Trejo 2001)**
 
-  - ***kpls*** (uses ***kpls.nipals***)
-  - ***kpls.nipals*** NIPALS  
+  - ***kpls*** (uses ***kpls_nipals***)
+  - ***kpls_nipals*** NIPALS  
 
 - **Direct KPCA and KPLS (Bennett & Embrechts 2003)**
 
@@ -63,11 +63,20 @@
   - ***krbf*** Gausssian RBF
   - ***ktanh*** Hyperbolic tangent
 
+### <span style="color:green"> Multi-block </span> 
+
+- ***orthog*** Orthogonalization of a matrix to another matrix
+- ***blocksel*** Block selection in a matrix
+- ***blockpls*** Block dimension reduction by PLS
+- ***blockscal*** Block autoscaling
+- ***blocksopca*** Block dimension reduction by SO-PCA
+- ***blocksopls*** Block dimension reduction by SO-PLS
+
 ### <span style="color:green"> Outlyingness Multivariate Measures (Outliers) </span> 
 
-- ***out.eucl*** Outlyingness using Euclidean distance
-- ***out.sdod*** Outlyingness based on a score space
-- ***out.stah*** Stahel-Donoho outlyingness
+- ***outeucl*** Outlyingness using Euclidean distance
+- ***outsdod*** Outlyingness based on a score space
+- ***outstah*** Stahel-Donoho outlyingness
 
 ### <span style="color:green"> Auxilliary functions </span>
 
@@ -81,7 +90,7 @@
 ### <span style="color:green"> Linear </span> 
 
 - ***lmr*** Multiple linear regression
-- ***rr*** Ridge Regression\cr
+- ***rr*** Ridge Regression
 
 - **On latent variables**
 
@@ -100,7 +109,7 @@
   - ***krr*** Kernel ridge regression (LS-SVM)
   - ***svmr*** SVM regression
   - **On latent variables**
-    - Using functions ***kpca*** and ***kpls.nipals***
+    - Using functions ***kpca*** and ***kpls_nipals***
       - ***kpcr*** Kernel PCR
       - ***kplsr*** Kernel PLSR
     - Direct KPCR and KPLSR
@@ -146,7 +155,7 @@
   - ***dakrr*** Using kernel ridge regression
   - ***svmc*** SVM classification
   - **On latent variables**
-    - Using functions ***kpca*** and ***kpls.nipals***
+    - Using functions ***kpca*** and ***kpls_nipals***
       - ***kpcda*** Kernel PCDA using any above DA method
       - ***kpcdalm*** Same as ***kpcda(dalm)*** but faster
       - ***kplsda*** Kernel PLSDA using any above DA method
@@ -172,13 +181,13 @@
 - ***segmts*** Building segments for test-set CV
 - ***cvfit*** Generic function for cross-validating a model
 - **Specific CV for PCA**
-  - ***cvpca.ia*** IA algorithm
-  - ***cvpca.tri*** ekf-TRI algorithm
-  - ***cvpca.ckf*** ckf-TRI algorithm
-  - ***cvpca.rw*** Row-wise algorithm
+  - ***cvpcaia*** IA algorithm
+  - ***cvpcatri*** ekf-TRI algorithm
+  - ***cvpcackf*** ckf-TRI algorithm
+  - ***cvpcarw*** Row-wise algorithm
 - **Model complexity (df)**
-  - ***dfplsr.cov***, ***dfplsr.div*** Monte Carlo estimation of df for PLSR1 models 
-  - ***dfpca.div*** Monte Carlo estimation of df for PCA models 
+  - ***dfplsrcov***, ***dfplsrdiv*** Monte Carlo estimation of df for PLSR1 models 
+  - ***dfpcadiv*** Monte Carlo estimation of df for PCA models 
 - **Mallows Cp**
   - ***cpplsr*** Mallows Cp criterion for PLSR1 models
   - ***cppca*** Mallows Cp criterion for PCA models
@@ -187,15 +196,6 @@
   - ***err*** For discrimination models
   - ***plotmse*** Plotting error rates of prediction models
   - ***selwold*** Wold's criterion for selecting the number of components in PCR/DA and PLSR/DA model
-
-## MULTIBLOCK
-
-- ***orthog*** Orthogonalization of a matrix to another matrix
-- ***blocksel*** Block selection in a matrix
-- ***blockpls*** Block dimension reduction by PLS
-- ***blockscal*** Block autoscaling
-- ***blocksopca*** Block dimension reduction by SO-PCA
-- ***blocksopls*** Block dimension reduction by SO-PLS
 
 ## SELECTION OF VARIABLES 
 
@@ -235,7 +235,7 @@
 
 ## MISSING DATA IMPUTATION
 
-- ***ximput.ia*** PCA iterative algorithm (IA)
+- ***ximputia*** PCA iterative algorithm (IA)
 
 ## GRAPHICS
 
@@ -247,7 +247,7 @@
 ## AUXILIARY
 
 - ***dis*** Dissimilarities between row observations of a matrix and a given vector
-- ***dkern.gauss***, ***dmnorm*** Prediction of probability density of multivariate data 
+- ***dkerngauss***, ***dmnorm*** Prediction of probability density of multivariate data 
 - ***dummy*** Table of dummy variables
 - ***headm*** Return the first part of a matrix or data frame
 - ***getknn*** KNN selection

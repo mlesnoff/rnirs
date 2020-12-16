@@ -1,4 +1,5 @@
-segmkf <- function(n, y = NULL, K = 5, type = c("random", "consecutive", "interleaved"), nrep = 1, seed = NULL) {
+segmkf <- function(n, y = NULL, K = 5, type = c("random", "consecutive", "interleaved"), 
+                   nrep = 1, seed = NULL) {
   
   type <- match.arg(type)
 
@@ -19,7 +20,7 @@ segmkf <- function(n, y = NULL, K = 5, type = c("random", "consecutive", "interl
   
   set.seed(seed = seed)
 
-  for(i in 1:nrep) {
+  for(i in seq_len(nrep)) {
   
     z <- switch(type,
       random = matrix(c(sample(1:zn), rep(NA, nna)), ncol = K, byrow = TRUE),
@@ -39,10 +40,10 @@ segmkf <- function(n, y = NULL, K = 5, type = c("random", "consecutive", "interl
     }
   
   if(!is.null(y)) {
-    vecn <- 1:n
+    vecn <- seq_len(n)
     zsegm <- segm
     for(i in 1:nrep) {
-      for(j in 1:K){
+      for(j in seq_len(K)){
         u <- segm[[i]][[j]]
         v <- which(y %in% yagg[u])
         zsegm[[i]][[j]] <- v

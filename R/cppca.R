@@ -23,7 +23,7 @@ cppca <- function(X, ncomp, algo = NULL,
   
   s2 <- ssr[k + 1] / (N - dfcal[k + 1])
   
-  z <- cvpca.rw(X, ncomp, algo = algo, 
+  z <- cvpcarw(X, ncomp, algo = algo, 
                 segm = segm, print = print, ...)$res.summ
 
   R <- ssr / z$ssr

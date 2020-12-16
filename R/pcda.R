@@ -13,9 +13,9 @@ pcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, algo = NULL, da = dalm, ...) {
   
   if(is.null(algo))
     if(n < p)
-      algo <- pca.eigenk
+      algo <- pca_eigenk
     else
-      algo <- pca.eigen
+      algo <- pca_eigen
   
   z <- namdot[namdot %in% names(formals(algo))]
   if(length(z) > 0) dots.algo <- dots[z] else dots.algo <- NULL
