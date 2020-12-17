@@ -10,7 +10,7 @@ Calculation of the Mallows \eqn{Cp} (Mallows 1973) criterion for PCA models. For
 
 \eqn{Cp(a) = SSR(a) / N + alpha * dfc(a) * sigma^2 / N}  
 
-where \eqn{SSR} is the sum of squared residuals for the current PCA model, \eqn{dfc(a)} an estimation of the PCA "corrected model complexity" (see thereafter), \eqn{sigma^2} the irreductible error variance estimated from a low biased model, \eqn{alpha} a penalty coefficient, and \eqn{N = n * p} the number of (training) matrix elements.
+where \eqn{SSR(a)} is the sum of squared residuals for the current PCA model, \eqn{dfc(a)} an estimation of the PCA "corrected model complexity" (see thereafter), \eqn{sigma^2} the irreductible error variance estimated from a low biased model, \eqn{alpha} a penalty coefficient, and \eqn{N = n * p} the number of (training) matrix elements.
 
 \bold{## Penalty coefficient \eqn{alpha}}
 
@@ -20,19 +20,23 @@ Depending on argument \code{type}, \eqn{alpha} is equal to either \eqn{2} (AIC p
 
 The model complexity of a fitted PCA model of dimension \eqn{a} is known to be \eqn{df = p + a * (n - 1) + p * a - a^2} (Faber et al. 1994, Faber 2012, Josse & Husson 2012). Monte Carlo estimates (Ye 1998, Efron 2004) of \eqn{df} are consistent with this previous formula; see for instance the example presented for function \code{\link{dfpcadiv}}. 
 
-Nevertheless and unfortunately, \eqn{df} can not be used directly in criteria such as \eqn{Cp}, \eqn{GCV} etc. for model selection. Such a procedure underestimates the prediction error that is normally targetted by these criteria, with the consequence of selecting models with too large dimensions. 
+Nevertheless and unfortunately, \eqn{df} can not be used directly in criteria such as \eqn{Cp}, \eqn{GCV} etc. for model selection. Such a procedure underestimates the prediction error that is normally targeted by these criteria, with the consequence of selecting models with too large dimensions. This is the same problem that encounters the row-wise PCA CV. 
 
-The underestimation comes from the fact that, in PCA, the new observations to predict, say \eqn{Xnew}, are directly used for computing the predictions \eqn{Xnew_fit} (\eqn{Xnew_fit = Xnew * P * P'}). Objects \eqn{Xnew} and \eqn{Xnew_fit} are therefore not independant, while such an independance is a fundamental hypothesis of the theory leading to the good properties of \eqn{Cp} and \eqn{GCV}. As a comparison, in more usual supervised prediction models such as PLSR models where \eqn{Cp} etc. are used, objects \eqn{ynew} and \eqn{ynew_fit} are independant.
+The underestimation comes from the fact that, in PCA, the new observations to predict, say \eqn{Xnew}, are directly used for computing the predictions \eqn{Xnew_fit} (\eqn{Xnew_fit = Xnew * P * P'}). Objects \eqn{Xnew} and \eqn{Xnew_fit} are therefore not independent, while such an independence is assumed in the theory leading to the good properties of \eqn{Cp}, \eqn{GCV}, \eqn{MSPEPCV}, etc. As a comparison, in usual supervised prediction models such as LMR or PLSR models, objects \eqn{ynew} and \eqn{ynew_fit} are independent.
 
-The non-independance between \eqn{Xnew} and \eqn{Xnew_fit} consumes specific degrees of freedom that need to be added to \eqn{df} before using the Cp formula. Let us define the \bold{corrected} number of degrees of freedom (used finally in the \eqn{Cp} formula) by \eqn{dfc = df + theta}, where \eqn{theta} corresponds to the additional part. Function \eqn{cppca} estimates \eqn{dfc} from the following rule of thumb:
+The non-independence between \eqn{Xnew} and \eqn{Xnew_fit} consumes specific degrees of freedom that need to be added to \eqn{df} before using the Cp formula. Let us define the \bold{corrected} number of degrees of freedom (used finally in the \eqn{Cp} formula) by \eqn{dfc = df + theta}, where \eqn{theta} corresponds to the additional part. We need to estimate \eqn{dfc} (or \eqn{theta} since \eqn{df} is known).
 
-the ratio \eqn{N / (N - dfc)} is assumed being approximately equal to the ratio \eqn{SSRCV / SSR}, where \eqn{dfc} is unkwown and \eqn{SSRCV} is the \eqn{PRESS} returned by a cross-validation (CV) process. 
+The proposed approach uses the nice idea of Hassani et al. 2012 that compared SSR to SSRCV (where \eqn{SSRCV} is the \eqn{PRESS} returned by a given  cross-validation process), but with a different interpretation and justification. 
 
-This rule of thumb was set here after looking at the nice idea initiated by Hassani et al. 2012. But in our case, the additional part \eqn{theta} has different interpretation and justification: we claim that \eqn{theta} comes frop the non-independance between \eqn{Xnew} and \eqn{Xnew_fit}, not from some correlation cost of computing PCA loadings ans scores (which is, for us, already accounted for in \eqn{df}).  
+Function \eqn{cppca} estimates \eqn{dfc} from the following rule of thumb:
+
+the ratio \eqn{N / (N - dfc)} is assumed being approximately equal to the ratio \eqn{SSRCV / SSR}. 
 
 Following this, it comes that 
 
 \eqn{dfc = N * (1 - SSR / SSRCV)}
+
+In our case, the justification and interpretation of the additional part \eqn{theta} in \eqn{dfc} has different interpretation and justification than in Hassani et al. 2012: \eqn{theta} comes from the non-independence between \eqn{Xnew} and \eqn{Xnew_fit}, not from some correlation cost of computing PCA loadings ans scores (which is, for us, already accounted for in \eqn{df}).  
 
 }
 
