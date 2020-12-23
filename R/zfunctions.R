@@ -343,37 +343,45 @@
 .nipals <- function(X, weights = NULL, 
   tol = .Machine$double.eps^0.5, maxit = 200) {
   
-  ## Find p such as ||X - t'p|| = min, with ||p|| = 1
-  ## t = X %*% p
-  
-  n <- dim(X)[1]
-
-  if(is.null(weights))
-    weights <- rep(1 / n, n)
-  else
-    weights <- weights / sum(weights)
-  
-  t <- X[, which.max(.xvar(X, weights = weights))]
-  
-  iter <- ztol <- 1
-  while(ztol > tol & iter <= maxit) {
-     
-    ## Regression of X on t
-    p <- crossprod(weights * X, t) / sum(weights * t * t)
-    p <- p / sqrt(sum(p * p))
-        
-    ## Regression of X' on p
-    zt <- X %*% p
-      
-    ztol <- .xnorm(t - zt)
-    t <- zt
-    iter <- iter + 1
+    ## Find p such as ||X - t'p|| = min, with ||p|| = 1
+    ## t = X %*% p
     
-    }
-
-  sv <- .xnorm(t, weights = weights)
+    ## .nipals does not accept missing values in X
   
-  list(t = c(t), p = c(p), sv = sv, niter = iter)
+    n <- dim(X)[1]
+
+    if(is.null(weights))
+        weights <- rep(1 / n, n)
+    else
+        weights <- weights / sum(weights)
+  
+    t <- X[, which.max(.xvar(X, weights = weights))]
+  
+    iter <- ztol <- 1
+    while(ztol > tol & iter <= maxit) {
+     
+        ## Regression of X on t
+        p <- crossprod(weights * X, t) / sum(weights * t * t)
+    
+        p <- p / sqrt(sum(p * p))
+        
+        ## Regression of X' on p
+        zt <- X %*% p
+      
+        ztol <- sum((t - zt)^2)
+        ## = .xnorm(t - zt)^2
+        ## The following generates more iterations
+        ## (more precision)
+        ## ztol <- .xnorm(t - zt)
+        ## End
+        t <- zt
+        iter <- iter + 1
+    
+        }
+
+    sv <- .xnorm(t, weights = weights)
+  
+    list(t = c(t), p = c(p), sv = sv, niter = iter)
   
   }
 

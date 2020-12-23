@@ -1,126 +1,124 @@
 pca_nipalsna <- function(X, ncomp, 
-  gs = TRUE, tol = .Machine$double.eps^0.5, maxit = 200) {
-  
-  X <- .matrix(X)
-  n <- nrow(X)
-  p <- ncol(X)
-  
-  ncomp <- min(ncomp, n, p)
-  
-  xmeans <- colMeans(X, na.rm = TRUE)
-  X <- .center(X, xmeans)
-  
-  x <- X
-  cmeans <- xmeans
-  nr <- n
-  nc <- p
-  eig <- rep(NA, length = ncomp)
-  
-  gramschmidt <- gs
-
-  ##################### FUNCTION "nipals" OF PACKAGE "nipals" v0.7 (K. Wright, CRAN)
-  ##################### = NIPALS WITH NA VALUES
-  
-  ##################### START 
-  
-  x.orig <- x
-  col.na.count <- apply(x, 2, function(x) sum(!is.na(x)))
-  if (any(col.na.count == 0)) 
-    stop("At least one column is all NAs")
-  row.na.count <- apply(x, 1, function(x) sum(!is.na(x)))
-  if (any(row.na.count == 0)) 
-    stop("At least one row is all NAs")
-  
-  TotalSS <- sum(x * x, na.rm = TRUE)
-  PPp = matrix(0, nrow = nc, ncol = nc)
-  TTp = matrix(0, nrow = nr, ncol = nr)
-  eig <- rep(NA, length = ncomp)
-  R2cum <- rep(NA, length = ncomp)
-  loadings <- matrix(nrow = nc, ncol = ncomp)
-  scores <- matrix(nrow = nr, ncol = ncomp)
-  iter <- rep(NA, length = ncomp)
-  
-  x.miss <- is.na(x)
-  has.na <- any(x.miss)
-  
-  for (h in 1:ncomp) {
+                        gs = TRUE, 
+                        tol = .Machine$double.eps^0.5, 
+                        maxit = 200) {
     
-    scol <- which.max(apply(x, 2, var, na.rm = TRUE))
+    X <- .matrix(X)
+    zdim <- dim(X)
+    n <- zdim[1]
+    p.col <- zdim[2]
+  
+    ncomp <- min(ncomp, n, p.col)
+  
+    xmeans <- colMeans(X, na.rm = TRUE)
+    X <- .center(X, xmeans)
+ 
+    sv <- tt <- vector(length = ncomp)
+    T <- matrix(nrow = n, ncol = ncomp)
+    P <- matrix(nrow = p.col, ncol = ncomp)
+  
+    niter <- vector(length = ncomp)
     
-    if (has.na) {
-      x0 <- x
-      x0[x.miss] <- 0
-      th <- x0[, scol]
-      }
-    else 
-      th <- x[, scol]
-    
-    pciter <- 1
-    continue <- TRUE
-    while (continue) {
-      
-      if (has.na) {
-        T2 <- matrix(th * th, nrow = nr, ncol = nc)
-        T2[x.miss] <- 0
-        ph <- crossprod(x0, th)/colSums(T2)
+    s <- which(is.na(X))
+    if(length(s) > 0) {
+        isna <- TRUE
+        ts <- which(is.na(t(X)))
         }
-      else ph = crossprod(x, th)/sum(th * th)
-      
-      if (gramschmidt && h > 1) 
-        ph <- ph - PPp %*% ph
-      
-      ph <- ph/sqrt(sum(ph * ph, na.rm = TRUE))
-      th.old <- th
-      
-      if (has.na) {
-        P2 <- matrix(ph * ph, nrow = nc, ncol = nr)
-        P2[t(x.miss)] <- 0
-        th = x0 %*% ph / colSums(P2)
+    else
+        isna <- FALSE
+    
+    PtP <- matrix(0, nrow = p.col, ncol = p.col)
+    TtT <- matrix(0, nrow = n, ncol = n)
+    for(a in seq_len(ncomp)) {
+        
+        j <- which.max(colSums(abs(X), na.rm = TRUE))
+        
+        if(isna) {
+            X0 <- replace(X, s, 0)
+            t <- X0[, j]
+            }
+        else
+            t <- X[, j]
+
+        iter <- 1
+        cont <- TRUE
+        while(cont) {
+     
+            ## Regression of X on t
+            if(isna) {
+                zTT <- replace(
+                    matrix(t * t, nrow = n, ncol = p.col), 
+                    s, 0
+                    )
+                p <- crossprod(X0, t) / colSums(zTT)
+                }
+            else
+                p <- crossprod(X, t) / sum(t * t)
+            
+            if(gs & a > 1)
+                p <- p - PtP %*% p
+            
+            p <- p / sqrt(sum(p * p))
+            
+            zt <- t
+            ## Regression of X' on p
+            if(isna) {
+                zPP <- replace(
+                    matrix(p * p, nrow = p.col, ncol = n), 
+                    ts, 0
+                    )
+                t = X0 %*% p / colSums(zPP)
+                }
+            else
+                t <- X %*% p
+
+            if(gs & a > 1) 
+                t <- t - TtT %*% t
+            
+            ztol <- sum((t - zt)^2)
+            
+            iter <- iter + 1
+            
+            if(ztol < tol | iter > maxit)
+                cont <- FALSE
+    
+            }
+        
+        X <- X - tcrossprod(t, p)
+    
+        P[, a] <- p
+        T[, a] <- t
+    
+        tt[a] <- sum(t * t)
+        
+        sv[a] <- sqrt(tt[a] / n)
+        
+        if(gs) {
+          PtP <- PtP + tcrossprod(p)
+          TtT <- TtT + tcrossprod(t) / tt[a]
+          }
+  
+        niter[a] <- iter - 1
+    
         }
-      else th = x %*% ph / sum(ph * ph)
-            
-      if (gramschmidt && h > 1)
-        th <- th - TTp %*% th
-            
-      if (sum(abs(th - th.old), na.rm = TRUE) < tol) continue <- FALSE
-      #if (sum((th - th.old)^2, na.rm = TRUE) < tol) continue <- FALSE
-      
-      pciter <- pciter + 1
-      if (pciter == maxit) continue <- FALSE
-
-      }
-
-    x <- x - (th %*% t(ph))
-    loadings[, h] <- ph
-    scores[, h] <- th
-    eig[h] <- sum(th * th, na.rm = TRUE)
-    iter[h] <- pciter
-    if (gramschmidt) {
-      PPp = PPp + tcrossprod(ph)
-      TTp = TTp + tcrossprod(th) / eig[h]
-      }
-    R2cum[h] <- 1 - (sum(x * x, na.rm = TRUE) / TotalSS)
+ 
+    eig <- sv^2         
+    conv <- ifelse(niter < maxit, TRUE, FALSE)
+   
+    row.names(T) <- row.names(X)
+    row.names(P) <- colnames(X)
+    colnames(P) <- colnames(T) <- paste("comp", 1:ncomp, sep = "") 
+    
+    
+    if(!isna | (isna & gs))
+        T.ortho <- TRUE
+    else
+        T.ortho <- FALSE
+    
+    list(T = T, P = P, R = P, sv = sv, eig = eig, 
+         xmeans = xmeans, weights = rep(1 / n, n), niter = niter, 
+         conv = conv, T.ortho = TRUE)
     
     }
+
     
-  R2 <- c(R2cum[1], diff(R2cum))
-  
-  ##################### END
-  
-  sv <- sqrt(eig) / sqrt(n)
-
-  eig <- sv^2
-  
-  row.names(scores) <- row.names(X)
-  row.names(loadings) <- colnames(X)
-  
-  colnames(scores) <- colnames(loadings) <- paste("comp", 1:ncomp, sep = "")
-
-  list(T = scores, P = loadings, R = loadings,
-    sv = sv, eig = eig, xmeans = xmeans, weights = rep(1, n), iter = iter, T.ortho = TRUE)
-
-  }
-
-
-
-

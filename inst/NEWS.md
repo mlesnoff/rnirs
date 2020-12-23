@@ -1,5 +1,18 @@
 ## NEWS for package **rnirs**
 
+## **Version 1.9-8**
+
+- Internal changes in functions **pca_nipals** and pca_nipalsna**
+
+- Code cleaning
+
+
+
+
+
+
+
+
 ## **Version 1.9-7**
 
 - Major changes of function names: For consistency with S3 rules, all "." in the function names have been replaced by "" or "_"

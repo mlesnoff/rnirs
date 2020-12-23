@@ -6,7 +6,7 @@
 
 ### <span style="color:green"> PCA </span> 
 
-- **pca** PCA with the available algorithms below
+- ***pca*** PCA with the available algorithms below
 
 - **Algorithms for usual PCA**
 
@@ -65,12 +65,12 @@
 
 ### <span style="color:green"> Multi-block </span> 
 
-- ***orthog*** Orthogonalization of a matrix to another matrix
 - ***blocksel*** Block selection in a matrix
 - ***blockpls*** Block dimension reduction by PLS
 - ***blockscal*** Block autoscaling
 - ***blocksopca*** Block dimension reduction by SO-PCA
 - ***blocksopls*** Block dimension reduction by SO-PLS
+- ***orthog*** Orthogonalization of a matrix to another matrix
 
 ### <span style="color:green"> Outlyingness Multivariate Measures (Outliers) </span> 
 
@@ -85,7 +85,7 @@
 - ***xfit*** Matrix fitting from multivariate scores and loadings, 
 - ***xssr*** SSR calculation for a matrix fitting
 
-## REGRESSION MODELS
+## REGRESSION
 
 ### <span style="color:green"> Linear </span> 
 
@@ -123,7 +123,7 @@
   - **Generic function**
     - ***locw*** building KNN-locally weighted models
       
-## DISCRIMINATION MODELS (DA) 
+## DISCRIMINATION
 
 ### <span style="color:green"> DA methods </span> 
 
