@@ -16,7 +16,7 @@ dakrr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
   z <- z[nam]
   ndots <- length(dots)
   if(ndots > 0)
-    for(i in 1:ndots)
+    for(i in seq_len(ndots))
       if(names(dots[i]) %in% nam)
         z[[names(dots[i])]] <- dots[[i]]
   listkpar <- lapply(z, FUN = function(x) sort(unique(x)))
@@ -30,7 +30,7 @@ dakrr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
   if(print)
     cat(paste("\n Kernel parameters: ", namkern, "\n", sep = ""))
 
-  for(i in 1:nrow(kpar)) {
+  for(i in seq_len(nrow(kpar))) {
     
     zkpar <- kpar[i, , drop = FALSE]
     

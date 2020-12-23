@@ -27,7 +27,7 @@ dkplsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm,
   z <- z[nam]
   ndots <- length(dots.kern)
   if(ndots > 0)
-    for(i in 1:ndots)
+    for(i in seq_len(ndots))
       if(names(dots.kern[i]) %in% nam)
         z[[names(dots.kern[i])]] <- dots.kern[[i]]
   listkpar <- lapply(z, FUN = function(x) sort(unique(x)))
@@ -41,7 +41,7 @@ dkplsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm,
   if(print)
     cat(paste("\n Kernel parameters: ", namkern, "\n", sep = ""))
 
-  for(i in 1:nrow(kpar)) {
+  for(i in seq_len(nrow(kpar))) {
     
     zkpar <- kpar[i, , drop = FALSE]
     

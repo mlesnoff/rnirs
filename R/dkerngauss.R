@@ -45,7 +45,7 @@ dkerngauss <- function(Xr, Xu, H = NULL, hs = NULL, a = .5) {
     
     }
     
-  fit <- data.frame(rownum = 1:m, rownam = rownam.Xu, fit = fit)
+  fit <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, fit = fit)
   
   list(fit = fit, H = H)
   

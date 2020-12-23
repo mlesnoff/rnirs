@@ -40,7 +40,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp, nmin = 5,  ...){
     pvarcla <- cutod <- cutsd <- vector(length = nclas)
     od <- sd <- matrix(nrow = m, ncol = nclas)
     
-    for(i in 1:nclas) {
+    for(i in seq_len(nclas)) {
       
       s <- which(Yr == lev[i])
       ns <- length(s)
@@ -84,7 +84,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp, nmin = 5,  ...){
   theta <- seq(0, 1, by = .1)
   ntheta <- length(theta)
   index <- vector(length = ntheta, mode = "list")
-  for(i in 1:ntheta)
+  for(i in seq_len(ntheta))
     index[[i]] <- data.frame(sqrt(theta[i] * zsd^2 + (1 - theta[i]) * zod^2))
   index <- setDF(rbindlist(index))
   colnames(index) <- lev
@@ -96,7 +96,7 @@ dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp, nmin = 5,  ...){
   r <- as.numeric(y != fit)
   
   dat <- data.frame(
-    rownum = rep((1:m), ntheta),
+    rownum = rep(seq_len(m), ntheta),
     rownam = rep(rownam.Xu, ntheta),
     theta = sort(rep(theta, m))
     )  

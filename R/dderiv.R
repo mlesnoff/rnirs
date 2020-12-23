@@ -9,10 +9,10 @@ dderiv <- function(X, n = 3, ts = 1) {
   colnam <- colnames(X)
 
   zX <- X[, n:ncol(X), drop = FALSE]
-  X <- (zX - X[, 1:ncol(zX), drop = FALSE]) / ts 
+  X <- (zX - X[, seq_len(ncol(zX)), drop = FALSE]) / ts 
   
   u <- n - floor(n / 2)
-  colnames(X) <- colnam[u:(u + ncol(X) - 1)]
+  colnames(X) <- colnam[seq(u, (u + ncol(X) - 1))]
   
   X
 

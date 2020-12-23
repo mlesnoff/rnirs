@@ -30,7 +30,7 @@ cvpcatri <- function(X, ncomp, algo = NULL,
 
   res <- list()
   SSR <- matrix(nrow = nsegm, ncol = ncomp + 1)
-  for(i in 1:nrep) {
+  for(i in seq_len(nrep)) {
     
     if(print)
       cat("/ rep=", i, " ", sep = "") 
@@ -51,13 +51,13 @@ cvpcatri <- function(X, ncomp, algo = NULL,
       ssr0 <- sum(zX * zX) / (ns * p)
       
       E <- matrix(nrow = ns, ncol = p)
-      for(a in 1:ncomp) {
+      for(a in seq_len(ncomp)) {
         
         zT <- zX %*% fm$P[, seq_len(a), drop = FALSE]
         zXfit <- tcrossprod(zT, fm$P[, seq_len(a), drop = FALSE])
         R <- zX - zXfit
         
-        for(k in 1:p) {
+        for(k in seq_len(p)) {
           
           Qk <- crossprod(fm$P[k, seq_len(a)])
           

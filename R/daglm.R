@@ -38,7 +38,7 @@ daglm <- function(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit"),
     Yrdummy <- dummy(Yr)
     
     z <- matrix(nrow = m, ncol = nclas)
-    for(i in 1:nclas) {
+    for(i in seq_len(nclas)) {
       
       dat <- data.frame(Yr = Yrdummy[, i], Xr)
       fm <- suppressWarnings(glm(Yr ~ ., family = family, data = dat, 
@@ -59,9 +59,9 @@ daglm <- function(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit"),
   y <- Yu
   r <- as.numeric(y != fit)
   
-  y <- data.frame(rownum = 1:m, rownam = rownam.Xu, y, stringsAsFactors = FALSE)
-  fit <- data.frame(rownum = 1:m, rownam = rownam.Xu, fit, stringsAsFactors = FALSE)
-  r <- data.frame(rownum = 1:m, rownam = rownam.Xu, r)
+  y <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, y, stringsAsFactors = FALSE)
+  fit <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, fit, stringsAsFactors = FALSE)
+  r <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, r)
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
 
   list(y = y, fit = fit, r = r, dummyfit = dummyfit, ni = ni)

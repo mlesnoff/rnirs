@@ -11,7 +11,7 @@ dfplsrcov <- function(X, Y, ncomp, algo = NULL,
   ## Same as
   #fm <- algo(X, Y, ncomp = ncomp, ...)
   #ssr <- numeric()
-  #for(a in 1:ncomp)
+  #for(a in seq_len(ncomp))
   #  ssr[a] <- sum(.resid.pls(fm, Y, ncomp = a)$r^2)
   ## End
   ## Low biased model estimate
@@ -27,7 +27,7 @@ dfplsrcov <- function(X, Y, ncomp, algo = NULL,
   zY <- zY + zE
   
   Fit <- array(dim = c(n, B, ncomp)) 
-  for(j in 1:B) {
+  for(j in seq_len(B)) {
     
     if(print)
       cat(j, " ")
@@ -43,8 +43,8 @@ dfplsrcov <- function(X, Y, ncomp, algo = NULL,
     cat("\n\n")
   
   Cov <- matrix(nrow = n, ncol = ncomp)
-  for(a in 1:ncomp)
-    for(i in 1:n)
+  for(a in seq_len(ncomp))
+    for(i in seq_len(n))
       Cov[i, a] <- cov(zY[i, ], Fit[i, , a])
     
   cov <- colSums(Cov)

@@ -35,7 +35,7 @@ cvpcarw <- function(X, ncomp, algo = NULL, segm,
     
     zsegm <- segm[[i]]
     
-    for(j in 1:nsegm) {
+    for(j in seq_len(nsegm)) {
       
       s <- sort(zsegm[[j]])
       ns <- length(s)

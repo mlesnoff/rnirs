@@ -53,15 +53,15 @@ darr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1,
   r <- as.numeric(y != fit)
   
   y <- data.frame(lambda = sort(rep(lambda, m)), unit = rep(unit, nlambda * m), 
-                  rownum = rep(1:m, nlambda), rownam = rep(rownam.Xu, nlambda), 
+                  rownum = rep(seq_len(m), nlambda), rownam = rep(rownam.Xu, nlambda), 
                   y, stringsAsFactors = FALSE)
   
   fit <- data.frame(lambda = sort(rep(lambda, m)), unit = rep(unit, nlambda * m), 
-                  rownum = rep(1:m, nlambda), rownam = rep(rownam.Xu, nlambda), 
+                  rownum = rep(seq_len(m), nlambda), rownam = rep(rownam.Xu, nlambda), 
                   fit, stringsAsFactors = FALSE)
 
   r <- data.frame(lambda = sort(rep(lambda, m)), unit = rep(unit, nlambda * m), 
-                  rownum = rep(1:m, nlambda), rownam = rep(rownam.Xu, nlambda), 
+                  rownum = rep(seq_len(m), nlambda), rownam = rep(rownam.Xu, nlambda), 
                   r, stringsAsFactors = FALSE)
                   
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y

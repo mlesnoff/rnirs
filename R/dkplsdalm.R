@@ -17,7 +17,7 @@ dkplsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   nam <- nam[-match(c("X", "Y"), nam)]
   z <- z[nam]
   if(ndots > 0)
-    for(i in 1:ndots)
+    for(i in seq_len(ndots))
       if(namdots[i] %in% nam)
         z[[namdots[i]]] <- dots[[i]]
   listkpar <- lapply(z, FUN = function(x) sort(unique(x)))
@@ -31,7 +31,7 @@ dkplsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
   if(print)
     cat(paste("\n Kernel parameters: ", namkern, "\n", sep = ""))
 
-  for(i in 1:nrow(kpar)) {
+  for(i in seq_len(nrow(kpar))) {
     
     zkpar <- kpar[i, , drop = FALSE]
     

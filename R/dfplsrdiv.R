@@ -26,12 +26,12 @@ dfplsrdiv <- function(X, Y, ncomp, algo = NULL,
   
   if(meth.samp == "random") {
     set.seed(seed = seed)
-    s <- sample(1:n, size = ns, replace = FALSE)
+    s <- sample(seq_len(n), size = ns, replace = FALSE)
     set.seed(seed = NULL)
     }
   
   S <- matrix(nrow = ns, ncol = ncomp)
-  for(i in 1:ns) {
+  for(i in seq_len(ns)) {
     
     if(print)
       cat(i, " ")
@@ -45,7 +45,7 @@ dfplsrdiv <- function(X, Y, ncomp, algo = NULL,
     zfit <- zfm$fit
     
     v <- numeric()
-    for(a in 1:ncomp) {
+    for(a in seq_len(ncomp)) {
     
       fit.ref <- fit[fit$ncomp == a, ncol(fit)][zs]
       

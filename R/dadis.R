@@ -43,12 +43,12 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
       else{
         sigma <- as.matrix(sigma)
         Wi <- vector(length = nclas, mode = "list")
-        for(i in 1:nclas)
+        for(i in seq_len(nclas))
           Wi[[i]] <- sigma
         }
       }
         
-    for(i in 1:nclas) {
+    for(i in seq_len(nclas)) {
     
       if(diss %in% c("euclidean", "correlation"))
         zd <- dis(Xu, mu = centers[i, ], diss = diss)$dr$d
@@ -87,9 +87,9 @@ dadis <- function(Xr, Yr, Xu, Yu = NULL,
   y <- Yu
   r <- as.numeric(y != fit)
   
-  y <- data.frame(rownum = 1:m, rownam = rownam.Xu, y, stringsAsFactors = FALSE)
-  fit <- data.frame(rownum = 1:m, rownam = rownam.Xu, fit, stringsAsFactors = FALSE)
-  r <- data.frame(rownum = 1:m, rownam = rownam.Xu, r)
+  y <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, y, stringsAsFactors = FALSE)
+  fit <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, fit, stringsAsFactors = FALSE)
+  r <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, r)
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
   
   list(y = y, fit = fit, r = r, d = d, centers = centers, ni = ni)

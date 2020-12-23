@@ -54,9 +54,9 @@ dalm <- function(Xr, Yr, Xu, Yu = NULL, weights = NULL){
   y <- Yu
   r <- as.numeric(y != fit)
   
-  y <- data.frame(rownum = 1:m, rownam = rownam.Xu, y, stringsAsFactors = FALSE)
-  fit <- data.frame(rownum = 1:m, rownam = rownam.Xu, fit, stringsAsFactors = FALSE)
-  r <- data.frame(rownum = 1:m, rownam = rownam.Xu, r)
+  y <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, y, stringsAsFactors = FALSE)
+  fit <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, fit, stringsAsFactors = FALSE)
+  r <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, r)
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
 
   list(y = y, fit = fit, r = r, dummyfit = dummyfit, ni = ni)

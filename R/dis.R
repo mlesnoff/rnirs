@@ -44,7 +44,7 @@ dis <- function(Xr, Xu = NULL, mu = NULL,
     
     }
   
-  dr <- data.frame(rownum = 1:n, rownam = rownam, d = c(d))
+  dr <- data.frame(rownum = seq_len(n), rownam = rownam, d = c(d))
   
   ### NEW OBSERVATIONS
   
@@ -72,7 +72,7 @@ dis <- function(Xr, Xu = NULL, mu = NULL,
       
       )
       
-    du <- data.frame(rownum = 1:m, rownam = rownam, d = c(d))
+    du <- data.frame(rownum = seq_len(m), rownam = rownam, d = c(d))
     
     }
 

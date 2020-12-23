@@ -50,7 +50,7 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
         W <- NULL
 
     ds <- matrix(nrow = m, ncol = nclas)
-    for(i in 1:nclas) {
+    for(i in seq_len(nclas)) {
       
       zdots <- c(list(Xr = Xr[Yr == lev[i], , drop = FALSE], Xu = Xu), dots)
       zdots$sigma <- W
@@ -83,9 +83,9 @@ daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm,
   y <- Yu
   r <- as.numeric(y != fit)
   
-  y <- data.frame(rownum = 1:m, rownam = rownam.Xu, y, stringsAsFactors = FALSE)
-  fit <- data.frame(rownum = 1:m, rownam = rownam.Xu, fit, stringsAsFactors = FALSE)
-  r <- data.frame(rownum = 1:m, rownam = rownam.Xu, r)
+  y <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, y, stringsAsFactors = FALSE)
+  fit <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, fit, stringsAsFactors = FALSE)
+  r <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, r)
   names(r)[ncol(r)] <- names(fit)[ncol(fit)] <- names(y)[ncol(y)] <- colnam.Y
   
   list(y = y, fit = fit, r = r, posterior = posterior, ds = ds, prior = prior, 

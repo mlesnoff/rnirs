@@ -41,7 +41,7 @@ dmnorm <- function(Xr = NULL, Xu, mu = NULL, sigma = NULL, diag = FALSE) {
 
   ds <- (2 * pi)^(-p / 2) * (1 / sqrt(zdet)) * exp(-.5 * d)  # = density
   
-  fit <- data.frame(rownum = 1:m, rownam = rownam.Xu, fit = c(ds))
+  fit <- data.frame(rownum = seq_len(m), rownam = rownam.Xu, fit = c(ds))
   
   list(fit = fit)
   

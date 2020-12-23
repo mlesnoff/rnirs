@@ -13,7 +13,7 @@ dfpcadiv <- function(X, ncomp, algo = NULL,
   ns <- min(ns, n, p)
   
   ncomp <- min(ncomp, n, p)
-  zncomp <- 0:ncomp
+  zncomp <- seq(0, ncomp)
 
  if(is.null(algo))
     if(n < p)
@@ -24,8 +24,8 @@ dfpcadiv <- function(X, ncomp, algo = NULL,
   fm <- pca(X, ncomp = ncomp, algo = algo, ...)
   
   set.seed(seed = seed)
-  srow <- sample(1:n, size = ns, replace = FALSE)
-  scol <- sample(1:p, size = ns, replace = FALSE)
+  srow <- sample(seq_len(n), size = ns, replace = FALSE)
+  scol <- sample(seq_len(p), size = ns, replace = FALSE)
   set.seed(seed = NULL)
   
   SENS <- matrix(nrow = ns, ncol = ncomp)
@@ -40,12 +40,12 @@ dfpcadiv <- function(X, ncomp, algo = NULL,
     zfm <- algo(zX, ncomp = ncomp)
     
     v <- numeric()
-    for(a in 1:ncomp) {
+    for(a in seq_len(ncomp)) {
     
-      fit <- xfit(fm$Tr[, 1:a, drop = FALSE], 
-              fm$P[, 1:a, drop = FALSE], fm$xmeans)
-      zfit <- xfit(zfm$T[, 1:a, drop = FALSE], 
-              zfm$P[, 1:a, drop = FALSE], zfm$xmeans)
+      fit <- xfit(fm$Tr[, seq_len(a), drop = FALSE], 
+              fm$P[, seq_len(a), drop = FALSE], fm$xmeans)
+      zfit <- xfit(zfm$T[, seq_len(a), drop = FALSE], 
+              zfm$P[, seq_len(a), drop = FALSE], zfm$xmeans)
       
       v[a] <- zfit[srow[i], scol[i]] - fit[srow[i], scol[i]]
 
