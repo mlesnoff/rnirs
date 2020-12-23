@@ -81,7 +81,7 @@
   dat <- data.frame(
     lambda = sort(rep(lambda, m)),
     unit = rep(unit, nlambda * m),
-    rownum = rep(1:m, nlambda),
+    rownum = rep(seq_len(m), nlambda),
     rownam = rep(rownam.Xu, nlambda)
     )
   
@@ -90,7 +90,7 @@
   r <- cbind(dat, r)
   
   zq <- ncol(y)
-  u <- (zq - q + 1):zq
+  u <- seq(zq - q + 1, zq)
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Y
 
   list(y = y, fit = fit, r = r, tr = tr)

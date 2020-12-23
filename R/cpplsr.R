@@ -26,7 +26,7 @@ cpplsr <- function(X, Y, ncomp, algo = NULL,
                      ns = B, eps = eps, seed = seed, print = print, ...)$df
   
   if(methdf == "naive")
-    df <- 1 + theta * (0:ncomp)
+    df <- 1 + theta * seq(0, ncomp)
   
   df.ssr <- n - df
   
@@ -52,7 +52,7 @@ cpplsr <- function(X, Y, ncomp, algo = NULL,
   opt <- which(r == min(r))[1] - 1
 
   res <- data.frame(
-    ncomp = 0:ncomp, n = rep(n, ncomp + 1),
+    ncomp = seq(0, ncomp), n = rep(n, ncomp + 1),
     ssr = ssr, df = df, df.ssr = df.ssr,
     crit = r, delta = delta, w = w
     )

@@ -37,12 +37,12 @@
     }
   
   r <- y <- fit <- vector("list", ncomp)
-  for(a in 1:ncomp) {
+  for(a in seq_len(ncomp)) {
     
     zfm <- do.call(
       da, 
-      c(list(Xr = fm$Tr[, 1:a, drop = FALSE], Yr = Yr,
-        Xu = fm$Tu[, 1:a, drop = FALSE], Yu = Yu), dots.da)
+      c(list(Xr = fm$Tr[, seq_len(a), drop = FALSE], Yr = Yr,
+        Xu = fm$Tu[, seq_len(a), drop = FALSE], Yu = Yu), dots.da)
       )
     
     y[[a]] <- zfm$y
@@ -56,7 +56,7 @@
   fit <- setDF(rbindlist(fit))
   r <- setDF(rbindlist(r))
   
-  dat <- data.frame(ncomp = sort(rep(1:ncomp, m)))
+  dat <- data.frame(ncomp = sort(rep(seq_len(ncomp), m)))
   
   y <- data.frame(dat, y, stringsAsFactors = FALSE)
   fit <- data.frame(dat, fit, stringsAsFactors = FALSE)

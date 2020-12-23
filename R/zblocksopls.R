@@ -9,7 +9,7 @@
     lev <- levels(as.factor(colblocks))
     nlev <- length(lev)
     blocks <- vector(mode = "list", length = nlev)
-    for(i in 1:nlev)
+    for(i in seq_len(nlev))
       blocks[[i]] <- which(colblocks == lev[i])  
     }
   
@@ -36,8 +36,8 @@
   
   ## Used for defining the block indexes of the calculated scores
   zblocks <- data.frame(
-    numcol = 1:sum(ncomp), 
-    bl = rep(1:nbl, ncomp)
+    numcol = seq_len(sum(ncomp)), 
+    bl = rep(seq_len(nbl), ncomp)
     ) 
     
   ## Reorganisation of the data based on the blocks defined in argument 'blocks'
@@ -65,7 +65,7 @@
   ## Other blocks
   if(nbl > 1) {
     
-    for(i in 2:nbl) {
+    for(i in seq(2, nbl)) {
       
       z <- orthog(Tr, Xr[, newblocks[[i]], drop = FALSE], fm$weights)
         

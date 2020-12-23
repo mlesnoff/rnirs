@@ -17,7 +17,6 @@ pca_nipalsna <- function(X, ncomp,
     T <- matrix(nrow = n, ncol = ncomp)
     P <- matrix(nrow = p.col, ncol = ncomp)
   
-    niter <- vector(length = ncomp)
     
     s <- which(is.na(X))
     if(length(s) > 0) {
@@ -27,6 +26,7 @@ pca_nipalsna <- function(X, ncomp,
     else
         isna <- FALSE
     
+    niter <- vector(length = ncomp)
     PtP <- matrix(0, nrow = p.col, ncol = p.col)
     TtT <- matrix(0, nrow = n, ncol = n)
     for(a in seq_len(ncomp)) {

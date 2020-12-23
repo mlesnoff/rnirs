@@ -67,8 +67,8 @@
   
   r <- as.numeric(y != fit)
 
-  dat <- data.frame(rownum = rep(1:m, ncomp), rownam = rep(rownam.Xu, ncomp),
-    ncomp = sort(rep(1:ncomp, m)))
+  dat <- data.frame(rownum = rep(seq_len(m), ncomp), rownam = rep(rownam.Xu, ncomp),
+    ncomp = sort(rep(seq_len(ncomp), m)))
   
   y <- data.frame(dat, y, stringsAsFactors = FALSE)
   fit <- data.frame(dat, fit, stringsAsFactors = FALSE)

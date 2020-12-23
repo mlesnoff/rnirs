@@ -41,8 +41,8 @@
   
   fm <- eigen(sqrt(weights) * t(sqrt(weights) * t(Kc)))
   
-  A <- fm$vectors[, 1:ncomp, drop = FALSE]
-  eig <- fm$values[1:ncomp]  ## = colSums(weights * Tr * Tr)
+  A <- fm$vectors[, seq_len(ncomp), drop = FALSE]
+  eig <- fm$values[seq_len(ncomp)]  ## = colSums(weights * Tr * Tr)
   sv <- sqrt(eig)
   xsstot <- sum(fm$values)
   
@@ -58,7 +58,7 @@
   y[, 1, ] <- Yu
   fit[, 1, ] <- Ymeans
   
-  for(a in 1:ncomp) {
+  for(a in seq_len(ncomp)) {
     
     y[, a + 1, ] <- Yu
     fit[, a + 1, ] <- Ymeans + Tu[, 1:a, drop = FALSE] %*% beta[1:a, , drop = FALSE]
@@ -70,8 +70,8 @@
   r <- y - fit
 
   dat <- data.frame(
-    ncomp = sort(rep(0:ncomp, m)),
-    rownum = rep(1:m, ncomp + 1),
+    ncomp = sort(rep(seq(0, ncomp), m)),
+    rownum = rep(seq_len(m), ncomp + 1),
     rownam = rep(rownam.Xu, ncomp + 1)
     )
   
@@ -80,7 +80,7 @@
   r <- cbind(dat, r)
   
   zq <- ncol(y)
-  u <- (zq - q + 1):zq
+  u <- seq(zq - q + 1, zq)
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Y
   
   cumpvar <- cumsum(eig) / xsstot

@@ -2,7 +2,8 @@
 
 ## **Version 1.9-8**
 
-- Internal changes in functions **pca_nipals** and pca_nipalsna**
+- Gram-Schmidt orthogonalization has been added to function **pca_nipals**, 
+and modified in pca_nipalsna**
 
 - Code cleaning
 

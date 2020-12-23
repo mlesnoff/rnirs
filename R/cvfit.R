@@ -9,13 +9,14 @@ cvfit <- function(X, Y, fun, segm, print = FALSE, ...) {
     Y <- .matrix(Y, row = FALSE,  prefix.colnam = "y")
   nvar <- ncol(Y)
   colnam.Y <- colnames(Y)
-  if(is.null(colnam.Y)) colnam.Y <- paste("y", 1:nvar, sep = "")
+  if(is.null(colnam.Y)) 
+    colnam.Y <- paste("y", seq_len(nvar), sep = "")
   
   nrep <- length(segm)
   
   r <- fit <- y <- vector("list", length = nrep)
   
-  for(i in 1:nrep) {
+  for(i in seq_len(nrep)) {
     
     if(print)
       cat("/ rep=", i, " ", sep = "") 
@@ -26,7 +27,7 @@ cvfit <- function(X, Y, fun, segm, print = FALSE, ...) {
     
     zr <- zfit <- zy <- vector("list", length = nsegm)
     
-    for(j in 1:nsegm) {
+    for(j in seq_len(nsegm)) {
       
       s <- sort(listsegm[[j]])
       
@@ -71,7 +72,7 @@ cvfit <- function(X, Y, fun, segm, print = FALSE, ...) {
   r <- setDF(rbindlist(r))
   
   u <- which(names(y) %in% c("segm", "rep"))
-  u <- c(u, (1:ncol(y))[-u])
+  u <- c(u, (seq_len(ncol(y)))[-u])
   y <- y[, u] ; fit <- fit[, u] ; r <- r[, u]
 
   list(y = y, fit = fit, r = r)

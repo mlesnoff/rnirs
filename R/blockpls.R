@@ -4,7 +4,7 @@ blockpls <- function(Xr, Yr = NULL, Xu = NULL, blocks, colblocks = NULL, ncomp, 
     lev <- levels(as.factor(colblocks))
     nlev <- length(lev)
     blocks <- vector(mode = "list", length = nlev)
-    for(i in 1:nlev)
+    for(i in seq_len(nlev))
       blocks[[i]] <- which(colblocks == lev[i])  
     }
   
@@ -14,8 +14,8 @@ blockpls <- function(Xr, Yr = NULL, Xu = NULL, blocks, colblocks = NULL, ncomp, 
     ncomp <- rep(ncomp, nbl)
   
   zblocks <- data.frame(
-    numcol = 1:sum(ncomp), 
-    bl = rep(1:nbl, ncomp)
+    numcol = seq_len(sum(ncomp)), 
+    bl = rep(seq_len(nbl), ncomp)
     )
   
   newdat <- blocksel(Xr, blocks)
@@ -25,7 +25,7 @@ blockpls <- function(Xr, Yr = NULL, Xu = NULL, blocks, colblocks = NULL, ncomp, 
   if(!is.null(Xu))
     Xu <- blocksel(Xu, blocks)$X  
   
-  for(i in 1:nbl) {
+  for(i in seq_len(nbl)) {
     
     u <- newdat$blocks[[i]]
     

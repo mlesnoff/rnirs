@@ -8,11 +8,11 @@ bcoef <- function(fm, ncomp = NULL) {
     ncomp <- dim(fm$R)[2]
   
   if(!is.null(fm$C))
-    beta <- t(fm$C)[1:ncomp, , drop = FALSE]
+    beta <- t(fm$C)[seq_len(ncomp), , drop = FALSE]
   else
-    beta <- fm$beta[1:ncomp, , drop = FALSE]
+    beta <- fm$beta[seq_len(ncomp), , drop = FALSE]
     
-  b <- fm$R[, 1:ncomp, drop = FALSE] %*% beta
+  b <- fm$R[, seq_len(ncomp), drop = FALSE] %*% beta
   int <- fm$ymeans - t(fm$xmeans) %*% b
   b <- rbind(int, b)
   row.names(b)[1] <- "intercept"

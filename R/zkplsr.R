@@ -48,7 +48,7 @@
   for(a in 1:ncomp) {
     
     y[, a + 1, ] <- Yu
-    fit[, a + 1, ] <- Ymeans + Tu[, 1:a, drop = FALSE] %*% beta[1:a, , drop = FALSE]
+    fit[, a + 1, ] <- Ymeans + Tu[, seq_len(a), drop = FALSE] %*% beta[seq_len(a), , drop = FALSE]
     
     }
   
@@ -57,8 +57,8 @@
   r <- y - fit
 
   dat <- data.frame(
-    ncomp = sort(rep(0:ncomp, m)),
-    rownum = rep(1:m, ncomp + 1),
+    ncomp = sort(rep(seq(0, ncomp), m)),
+    rownum = rep(seq_len(m), ncomp + 1),
     rownam = rep(rownam.Xu, ncomp + 1)
     )
   
@@ -67,7 +67,7 @@
   r <- cbind(dat, r)
   
   zq <- ncol(y)
-  u <- (zq - q + 1):zq
+  u <- seq(zq - q + 1, zq)
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Y
   
   list(y = y, fit = fit, r = r, 

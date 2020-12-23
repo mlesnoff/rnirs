@@ -34,7 +34,7 @@
   X <- .matrix(X)
   dimnam <- dimnames(X)
   
-  y <- 1:dim(X)[2]
+  y <- seq_len(dim(X)[2])
   fun <- function(x, y, degree) 
     resid(lm(x ~ stats::poly(y, degree = degree)))
 
@@ -116,7 +116,7 @@
     ## q = det(P0'P) = det(P'P0P0'P)^.5
     ## q is bounded within [0, 1]
     q <- det(crossprod(P0, P))
-    ## Same as:
+    ## Same as
     ## eig = eig(P0'P) ; q = cumprod(eig)[k]
     ## eig = eig(P'P0P0'P) ; q = cumprod(eig)[k]^.5
 
@@ -146,7 +146,7 @@
 
 .ellips <- function(shape, center = rep(0, ncol(shape)), radius = 1) {
   
-  # The generated ellipse is: (x - mu)' * S^(-1) * (x - mu) <= r^2  
+  # The generated ellipse is = (x - mu)' * S^(-1) * (x - mu) <= r^2  
   # shape = variance-covariance matrix S (size q x q) of x (vector of length q)
   # center = mu (vector of length q)
   # radius = r
@@ -193,22 +193,10 @@
   n <- length(x)
   if(n > 1) {
     set.seed(seed = seed)
-    x <- x[sample(1:n, 1)]
+    x <- x[sample(seq_len(n), 1)]
     set.seed(seed = NULL)
     }
   x
-  }
-
-.gain <- function(x) {
-  zdiff <- c(rev(diff(rev(x))), NA)
-  r <- zdiff / abs(x)
-  r
-  }
-
-.gain.xy <- function(x, y) {
-  u <- 2:length(x)
-  r <- 1 - c(y[u], NA) / x
-  r
   }
 
 .knnda <- function(Xr = NULL, Yr, Xu = NULL, Yu = NULL, weights = NULL) {
@@ -257,7 +245,7 @@
   n <- dim(Yr)[1]
   q <- dim(Yr)[2]
   
-  if(is.null(colnames(Yr))) colnames(Yr) <- paste("y", 1:dim(Yr)[2], sep = "")
+  if(is.null(colnames(Yr))) colnames(Yr) <- paste("y", seq_len(dim(Yr)[2]), sep = "")
   colnam.Yr <- colnames(Yr)
 
   if(is.null(Yu)) Yu <- matrix(nrow = 1, ncol = q)
@@ -280,7 +268,7 @@
   r <- data.frame(rownum = 1, rownam = 1, r)
   
   zq <- dim(y)[2]
-  u <- (zq - q + 1):zq
+  u <- seq((zq - q + 1), zq)
   names(r)[u] <- names(fit)[u] <- names(y)[u] <- colnam.Yr
   
   list(y = y, fit = fit, r = r)  
@@ -331,10 +319,10 @@
     X <- as.matrix(X)
   
   if(is.null(row.names(X))) 
-    row.names(X) <- 1:dim(X)[1]
+    row.names(X) <- seq_len(dim(X)[1])
   
   if(is.null(colnames(X)))
-    colnames(X) <- paste(prefix.colnam, 1:dim(X)[2], sep = "")
+    colnames(X) <- paste(prefix.colnam, seq_len(dim(X)[2]), sep = "")
   
   X
   
@@ -393,7 +381,7 @@
   T <- .center(.matrix(X), fm$xmeans) %*% fm$R
     
   rownam <- row.names(X)
-  colnam <- paste("comp", 1:dim(T)[2], sep = "")
+  colnam <- paste("comp", seq_len(dim(T)[2]), sep = "")
   
   dimnames(T) <- list(rownam, colnam)
   
@@ -442,8 +430,8 @@
   ymeans <- fm$ymeans
   Ymeans <- matrix(rep(ymeans, n), nrow = n, byrow = TRUE)
 
-  T <- fm$T[, 1:ncomp, drop = FALSE]
-  B <- t(fm$C)[1:ncomp, , drop = FALSE]
+  T <- fm$T[, seq_len(ncomp), drop = FALSE]
+  B <- t(fm$C)[seq_len(ncomp), , drop = FALSE]
   
   fit <- Ymeans + T %*% B
   
@@ -469,8 +457,8 @@
     zP <- matrix(nrow = p, ncol = nsim)
     
     set.seed(seed = seed)
-    s1 <- sample(1:n, size = 50 * nsim, replace = TRUE)
-    s2 <- sample(1:n, size = 50 * nsim, replace = TRUE)
+    s1 <- sample(seq_len(n), size = 50 * nsim, replace = TRUE)
+    s2 <- sample(seq_len(n), size = 50 * nsim, replace = TRUE)
     u <- which(s1 - s2 != 0)
     
     s1 <- s1[u]
@@ -530,40 +518,40 @@
 
   x <- X
   
-  dime = dim(x)
-  n=dime[1]
-  p=dime[2]
-  delta1=delta*sqrt(p)
+  dime <- dim(x)
+  n <- dime[1]
+  p <- dime[2]
+  delta1 <- delta * sqrt(p)
   
-  #mu0=apply(x,2,median)
-  mu0=matrixStats::colMedians(x)
+  #mu0 <- apply(x, 2, median)
+  mu0 <- matrixStats::colMedians(x)
   
-  h=delta1+1
-  tt=0
-  while(h>delta1){
-    tt=tt+1
-    TT=matrix(mu0,n,p,byrow=TRUE)
-    U=(x-TT)^2
+  h <- delta1 + 1
+  tt <- 0
+  while(h > delta1) {
+    tt <- tt + 1
+    TT <- matrix(mu0, n, p, byrow = TRUE)
+    U <- (x - TT)^2
     
-    #w=sqrt(apply(U,1,sum))
-    w=sqrt(matrixStats::rowSums2(U))
+    #w <- sqrt(apply(U, 1, sum))
+    w <- sqrt(matrixStats::rowSums2(U))
     
-    w0=median(w)
-    ep=delta*w0
+    w0 <- median(w)
+    ep <- delta*w0
 
-    z=(w<=ep)
-    w[z]=ep
-    w[!z]=1/w[!z]
-    w=w/sum(w)
-    x1=x
-    for(i in 1:n)
-      x1[i,]=w[i]*x[i,]
+    z <- (w <= ep)
+    w[z] <- ep
+    w[!z] <- 1 / w[!z]
+    w <- w / sum(w)
+    x1 <- x
+    for(i in seq_len(n))
+      x1[i, ] <- w[i] * x[i, ]
     
-    #mu=apply(x1,2,sum)
-    mu=matrixStats::colSums2(x1)
+    #mu <- apply(x1, 2, sum)
+    mu <- matrixStats::colSums2(x1)
     
-    h=sqrt(sum((mu-mu0)^2))
-    mu0=mu
+    h <- sqrt(sum((mu - mu0)^2))
+    mu0 <- mu
     }
 
   ##### END

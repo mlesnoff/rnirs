@@ -12,7 +12,7 @@ cvpcaia <- function(X, ncomp, algo = NULL,
   N <- n * p
   
   ncomp <- min(ncomp, n, p)
-  zncomp <- 0:ncomp
+  zncomp <- seq(0, ncomp)
   
   nrep <- length(segm)
   nsegm <- length(segm[[1]])
@@ -23,14 +23,14 @@ cvpcaia <- function(X, ncomp, algo = NULL,
   res <- list()
   SSR <- matrix(nrow = nsegm, ncol = ncomp + 1)
   niter <- matrix(nrow = nrep, ncol = nsegm)
-  for(i in 1:nrep) {
+  for(i in seq_len(nrep)) {
     
     if(print)
       cat("/ rep=", i, " ", sep = "") 
     
     zsegm <- segm[[i]]
     
-    for(j in 1:nsegm) {
+    for(j in seq_len(nsegm)) {
       
       s <- sort(zsegm[[j]])
       ns <- length(s)
@@ -46,9 +46,10 @@ cvpcaia <- function(X, ncomp, algo = NULL,
       
       niter[i, j] <- fm$niter
       
-      for(a in 1:ncomp) {
+      for(a in seq_len(ncomp)) {
         
-        Fit <- xfit(fm$T[, 1:a, drop = FALSE], fm$P[, 1:a, drop = FALSE], fm$xmeans)[s]
+        Fit <- xfit(fm$T[, seq_len(a), drop = FALSE], 
+                    fm$P[, seq_len(a), drop = FALSE], fm$xmeans)[s]
         
         E <- X[s] - Fit
         
@@ -73,8 +74,8 @@ cvpcaia <- function(X, ncomp, algo = NULL,
     cat("/ End.")
   cat("\n\n")
   
-  row.names(niter) <- paste("rep", 1:nrep, sep = "")
-  colnames(niter) <- paste("segm", 1:nsegm, sep = "")
+  row.names(niter) <- paste("rep", seq_len(nrep), sep = "")
+  colnames(niter) <- paste("segm", seq_len(nsegm), sep = "")
   conv <- ifelse(maxit > 1 & niter == maxit, FALSE, TRUE) 
   
   z <- setDF(rbindlist(res))
@@ -82,7 +83,7 @@ cvpcaia <- function(X, ncomp, algo = NULL,
   res <- z
   
   opt <- numeric()
-  for(i in 1:nrep) {
+  for(i in seq_len(nrep)) {
     u <- z[z$rep == i, ]
     opt[i] <- u$ncomp[u$msep == min(u$msep)]
     }

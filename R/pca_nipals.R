@@ -1,7 +1,11 @@
 pca_nipals <- function(X, ncomp, 
-                       weights = NULL, 
+                       weights = NULL,
+                       gs = TRUE,
                        tol = .Machine$double.eps^0.5, 
                        maxit = 200) {
+    
+    #if(any(is.na(X)))
+    #    stop("\n\n Missing data (NAs) are not allowed in this NIPALS function. \n\n")
     
     X <- .matrix(X)
     zdim <- dim(X)
@@ -18,16 +22,16 @@ pca_nipals <- function(X, ncomp,
     xmeans <- .xmean(X, weights = wgt)
     X <- .center(X, xmeans)
     
-    sv <- vector(length = ncomp)
+    sv <- tt <- vector(length = ncomp)
     T <- matrix(nrow = n, ncol = ncomp)
     P <- matrix(nrow = p.col, ncol = ncomp)
   
     niter <- vector(length = ncomp)
-    
+    PtP <- matrix(0, nrow = p.col, ncol = p.col)
+    TtT <- matrix(0, nrow = n, ncol = n)
     for(a in seq_len(ncomp)) {
   
         j <- which.max(colSums(abs(X)))
-        #j <- which.max(.xvar(X, weights = wgt))
         
         t <- X[, j]
 
@@ -42,10 +46,16 @@ pca_nipals <- function(X, ncomp,
                 p <- crossprod(wgt * X, t) / sum(wgt * t * t)
             p <- p / sqrt(sum(p * p))
             
+            if(gs & a > 1)
+                p <- p - PtP %*% p
+            
             zt <- t
             ## Regression of X' on p
             t <- X %*% p
-      
+
+            if(gs & a > 1) 
+                t <- t - TtT %*% t
+                  
             ztol <- sum((t - zt)^2)
             
             iter <- iter + 1
@@ -59,8 +69,15 @@ pca_nipals <- function(X, ncomp,
 
         P[, a] <- p
         T[, a] <- t
+        
+        tt[a] <- sum(wgt * t * t)
     
         sv[a] <- sqrt(sum(wgt * t * t))
+  
+        if(gs) {
+          PtP <- PtP + tcrossprod(p)
+          TtT <- TtT + tcrossprod(t, wgt * t) / tt[a]
+          }
   
         niter[a] <- iter - 1
     

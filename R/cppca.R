@@ -11,7 +11,7 @@ cppca <- function(X, ncomp, algo = NULL,
   N <- n * p  
   
   ncomp <- min(ncomp, n, p)
-  zncomp <- 0:ncomp
+  zncomp <- seq(0, ncomp)
   
   fm <- pca(X, ncomp = ncomp, algo = algo, ...)
   
@@ -49,7 +49,7 @@ cppca <- function(X, ncomp, algo = NULL,
   opt <- which(r == min(r))[1] - 1
 
   res <- data.frame(
-    ncomp = 0:ncomp, N = rep(N, ncomp + 1),
+    ncomp = seq(0, ncomp), N = rep(N, ncomp + 1),
     ssr = ssr, ratio = R, df = df, df.ssr = df.ssr,
     crit = r, delta = delta, w = w
     )

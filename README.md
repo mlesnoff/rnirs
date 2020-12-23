@@ -1,5 +1,5 @@
 ## **rnirs - Dimension reduction, Regression and Discrimination for Chemometrics**  
-## <span style="color:grey70"> **Version 1.9-7** </span> 
+## <span style="color:grey70"> **Version 1.9-8** </span> 
 
 ## <span style="color:green"> **Key Features** </span> 
 

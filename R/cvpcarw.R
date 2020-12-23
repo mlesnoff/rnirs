@@ -11,7 +11,7 @@ cvpcarw <- function(X, ncomp, algo = NULL, segm,
   p <- zdim[2]
   
   ncomp <- min(ncomp, n, p)
-  zncomp <- 0:ncomp
+  zncomp <- seq(0, ncomp)
   
   if(is.null(algo))
     if(n < p)
@@ -28,7 +28,7 @@ cvpcarw <- function(X, ncomp, algo = NULL, segm,
       
   res <- list()
   SSR <- matrix(nrow = nsegm, ncol = ncomp + 1)
-  for(i in 1:nrep) {
+  for(i in seq_len(nrep)) {
     
     if(print)
       cat("/ rep=", i, " ", sep = "") 
@@ -46,7 +46,8 @@ cvpcarw <- function(X, ncomp, algo = NULL, segm,
       fm <- algo(X[-s, , drop = FALSE], ncomp = ncomp, ...)
       zT <- .projscor(fm, X[s, , drop = FALSE])
       
-      SSR[j, ] <- xssr(X[s, , drop = FALSE], zT, fm$P, fm$xmeans) / (ns * p)
+      SSR[j, ] <- xssr(X[s, , drop = FALSE], 
+                       zT, fm$P, fm$xmeans) / (ns * p)
       
       }
     
@@ -69,7 +70,7 @@ cvpcarw <- function(X, ncomp, algo = NULL, segm,
   res <- z
   
   opt <- numeric()
-  for(i in 1:nrep) {
+  for(i in seq_len(nrep)) {
     u <- z[z$rep == i, ]
     opt[i] <- u$ncomp[u$msep == min(u$msep)]
     }

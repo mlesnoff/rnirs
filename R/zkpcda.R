@@ -35,12 +35,12 @@
     }
   
   r <- y <- fit <- vector("list", ncomp)
-  for(a in 1:ncomp) {
+  for(a in seq_len(ncomp)) {
     
     zfm <- do.call(
       da, 
-      c(list(Xr = fm$Tr[, 1:a, drop = FALSE], Yr = Yr,
-        Xu = fm$Tu[, 1:a, drop = FALSE], Yu = Yu), dots.da)
+      c(list(Xr = fm$Tr[, seq_len(a), drop = FALSE], Yr = Yr,
+        Xu = fm$Tu[, seq_len(a), drop = FALSE], Yu = Yu), dots.da)
       )
     
     y[[a]] <- zfm$y

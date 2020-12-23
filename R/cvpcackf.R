@@ -13,7 +13,7 @@ cvpcackf <- function(X, ncomp, algo = NULL, ...) {
   N <- n * p
   
   ncomp <- min(ncomp, n, p)
-  zncomp <- 0:ncomp
+  zncomp <- seq(0, ncomp)
   
   if(is.null(algo))
     if(n < p)
@@ -27,13 +27,14 @@ cvpcackf <- function(X, ncomp, algo = NULL, ...) {
 
   E <- matrix(nrow = n, ncol = p)
   ssr <- numeric()
-  for(a in 1:ncomp) {
+  for(a in seq_len(ncomp)) {
         
-    R <- zX - tcrossprod(fm$T[, 1:a, drop = FALSE], fm$P[, 1:a, drop = FALSE])
+    R <- zX - tcrossprod(fm$T[, seq_len(a), drop = FALSE], 
+                         fm$P[, seq_len(a), drop = FALSE])
     
-    for(k in 1:p) {
+    for(k in seq_len(p)) {
           
-      Qk <- crossprod(fm$P[k, 1:a])
+      Qk <- crossprod(fm$P[k, seq_len(a)])
           
       E[, k] <- zX[, k] * c(Qk) + R[, k]
         

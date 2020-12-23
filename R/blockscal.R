@@ -4,7 +4,7 @@ blockscal <- function(Xr, Xu = NULL, blocks, colblocks = NULL, weights = NULL) {
     lev <- levels(as.factor(colblocks))
     nlev <- length(lev)
     blocks <- vector(mode = "list", length = nlev)
-    for(i in 1:nlev)
+    for(i in seq_len(nlev))
       blocks[[i]] <- which(colblocks == lev[i])  
     }
   
@@ -25,7 +25,7 @@ blockscal <- function(Xr, Xu = NULL, blocks, colblocks = NULL, weights = NULL) {
     Xu <- blocksel(Xu, blocks)$X  
   
   xdisptot <- rep(NA, nbl)
-  for(i in 1:nbl) {
+  for(i in seq_len(nbl)) {
     
     z <- .xvar(Xr[, newblocks[[i]], drop = FALSE], weights = weights)
     
@@ -39,7 +39,7 @@ blockscal <- function(Xr, Xu = NULL, blocks, colblocks = NULL, weights = NULL) {
     
     Xu <- .matrix(Xu)
     
-    for(i in 1:nbl)  
+    for(i in seq_len(nbl))  
       Xu[, newblocks[[i]]] <- Xu[, newblocks[[i]], drop = FALSE] / xdisptot[i]
     
     }

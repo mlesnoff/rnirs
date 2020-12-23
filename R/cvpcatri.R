@@ -17,7 +17,7 @@ cvpcatri <- function(X, ncomp, algo = NULL,
   N <- n * p
   
   ncomp <- min(ncomp, n, p)
-  zncomp <- 0:ncomp
+  zncomp <- seq(0, ncomp)
   
   if(is.null(algo))
     if(n < p)
@@ -37,7 +37,7 @@ cvpcatri <- function(X, ncomp, algo = NULL,
     
     zsegm <- segm[[i]]
     
-    for(j in 1:nsegm) {
+    for(j in seq_len(nsegm)) {
       
       s <- sort(zsegm[[j]])
       ns <- length(s)
@@ -53,13 +53,13 @@ cvpcatri <- function(X, ncomp, algo = NULL,
       E <- matrix(nrow = ns, ncol = p)
       for(a in 1:ncomp) {
         
-        zT <- zX %*% fm$P[, 1:a, drop = FALSE]
-        zXfit <- tcrossprod(zT, fm$P[, 1:a, drop = FALSE])
+        zT <- zX %*% fm$P[, seq_len(a), drop = FALSE]
+        zXfit <- tcrossprod(zT, fm$P[, seq_len(a), drop = FALSE])
         R <- zX - zXfit
         
         for(k in 1:p) {
           
-          Qk <- crossprod(fm$P[k, 1:a])
+          Qk <- crossprod(fm$P[k, seq_len(a)])
           
           E[, k] <- zX[, k] * c(Qk) + R[, k]
         
@@ -92,7 +92,7 @@ cvpcatri <- function(X, ncomp, algo = NULL,
   res <- z
   
   opt <- numeric()
-  for(i in 1:nrep) {
+  for(i in seq_len(nrep)) {
     u <- z[z$rep == i, ]
     opt[i] <- u$ncomp[u$msep == min(u$msep)]
     }

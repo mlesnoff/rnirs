@@ -7,7 +7,7 @@ blocksopca <- function(Xr, Xu = NULL, ncomp,
     lev <- levels(as.factor(colblocks))
     nlev <- length(lev)
     blocks <- vector(mode = "list", length = nlev)
-    for(i in 1:nlev)
+    for(i in seq_len(nlev))
       blocks[[i]] <- which(colblocks == lev[i])  
     }
 
