@@ -16,7 +16,7 @@ Compared to PRM, two modifications are proposed in \code{pls_iw}:
 
 - The weight function is the tricubic function such as in Cleveland & Devlin (1988). 
 
-Data are internally centered before the analyses, but they are not column-wise scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function. 
+Matrix \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
 
 Row observations can receive additionnal a priori weights (using argument \code{weights}).
 

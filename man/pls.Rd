@@ -13,7 +13,7 @@ Function  \code{pca} fits PCA models.
 
 Functions \code{pls} fit PLS1 or PLS2 models. 
 
-Data are internally centered (column-wise) before the analyses, but they are not scaled (there is no argument \code{scale} in the function). If needed, the user has to do the scaling before using the function.  
+Matrix \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
 
 Row observations can eventually be weighted with a priori weights (using argument \code{weights}).
 

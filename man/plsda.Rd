@@ -23,7 +23,7 @@ The DA method is defined in argument \code{da}. The default DA method is \code{\
 
 - Functions \code{pcda} and \code{pcdalm} does the same (and with the same syntax) as \code{plsda} but on principal component (instead of PLS) scores. 
 
-Data are internally centered (column-wise) before the analyses, but they are not scaled (there is no argument \code{scale} in the functions). If needed, the user has to do the scaling before using the function.   
+Matrix \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
 
 Row observations can eventually be weighted (using argument \code{weights}).
 

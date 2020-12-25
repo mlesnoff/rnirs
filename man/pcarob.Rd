@@ -8,7 +8,7 @@
 
 \description{
 
-Algorithms for robust PCA of a matrix \eqn{X}. 
+Algorithms implementing a robust PCA of a matrix \eqn{X}. 
 
 - \code{pcacr}: 
 
@@ -28,7 +28,7 @@ Step 1 intends to detect and remove multivariate \eqn{X-}outliers that have pote
 
 Step2 (facultative) intends to detect outliers in the robust score space computed in Step 1. The score and orthogonal distances, standardized by given cutoffs (see \code{\link{scordis}} and \code{\link{odis}}), of each of the \eqn{n} observations are calculated from this score space. An outlyingness is computed by \eqn{(.5 * SD.stand^2 + .5 * OD.stand^2)^.5}. The  \eqn{alpha * n} observations that have the highest outlyingness receive a weight \eqn{w = 0} (the other receive a weight \eqn{w = 1}), and a new weighted PCA is fitted.
 
-Data are internally centered before the analyses, but they are not column-wise scaled (there is no argument \code{scale} in the functions). If needed, the user has to do the scaling before using the functions. 
+In all functions, matrix \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
 
 }
 

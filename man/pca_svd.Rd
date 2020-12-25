@@ -10,9 +10,9 @@
 
 \description{
 
-Algorithms for centered PCA of a matrix \eqn{X}. 
+Algorithms implementing a centered PCA of a matrix \eqn{X}. 
 
-Noting \eqn{D} a diagonal matrix of row weights:
+The functions, except \code{pca_nipalsna}, can set a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. Noting \eqn{D} a \eqn{n x n} diagonal matrix of weights for the observations (rows of \eqn{X}),
 
 - \code{pca_svd}: SVD decomposition of \eqn{D^(1/2) * X}, using function \code{\link{svd}}. 
 
@@ -22,12 +22,21 @@ Noting \eqn{D} a diagonal matrix of row weights:
 
 - \code{pca_nipals}: eigen decomposition of \eqn{X' * D * X} using NIPALS. 
 
-- \code{pca_nipalsna}: eigen decomposition of \eqn{X' * D * X} using a NIPALS version allowing missing data in \eqn{X}. The core of \code{pca_nipalsna} uses the code of function \code{nipals} of package \code{nipals} v.0.7 (Thanks to K. Wright, 2020) available on CRAN.
+- \code{pca_nipalsna}: eigen decomposition of \eqn{X' * D * X} using NIPALS allowing missing data in \eqn{X}. 
 
-Data are internally centered before the analyses, but they are not column-wise scaled (there is no argument \code{scale} available). If needed, the user has to do the scaling before using the functions. 
-The functions (except \code{pca_nipalsna}) can set a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. Below, \eqn{D} is the diagonal matrix of the weights. 
+In all functions, matrix \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
 
-\code{NA} are not allowed in the functions except \code{pca_nipalsna}.
+Function \code{pca_nipalsna} accepts missing data (\code{NA}s) in \eqn{X}, unlike the other functions. The part of \code{pca_nipalsna} accounting specifically for missing missing data in NIPALS is based on the efficient proposition of K. Wright in the R package \code{nipals} (https://cran.r-project.org/web/packages/nipals/index.html).
+
+\bold{Gram-Schmidt orthogonalization for NIPALS}
+
+PCA NIPALS is known generating a lost of orthogonality of the scores (due to the accumulation of rounding errors in the successive iterations), particularly for large matrices or with high degrees of column collinearity.
+
+With missing data, orthogonality of loadings is not satisfied neither.
+
+A performant approach for retrieving orthogonality (scores and loadings) is the iterative classical Gram-Schmidt orthogonalization (Lingen 2000, Andrecut 2009, and vignette of R package \code{nipals}), say iterative CGS. It consists in adding a CGS orthorgonalisation step in each iteration of the scores and loadings calculations.
+
+Note that, for the missing data case, the iterative CGS does not insure that the orthogonalized scores are centered.
 
 }
 
@@ -40,9 +49,11 @@ pca_eigen(X, ncomp, weights = NULL)
 pca_eigenk(X, ncomp, weights = NULL)
 
 pca_nipals(X, ncomp, weights = NULL,
-  tol = .Machine$double.eps^0.5, maxit = 100)
+    gs = TRUE, 
+    tol = .Machine$double.eps^0.5, maxit = 200)
 
-pca_nipalsna(X, ncomp, gs = TRUE,
+pca_nipalsna(X, ncomp, 
+  gs = TRUE,
   tol = .Machine$double.eps^0.5, maxit = 200)
   
 }
@@ -57,7 +68,7 @@ pca_nipalsna(X, ncomp, gs = TRUE,
 
 \bold{Specific arguments of} \code{pca_nipalsna}
 
-\item{gs}{Logical. If TRUE (default), when there are missing data, a Gram-Schmidt orthogonalization is implemented at each iteration of the NIPALS algorithm. This slightly corrects the scores to insure that they are orthogonal. See vignettes in package \code{nipals}.}
+\item{gs}{For \code{pca_nipalsna} and \code{pca_nipalsna}. Logical indicating if a Gram-Schmidt orthogonalization is implemented or not (default to \code{TRUE}).}
 
 \item{tol}{Tolerance for testing convergence of the NIPALS iterations for each principal component.}
 
@@ -81,11 +92,20 @@ A list of outputs, such as:
 
 \item{xmeans}{The centering vector of \eqn{X} (length \eqn{p}).}
 
+\item{niter}{Numbers of iterations of the NIPALS.}
+
+\item{conv}{Logical indicating if the NIPALS converged before reaching the maximal number of iterations.}
+
 }
 
 \references{
 
+Andrecut, M., 2009. Parallel GPU Implementation of Iterative PCA Algorithms. Journal of Computational Biology 16, 1593-1599. https://doi.org/10.1089/cmb.2008.0221
+
 Gabriel, R. K., 2002. Le biplot - Outil d'exploration de données multidimensionnelles. Journal de la Société Française de la Statistique, 143, 5-55.
+
+Lingen, F.J., 2000. Efficient Gram–Schmidt orthonormalisation on parallel computers. Communications in Numerical Methods in Engineering 16, 57-66. https://doi.org/10.1002/(SICI)1099-0887(200001)16:1<57::AID-CNM320>3.0.CO;2-I
+
 
 Tenenhaus, M., 1998. La régression PLS: théorie et pratique. Editions Technip, Paris, France.
 
@@ -100,9 +120,12 @@ Wu, W., Massart, D.L., de Jong, S., 1997. The kernel PCA algorithms for wide dat
 n <- 6
 p <- 4
 set.seed(1)
-X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
+X <- matrix(rnorm(n * p, mean = 10), nrow = n,)
 set.seed(NULL)
+s <- c(3, 4, 7, 10, 11, 15, 21:24)   
+zX <- replace(X, s, NA)
 X
+zX
 
 pca_svd(X, ncomp = 3)
 
@@ -110,23 +133,7 @@ pca_eigen(X, ncomp = 3)
 
 pca_nipals(X, ncomp = 3)
 
-######## WITH MISSING DATA
-
-X2 <- X
-X2[3, 3] <- X2[1, 3] <- X2[1, 2] <- NA
-X2
-
-fm <- pca_nipalsna(X2, ncomp = 3)
-fm
-
-## Replacement of the missing data in X2
-## by their NIPALS estimates
-
-Xfit <- xfit(fm$T, fm$P, fm$xmeans)
-Xfit
-u <- which(is.na(X2))
-Xfull <- replace(X2, u, Xfit[u])
-Xfull
+pca_nipalsna(X, ncomp = 3)
 
 }
 

@@ -18,9 +18,7 @@ PLS1 and PLS2 algorithms.
 
 The functions can give a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores, loadings and predictions.
 
-Data are internally centered before the analyses, but they are not column-wise scaled (there is no argument \code{scale} in the functions). If needed, the user has to do the scaling before using the functions.
-
-Missing values are not allowed.
+Matrix \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
 
 }
 
