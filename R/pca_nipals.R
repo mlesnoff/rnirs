@@ -88,7 +88,7 @@ pca_nipals <- function(X, ncomp,
    
       row.names(T) <- row.names(X)
       row.names(P) <- colnames(X)
-      colnames(P) <- colnames(T) <- paste("comp", 1:ncomp, sep = "") 
+      colnames(P) <- colnames(T) <- paste("comp", seq_len(ncomp), sep = "") 
  
       list(T = T, P = P, R = P, sv = sv, eig = eig, 
           xmeans = xmeans, weights = wgt, niter = niter, 

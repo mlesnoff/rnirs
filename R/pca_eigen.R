@@ -16,8 +16,8 @@ pca_eigen <- function(X, ncomp, weights = NULL) {
     X <- .center(X, xmeans)
 
     res <- eigen(crossprod(sqrt(weights) * X), symmetric = TRUE)
-    P <- res$vectors[, 1:ncomp, drop = FALSE]
-    eig <- res$values[1:min(n, p)]
+    P <- res$vectors[, seq_len(ncomp), drop = FALSE]
+    eig <- res$values[seq_len(min(n, p))]
     eig[eig < 0] <- 0
     sv <- sqrt(eig)
 
@@ -26,7 +26,7 @@ pca_eigen <- function(X, ncomp, weights = NULL) {
     row.names(T) <- row.names(X)
     row.names(P) <- colnames(X)
   
-    colnames(T) <- colnames(P) <-  paste("comp", 1:ncomp, sep = "")
+    colnames(T) <- colnames(P) <-  paste("comp", seq_len(ncomp), sep = "")
   
     list(T = T, P = P, R = P, sv = sv, eig = eig, 
         xmeans = xmeans, weights = weights, T.ortho = TRUE)

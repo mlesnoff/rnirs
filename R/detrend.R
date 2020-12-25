@@ -1,19 +1,19 @@
 detrend <- function(X, method = c("poly", "lowess", "als"), ...) {
 
-  X <- .matrix(X)
+    X <- .matrix(X)
 
-  fun <- switch(
-    match.arg(method),
-    "poly" = .detrend.poly,
-    "lowess" = .detrend.lowess,
-    "als" = .detrend.als
-    )
+    fun <- switch(
+        match.arg(method),
+        "poly" = .detrend.poly,
+        "lowess" = .detrend.lowess,
+        "als" = .detrend.als
+        )
 
-  X <- fun(X, ...)
-  
-  X
-  
-  }
+    X <- fun(X, ...)
+    
+    X
+    
+    }
 
 
 

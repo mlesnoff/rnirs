@@ -1,49 +1,49 @@
 lodis <- function(fm, Xr, Xu, typcut = c("param", "mad", "boxplot")) {
-  
-  typcut <- match.arg(typcut)
-  
-  fm <- fm$fm
-  
-  Xr <- .matrix(Xr)
-  Xu <- .matrix(Xu)
-  
-  m <- nrow(Xu)
-  
-  rownam <- row.names(Xr)
-  
-  nmod <- length(fm)
-  nam <- names(fm)
-  du <- dr <- vector("list", length = nmod)
-  
-  j <- 1
-  for(i in 1:nmod) {
     
-    s <- fm[[i]]$nn
+    typcut <- match.arg(typcut)
     
-    z <- odis(fm[[i]], 
-      Xr[s, , drop = FALSE], Xu[j, , drop = FALSE], typcut = typcut)
+    fm <- fm$fm
     
-    z$dr$rownum <- s
-    z$dr$rownam <- rownam[s]
+    Xr <- .matrix(Xr)
+    Xu <- .matrix(Xu)
     
-    z$dr$modnum <- rep(i, nrow(z$dr))
-    z$du$modnum <- i
+    m <- nrow(Xu)
     
-    j <- j + 1
-    if(j > m)
-      j <- 1
-      
-    dr[[i]] <- z$dr
-    du[[i]] <- z$du
+    rownam <- row.names(Xr)
     
-    }
+    nmod <- length(fm)
+    nam <- names(fm)
+    du <- dr <- vector("list", length = nmod)
     
-  dr <- setDF(rbindlist(dr))
-  du <- setDF(rbindlist(du))
-  
-  list(dr = dr, du = du)
+    j <- 1
+    for(i in seq_len(nmod)) {
+        
+        s <- fm[[i]]$nn
+        
+        z <- odis(fm[[i]], 
+            Xr[s, , drop = FALSE], Xu[j, , drop = FALSE], typcut = typcut)
+        
+        z$dr$rownum <- s
+        z$dr$rownam <- rownam[s]
+        
+        z$dr$modnum <- rep(i, nrow(z$dr))
+        z$du$modnum <- i
+        
+        j <- j + 1
+        if(j > m)
+            j <- 1
+            
+        dr[[i]] <- z$dr
+        du[[i]] <- z$du
+        
+        }
+        
+    dr <- setDF(rbindlist(dr))
+    du <- setDF(rbindlist(du))
+    
+    list(dr = dr, du = du)
 
-  }
+    }
 
 
 

@@ -17,17 +17,18 @@ pca_eigenk <- function(X, ncomp, weights = NULL) {
 
     zX <- sqrt(weights) * X
     res <- eigen(tcrossprod(zX), symmetric = TRUE)
-    eig <- res$values[1:min(n, p)]
+    eig <- res$values[seq_len(min(n, p))]
     eig[eig < 0] <- 0
     sv <- sqrt(eig)
-    P <- crossprod(zX, .scale(res$vectors[, 1:ncomp, drop = FALSE], scale = sv[1:ncomp]))
+    P <- crossprod(zX, .scale(res$vectors[, seq_len(ncomp), drop = FALSE], 
+                              scale = sv[seq_len(ncomp)]))
   
     T <- X %*% P
    
     row.names(T) <- row.names(X)
     row.names(P) <- colnames(X)
   
-    colnames(T) <- colnames(P) <-  paste("comp", 1:ncomp, sep = "")
+    colnames(T) <- colnames(P) <-  paste("comp", seq_len(ncomp), sep = "")
   
     list(T = T, P = P, R = P, sv = sv, eig = eig, 
         xmeans = xmeans, weights = weights, T.ortho = TRUE)

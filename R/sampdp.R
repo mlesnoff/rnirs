@@ -1,59 +1,59 @@
 sampdp <- function(X, k, diss = c("euclidean", "mahalanobis", "correlation")) {
 
-  diss <- match.arg(diss)
-  
-  X <- .matrix(X)
-  n <- dim(X)[1]
-  zn <- 1:n
-  
-  if(k > round(n / 2))
-    stop("\n\n Argument 'k' must be <= half of the data. \n\n") 
-  
-  if(diss == "euclidean")
-    D <- .dist(X)
-  else
-    D <- matdis(X, diss = diss)
-  
-  colnames(D) <- rownames(D) <- zn
-  
-  ## initial 2 selections 
-  ## train
-  s1 <- which(D == max(D), arr.ind = TRUE)[1, ]
-  zD <- D
-  zD[s1, ] <- zD[, s1] <- NA
-  ## test
-  s2 <- which(D == max(zD, na.rm = TRUE), arr.ind = TRUE)[1, ]
-  
-  ## candidates
-  cand <- (1:n)[-c(s1, s2)]
-  
-  for(i in 1:(k - 2)) {
+    diss <- match.arg(diss)
     
-    zD <- D[s1, cand, drop = TRUE]
+    X <- .matrix(X)
+    n <- dim(X)[1]
+    zn <- seq_len(n)
     
-    u <- matrixStats::colMins(zD)
+    if(k > round(n / 2))
+        stop("\n\n Argument 'k' must be <= half of the data. \n\n") 
     
-    zs <- cand[which(u == max(u))[1]]
+    if(diss == "euclidean")
+        D <- .dist(X)
+    else
+        D <- matdis(X, diss = diss)
     
-    s1 <- c(s1, zs)
+    colnames(D) <- rownames(D) <- zn
     
-    cand <- zn[-c(s1, s2)]
+    ## initial 2 selections 
+    ## train
+    s1 <- which(D == max(D), arr.ind = TRUE)[1, ]
+    zD <- D
+    zD[s1, ] <- zD[, s1] <- NA
+    ## test
+    s2 <- which(D == max(zD, na.rm = TRUE), arr.ind = TRUE)[1, ]
     
-    zD <- D[s2, cand, drop = TRUE]
+    ## candidates
+    cand <- seq_len(n)[-c(s1, s2)]
     
-    u <- matrixStats::colMins(zD)
+    for(i in seq_len(k - 2)) {
+        
+        zD <- D[s1, cand, drop = TRUE]
+        
+        u <- matrixStats::colMins(zD)
+        
+        zs <- cand[which(u == max(u))[1]]
+        
+        s1 <- c(s1, zs)
+        
+        cand <- zn[-c(s1, s2)]
+        
+        zD <- D[s2, cand, drop = TRUE]
+        
+        u <- matrixStats::colMins(zD)
+        
+        zs <- cand[which(u == max(u))[1]]
+        
+        s2 <- c(s2, zs)
+        
+        cand <- zn[-c(s1, s2)]
+        
+        }
     
-    zs <- cand[which(u == max(u))[1]]
+    names(s2) <- names(s1) <- NULL
     
-    s2 <- c(s2, zs)
     
-    cand <- zn[-c(s1, s2)]
-    
-    }
-  
-  names(s2) <- names(s1) <- NULL
-  
-  
-  list(train = s1, test = s2, remain = cand)
+    list(train = s1, test = s2, remain = cand)
 
-  }
+    }

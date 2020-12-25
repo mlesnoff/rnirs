@@ -107,8 +107,7 @@ pca_nipalsna <- function(X, ncomp,
    
     row.names(T) <- row.names(X)
     row.names(P) <- colnames(X)
-    colnames(P) <- colnames(T) <- paste("comp", 1:ncomp, sep = "") 
-    
+    colnames(P) <- colnames(T) <- paste("comp", seq_len(ncomp), sep = "") 
     
     if(!isna | (isna & gs))
         T.ortho <- TRUE

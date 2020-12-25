@@ -17,7 +17,7 @@ pca_svd <- function(X, ncomp, weights = NULL) {
   
     res <- svd(sqrt(weights) * X, nu = 0, nv = ncomp)
     P <- res$v
-    sv <- res$d[1:min(n, p)]
+    sv <- res$d[seq_len(min(n, p))]
     sv[sv < 0] <- 0
   
     T <- X %*% P
@@ -35,7 +35,7 @@ pca_svd <- function(X, ncomp, weights = NULL) {
     row.names(T) <- row.names(X)
     row.names(P) <- colnames(X)
   
-    colnames(T) <- colnames(P) <- paste("comp", 1:ncomp, sep = "")
+    colnames(T) <- colnames(P) <- paste("comp", seq_len(ncomp), sep = "")
   
     list(T = T, P = P, R = P, sv = sv, eig = eig,
         xmeans = xmeans, weights = weights, T.ortho = TRUE)
