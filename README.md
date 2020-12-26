@@ -31,7 +31,9 @@
     - KPCDA, KPLSDA
     - KRDA (LS-SVMC)
     - SVMC
-  - Local methods: KNNDA, KNN-LWPLSDA
+  - Local methods
+    - KNNDA
+    - KNN-LWPLSDA
 
 - **Cross-validation (CV), Error rates, Degrees of Freedom**
 

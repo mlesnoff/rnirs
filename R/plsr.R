@@ -47,7 +47,7 @@ plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp,
     r <- y - fit
 
     dat <- data.frame(
-        ncomp = sort(seq(0, ncomp), m)),
+        ncomp = sort(rep(seq(0, ncomp), m)),
         rownum = rep(seq_len(m), ncomp + 1),
         rownam = rep(rownam.Xu, ncomp + 1)
         )
