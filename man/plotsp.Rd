@@ -82,20 +82,16 @@ plotsp(X[5, , drop = FALSE], col = "red", lwd = 2, add = TRUE, labels = TRUE)
 blocks <- list(1:500, 700:900)
 plotsp(X, blocks = blocks)
 
-\donttest{
+###### Example with plotsp1
+###### Scrolling plot of the loadings 
 
-## Scrolling plot of the loadings 
-
-## (After running the code, 
+## After running the code, 
 ## type Enter in the R console for starting the scrolling,
-## and type any character in the R console) 
+## and type any character in the R console 
 
-fm <- pca(X, ncomp = 50)
-P <- fm$P
-
-plotsp1(t(P), ylab = "Value")
-
-}
+#fm <- pca(X, ncomp = 50)
+#P <- fm$P
+#plotsp1(t(P), ylab = "Value")
 
 }
 
