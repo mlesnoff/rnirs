@@ -3,7 +3,7 @@
 
 ## <span style="color:green"> **Key Features** </span> 
 
-- **Factorial analyses, Dimension reduction** 
+- **Dimension reduction** 
   - PCA, PLS, FDA
   - Robust PCA and PLS
   - Non Linear Kernel PCA and PLS
