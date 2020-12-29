@@ -1,6 +1,6 @@
-dfpcadiv <- function(X, ncomp, algo = NULL, 
-                                            ns = 50, eps = 1e-4,
-                                            seed = NULL, print = TRUE, ...) {
+dfpcadiv <- function(X, ncomp, algo = NULL,
+                     ns = 50, eps = 1e-4,
+                     seed = NULL, print = TRUE, ...) {
     
     X <- .matrix(X)
     zdim <- dim(X)

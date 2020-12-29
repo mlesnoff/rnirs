@@ -90,7 +90,8 @@ selwold <- function(r, start = 0,
             points(zindex, R, pch = 16, col = col)
             axis(side = 1, at = labs, labels = labs, fg = fg)
             abline(h = c(0, alpha), col = c("grey", "blue"), lty = seq_len(2))
-        }
+            on.exit(par(oldpar))
+            }
         
         if(plot == "diff") {
             plot(
@@ -103,7 +104,8 @@ selwold <- function(r, start = 0,
             points(zindex, -zdiff, pch = 16, col = col)
             axis(side = 1, at = labs, labels = labs, fg = fg)
             abline(h = median(-zdiff, na.rm = TRUE), col = "grey")
-        }
+            on.exit(par(oldpar))
+            }
         
         par(oldpar)
         

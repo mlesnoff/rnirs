@@ -1,4 +1,5 @@
-segmts <- function(n, y = NULL, m, nrep = 1, seed = NULL) {
+segmts <- function(n, y = NULL, m, nrep = 1, 
+                   seed = NULL) {
     
     segm <- vector("list", length = nrep)
     names(segm) <- paste("rep", seq_len(nrep), sep = "")

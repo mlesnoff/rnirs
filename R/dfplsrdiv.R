@@ -1,6 +1,6 @@
 dfplsrdiv <- function(X, Y, ncomp, algo = NULL, 
-                                             ns = 50, meth.samp = c("syst", "random"), eps = 1e-4, 
-                                             seed = NULL, print = TRUE, ...) {
+                      ns = 50, meth.samp = c("syst", "random"), eps = 1e-4, 
+                      seed = NULL, print = TRUE, ...) {
     
     meth.samp <- match.arg(meth.samp)
     
