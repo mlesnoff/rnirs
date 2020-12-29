@@ -41,6 +41,19 @@ stackavgcla(fit, y = NULL, formula, nam = NULL, weights = NULL)
 
 }
 
+\value{
+
+A list of outputs (see examples), such as:
+
+\item{y}{Responses for the test data.}
+
+\item{fit}{Predictions for the test data.}
+
+\item{r}{Residuals for the test data.}
+
+}
+
+
 
 \examples{
 

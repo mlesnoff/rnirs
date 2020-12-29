@@ -34,6 +34,11 @@ Let \eqn{d} be a vector of distances.
 
 }
 
+\value{
+
+A vector of weights.
+
+}
 
 \examples{
 

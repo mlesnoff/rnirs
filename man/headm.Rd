@@ -22,6 +22,13 @@ headm(X)
 
 }
 
+\value{
+
+See the example.
+
+}
+
+
 
 \examples{
 

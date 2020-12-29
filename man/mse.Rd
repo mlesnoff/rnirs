@@ -57,4 +57,12 @@ plotmse(obj, namx = "ncomp", nam = "msep", group = NULL,  col = NULL,
 
 }
 
+\value{
+
+A dataframe.
+
+}
+
+
+
 \keyword{datagen}

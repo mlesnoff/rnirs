@@ -38,6 +38,12 @@ kgram(Xr, Xu = NULL, kern = kpol, ...)
 
 }
 
+\value{
+
+A list of outputs, see the examples.
+
+}
+
 \references{
 
 Bennett, K.P., Embrechts, M.J., 2003. An optimization perspective on kernel partial least squares regression, in: Advances in Learning Theory: Methods, Models and Applications, NATO Science Series III: Computer & Systems Sciences. IOS Press Amsterdam, pp. 227-250.

@@ -30,6 +30,11 @@ inlr(Xr, Xu = NULL, degree = 2, scale.blocks = TRUE)
 
 }
 
+\value{
+
+A list of outputs, see the examples.
+
+}
 
 \references{
 

@@ -36,7 +36,6 @@ getknn(Xr, Xu, k = NULL,
 
 }
 
-
 \value{
 
 A list of outputs, such as:

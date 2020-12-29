@@ -27,6 +27,13 @@ matB(X, y)
 
 \details{The denominator in the variance calculations is \eqn{n}.}
 
+\value{
+
+A matrix.
+
+}
+
+
 \examples{
 
 n <- 8

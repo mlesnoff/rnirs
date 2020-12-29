@@ -26,6 +26,13 @@ bcoef(fm, ncomp = NULL)
 
 }
 
+\value{
+
+A matrix with the b-coefficients.
+
+}
+
+
 
 \examples{
 

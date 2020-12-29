@@ -20,7 +20,7 @@ Calculation of summary statistics for each column  of a matrix or data frame. In
 
 }
 
-\value{A data frame of summary statistics.}
+\value{A dataframe of summary statistics.}
 
 \examples{
 

@@ -44,6 +44,12 @@ plotxy(X, asp = 1, col = NULL, alpha.f = .8,
 
 }
 
+\value{
+
+A plot.
+
+}
+
 \examples{
 
 data(datcass)

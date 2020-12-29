@@ -25,6 +25,11 @@ Calculation of the centers (eg. mean or median) of classes of row observations o
 
 \details{\code{centr} uses function \code{\link{aggregate}}.}
 
+\value{
+
+A list of outputs.
+
+}
 
 
 \examples{

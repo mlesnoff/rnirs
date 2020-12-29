@@ -46,6 +46,13 @@ If \code{Y = NULL}, the function returns the \eqn{n x n} Gram matrix \eqn{k(X, X
 
 }
 
+\value{
+
+A function.
+
+}
+
+
 \references{
 
 Scholkopf, B., Smola, A.J., 2002. Learning with kernels: support vector machines, regularization, optimization, and beyond, Adaptive computation and machine learning. MIT Press, Cambridge, Mass.

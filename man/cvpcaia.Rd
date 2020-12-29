@@ -64,6 +64,12 @@ cvpcackf(X, ncomp, algo = NULL, ...)
 
 }
 
+\value{
+
+A list of outputs, see the examples.
+
+}
+
 \references{
 
 Arteaga, F., Ferrer, A., 2002. Dealing with missing data in MSPC: several methods, different interpretations, some examples. Journal of Chemometrics 16, 408–418. https://doi.org/10.1002/cem.750

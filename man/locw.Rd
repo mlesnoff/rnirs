@@ -58,6 +58,21 @@ locw(
 
 }
 
+\value{
+
+A list of outputs (see examples), such as:
+
+\item{y}{Responses for the test data.}
+
+\item{fit}{Predictions for the test data.}
+
+\item{r}{Residuals for the test data.}
+
+\item{fm}{A list of the local fitted models.}
+
+}
+
+
 \references{
 
 Lesnoff, M., Metz, M., Roger, J.M.. Comparison of locally weighted PLS strategies for regression and discrimination on agronomic NIR Data. Submitted to Journal of Chemometrics.

@@ -39,6 +39,14 @@ plotjit(x, y, group = NULL,
 
 }
 
+\value{
+
+A plot.
+
+}
+
+
+
 \examples{
 
 n <- 500

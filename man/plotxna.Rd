@@ -26,6 +26,14 @@ plotxna(X, pch = 16, col = "red", grid = FALSE, asp = 0, ...)
 
 }
 
+\value{
+
+A plot.
+
+}
+
+
+
 \examples{
 
 data(datoctane)

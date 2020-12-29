@@ -45,6 +45,14 @@ plotsp1(X, col = NULL, zeroes = FALSE, ...)
 
 }
 
+\value{
+
+A plot (see examples).
+
+}
+
+
+
 \examples{
 
 data(datcass)

@@ -19,6 +19,13 @@ Calculation of the first derivatives, by finite differences, of the row observat
 \item{ts}{A scaling factor for the finite differences (by default, \code{ts} = 1.)}
 }
 
+\value{
+
+A matrix.
+
+}
+
+
 \examples{
 
 data(datcass)

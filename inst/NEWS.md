@@ -1,5 +1,14 @@
 ## NEWS for package **rnirs**
 
+## **Version 1.9-9**
+
+- Code cleaning
+
+
+
+
+
+
 ## **Version 1.9-8**
 
 - Gram-Schmidt orthogonalization has been added to function **pca_nipals**, 

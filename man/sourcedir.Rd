@@ -18,14 +18,17 @@
 
 }
 
-\examples{
+\value{
 
-\dontrun{
-
-path <- "D:/Users/Fun"
-sourcedir(path, FALSE)
+Sourcing.
 
 }
+
+
+\examples{
+
+#path <- "D:/Users/Fun"
+#sourcedir(path, FALSE)
 
 }
 

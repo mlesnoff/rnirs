@@ -41,6 +41,13 @@ Column \code{dstand} in the output is a "standardized" OD defined as \eqn{OD / c
 
 }
 
+\value{
+
+A list of outputs (see examples).
+
+}
+
+
 \references{
 
 M. Hubert, P. J. Rousseeuw, K. Vanden Branden (2005). ROBPCA: a new approach to robust principal components analysis. Technometrics, 47, 64-79.

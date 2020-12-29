@@ -30,7 +30,7 @@ sampdp(X, k, diss = c("euclidean", "mahalanobis", "correlation"))
 
 \value{
 
-Vectors of the indexes (i.e. row numbers in \eqn{X}) of the selected observations.
+A list of vectors of the indexes (i.e. row numbers in \eqn{X}) of the selected observations.
 
 }
 

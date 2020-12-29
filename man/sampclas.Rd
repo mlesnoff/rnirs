@@ -33,11 +33,9 @@ sampclas(x, y = NULL, k, seed = NULL)
 
 \value{
 
-Vectors of the indexes (i.e. position in \eqn{x}) of the selected observations.
+A list of vectors of the indexes (i.e. position in \eqn{x}) of the selected observations.
 
 }
-
-
 
 \references{
 

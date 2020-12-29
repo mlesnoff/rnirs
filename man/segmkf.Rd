@@ -50,6 +50,13 @@ segmts(n, y = NULL, m, nrep, seed = NULL)
 
 }
 
+\value{
+
+The segments (list of indexes).
+
+}
+
+
 \examples{
 
 ######### K-fold

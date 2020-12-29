@@ -18,7 +18,7 @@ Build a table of dummy variables from a qualitative variable. A binary variable 
 
 }
 
-\value{A table of dummy variables (i.e. binary variables), each representing a given level of the qualitative variable.}
+\value{A matrix of dummy variables (i.e. binary variables), each representing a given level of the qualitative variable.}
 
 
 \examples{

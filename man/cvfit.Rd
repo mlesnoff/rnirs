@@ -32,6 +32,19 @@ cvfit(X, Y, fun, segm, print = FALSE, ...)
 
 }
 
+\value{
+
+A list of outputs, such as:
+
+\item{y}{Responses for the test data.}
+
+\item{fit}{Predictions for the test data.}
+
+\item{r}{Residuals for the test data.}
+
+}
+
+
 \examples{
 
 data(datcass)

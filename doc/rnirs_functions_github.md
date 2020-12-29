@@ -2,7 +2,7 @@
 
 **https://github.com/mlesnoff/rnirs**
 
-## MULTIVARIATE FACTORIAL ANALYSES, DIMENSION REDUCTION
+## DIMENSION REDUCTION
 
 ### <span style="color:green"> PCA </span> 
 

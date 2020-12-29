@@ -51,6 +51,12 @@ ximputia(X, ncomp, algo = NULL,
 
 }
 
+\value{
+
+A list of outputs (see examples).
+
+}
+
 \references{
 
 Bro, R., Kjeldahl, K., Smilde, A.K., Kiers, H.A.L., 2008. Cross-validation of component models: A critical look at current methods. Anal Bioanal Chem 390, 1241-1251. https://doi.org/10.1007/s00216-007-1790-1

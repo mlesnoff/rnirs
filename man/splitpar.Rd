@@ -27,6 +27,11 @@ splitpar(x, a1 = .1, a2 = 10, n = 20)
 
 }
 
+\value{
+
+A vector (grid of parameter values).
+
+}
 
 \examples{
 

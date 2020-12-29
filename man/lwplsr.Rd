@@ -115,6 +115,8 @@ A list of outputs (see examples), such as:
 
 \item{r}{Residuals for the test data.}
 
+\item{fm}{A list of the local fitted models.}
+
 }
 
 \references{

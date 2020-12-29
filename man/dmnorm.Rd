@@ -43,6 +43,13 @@ Specific arguments for \code{dkerngauss}:
 
 }
 
+\value{
+
+A data.frame, see the examples.
+
+}
+
+
 \examples{
 
 data(iris)

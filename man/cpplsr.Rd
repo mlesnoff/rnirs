@@ -67,7 +67,7 @@ cpplsr(X, Y, ncomp, algo = NULL,
 
 \value{
 
-Several items. In particular, a data.frame with the estimated \eqn{Cp} and corresponding model weights (so-called "Akaike weights").
+A list of items. In particular, a data.frame with the estimated \eqn{Cp} and corresponding model weights (so-called "Akaike weights").
 }
 
 \references{

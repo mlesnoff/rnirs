@@ -39,6 +39,13 @@ The Winisi GH is also provided ("extreme" if GH > 3).
 
 }
 
+\value{
+
+A list of outputs (see examples).
+
+}
+
+
 \references{
 
 M. Hubert, P. J. Rousseeuw, K. Vanden Branden (2005). ROBPCA: a new approach to robust principal components analysis. Technometrics, 47, 64-79.

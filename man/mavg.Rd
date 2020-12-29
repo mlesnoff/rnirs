@@ -16,6 +16,13 @@
 
 }
 
+\value{
+
+A matrix.
+
+}
+
+
 \examples{
 
 data(datcass)

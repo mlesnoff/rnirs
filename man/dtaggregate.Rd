@@ -28,6 +28,13 @@ dtaggregate(formula, data, FUN = mean, ...)
 
 }
 
+\value{
+
+A data.frame, see the examples.
+
+}
+
+
 \examples{
 
 dat <- data.frame(matrix(rnorm(2 * 100), ncol = 2))
