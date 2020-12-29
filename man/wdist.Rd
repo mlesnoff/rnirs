@@ -47,12 +47,14 @@ x2 <- sqrt(rchisq(n = 10, df = 40))
 d <- c(x1, x2)
 h <- 2 ; cri <- 3
 w <- wdist(d, h = h, cri = cri)
+
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(2, 2))
 plot(d)
 hist(d, n = 50)
 plot(w, ylim = c(0, 1)) ; abline(h = 1, lty = 2)
 plot(d, w, ylim = c(0, 1)) ; abline(h = 1, lty = 2)
-par(mfrow = c(1, 1))
+par(oldpar)
 
 d <- seq(0, 15, by = .5)
 h <- c(.5, 1, 1.5, 2.5, 5, 10, Inf)

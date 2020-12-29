@@ -55,10 +55,11 @@ v <- centr(Xr, yr, FUN = median)$centers
 headm(u)
 headm(v)
 
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(1, 2))
 plotsp(u, col = 1:4, main = "Mean")
 plotsp(v, col = 1:4, main = "Median")
-par(mfrow = c(1, 1))
+par(oldpar)
 
 x <- Xr[1:20, ]
 plotsp(x, ylab = "Absorbance", col = "grey")

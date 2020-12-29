@@ -34,10 +34,11 @@ z <- snv(X)
 headm(X)
 headm(z)
 
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(1, 2))
 plotsp(X, main = "Signal")
 plotsp(z, zeroes = TRUE, main = "Corrected signal")
-par(mfrow = c(1, 1))
+par(oldpar)
 
 }
 

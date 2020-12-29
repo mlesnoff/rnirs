@@ -103,12 +103,14 @@ fm <- ximputia(zX, ncomp = 5)
 fm$niter
 fm$conv
 Xfit <- fm$X
+
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(1, 2))
 plot(1:p, X[i, ], type = "l")
 points(s, Xfit[i, s], col = "red")
 #sum(X[i, ] - Xfit[i, ] != 0)
 plot(fm$tol, type = "b")
-par(mfrow = c(1, 1))
+par(oldpar)
 
 plot(Xfit[i, s], X[i, s])
 abline(0, 1)

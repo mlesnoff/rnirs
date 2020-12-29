@@ -65,28 +65,34 @@ degree <- 1
 #degree <- 2
 z <- detrend(X, method = "poly", degree = degree)
 headm(z)
+
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(1, 2))
 plotsp(z, zeroes = TRUE, main = "Corrected signal")
 plotsp(X - z, main = "Baseline")
-par(mfrow = c(1, 1))
+par(oldpar)
 
 ### Lowess
 
 z <- detrend(X, method = "lowess", f = .5)
 headm(z)
+
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(1, 2))
 plotsp(z, zeroes = TRUE, main = "Corrected signal")
 plotsp(X - z, main = "Baseline")
-par(mfrow = c(1, 1))
+par(oldpar)
 
 ### ALS
 
 lambda <- 1e7 ; p <- .05
 z <- detrend(X, method = "als", lambda = lambda, p = p)
+
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(1, 2))
 plotsp(z, zeroes = TRUE, main = "Corrected signal")
 plotsp(X - z, main = "Baseline")
-par(mfrow = c(1, 1))
+par(oldpar)
 
 }
 

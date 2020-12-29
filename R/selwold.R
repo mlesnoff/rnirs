@@ -53,8 +53,9 @@ selwold <- function(r, start = 0,
         else
             labs <- seq(xmin, xmax, by = 10)
         
+        oldpar <- par(mfrow = c(1, 1))
         par(mfrow = c(1, 2))
-        
+
         plot(
             zindex, r, 
             type = "l", col = col, pch = 16,
@@ -104,7 +105,7 @@ selwold <- function(r, start = 0,
             abline(h = median(-zdiff, na.rm = TRUE), col = "grey")
         }
         
-        par(mfrow = c(1, 1))
+        par(oldpar)
         
         }
 

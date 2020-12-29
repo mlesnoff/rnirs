@@ -75,6 +75,7 @@ mfit2 <- matrix(z, nrow = m)
 z <- dmnorm(Tr[yr == "virginica", ], Tu)$fit$fit
 mfit3 <- matrix(z, nrow = m)
 
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(2, 2))
 contour(x1, x2, mfit1)
 abline(h = 0, v = 0, lty = 2)
@@ -82,7 +83,7 @@ contour(x1, x2, mfit2)
 abline(h = 0, v = 0, lty = 2)
 contour(x1, x2, mfit3)
 abline(h = 0, v = 0, lty = 2)
-par(mfrow = c(1, 1))
+par(oldpar)
 
 ## Non-parametric
 
@@ -94,6 +95,7 @@ mfit2 <- matrix(z, nrow = m)
 z <- dkerngauss(Tr[yr == "virginica", ], Tu, hs = hs)$fit$fit
 mfit3 <- matrix(z, nrow = m)
 
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(2, 2))
 contour(x1, x2, mfit1)
 abline(h = 0, v = 0, lty = 2)
@@ -101,7 +103,7 @@ contour(x1, x2, mfit2)
 abline(h = 0, v = 0, lty = 2)
 contour(x1, x2, mfit3)
 abline(h = 0, v = 0, lty = 2)
-par(mfrow = c(1, 1))
+par(oldpar)
 
 }
 

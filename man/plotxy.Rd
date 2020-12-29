@@ -69,17 +69,19 @@ coord.var <- fm$coord.var
 headm(Tr)
 headm(Tu)
 
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(1, 2))
 plotxy(Tr[, 1:2])
 plotxy(Tr[, 3:4], pch = 16, ellipse = TRUE)
-par(mfrow = c(1, 1))
+par(oldpar)
 
 T <- rbind(Tr, Tu)
 group <- c(rep("Reference", nrow(Tr)), rep("Unknown", nrow(Tu)))
+oldpar <- par(mfrow = c(1, 1))
 par(mfrow = c(1, 2))
 plotxy(T, group = group, pch = 16, ellipse = TRUE)
 plotxy(T[, 3:4], group = group, pch = 16)
-par(mfrow = c(1, 1))
+par(oldpar)
 
 ### See: ?hcl.colors, hcl.pals()
 group <- 1:nrow(Tr)
