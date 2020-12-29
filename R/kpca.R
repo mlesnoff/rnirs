@@ -49,7 +49,7 @@ kpca <- function(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
         }
     
     row.names(A) <- row.names(T) <- row.names(Xr)
-    colnames(T) <- colnames(A) <-    paste("comp", 1:ncomp, sep = "")
+    colnames(T) <- colnames(A) <-    paste("comp", seq_len(ncomp), sep = "")
     
     list(Tr = T, Tu = Tu, 
         eig = eig, sv = sv, explvar = explvar, values = fm$values,

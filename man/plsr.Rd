@@ -92,7 +92,7 @@ mse(fm, ~ ncomp)
 
 z <- mse(fm, ~ ncomp)
 z
-z[z$rmsep == min(z$rmsep), ]
+z[z$msep == min(z$msep), ]
 plotmse(z)
 
 ####### B-COEFFICIENTS FOR THE MODEL WITH ncomp COMPONENTS

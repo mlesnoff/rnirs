@@ -1,4 +1,5 @@
-.blocksopca <- function(Xr, Xu = NULL, ncomp, blocks, colblocks = NULL, ...) {
+.blocksopca <- function(Xr, Xu = NULL, ncomp, 
+                        blocks, colblocks = NULL, ...) {
     
     ## All components of the input 'ncomp' must be > 0
     
@@ -80,6 +81,7 @@
     if(nullXu)
         Tu <- NA
     
-    list(Tr = Tr, Tu = Tu, blocks = blocks)    
+    list(Tr = Tr, Tu = Tu, 
+         blocks = blocks, ncomp = ncomp)    
 
     }

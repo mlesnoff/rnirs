@@ -1,5 +1,5 @@
 blocksopls <- function(Xr, Yr, Xu = NULL, ncomp, 
-                                                blocks, colblocks = NULL, ...) {
+                       blocks, colblocks = NULL, ...) {
     
     ## If argument 'blocks = NULL',
     ## an object 'blocks' (= a list with the block indexes) is created
@@ -16,7 +16,7 @@ blocksopls <- function(Xr, Yr, Xu = NULL, ncomp,
     if(length(ncomp) == 1) 
         ncomp <- rep(ncomp, nbl)
     
-    ## Case 'sum(ncomp) = 0'
+    ## Case "sum(ncomp) = 0"
     if(sum(ncomp) == 0) {
     
         fm <- list()
@@ -46,7 +46,7 @@ blocksopls <- function(Xr, Yr, Xu = NULL, ncomp,
     else {
         u <- which(ncomp > 0)
         fm <- .blocksopls(Xr = Xr, Yr = Yr, Xu = Xu, ncomp = ncomp[u], 
-                                            blocks = blocks[u], ...)
+                          blocks = blocks[u], ...)
         }
     
     fm

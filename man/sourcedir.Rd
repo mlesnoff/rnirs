@@ -27,7 +27,7 @@ Sourcing.
 
 \examples{
 
-#path <- "D:/Users/Fun"
+path <- "D:/Users/Fun"
 #sourcedir(path, FALSE)
 
 }

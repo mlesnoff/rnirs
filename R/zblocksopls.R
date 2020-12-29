@@ -1,5 +1,5 @@
 .blocksopls <- function(Xr, Yr, Xu = NULL, ncomp, 
-                                                blocks, colblocks = NULL, ...) {
+                        blocks, colblocks = NULL, ...) {
     
     ## All components of the input 'ncomp' must be > 0
     
@@ -95,7 +95,8 @@
     if(nullXu) 
         Fitu <- Tu <- NA
     
-    list(Tr = Tr, Tu = Tu, Fitr = Fitr, Fitu = Fitu, 
-        blocks = blocks, ncomp = ncomp)    
+    list(Tr = Tr, Tu = Tu, 
+         Fitr = Fitr, Fitu = Fitu, 
+         blocks = blocks, ncomp = ncomp)    
 
     }

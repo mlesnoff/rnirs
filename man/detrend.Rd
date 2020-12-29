@@ -43,14 +43,6 @@ The function returns either the residuals (corrected spectra) or the fitted pred
 
 }
 
-\value{
-
-A matrix.
-
-}
-
-
-
 \examples{
 
 data(datcass)

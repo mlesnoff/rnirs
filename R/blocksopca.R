@@ -1,6 +1,5 @@
 blocksopca <- function(Xr, Xu = NULL, ncomp, 
-                                                blocks, colblocks = NULL, ...) {
-    
+                       blocks, colblocks = NULL, ...) {
     ## If argument 'blocks = NULL',
     ## an object 'blocks' (= a list with the block indexes) is created
     if(!is.null(colblocks)) {
@@ -16,7 +15,7 @@ blocksopca <- function(Xr, Xu = NULL, ncomp,
     if(length(ncomp) == 1) 
         ncomp <- rep(ncomp, nbl)
     
-    ## Case 'sum(ncomp) = 0'
+    ## Case "sum(ncomp) = 0"
     if(sum(ncomp) == 0) {
     
         fm <- list()
@@ -30,7 +29,7 @@ blocksopca <- function(Xr, Xu = NULL, ncomp,
     else {
         u <- which(ncomp > 0)
         fm <- .blocksopca(Xr = Xr, Xu = Xu, ncomp = ncomp[u], 
-                                            blocks = blocks[u], ...)
+                          blocks = blocks[u], ...)
         }
     
     fm

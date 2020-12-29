@@ -114,8 +114,6 @@ plotxy(fm$coord.var, zeroes = TRUE, labels = TRUE)
 
 plotxy(fm$cor.circle, zeroes = TRUE, labels = TRUE, circle = TRUE, ylim = c(-1, 1))
 
-\donttest{
-
 ############## EXTERNAL RESIZED WINDOW
 
 Xr <- datcass$Xr
@@ -125,13 +123,7 @@ fm <- pca(Xr, ncomp = 4)
 
 #windows(width = 7, height = 6)
 #plotxy(Tr)
-
 #dev.off()
-
-}
-
-
-
 
 }
 

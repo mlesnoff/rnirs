@@ -97,8 +97,8 @@ plotsp(X, blocks = blocks)
 ## type Enter in the R console for starting the scrolling,
 ## and type any character in the R console 
 
-#fm <- pca(X, ncomp = 50)
-#P <- fm$P
+fm <- pca(X, ncomp = 50)
+P <- fm$P
 #plotsp1(t(P), ylab = "Value")
 
 }

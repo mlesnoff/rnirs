@@ -8,8 +8,8 @@
   - Robust PCA and PLS
   - Non Linear Kernel PCA and PLS
   - Multi-block
-    - MB-PCA, MB-PLS
-    - SOPCA, SOPLS
+    - MB-PCA, MB-PLS (block autos-scaling)
+    - SO-PCA, SO-PLS (sequential block orthogonalization)
 
 - **Regression**
   - PCR, PLSR

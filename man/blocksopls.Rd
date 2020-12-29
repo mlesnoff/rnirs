@@ -7,10 +7,9 @@
 
 \description{
 
-Functions \code{blocksopca} and \code{blocksopls} implement dimension reductions of pre-selected blocks of variables (= set of columns) of a reference (= training) matrix and eventually a new (= test) matrix, by sequential orthogonalization-PCA or -PLS (said "SO-PCA" and "SO-PLS"), respectively. 
+Functions \code{blocksopca} and \code{blocksopls} implement dimension reductions of pre-selected blocks of variables (= set of columns) of a reference (= training) matrix and eventually a new (= test) matrix, by sequential orthogonalization with PCA or PLS (so-called "SO-PCA" and "SO-PLS"), respectively. 
 
-SO-PLS is described for instance in Menichelli et al. (2014), Biancolillo et al. (2015) and Biancolillo (2016). SO-PCA uses the same approach but replacing PLS by PCA. In this last case, response variables \eqn{Y} are not required. 
-
+SO-PLS is described for instance in Menichelli et al. 2014, Biancolillo et al. 2015 and Biancolillo 2016. SO-PCA uses the same approach but replacing PLS by PCA. In this last case, response variables \eqn{Y} are not required. 
 The block reduction consists in calculating latent variables (= scores) for each block, each block being sequentially orthogonalized to the information computed from the previous blocks.
 
 The scores calculated for the different blocks of the reference matrix are concatenated into a new output matrix. The same is done for the eventual test matrix.
@@ -53,7 +52,7 @@ blocksopls(Xr, Yr, Xu = NULL, ncomp, blocks, colblocks = NULL, ...)
 
 \item{blocks}{A list of column numbers defining the blocks in the output matrices \eqn{Tr} and \eqn{Tu} (= lsit of the block indexes for the scores).}
 
-\item{Fitr and Fitu}{Only for SO-PLS: \eqn{Y-}response predictions for the reference and new observations.}
+\item{Fitr and Fitu}{For SO-PLS. \eqn{Y-}response predictions for the reference and new observations.}
 
 }
 
@@ -121,11 +120,13 @@ yr <- datcass$yr
 Xu <- datcass$Xu
 yu <- datcass$yu
 
-#### With a LMR
+######## With a LMR on the SO-PLS scores
+######## This is the usual SO-PLSR
 
 blocks <- list(1:500, 501:1050)
 ncomp <- c(10, 5)
 zfm <- blocksopls(Xr, yr, Xu, blocks, ncomp = ncomp)
+names(zfm)
 
 fm <- lmr(zfm$Tr, yr, zfm$Tu, yu)
 headm(fm$fit)
@@ -133,23 +134,30 @@ mse(fm)
 plot(fm$fit$y1, fm$y$y1)
 abline(0, 1)
 
-#### With a PLSR
+## Note: Above, if needed, the LMR predictions fm$fit 
+## are already available in zfm$Fitu
 
+head(cbind(fm$fit, zfm$Fitu))
+
+######## With a PLSR on the SO-PLS scores
+
+ncomp <- c(10, 5)
 zfm <- blocksopls(Xr, yr, Xu, blocks, ncomp = ncomp)
-zncomp <- ncol(zfm$Tr)
 
-fm <- plsr(zfm$Tr, yr, zfm$Tu, yu, ncomp = zncomp)
+fm <- plsr(zfm$Tr, yr, zfm$Tu, yu, ncomp = ncol(zfm$Tr))
 headm(fm$fit)
+
 z <- mse(fm, ~ ncomp)
 plotmse(z)
-zncomp <- 7
-z[z$ncomp == zncomp, ]
+z[z$msep == min(z$msep), ]
+
+zncomp <- z$ncomp[z$msep == min(z$msep)][1]
 y <- fm$y
 fit <- fm$fit
 plot(fit$y1[fit$ncomp == zncomp], y$y1[y$ncomp == zncomp])
 abline(0, 1)
 
-######################### Syntax for a SO-PLSDA
+#########################  Syntax for a SO-PLSDA
 
 data(datforages)
 
@@ -165,6 +173,9 @@ table(yu)
 blocks <- list(1:350, 351:700)
 ncomp <- 10
 zfm <- blocksopls(Xr, dummy(yr), Xu, blocks, ncomp = ncomp)
+
+######## With a probalistic DA on the SO-PLS scores
+## (Any other DA, PLS-DA, etc. could be implemneted insteas)
 
 fm <- daprob(zfm$Tr, yr, zfm$Tu, yu)
 headm(fm$fit)

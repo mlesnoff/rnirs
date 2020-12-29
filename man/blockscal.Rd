@@ -12,6 +12,8 @@ Each block of the reference matrix is scaled by its "norm", i.e. the square root
 
 The function allows giving a priori weights to the rows of the reference matrix in the calculations (argument \code{weights} to specify within the optional arguments "\code{...}").
 
+Outputs \code{Xr} and \code{Xu} of \code{blockscal} can be used as inputs of functions such as \code{\link{pls}} (= MB-PLS), \code{\link{plsr}} (= MB-PLSR), etc.   
+
 }
 
 \usage{
@@ -60,7 +62,6 @@ res <- blockscal(X[1:3, ], X[4:5, ], blocks)
 res
 
 blockscal(res$Xr, blocks = res$blocks)
-
 
 blockscal(X[1:3, ], X[4:5, ], colblocks = c(rep(1, 3), rep(2, 7)))
 

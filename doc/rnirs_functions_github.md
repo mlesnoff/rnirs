@@ -67,9 +67,9 @@
 
 - ***blocksel*** Block selection in a matrix
 - ***blockpls*** Block dimension reduction by PLS
-- ***blockscal*** Block autoscaling
-- ***blocksopca*** Block dimension reduction by SO-PCA
-- ***blocksopls*** Block dimension reduction by SO-PLS
+- ***blockscal*** Block autoscaling: Used for MB-PLS or MB-PCA 
+- ***blocksopca*** Block dimension reduction by SO-PCA (sequential orthogonalization)
+- ***blocksopls*** Block dimension reduction by SO-PLS (sequential orthogonalization)
 - ***orthog*** Orthogonalization of a matrix to another matrix
 
 ### <span style="color:green"> Outlyingness Multivariate Measures (Outliers) </span> 
