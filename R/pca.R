@@ -6,7 +6,7 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
     p <- zdim[2]
     
     ncomp <- min(ncomp, n, p)
-    zncomp <- seq(0, ncomp)
+    zncomp <- seq_len(ncomp)
     
     if(is.null(algo))
         if(n < p)
@@ -18,6 +18,8 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
 
     zTT <- fm$weights * fm$T * fm$T
     tt <- colSums(zTT)
+    ## = Variances of the scores if T is centered
+    ## = eig except for pca_cr and pca_sph
     
     Xr <- .center(Xr, fm$xmeans)
     xsstot <- sum(fm$weights * Xr * Xr, na.rm = TRUE)
@@ -25,14 +27,13 @@ pca <- function(Xr, Xu = NULL, ncomp, algo = NULL, ...) {
     ## = trace of Cov(Xr)
     ## = sum(diag(crossprod(fm$weights * Xr, Xr)))
     
-    zvar <- c(0, tt)
-    pvar <-    zvar / xsstot
+    pvar <- tt / xsstot
     cumpvar <- cumsum(pvar)
     
     ## Weighted SSR (not usefull here)
-    #ssr <- n * (xsstot - cumsum(zvar))
+    #ssr <- n * (xsstot - cumsum(tt))
     
-    z <- data.frame(ncomp = zncomp, var = zvar, pvar = pvar, cumpvar = cumpvar)
+    z <- data.frame(ncomp = zncomp, var = tt, pvar = pvar, cumpvar = cumpvar)
     row.names(z) <- zncomp
     explvar <- z
     

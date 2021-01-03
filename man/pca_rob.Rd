@@ -1,7 +1,7 @@
-\name{pcarob}
-\alias{pcarob}
-\alias{pcacr}
-\alias{pcasph}
+\name{pca_rob}
+\alias{pca_rob}
+\alias{pca_cr}
+\alias{pca_sph}
 \encoding{latin1}
 
 \title{Robust PCA algorithms}
@@ -10,17 +10,17 @@
 
 Algorithms implementing a robust PCA of a matrix \eqn{X}. 
 
-- \code{pcacr}: 
+- \code{pca_cr}: 
 
 Croux & Ruiz-Gazen (C-R) PCA algorithm using projection pursuit (PP) method (Croux & Ruiz-Gazen 2005). The observations are robustly centered, and projected to specific "PP" directions (see below) of the spaned by the variables (\eqn{X} columns). The PCA loading vectors are the directions (within these PP directions) that maximize a given "projection index", usually a robust spread measure such as MAD. The 1st loading vector is choosen within the \eqn{n} directions corresponding the observations (rows of \eqn{X}). The next loading vector is choosen in \eqn{n} directions corresponding the rows of the deflated matrix \eqn{X}). And so on.
 
-A possible extension  of the algorithm is to randomly simulate additionnal candidate PP directions to the \eqn{n} row observations. In function \code{pcacr}, this is done when argument \code{nsim > 0}. In such a case, the function simulates \eqn{nsim} additional PP directions to the \eqn{n} initial ones, as proposed in Hubert et al. (2005): random couples of observations are sampled in \eqn{X} and, for each couple, the direction passes through the two observations of the couple (see functions \code{.simpp.hub} in file \code{zfunctions.R}).
+A possible extension  of the algorithm is to randomly simulate additionnal candidate PP directions to the \eqn{n} row observations. In function \code{pca_cr}, this is done when argument \code{nsim > 0}. In such a case, the function simulates \eqn{nsim} additional PP directions to the \eqn{n} initial ones, as proposed in Hubert et al. (2005): random couples of observations are sampled in \eqn{X} and, for each couple, the direction passes through the two observations of the couple (see functions \code{.simpp.hub} in file \code{zfunctions.R}).
 
-- \code{pcasph}: 
+- \code{pca_sph}: 
 
 Spherical PCA (see Locantore et al. 1990, Maronna 2005, Daszykowski et al. 2007). The spatial median used for centering matrix \eqn{X} is calculated by function \code{.xmedspa} (available in file \code{zfunctions.R}). This function uses the fast code of rrcov v.1.4-3 available on R CRAN (Thanks to V. Todorov, 2016).
 
-- \code{pcarob}: 
+- \code{pca_rob}: 
 
 Robust PCA combining outlyingness measures and weighted PCA (WPCA). Rows of matrix \eqn{X} receive weights depending on outlyingness. The algorithm is in the same spirit (but quite different) as the ROBPCA method (Hubert et al. 2005, 2009). It is built in the two following steps. Note that the second step is facultative (argument \code{step2}). 
 
@@ -34,11 +34,11 @@ In all functions, matrix \eqn{X} is centered before the analyses, but \eqn{X} is
 
 \usage{
 
-pcacr(X, ncomp, obj = mad, nsim = 0)
+pca_cr(X, ncomp, obj = mad, nsim = 0)
 
-pcasph(X, ncomp, weights = NULL)
+pca_sph(X, ncomp, weights = NULL)
 
-pcarob(X, ncomp, nsim = 1500, alpha = .30, step2 = TRUE, 
+pca_rob(X, ncomp, nsim = 1500, alpha = .30, step2 = TRUE, 
                     weights = NULL, ...)
 
 }
@@ -49,17 +49,17 @@ pcarob(X, ncomp, nsim = 1500, alpha = .30, step2 = TRUE,
 
 \item{ncomp}{The maximal number of PCA scores (= components = latent variables) to be calculated.}
 
-\item{obj}{For \code{pcacr}. The objective function (projection index) to maximize with the PP scores. Default to \code{obj = mad}. }
+\item{obj}{For \code{pca_cr}. The objective function (projection index) to maximize with the PP scores. Default to \code{obj = mad}. }
 
-\item{nsim}{For \code{pcacr} and \code{pcarob}. Used for the Stahel-Donoho outlyingness calculation (See \code{\link{outstah}}): a number of randomly simulated PP (projection pursuit) directions considered in addition to the \eqn{n} observations (rows of \eqn{X}).}
+\item{nsim}{For \code{pca_cr} and \code{pca_rob}. Used for the Stahel-Donoho outlyingness calculation (See \code{\link{outstah}}): a number of randomly simulated PP (projection pursuit) directions considered in addition to the \eqn{n} observations (rows of \eqn{X}).}
 
-\item{weights}{For \code{pcasph} and \code{pcarob}. A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
+\item{weights}{For \code{pca_sph} and \code{pca_rob}. A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
-\item{alpha}{For \code{pcarob}. Proportion \eqn{alpha} of the data used as hard rejection (outliers) in Step 1 (default to \code{alpha = .30}, i.e. 30pct are rejected).}
+\item{alpha}{For \code{pca_rob}. Proportion \eqn{alpha} of the data used as hard rejection (outliers) in Step 1 (default to \code{alpha = .30}, i.e. 30pct are rejected).}
 
-\item{step2}{For \code{pcarob}. If \code{TRUE} (default), Step 2 is implemented.}
+\item{step2}{For \code{pca_rob}. If \code{TRUE} (default), Step 2 is implemented.}
 
-\item{...}{For \code{pcarob}. Optional arguments to pass in function \code{\link{outsdod}}.}
+\item{...}{For \code{pca_rob}. Optional arguments to pass in function \code{\link{outsdod}}.}
 
 }
 
@@ -109,10 +109,10 @@ X <- datoctane$X
 plotsp(X)
 
 ncomp <- 2
-fm <- pcacr(X, ncomp = ncomp)
-#fm <- pcasph(X, ncomp = ncomp)
-#fm <- pcarob(X, ncomp = ncomp)
-#fm <- pcaeigen(X, ncomp = ncomp)
+fm <- pca_cr(X, ncomp = ncomp)
+#fm <- pca_sph(X, ncomp = ncomp)
+#fm <- pca_rob(X, ncomp = ncomp)
+#fm <- pca_eigen(X, ncomp = ncomp)
 z <- scordis(fm)
 sd <- z$dr$d
 cutsd <- z$cutoff

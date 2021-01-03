@@ -7,7 +7,8 @@ xssr <- function(X, T, P, xmeans = rep(0, dim(P)[1])) {
     X <- .matrix(X)
     T <- .matrix(T)
     P <- .matrix(P)
-    ncomp <- ncol(T)
+    
+    ncomp <- dim(T)[2]
     
     X0 <- .center(X, xmeans)
     ssr <- sum(X0 * X0)

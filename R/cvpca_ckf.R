@@ -1,4 +1,4 @@
-cvpcackf <- function(X, ncomp, algo = NULL, ...) {
+cvpca_ckf <- function(X, ncomp, algo = NULL, ...) {
 
     ### ckf-TRI algorithm: Saccenti & Camacho 2015 ("Algorithm3" p.469)
     ### = Simplification of the "Efficient ekf-TRI" (only column-wise removing)

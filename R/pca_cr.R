@@ -1,4 +1,4 @@
-pcacr <- function(X, ncomp, obj = mad, nsim = 0) {
+pca_cr <- function(X, ncomp, obj = mad, nsim = 0) {
 
     X <- .matrix(X)
     zdim <- dim(X)

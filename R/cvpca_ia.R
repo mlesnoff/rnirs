@@ -1,4 +1,4 @@
-cvpcaia <- function(X, ncomp, algo = NULL,
+cvpca_ia <- function(X, ncomp, algo = NULL,
                                          segm,
                                          start = "nipals",
                                          tol = .Machine$double.eps^0.5, 

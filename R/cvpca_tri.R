@@ -1,4 +1,4 @@
-cvpcatri <- function(X, ncomp, algo = NULL, 
+cvpca_tri <- function(X, ncomp, algo = NULL, 
                                             segm, 
                                             print = TRUE, ...) {
 

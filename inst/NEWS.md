@@ -1,5 +1,37 @@
 ## NEWS for package **rnirs**
 
+## **Version 1.9-10**
+
+- **pca**: Row "ncomp=0" removed in output "explvar"
+
+#### **New functions**
+
+- **screeplot**
+- **selkaiser**
+- **selkarlis**
+- **selbroken**
+- **selhorn**
+- **plotsl**
+
+#### **Renamed functions**
+
+- **cvpcackf** to  **cvpca_ckf**
+- **cvpcaia** to  **cvpca_ia**
+- **cvpcatri** to  **cvpca_tri**
+- **cvpcarw** to  **cvpca_rw**
+
+- **pcasph** to  **pca_sph**
+- **pcacr** to **pca_cr** 
+- **pcarob** to **pca_rob**
+
+#### **Modified functions**
+
+
+
+
+
+
+
 ## **Version 1.9-9**
 
 - Code cleaning
@@ -12,7 +44,7 @@
 ## **Version 1.9-8**
 
 - Gram-Schmidt orthogonalization has been added to function **pca_nipals**, 
-and modified in pca_nipalsna**
+and modified in **pca_nipalsna**
 
 - Code cleaning
 

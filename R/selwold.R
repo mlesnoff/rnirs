@@ -9,7 +9,9 @@ selwold <- function(r, start = 0,
     type <- match.arg(type)
     plot <- match.arg(plot)
     
-    zindex <- seq(start, start + length(r) - 1)
+    n <- length(r)
+    
+    zindex <- seq(start, start + n - 1)
     
     ## val = Value on which are calculated diff and R
     val <- switch(
@@ -33,12 +35,11 @@ selwold <- function(r, start = 0,
         sel <- opt
     sel <- min(opt, sel)
     
-    dat <- data.frame(index = zindex, r = r)
-    n <- dim(dat)[1]
-    dat$val <- val
-    dat$diff <- -zdiff
-    dat$R <- round(R, digits = digits)
-    row.names(dat) <- seq_len(n)
+    res <- data.frame(index = zindex, r = r)
+    res$val <- val
+    res$diff <- -zdiff
+    res$R <- round(R, digits = digits)
+    row.names(res) <- seq_len(n)
 
     if(plot %in% c("R", "diff")) {
         
@@ -71,6 +72,7 @@ selwold <- function(r, start = 0,
         points(opt, r[zindex == opt], pch = 16, col = "red", cex = 1.2)
         axis(side = 1, at = labs, labels = labs, fg = fg)
         abline(h = min(r), col = "grey")
+        on.exit(par(oldpar))
         
         if(type == "smooth") {
             lines(zindex, val, type = "l", col = "red")
@@ -111,6 +113,6 @@ selwold <- function(r, start = 0,
         
         }
 
-    list(res = dat, opt = opt, sel = sel)
+    list(res = res, opt = opt, sel = sel)
         
     }

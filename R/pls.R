@@ -11,7 +11,9 @@ pls <- function(Xr, Yr, Xu = NULL, ncomp, algo = NULL, ...) {
     fm <- algo(Xr, Y, ncomp, ...)
     
     tt <- fm$TT
+    ## = Variances of the scores if T is centered
     tt.adj <- colSums(fm$P * fm$P) * tt
+    ## = Adjustment required since P are not orthogonal
     
     Xr <- .center(Xr, fm$xmeans)
     xsstot <- sum(fm$weights * Xr * Xr, na.rm = TRUE)

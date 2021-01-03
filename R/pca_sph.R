@@ -1,4 +1,4 @@
-pcasph <- function(X, ncomp, weights = NULL) {
+pca_sph <- function(X, ncomp, weights = NULL) {
     
     X <- .matrix(X)
     zdim <- dim(X)

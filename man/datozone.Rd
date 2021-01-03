@@ -63,13 +63,8 @@ data(datozone)
 
 z <- datozone$X
 head(z)
-plotxna(z, asp = 0, grid = FALSE)
 
-## Removing rows with NAs
-u <- which(!is.na(rowSums(z)))
-X <- z[u, -4]
-y <- z[u, 4]
-head(X)
+plotxna(z)
 
 }
 

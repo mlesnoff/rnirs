@@ -84,7 +84,7 @@ X
 outstah(X)
 outeucl(X)
 
-fm <- pcarob(X, ncomp = 2)
+fm <- pca_rob(X, ncomp = 2)
 outsdod(fm, X)
 
 }

@@ -26,7 +26,7 @@ cvfit(X, Y, fun, segm, print = FALSE, ...)
 
 \item{segm}{A list of the test segments. Typically, output of function \code{\link{segmkf}} or \code{\link{segmts}}.} 
 
-\item{print}{Logical. If \code{TRUE}, fitting information are printed.}
+\item{print}{Logical. If \code{TRUE} (default), fitting information are printed.}
 
 \item{...}{Optionnal arguments to pass through function \code{fun}.}
 

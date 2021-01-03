@@ -18,9 +18,9 @@
   
 - **Algorithms for robust PCA**
   
-  - ***pcasph*** Spherical PCA (Locantore 1999) \cr
-  - ***pcacr*** Projection-Pursuit PCA (Croux & Ruiz-Gazen 2005)
-  - ***pcarob*** Robust weighting
+  - ***pca_sph*** Spherical PCA (Locantore 1999) \cr
+  - ***pca_cr*** Projection-Pursuit PCA (Croux & Ruiz-Gazen 2005)
+  - ***pca_rob*** Robust weighting
 
 ### <span style="color:green"> PLS </span>
 
@@ -181,10 +181,10 @@
 - ***segmts*** Building segments for test-set CV
 - ***cvfit*** Generic function for cross-validating a model
 - **Specific CV for PCA**
-  - ***cvpcaia*** IA algorithm
-  - ***cvpcatri*** ekf-TRI algorithm
-  - ***cvpcackf*** ckf-TRI algorithm
-  - ***cvpcarw*** Row-wise algorithm
+  - ***cvpca_ia*** IA algorithm
+  - ***cvpca_tri*** ekf-TRI algorithm
+  - ***cvpca_ckf*** ckf-TRI algorithm
+  - ***cvpca_rw*** Row-wise algorithm
 - **Model complexity (df)**
   - ***dfplsrcov***, ***dfplsrdiv*** Monte Carlo estimation of df for PLSR1 models 
   - ***dfpcadiv*** Monte Carlo estimation of df for PCA models 

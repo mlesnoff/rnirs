@@ -1,4 +1,4 @@
-cvpcarw <- function(X, ncomp, algo = NULL, segm, 
+cvpca_rw <- function(X, ncomp, algo = NULL, segm, 
                                     print = TRUE, ...) {
     
     ### Row-wise K-fold (rkf) algorithm

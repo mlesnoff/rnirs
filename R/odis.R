@@ -16,7 +16,7 @@ odis <- function(fm, Xr, Xu = NULL,
     rownam <- row.names(X)
     
     E <- .center(X, fm$xmeans) - tcrossprod(fm$Tr[, seq_len(ncomp), drop = FALSE], 
-                                                                                    fm$P[, seq_len(ncomp), drop = FALSE])
+                                            fm$P[, seq_len(ncomp), drop = FALSE])
     
     ## Same as
     ## E <- Xr - xfit(fm$Tr[, seq_len(ncomp), drop = FALSE],
@@ -60,7 +60,7 @@ odis <- function(fm, Xr, Xu = NULL,
         Tu <- .projscor(fm, Xu)
 
         E <- .center(Xu, fm$xmeans) - tcrossprod(Tu[, seq_len(ncomp), drop = FALSE], 
-                                                                                         fm$P[, seq_len(ncomp), drop = FALSE])
+                                                 fm$P[, seq_len(ncomp), drop = FALSE])
         ## Same as:
         ## E <- Xu - xfit(fm$Tu[, seq_len(ncomp), drop = FALSE],
         ##                            fm$P[, seq_len(ncomp), drop = FALSE], fm$xmeans)
@@ -71,7 +71,7 @@ odis <- function(fm, Xr, Xu = NULL,
         dstand <- d / cutoff 
         
         du <- data.frame(rownum = seq_len(m), rownam = rownam, ncomp = rep(ncomp, m), 
-            d = d, dstand = dstand)
+                         d = d, dstand = dstand)
         rownames(du) <- seq_len(m)
         
         }
