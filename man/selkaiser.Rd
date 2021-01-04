@@ -2,7 +2,7 @@
 \alias{selkaiser}
 \encoding{latin1}
 
-\title{Heuristic selection of the number of components in a PCA with the Guttman-Kaiser rule}
+\title{Heuristic selection of the dimension of a PCA model with the Guttman-Kaiser rule}
 
 \description{
 
@@ -10,7 +10,7 @@ The function helps selecting the dimension (i.e. nb. components) of a PCA model 
 
 The input matrix \eqn{X} is centered internally to the function. The eigenvalues are compared to the mean eigenvalue (\eqn{= sum(eigs) / p} for a matrix with \eqn{p} columns). If \eqn{X} is scaled and using the denominator \eqn{n} (not \eqn{n - 1}) for the variance and covariance calculations, \eqn{sum(eigs) / p = 1}.
 
-If argument \code{ci = TRUE}, the eigenvalues are replaced by the lower limit of their 95pct confidence interval, calculated by back-transformation after assuming that \eqn{var(log(eig) = 2 / n}} where \eqn{n} is the number of observations (see Karlis et al. 2003 p.647).   
+If argument \code{ci = TRUE}, the eigenvalues are replaced by the lower limit of their 95pct confidence interval, calculated by back-transformation after assuming that \eqn{var(log(eig) = 2 / n} where \eqn{n} is the number of observations (see Karlis et al. 2003 p.647).   
 
 }
 
@@ -20,7 +20,6 @@ selkaiser(X, ncomp, algo = NULL,
     ci = FALSE, alpha = 1,
     plot = TRUE,
     xlab = "Nb. components", ylab = NULL,
-    print = TRUE,
     ...)
 
 }
@@ -35,15 +34,13 @@ selkaiser(X, ncomp, algo = NULL,
 
 \item{ci}{Logical. If \code{TRUE}, the eigenvalues are replaced by an estimate of the lower limit of their 95pct confidence interval. Default to \code{FALSE}.}
 
-\item{ci}{A scalar multiplying the mean eigenvalue used for comparisons. Default to \code{alpha = 1}.}
+\item{alpha}{A scalar multiplying the mean eigenvalue used for comparisons. Default to \code{alpha = 1}.}
 
 \item{plot}{Logical. If \code{TRUE} (default), the results are plotted.}
 
 \item{xlab}{Label for the x-axis of the plot.}
 
 \item{ylab}{Label for the y-axis of the plot.}
-
-\item{print}{Logical. If \code{TRUE} (default), fitting information are printed.}
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 
