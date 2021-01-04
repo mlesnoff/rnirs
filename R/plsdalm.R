@@ -1,5 +1,8 @@
-plsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
-                                        algo = NULL, ...) {
+plsdalm <- function(
+    Xr, Yr, Xu, Yu = NULL, ncomp, 
+    algo = NULL, 
+    ...
+    ) {
 
     Xu <- .matrix(Xu)
     m <- dim(Xu)[1]

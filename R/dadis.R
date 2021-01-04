@@ -1,5 +1,8 @@
-dadis <- function(Xr, Yr, Xu, Yu = NULL,
-    diss = c("euclidean", "mahalanobis", "correlation"), sigma = NULL){
+dadis <- function(
+    Xr, Yr, Xu, Yu = NULL,
+    diss = c("euclidean", "mahalanobis", "correlation"), 
+    sigma = NULL
+    ){
     
     diss <- match.arg(diss)
 

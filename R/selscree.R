@@ -1,6 +1,8 @@
-screeplot <- function(fm, ncomp = NULL,
-                      scree = c("log", "eig", "split"),
-                      ...) {
+selscree <- function(
+    fm, ncomp = NULL,
+    scree = c("log", "eig", "split"),
+    ...
+    ) {
     
     scree <- match.arg(scree)
     
@@ -20,14 +22,14 @@ screeplot <- function(fm, ncomp = NULL,
     eig <- eig[zncomp]
     
     if(scree == "log")
-        res <- plotsl(log(eig), 
-                      xlab = "Nb. components", ylab = "Eig.", 
-                      main = "log-scale", ...)
+        plotsl(log(eig), 
+               xlab = "Nb. components", ylab = "Eig.", 
+               main = "log-scale", ...)
         
     if(scree == "eig")
-        res <- plotsl(eig, 
-                      xlab = "Nb. components", ylab = "Eig.", 
-                      ...)
+        plotsl(eig, 
+               xlab = "Nb. components", ylab = "Eig.", 
+               ...)
     
     if(scree == "split") {
       
@@ -35,12 +37,10 @@ screeplot <- function(fm, ncomp = NULL,
         plotsp(zT, xlab = "Nb. components", ylab = "Score", ...)
         lines(sqrt(eig), col = "red", lwd = 2)
         abline(h = 0, col = "grey")
-        
-        res <- NULL
-            
+
         }
     
-    invisible(res)
+    list(eig = eig)
     
     }
 

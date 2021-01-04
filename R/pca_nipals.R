@@ -1,8 +1,9 @@
-pca_nipals <- function(X, ncomp, 
-                       weights = NULL,
-                       gs = TRUE,
-                       tol = .Machine$double.eps^0.5, 
-                       maxit = 200) {
+pca_nipals <- function(
+    X, ncomp, 
+    weights = NULL,
+    gs = TRUE,
+    tol = .Machine$double.eps^0.5, maxit = 200
+    ) {
     
     #if(any(is.na(X)))
     #    stop("\n\n Missing data (NAs) are not allowed in this NIPALS function. \n\n")

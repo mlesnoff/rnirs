@@ -1,5 +1,8 @@
-.blocksopca <- function(Xr, Xu = NULL, ncomp, 
-                        blocks, colblocks = NULL, ...) {
+.blocksopca <- function(
+    Xr, Xu = NULL, ncomp, 
+    blocks, colblocks = NULL, 
+    ...
+    ) {
     
     ## All components of the input 'ncomp' must be > 0
     

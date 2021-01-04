@@ -8,7 +8,7 @@
 
 Plot the slopes or differences between two successive elements of a vector \code{x}.
 
-The function is mainly used by other functions, such as \code{\link{screeplot}}, etc.
+The function is mainly used by other functions, such as \code{\link{selscree}}, etc.
 
 }
 
@@ -40,7 +40,7 @@ plotsl(x,
 
 \value{
 
-A data.frame (invisible), see the examples.
+A list (invisible) of outputs, see the examples.
 
 }
 
@@ -57,7 +57,7 @@ fm <- pca_eigen(zX, ncomp = ncomp)
 plotsl(fm$eig[seq(ncomp)], plot = "diff")
 
 z <- plotsl(fm$eig[seq(ncomp)], plot = "none")
-head(z)
+names(z)
 
 }
 

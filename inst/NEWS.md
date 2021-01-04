@@ -2,16 +2,16 @@
 
 ## **Version 1.9-10**
 
-- **pca**: Row "ncomp=0" removed in output "explvar"
-
 #### **New functions**
 
-- **screeplot**
-- **selkaiser**
-- **selkarlis**
-- **selbroken**
-- **selhorn**
-- **plotsl**
+- Graphic methods for selecting PCA or PLS model dimension
+
+  - **selscree**
+  - **selkaiser**
+  - **selkarlis**
+  - **selbroken**
+  - **selhorn**
+  - **plotsl**
 
 #### **Renamed functions**
 
@@ -20,12 +20,17 @@
 - **cvpcatri** to  **cvpca_tri**
 - **cvpcarw** to  **cvpca_rw**
 
+- **dfpcadiv** to **dfpca_div**
+- **dfplscov** to **dfpls_cov**
+- **dfplsdiv** to **dfpls_div**
+
 - **pcasph** to  **pca_sph**
 - **pcacr** to **pca_cr** 
 - **pcarob** to **pca_rob**
 
 #### **Modified functions**
 
+- **pca**: Row "ncomp=0" removed in output "explvar"
 
 
 

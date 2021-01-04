@@ -1,8 +1,11 @@
-plotxy <- function(X, asp = 1, col = NULL, alpha.f = .8,
+plotxy <- function(
+    X, 
+    asp = 1, col = NULL, alpha.f = .8,
     group = NULL, legend = TRUE, legend.title = NULL, ncol = 1,
     zeroes = FALSE, circle = FALSE, ellipse = FALSE,
     labels = FALSE,
-    ...) {
+    ...
+    ) {
     
     X <- as.data.frame(X[, seq_len(2)])
     rownam <- row.names(X)

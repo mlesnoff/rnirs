@@ -1,5 +1,8 @@
-plsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
-                                    algo = NULL, da = dalm, ...) {
+plsda <- function(
+    Xr, Yr, Xu, Yu = NULL, ncomp, 
+    algo = NULL, da = dalm, 
+    ...
+    ) {
     
     if(is.null(algo))
         algo <- pls_kernel

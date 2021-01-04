@@ -1,6 +1,9 @@
-cvpca_tri <- function(X, ncomp, algo = NULL, 
-                                            segm, 
-                                            print = TRUE, ...) {
+cvpca_tri <- function(
+    X, ncomp, algo = NULL, 
+    segm, 
+    print = TRUE, 
+    ...
+    ) {
 
     ### It also returns equal results to "Iterative ekf-TRI" with niter = 1
     ### = "Algorithm1" in Camacho & Ferrer 2014

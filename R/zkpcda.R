@@ -1,5 +1,9 @@
-.kpcda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm, 
-                                     kern = kpol, ...) {
+.kpcda <- function(
+    Xr, Yr, Xu, Yu = NULL, 
+    ncomp, da = dalm, 
+    kern = kpol, 
+    ...
+    ) {
     
     Xr <- .matrix(Xr)
     zdim <- dim(Xr)

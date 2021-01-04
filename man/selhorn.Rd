@@ -2,7 +2,7 @@
 \alias{selhorn}
 \encoding{latin1}
 
-\title{Heuristic selection of the number of components in a PCA with the Horn method}
+\title{Heuristic selection of the dimension of a PCA model with the Horn method}
 
 \description{
 

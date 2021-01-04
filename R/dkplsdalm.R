@@ -1,5 +1,10 @@
-dkplsdalm <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
-                                 kern = kpol, weights = NULL, print = TRUE, ...) { 
+dkplsdalm <- function(
+    Xr, Yr, Xu, Yu = NULL, ncomp, 
+    kern = kpol, 
+    weights = NULL, 
+    print = TRUE, 
+    ...
+    ) { 
     
     if(is.character(kern)) {
         namkern <- kern

@@ -1,5 +1,8 @@
-blocksopls <- function(Xr, Yr, Xu = NULL, ncomp, 
-                       blocks, colblocks = NULL, ...) {
+blocksopls <- function(
+    Xr, Yr, Xu = NULL, ncomp,
+    blocks, colblocks = NULL, 
+    ...
+    ) {
     
     ## If argument 'blocks = NULL',
     ## an object 'blocks' (= a list with the block indexes) is created

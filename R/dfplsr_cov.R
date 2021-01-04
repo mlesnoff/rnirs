@@ -1,6 +1,9 @@
-dfplsrcov <- function(X, Y, ncomp, algo = NULL,
-                      B = 50, 
-                      seed = NULL, print = TRUE, ...) {
+dfplsr_cov <- function(
+    X, Y, ncomp, algo = NULL,
+    B = 50, seed = NULL, 
+    print = TRUE, 
+    ...
+    ) {
     
     X <- .matrix(X)
     n <- dim(X)[1]

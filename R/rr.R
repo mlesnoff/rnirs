@@ -1,5 +1,8 @@
-rr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, 
-                                        weights = NULL) {
+rr <- function(
+    Xr, Yr, Xu, Yu = NULL, 
+    lambda = 0, unit = 1, 
+    weights = NULL
+    ) {
     
     Xr <- .matrix(Xr)
     xmeans <- .xmean(Xr, weights)

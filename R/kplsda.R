@@ -1,5 +1,10 @@
-kplsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm, 
-                                 kern = kpol, weights = NULL, print = TRUE, ...) { 
+kplsda <- function(
+    Xr, Yr, Xu, Yu = NULL, ncomp, 
+    da = dalm, kern = kpol, 
+    weights = NULL, 
+    print = TRUE, 
+    ...
+    ) { 
     
     if(is.character(kern)) {
         namkern <- kern

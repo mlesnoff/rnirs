@@ -1,5 +1,8 @@
-matdis <- function(X, diss = c("euclidean", "mahalanobis", "correlation"),
-    weights = NULL) {
+matdis <- function(
+    X, 
+    diss = c("euclidean", "mahalanobis", "correlation"),
+    weights = NULL
+    ) {
     
     diss <- match.arg(diss)
 

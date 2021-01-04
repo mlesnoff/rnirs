@@ -2,13 +2,13 @@
 \alias{selkarlis}
 \encoding{latin1}
 
-\title{Heuristic selection of the number of components in a PCA with the Karlis et al. method}
+\title{Heuristic selection of the dimension of a PCA model with the Karlis et al. method}
 
 \description{
 
 The function helps selecting the dimension (i.e. nb. components) of a PCA model using the method proposed by Karlis et al. 2003. 
 
-The method is a modified version of the Guttman-Kaiser rule (see function \code{\link{selkaseir}}). The input matrix \eqn{X} is centered and scaled internally to the function. The eigenvalues are compared to the mean eigenvalue (= 1) plus an approximate standard error that accounts for estimation uncertainty (see Karlis et al. 2003).   
+The method is a modified version of the Guttman-Kaiser rule (see function \code{\link{selkaiser}}). The input matrix \eqn{X} is centered and scaled internally to the function. The eigenvalues are compared to the mean eigenvalue (= 1) plus an approximate standard error that accounts for estimation uncertainty (see Karlis et al. 2003).   
 
 }
 
@@ -17,7 +17,6 @@ The method is a modified version of the Guttman-Kaiser rule (see function \code{
 selkarlis(X, ncomp, algo = NULL,
     plot = TRUE,
     xlab = "Nb. components", ylab = NULL,
-    print = TRUE,
     ...)
 
 }
@@ -35,8 +34,6 @@ selkarlis(X, ncomp, algo = NULL,
 \item{xlab}{Label for the x-axis of the plot.}
 
 \item{ylab}{Label for the y-axis of the plot.}
-
-\item{print}{Logical. If \code{TRUE} (default), fitting information are printed.}
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 

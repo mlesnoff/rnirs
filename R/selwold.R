@@ -1,4 +1,5 @@
-selwold <- function(r, start = 0, 
+selwold <- function(
+    r, start = 0, 
     type = c("raw", "smooth", "integral"), 
     alpha = .01, digits = 3,
     plot = c("R", "diff", "none"),

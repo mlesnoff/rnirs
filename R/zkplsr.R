@@ -1,5 +1,10 @@
-.kplsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, kern = kpol, 
-                                 weights = NULL, ...) {
+.kplsr <- function(
+    Xr, Yr, Xu, Yu = NULL, 
+    ncomp, 
+    kern = kpol, 
+    weights = NULL, 
+    ...
+    ) {
     
     Xr <- .matrix(Xr)
     zdim <- dim(Xr)

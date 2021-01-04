@@ -1,7 +1,8 @@
-pca_nipalsna <- function(X, ncomp, 
-                        gs = TRUE, 
-                        tol = .Machine$double.eps^0.5, 
-                        maxit = 200) {
+pca_nipalsna <- function(
+    X, ncomp, 
+    gs = TRUE, 
+    tol = .Machine$double.eps^0.5, maxit = 200
+    ) {
     
     X <- .matrix(X)
     zdim <- dim(X)

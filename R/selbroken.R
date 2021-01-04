@@ -1,7 +1,9 @@
-selbroken <- function(X, ncomp, algo = NULL,
-                      plot = TRUE, 
-                      xlab = "Nb. components", ylab = NULL,
-                      ...) {
+selbroken <- function(
+  X, ncomp, algo = NULL,
+  plot = TRUE, 
+  xlab = "Nb. components", ylab = NULL,
+  ...
+  ) {
     
     X <- .scale(X, scale = sqrt(.xvar(X, ...)))
     
@@ -58,7 +60,6 @@ selbroken <- function(X, ncomp, algo = NULL,
                 u <- seq(opt + 1, ncomp)
                 points(zncomp[u], eig[u], pch = 16, col = "grey", cex = 1.2)
                 }
-        on.exit(par(oldpar))
         
         .plot_scree(log(eig), 
                     xlab = xlab, ylab = ylab, main = "log-scale")
@@ -68,7 +69,6 @@ selbroken <- function(X, ncomp, algo = NULL,
                 u <- seq(opt + 1, ncomp)
                 points(zncomp[u], log(eig[u]), pch = 16, col = "grey", cex = 1.2)
                 }
-        on.exit(par(oldpar))
         
         par(oldpar)
 

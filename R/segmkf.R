@@ -1,6 +1,8 @@
-segmkf <- function(n, y = NULL, K = 5, 
-                   type = c("random", "consecutive", "interleaved"), 
-                   nrep = 1, seed = NULL) {
+segmkf <- function(
+    n, y = NULL, K = 5, 
+    type = c("random", "consecutive", "interleaved"), 
+    nrep = 1, seed = NULL
+    ) {
     
     type <- match.arg(type)
 

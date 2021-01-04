@@ -1,9 +1,12 @@
-cvpca_ia <- function(X, ncomp, algo = NULL,
-                                         segm,
-                                         start = "nipals",
-                                         tol = .Machine$double.eps^0.5, 
-                                         maxit = 10000, 
-                                         print = TRUE, ...) {
+cvpca_ia <- function(
+    X, ncomp, algo = NULL,
+    segm,
+    start = "nipals",
+    tol = .Machine$double.eps^0.5, 
+    maxit = 10000, 
+    print = TRUE, 
+    ...
+    ) {
 
     X <- .matrix(X)
     zdim <- dim(X)

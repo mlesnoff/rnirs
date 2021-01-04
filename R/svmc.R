@@ -1,6 +1,10 @@
-svmc <- function(Xr, Yr, Xu, Yu = NULL,
-                                 C = 1, epsilon = .1, kern = krbf, 
-                                 print = TRUE, ...) {
+svmc <- function(
+    Xr, Yr, Xu, Yu = NULL,
+    C = 1, epsilon = .1, 
+    kern = krbf, 
+    print = TRUE, 
+    ...
+    ) {
     
     if(!is.factor(Yr))
         Yr <- as.factor(Yr)

@@ -1,5 +1,5 @@
-\name{dfpcadiv}
-\alias{dfpcadiv}
+\name{dfpca_div}
+\alias{dfpca_div}
 \encoding{latin1}
 
 \title{Degrees of freedom of PCA Models}
@@ -14,9 +14,12 @@ This is a pedagogical function since the true \eqn{df} of a PCA model can be com
 
 \usage{
 
-dfpcadiv(X, ncomp, algo = NULL, 
-  ns = 50, eps = 1e-4, 
-  seed = NULL, print = TRUE, ...) 
+dfpca_div(
+    X, ncomp, algo = NULL, 
+    ns = 50, eps = 1e-4, seed = NULL, 
+    print = TRUE, 
+    ...
+    ) 
 
 }
 
@@ -74,7 +77,7 @@ X <- z[u, -4]
 dim(X)
 
 ncomp <- 20
-fm <- dfpcadiv(X, ncomp, ns = 30)
+fm <- dfpca_div(X, ncomp, ns = 30)
 zncomp <- 0:ncomp
 plot(zncomp, fm$df, xlab = "Nb. Components", ylab = "Degrees of freedom")
 ## True df

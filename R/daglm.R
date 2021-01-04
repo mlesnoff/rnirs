@@ -1,5 +1,8 @@
-daglm <- function(Xr, Yr, Xu, Yu = NULL, family = binomial(link = "logit"),
-                                    weights = NULL){
+daglm <- function(
+    Xr, Yr, Xu, Yu = NULL, 
+    family = binomial(link = "logit"),
+    weights = NULL
+    ){
     
     Xr <- .matrix(Xr)
     n <- dim(Xr)[1]

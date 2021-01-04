@@ -1,4 +1,4 @@
-dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp, nmin = 5,    ...){
+dasdod <- function(Xr, Yr, Xu, Yu = NULL, ncomp, nmin = 5, ...){
     
     if(nmin < 2) stop("\nArgument nmin must be >= 2.\n\n")
     

@@ -1,5 +1,9 @@
-kpls_nipals <- function(X, Y, ncomp, kern = kpol, weights = NULL,
-                                                 tol = .Machine$double.eps^0.5, maxit = 100, ...) {
+kpls_nipals <- function(
+    X, Y, ncomp, 
+    kern = kpol, weights = NULL,
+    tol = .Machine$double.eps^0.5, maxit = 100, 
+    ...
+    ) {
     
     X <- .matrix(X)
     zdim <- dim(X)

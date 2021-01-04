@@ -1,6 +1,8 @@
-dis <- function(Xr, Xu = NULL, mu = NULL, 
+dis <- function(
+    Xr, Xu = NULL, mu = NULL, 
     diss = c("euclidean", "mahalanobis", "correlation"), sigma = NULL, 
-    weights = NULL) {
+    weights = NULL
+    ) {
     
     diss <- match.arg(diss)
     

@@ -1,12 +1,12 @@
-\name{screeplot}
-\alias{screeplot}
+\name{selscree}
+\alias{selscree}
 \encoding{latin1}
 
 \title{Scree plots for PCA or PLS}
 
 \description{
 
-Plot the variability of the row observations over each score of a PCA or PLS model.
+The function helps selecting the dimension (i.e. nb. components) of a PCA or PLS model by Ploting the variability of the row observations over each score.
 
 Depending on the following values of argument \code{scree}
 
@@ -21,7 +21,7 @@ noise are expected decaying geometrically (Cangelosi & Goriely 2007) leading to 
 
 \usage{
 
-screeplot(fm, ncomp = NULL,
+selscree(fm, ncomp = NULL,
     scree = c("log", "eig", "split"),
     ...)
 
@@ -41,7 +41,7 @@ screeplot(fm, ncomp = NULL,
 
 \value{
 
-A data.frame (invisible), see the examples.
+A list of outputs, see the examples.
 
 }
 
@@ -64,15 +64,18 @@ plotsp(zX)
 ncomp <- 30
 fm <- pca_eigen(zX, ncomp = ncomp)
 
-screeplot(fm)
-screeplot(fm, plot = "diff")
-
-screeplot(fm, scree = "eig")
-
-screeplot(fm, scree = "split")
-
-z <- screeplot(fm, scree = "eig", plot = "none")
+selscree(fm)
+selscree(fm, scree = "eig")
+selscree(fm, scree = "split")
+z <- selscree(fm, scree = "eig", plot = "none")
 z
+
+## Random matrix with uncorrelated structure
+n <- 50 
+p <- 1000
+z <- matrix(rnorm(n * p), nrow = n)
+fm <- pca_eigenk(z, ncomp = 40)
+selscree(fm, plot = "diff")
 
 }
 

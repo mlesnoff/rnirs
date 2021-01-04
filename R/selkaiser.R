@@ -1,8 +1,10 @@
-selkaiser <- function(X, ncomp, algo = NULL,
-                      ci = FALSE, alpha = 1,
-                      plot = TRUE, 
-                      xlab = "Nb. components", ylab = NULL,
-                      ...) {
+selkaiser <- function(
+    X, ncomp, algo = NULL,
+    ci = FALSE, alpha = 1,
+    plot = TRUE, 
+    xlab = "Nb. components", ylab = NULL,
+    ...
+    ) {
     
     X <- .matrix(X)
     zdim <- dim(X)
@@ -57,7 +59,6 @@ selkaiser <- function(X, ncomp, algo = NULL,
                 u <- seq(opt + 1, ncomp)
                 points(zncomp[u], eig[u], pch = 16, col = "grey", cex = 1.2)
                 }
-        on.exit(par(oldpar))
         
         .plot_scree(log(eig), 
                     xlab = xlab, ylab = ylab, main = "log-scale")
@@ -69,7 +70,6 @@ selkaiser <- function(X, ncomp, algo = NULL,
                 u <- seq(opt + 1, ncomp)
                 points(zncomp[u], log(eig[u]), pch = 16, col = "grey", cex = 1.2)
                 }
-        on.exit(par(oldpar))
         
         par(oldpar)
 

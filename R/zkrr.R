@@ -1,5 +1,10 @@
-.krr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, kern = kpol, 
-                                        weights = NULL, ...) {
+.krr <- function(
+    Xr, Yr, Xu, Yu = NULL, 
+    lambda = 0, unit = 1, 
+    kern = kpol, 
+    weights = NULL, 
+    ...
+    ) {
     
     Xr <- .matrix(Xr)
     zdim <- dim(Xr)

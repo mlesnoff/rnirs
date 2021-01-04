@@ -1,5 +1,8 @@
-darr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, 
-                                 weights = NULL){
+darr <- function(
+    Xr, Yr, Xu, Yu = NULL, 
+    lambda = 0, unit = 1, 
+    weights = NULL
+    ){
     
     Xr <- .matrix(Xr)
     n <- nrow(Xr)

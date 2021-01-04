@@ -1,9 +1,12 @@
-cpplsr <- function(X, Y, ncomp, algo = NULL,
-                                     type = c("aicc", "aic", "bic"),
-                                     methdf = c("cov", "div", "naive"),
-                                     B = 50, eps = 1e-4, seed = NULL,
-                                     theta = 3, 
-                                     print = TRUE, ...) {
+cpplsr <- function(
+    X, Y, ncomp, algo = NULL,
+    type = c("aicc", "aic", "bic"),
+    methdf = c("cov", "div", "naive"),
+    B = 50, eps = 1e-4, seed = NULL,
+    theta = 3, 
+    print = TRUE, 
+    ...
+    ) {
     
     type <- match.arg(type) 
     methdf <- match.arg(methdf) 
@@ -18,12 +21,12 @@ cpplsr <- function(X, Y, ncomp, algo = NULL,
     ssr <- z$nbpred * z$msep
     
     if(methdf == "cov") 
-        df <- dfplsrcov(X, Y, ncomp = ncomp, algo = algo, 
-                                        B = B, seed = seed, print = print, ...)$df
+        df <- dfplsr_cov(X, Y, ncomp = ncomp, algo = algo, 
+                         B = B, seed = seed, print = print, ...)$df
     
     if(methdf == "div") 
-        df <- dfplsrdiv(X, Y, ncomp = ncomp, algo = algo, 
-                                         ns = B, eps = eps, seed = seed, print = print, ...)$df
+        df <- dfplsr_div(X, Y, ncomp = ncomp, algo = algo, 
+                         ns = B, eps = eps, seed = seed, print = print, ...)$df
     
     if(methdf == "naive")
         df <- 1 + theta * seq(0, ncomp)

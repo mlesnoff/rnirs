@@ -1,5 +1,9 @@
-daprob <- function(Xr, Yr, Xu, Yu = NULL, dens = dmnorm, 
-    lda = TRUE, prior = c("uniform", "proportional"), ...){
+daprob <- function(
+    Xr, Yr, Xu, Yu = NULL,
+    dens = dmnorm, 
+    lda = TRUE, prior = c("uniform", "proportional"), 
+    ...
+    ){
     
     .dens <- match.fun(FUN = dens)
     

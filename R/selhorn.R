@@ -1,9 +1,11 @@
-selhorn <- function(X, ncomp, algo = NULL,
-                    nrep = 10,
-                    plot = TRUE,
-                    xlab = "Nb. components", ylab = NULL,
-                    print = TRUE,
-                    ...) {
+selhorn <- function(
+    X, ncomp, algo = NULL,
+    nrep = 10,
+    plot = TRUE,
+    xlab = "Nb. components", ylab = NULL,
+    print = TRUE,
+    ...
+    ) {
     
     X <- .scale(X, scale = sqrt(.xvar(X, ...)))
     
@@ -61,7 +63,6 @@ selhorn <- function(X, ncomp, algo = NULL,
                 u <- seq(opt + 1, ncomp)
                 points(zncomp[u], eig[u], pch = 16, col = "grey", cex = 1.2)
                 }
-        on.exit(par(oldpar))
         
         .plot_scree(log(eig), 
                     xlab = xlab, ylab = ylab, main = "log-scale")
@@ -71,7 +72,6 @@ selhorn <- function(X, ncomp, algo = NULL,
                 u <- seq(opt + 1, ncomp)
                 points(zncomp[u], log(eig[u]), pch = 16, col = "grey", cex = 1.2)
                 }
-        on.exit(par(oldpar))
         
         par(oldpar)
 

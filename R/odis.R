@@ -1,5 +1,8 @@
-odis <- function(fm, Xr, Xu = NULL, 
-                                 ncomp = NULL, typcut = c("param", "mad", "boxplot")) {
+odis <- function(
+    fm, 
+    Xr, Xu = NULL, ncomp = NULL, 
+    typcut = c("param", "mad", "boxplot")
+    ) {
     
     if(is.null(fm$Tr))
         names(fm)[which(names(fm) == "T")] <- "Tr"

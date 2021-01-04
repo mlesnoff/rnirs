@@ -1,6 +1,6 @@
-\name{dfplsrcov}
-\alias{dfplsrcov}
-\alias{dfplsrdiv}
+\name{dfplsr_cov}
+\alias{dfplsr_cov}
+\alias{dfplsr_div}
 \encoding{latin1}
 
 \title{Degrees of freedom of PLSR1 Models}
@@ -9,21 +9,27 @@
 
 Monte Carlo estimation of the model complexity \eqn{df} (number of degrees of freedom) of PLSR1 models. See in particular Ye 1998 and Efron 2004.
 
-- In \code{dfplsrcov}, the covariances presented by Efron 2004 (Eq. 2.16) are calculated  by parametric bootstrap. The residual variance \eqn{sigma^2} is estimated from a low-biased model.
+- In \code{dfplsr_cov}, the covariances presented by Efron 2004 (Eq. 2.16) are calculated  by parametric bootstrap. The residual variance \eqn{sigma^2} is estimated from a low-biased model.
 
-- In \code{dfplsrdiv}, the divergencies \eqn{dy_fit/dy} presented by Ye (1998) and Efron (2004) are calculated by perturbation analysis. This is a Stein unbiased risk estimation (SURE) of \eqn{df}.
+- In \code{dfplsr_div}, the divergencies \eqn{dy_fit/dy} presented by Ye (1998) and Efron (2004) are calculated by perturbation analysis. This is a Stein unbiased risk estimation (SURE) of \eqn{df}.
 
 }
 
 \usage{
 
-dfplsrcov(X, Y, ncomp, algo = NULL,
-  B = 50,
-  seed = NULL, print = TRUE, ...)
+dfplsr_cov(
+    X, Y, ncomp, algo = NULL,
+    B = 50, seed = NULL, 
+    print = TRUE, 
+    ...
+    )
 
-dfplsrdiv(X, Y, ncomp, algo = NULL, 
-  ns = 50, meth.samp = c("syst", "random"), eps = 1e-4, 
-  seed = NULL, print = TRUE, ...) 
+dfplsr_div(
+   X, Y, ncomp, algo = NULL, 
+   ns = 50, meth.samp = c("syst", "random"), eps = 1e-4, seed = NULL, 
+   print = TRUE, 
+   ...
+   ) 
 
 }
 
@@ -37,13 +43,13 @@ dfplsrdiv(X, Y, ncomp, algo = NULL,
 
 \item{algo}{a PLS algorithm. Default to  \code{NULL} (\code{\link{pls_kernel}} is used).}
 
-\item{B}{For \code{dfplsrcov}. Number of bootstrap replications.}
+\item{B}{For \code{dfplsr_cov}. Number of bootstrap replications.}
 
-\item{ns}{For \code{dfplsrdiv}. Number of observations in the data receiving perturbation. The maximum is \eqn{n}.}
+\item{ns}{For \code{dfplsr_div}. Number of observations in the data receiving perturbation. The maximum is \eqn{n}.}
 
-\item{meth.samp}{For \code{dfplsrdiv}. When \eqn{ns < n}, method used for sampling the observations receiving a perturbation. Possible values are "syst" (default; observations are sampled regularly over \eqn{y}) or "random".}
+\item{meth.samp}{For \code{dfplsr_div}. When \eqn{ns < n}, method used for sampling the observations receiving a perturbation. Possible values are "syst" (default; observations are sampled regularly over \eqn{y}) or "random".}
 
-\item{eps}{For \code{dfplsrdiv}. The \eqn{epsilon} quantity used for scaling the perturbation analysis.}
+\item{eps}{For \code{dfplsr_div}. The \eqn{epsilon} quantity used for scaling the perturbation analysis.}
 
 \item{seed}{An integer defining the seed for the random simulation, or \code{NULL} (default). See \code{\link{set.seed}}.}
 
@@ -112,8 +118,8 @@ zX <- scale(X)    ## Scaling for consistency with plsdof
 
 ncomp <- 12
 ns <- B <- 50   ## Should be increased for more stability
-u <- dfplsrcov(zX, y, ncomp = ncomp, B = B)
-v <- dfplsrdiv(zX, y, ncomp = ncomp, ns = ns)
+u <- dfplsr_cov(zX, y, ncomp = ncomp, B = B)
+v <- dfplsr_div(zX, y, ncomp = ncomp, ns = ns)
 
 #library(plsdof)
 #fm <- pls.model(

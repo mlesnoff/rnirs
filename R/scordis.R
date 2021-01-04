@@ -1,5 +1,8 @@
-scordis <- function(fm, 
-                                        ncomp = NULL, typcut = c("param", "mad", "boxplot")) {
+scordis <- function(
+    fm, 
+    ncomp = NULL, 
+    typcut = c("param", "mad", "boxplot")
+    ) {
     
     if(is.null(fm$Tr))
         names(fm)[which(names(fm) == "T")] <- "Tr"

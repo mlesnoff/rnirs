@@ -2,7 +2,7 @@
 \alias{selwold}
 \encoding{latin1}
 
-\title{Heuristic selection of the number of components in latent variable models with the Wold's criterion}
+\title{Heuristic selection of the dimension of a latent variable model with the Wold's criterion}
 
 \description{
 

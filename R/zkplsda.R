@@ -1,5 +1,10 @@
-.kplsda <- function(Xr, Yr, Xu, Yu = NULL, ncomp, da = dalm, 
-                                        kern = kpol, ...) {
+.kplsda <- function(
+    Xr, Yr, Xu, Yu = NULL, 
+    ncomp, 
+    da = dalm, 
+    kern = kpol, 
+    ...
+    ) {
     
     Xr <- .matrix(Xr)
     zdim <- dim(Xr)

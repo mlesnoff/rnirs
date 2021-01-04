@@ -1,5 +1,8 @@
-.blocksopls <- function(Xr, Yr, Xu = NULL, ncomp, 
-                        blocks, colblocks = NULL, ...) {
+.blocksopls <- function(
+    Xr, Yr, Xu = NULL, ncomp, 
+    blocks, colblocks = NULL, 
+    ...
+    ) {
     
     ## All components of the input 'ncomp' must be > 0
     

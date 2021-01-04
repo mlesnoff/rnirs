@@ -1,6 +1,8 @@
-getknn <- function(Xr, Xu, k = NULL,
+getknn <- function(
+    Xr, Xu, k = NULL,
     diss = c("euclidean", "mahalanobis", "correlation"), 
-    algorithm = "brute", list = TRUE){
+    algorithm = "brute", list = TRUE
+    ){
     
     diss <- match.arg(diss)
     

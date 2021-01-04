@@ -1,5 +1,8 @@
-cvpca_rw <- function(X, ncomp, algo = NULL, segm, 
-                                    print = TRUE, ...) {
+cvpca_rw <- function(
+    X, ncomp, algo = NULL, segm, 
+    print = TRUE, 
+    ...
+    ) {
     
     ### Row-wise K-fold (rkf) algorithm
     ### = "Algorithm1" in Camacho & Ferrer 2012

@@ -1,5 +1,10 @@
-plotmse <- function(obj, namx = "ncomp", nam = "msep", group = NULL,    col = NULL,
-    legend = TRUE, legend.title = NULL, ncol = 1, ...) {
+plotmse <- function(
+    obj, 
+    namx = "ncomp", nam = "msep", 
+    group = NULL,
+    col = NULL, legend = TRUE, legend.title = NULL, ncol = 1, 
+    ...
+    ) {
     
     dots <- list(...)
 

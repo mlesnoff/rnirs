@@ -1,6 +1,10 @@
-svmr <- function(Xr, Yr, Xu, Yu = NULL,
-                                 C = 1, epsilon = .1, kern = krbf, 
-                                 print = TRUE, ...) {
+svmr <- function(
+    Xr, Yr, Xu, Yu = NULL,
+    C = 1, epsilon = .1, 
+    kern = krbf, 
+    print = TRUE, 
+    ...
+    ) {
     
     if(is.character(kern)) {
         namkern <- kern

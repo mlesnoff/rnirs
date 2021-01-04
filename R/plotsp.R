@@ -1,7 +1,9 @@
-plotsp <- function(X,
+plotsp <- function(
+    X,
     type = "l", col = NULL, zeroes = FALSE, labels = FALSE, 
     blocks = NULL, add = FALSE,
-    ...) {
+    ...
+    ) {
     
     dots <- list(...)
 

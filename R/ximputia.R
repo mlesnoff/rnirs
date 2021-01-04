@@ -1,9 +1,11 @@
-ximputia <- function(X, ncomp, algo = NULL,
-                                     start = c("nipals", "means"),
-                                     tol = .Machine$double.eps^0.5, 
-                                     maxit = 10000,
-                                     gs = TRUE,
-                                     print = TRUE, ...) {
+ximputia <- function(
+    X, ncomp, algo = NULL,
+    start = c("nipals", "means"),
+    tol = .Machine$double.eps^0.5, maxit = 10000,
+    gs = TRUE,
+    print = TRUE, 
+    ...
+    ) {
 
     start <- match.arg(start)
     

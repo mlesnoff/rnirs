@@ -1,5 +1,11 @@
-krr <- function(Xr, Yr, Xu, Yu = NULL, lambda = 0, unit = 1, 
-                                 kern = kpol, weights = NULL, print = TRUE, ...) { 
+krr <- function(
+    Xr, Yr, Xu, Yu = NULL, 
+    lambda = 0, unit = 1, 
+    kern = kpol, 
+    weights = NULL, 
+    print = TRUE, 
+    ...
+    ) { 
     
     if(is.character(kern)) {
         namkern <- kern

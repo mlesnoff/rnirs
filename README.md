@@ -35,7 +35,12 @@
     - KNNDA
     - KNN-LWPLSDA
 
-- **Cross-validation (CV), Error rates, Degrees of Freedom**
+- **Model dimension**
+
+  - Cross-validation
+  - Mallows Cp
+  - Model complexity (Degrees of Freedom)
+  - Heuristic graphic methods
 
 - **Missing data imputation (MDI)**
 

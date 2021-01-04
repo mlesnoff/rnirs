@@ -1,14 +1,16 @@
-plotsl <- function(x,
-                   start = 1,
-                   plot = c("slope", "diff", "none"),
-                   xlab = "Index", ylab = "Value",
-                   ...) {
+plotsl <- function(
+    x,
+    start = 1,
+    plot = c("slope", "diff", "none"),
+    xlab = "Index", ylab = "Value",
+    ...
+    ) {
     
     plot <- match.arg(plot)
     
     n <- length(x)
     
-    zindex <- seq(start, start + n - 1)
+    index <- seq(start, start + n - 1)
     
     zdiff <- diff(x)
     sl <- zdiff / abs(x[-length(x)])
@@ -16,19 +18,12 @@ plotsl <- function(x,
     zdiff <- c(zdiff, NA)
     sl <- c(sl, NA)
     
-    res <- data.frame(
-        index = zindex,
-        x = x,
-        diff = zdiff,
-        slope = sl
-        )
-    
     if(plot %in% c("slope", "diff")) {
       
         fg <- "grey70"
         col <- "#045a8d"
-        xmin <- min(zindex)
-        xmax <- max(zindex)
+        xmin <- min(index)
+        xmax <- max(index)
         eps <- .8
         
         if(n <= 55)
@@ -58,6 +53,6 @@ plotsl <- function(x,
       
         }
     
-    invisible(res)
+    list(index = index, x = x, diff = zdiff, slope = sl)
         
     }

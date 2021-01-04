@@ -2,7 +2,7 @@
 \alias{selbroken}
 \encoding{latin1}
 
-\title{Heuristic selection of the number of components in a PCA with the broken-stick method}
+\title{Heuristic selection of the dimension of a PCA model with the broken-stick method}
 
 \description{
 
@@ -17,7 +17,6 @@ The input matrix \eqn{X} is centered and scaled internally to the function. The 
 selbroken(X, ncomp, algo = NULL,
     plot = TRUE,
     xlab = "Nb. components", ylab = NULL,
-    print = TRUE,
     ...)
 
 }
@@ -35,8 +34,6 @@ selbroken(X, ncomp, algo = NULL,
 \item{xlab}{Label for the x-axis of the plot.}
 
 \item{ylab}{Label for the y-axis of the plot.}
-
-\item{print}{Logical. If \code{TRUE} (default), fitting information are printed.}
 
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 

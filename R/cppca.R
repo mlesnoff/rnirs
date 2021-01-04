@@ -1,8 +1,11 @@
-cppca <- function(X, ncomp, algo = NULL,
-                                     segm = segm,
-                                     type = c("aicc", "aic", "bic"), 
-                                     k = 10,
-                                     print = TRUE, ...) {
+cppca <- function(
+    X, ncomp, algo = NULL,
+    segm = segm,
+    type = c("aicc", "aic", "bic"), 
+    k = 10,
+    print = TRUE, 
+    ...
+    ) {
     
     X <- .matrix(X)
     zdim <- dim(X)

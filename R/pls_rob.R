@@ -1,5 +1,10 @@
-pls_rob <- function(X, Y, ncomp, ncompw = 10, alpha = .30,
-                    typcut = c("param", "mad"), weights = NULL, ...) {
+pls_rob <- function(
+    X, Y, ncomp, 
+    ncompw = 10, alpha = .30,
+    typcut = c("param", "mad"), 
+    weights = NULL, 
+    ...
+    ) {
     
     typcut <- match.arg(typcut)
     

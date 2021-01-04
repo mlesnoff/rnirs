@@ -1,5 +1,8 @@
-plsr <- function(Xr, Yr, Xu, Yu = NULL, ncomp, 
-                                 algo = NULL, ...) {
+plsr <- function(
+    Xr, Yr, Xu, Yu = NULL, ncomp, 
+    algo = NULL, 
+    ...
+    ) {
     
     Yr <- .matrix(Yr, row = FALSE, prefix.colnam = "y")
     q <- dim(Yr)[2]
