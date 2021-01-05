@@ -178,49 +178,53 @@
 
 ## SELECTING MODEL DIMENSION
 
-- **Cross-validation**
+### <span style="color:green"> Cross-validation </span> 
 
-  - **Generic for regression and DA**
+- **Generic for regression and DA**
 
-    - ***segmkf*** Building segments for K-Fold CV
-    - ***segmts*** Building segments for test-set CV
-    - ***cvfit*** Generic function for cross-validating any model
+  - ***segmkf*** Building segments for K-Fold CV
+  - ***segmts*** Building segments for test-set CV
+  - ***cvfit*** Generic function for cross-validating any model
     
-  - **Specific for PCA**
-    - ***cvpca_ia*** IA algorithm
-    - ***cvpca_tri*** ekf-TRI algorithm
-    - ***cvpca_ckf*** ckf-TRI algorithm
-    - ***cvpca_rw*** Row-wise naïve algorithm
+- **Specific for PCA**
+  - ***cvpca_ia*** IA algorithm
+  - ***cvpca_tri*** ekf-TRI algorithm
+  - ***cvpca_ckf*** ckf-TRI algorithm
+  - ***cvpca_rw*** Row-wise naïve algorithm
 
-- **Model complexity (*df*)**
-  - ***dfpca_div*** SURE estimation of *df* for PCA 
-  - ***dfplsr_cov*** Bootstrap estimation of *df* for PLSR1
-  - ***dfplsr_div*** SURE estimation of *df* for PLSR1
+### <span style="color:green"> Model complexity (*df*) </span> 
 
-- **Mallows Cp (AIC, AICc, BIC)**
-  - ***cppca*** Mallows Cp criterion for PCA
-  - ***cpplsr*** Mallows Cp criterion for PLSR1
+- ***dfpca_div*** SURE estimation of *df* for PCA 
+- ***dfplsr_cov*** Bootstrap estimation of *df* for PLSR1
+- ***dfplsr_div*** SURE estimation of *df* for PLSR1
 
-- **Heuristic methods**
-  - ***selscree*** Scree plots for PCA and PLS
-  - **Specific to PCA**
-    - ***selkaiser*** Guttman-Kaiser method (Guttman 1954, Kaiser 1960)
-    - ***selkarlis*** Modified Guttman-Kaiser method (Karlis et al. 2003)
-    - ***selbroken*** Broken-stick method (Frontier 1976)
-    - ***selhorn*** Horn method for PCA (Horn 1965)
-  - **Stability of PCA and PLS loadings (and PLS *b*-coefficients)**
-    - ***selangle*** Angles between bootstrapped loading matrices
-    - ***selcoef*** Significant coefficients of bootstrapped loading vectors
-    - ***selcoll*** Collinearity of bootstrapped loading (or b-coefficients) vectors 
-  - **Specific to regression models** 
-    - ***selsign*** Permutation tests on CV-PRESS (e.g. van der Voet 1994) 
-    - ***selwik*** Permutation test for PLS scores (Wiklund et al. 2007, Faber et al. 2007)
-    - ***selwold*** Wold's criterion for PCR, PLSR, PCDA, PLSDA, etc.
+### <span style="color:green"> Mallows Cp (AIC, AICc, BIC) </span> 
+  
+- ***cppca*** Cp criteria for PCA
+- ***cpplsr*** Cp criteria for PLSR1
 
-- **Prediction error rate**
-  - ***mse*** For regression models
-  - ***err*** For discrimination models
-  - ***plotmse*** Plotting error rates of prediction models
+### <span style="color:green"> Heuristic methods </span> 
+
+- ***selscree*** Scree plots for PCA and PLS
+- **Specific to PCA**
+  - ***selkaiser*** Guttman-Kaiser method (Guttman 1954, Kaiser 1960)
+  - ***selkarlis*** Modified Guttman-Kaiser method (Karlis et al. 2003)
+  - ***selbroken*** Broken-stick method (Frontier 1976)
+  - ***selhorn*** Horn method for PCA (Horn 1965)
+- **Stability of PCA and PLS loadings (and PLS *b*-coefficients)**
+  - ***selangle*** Angles between bootstrapped loading matrices
+  - ***selcoef*** Significant coefficients of bootstrapped loading vectors
+  - ***selcoll*** Collinearity of bootstrapped loading (or b-coefficients) vectors 
+- **Specific to regression models** 
+  - ***selsign*** Permutation tests on CV-PRESS (e.g. van der Voet 1994) 
+  - ***selwik*** Permutation test for PLS scores (Wiklund et al. 2007, Faber et al. 2007)
+  - ***selwold*** Wold's criterion for PCR, PLSR, PCDA, PLSDA, etc.
+
+### <span style="color:green"> Prediction error rate </span> 
+  
+- ***mse*** For regression models
+- ***err*** For discrimination models
+- ***plotmse*** Plotting error rates of prediction models
 
 ## SELECTION OF VARIABLES 
 

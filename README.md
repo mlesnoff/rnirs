@@ -39,7 +39,7 @@
   - Cross-validation
     - PCA
     - Regression or discrimination models
-  - Mallows Cp (AIC, AICc, BIC)
+  - Mallows Cp criteria (AIC, AICc, BIC)
   - Model complexity (Degrees of Freedom)
   - Heuristic methods
     - Scree plot, Horn, Kaiser, Karlis, Broken-stick
