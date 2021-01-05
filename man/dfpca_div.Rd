@@ -6,7 +6,7 @@
 
 \description{
 
-Monte Carlo estimation of the model complexity (\eqn{df} = number of degrees of freedom) of PCA models. See in particular Ye 1998 and Efron 2004. Other details and references are given in the help page of function (\code{\link{dfplsrcov}}.
+Monte Carlo estimation of the model complexity (\eqn{df} = number of degrees of freedom) of PCA models. See in particular Ye 1998 and Efron 2004. Other details and references are given in the help page of function (\code{\link{dfplsr_cov}}.
 
 This is a pedagogical function since the true \eqn{df} of a PCA model can be computed directly. For a PCA of dimension \eqn{a}, \eqn{df = p + a * (n - 1) + p * a - a^2} (Faber et al. 1994, Faber 2012, Josse & Husson 2012).  
 

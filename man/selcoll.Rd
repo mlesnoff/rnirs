@@ -12,9 +12,9 @@ The principle is detailed below for loading vectors. The same principle applies 
 
 A non parametric bootstrap is implemented on the rows of matrix \eqn{X} (and eventually \eqn{Y} if PLS), and the loading matrices \eqn{P(b)  b = 1,...,B} are calculated for each bootstrap replication \eqn{b}, all with a total number of \eqn{A} columns. 
 
-For a given model dimension \eqn{a <= A}, the \eqn{B} loading vectors corresponding to loadings "\eqn{a}" (column \eqn{a} in matrices \eqn{P(b)}) are set in a matrix \eqn{V(a)} (this last matrix has \eqn{B} columns). A SVD decompostion of \eqn{V(a)} is computed, and a collinearity measure between the \eqn{B} vectors is given by the proportion of variance accounted by the first SVD dimension (i.e. \eqn{prop = eig[1] / sum(eigs)}). Lower is this proportion, lower is the collinearity between the vectors of rank, indicating they may have built from noise (unstability of the loading vector of rank \eqn{a}). 
+For a given model dimension \eqn{a <= A}, the \eqn{B} loading vectors corresponding to loadings "\eqn{a}" (column \eqn{a} in matrices \eqn{P(b)}) are set in a matrix \eqn{V(a)} (this last matrix has \eqn{B} columns). A SVD decompostion of \eqn{V(a)} is computed, and a collinearity measure between the \eqn{B} vectors is given by the proportion of variance accounted by the first SVD dimension (i.e. \eqn{p = eig[1] / sum(eigs)}). Lower is this proportion, lower is the collinearity between the vectors of rank, indicating they may have built from noise (unstability of the loading vector of rank \eqn{a}). 
 
-The collinearity indicator is transformed to an angle measure \eqn{q = acos(prop) / (pi / 2)} varying between 0 and 1 (1 = minimal collinearity). Jumps in the curve of the angle, followed by regular patterns close to unity, are expected revealing unstable loadings. 
+The non-collinearity indicator \eqn{r = 1 - p} is returned. Jumps in the curve of the indicator, followed by regular patterns close to unity, are expected revealing unstable loadings. 
 
 }
 
@@ -54,27 +54,15 @@ selcoll(
 
 \item{ylab}{Label for the y-axis of the plot.}
 
+\item{print}{Logical. If \code{TRUE}, fitting information are printed.}
+
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 
 }
 
 \value{
 
-A list with output \code{r} = vector of the standardized angle.
-
-}
-
-\references{
-
-Engelen, S., Hubert, M., Branden, K.V., 2005. A Comparison of Three Procedures for Robust PCA in High Dimensions. Austrian Journal of Statistics 34, 117-126-117-126. https://doi.org/10.17713/ajs.v34i2.405
-
-Hubert, M., Rousseeuw, P.J., Vanden Branden, K., 2005. ROBPCA: A New Approach to Robust Principal Component Analysis. Technometrics 47, 64-79. https://doi.org/10.1198/004017004000000563
-
-Krzanowski, W.J., 1979. Between-Groups Comparison of Principal Components. Journal of the American Statistical Association 74, 703-707. https://doi.org/10.1080/01621459.1979.10481674
-
-Luo, W., Li, B., 2016. Combining eigenvalues and variation of eigenvectors for order determination. Biometrika 103, 875-887. https://doi.org/10.1093/biomet/asw051
-
-Ye, Z., Weiss, R.E., 2003. Using the Bootstrap to Select One of a New Class of Dimension Reduction Methods. Jasa 98, 968-979. https://doi.org/10.1198/016214503000000927
+A list with output \code{r}, see examples.
 
 }
 

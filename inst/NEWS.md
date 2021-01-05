@@ -12,6 +12,11 @@
   - **selbroken**
   - **selhorn**
   - **plotsl**
+  
+- Graphic methods for selecting regression models 
+  
+  - **selsign**
+  - **selwik**
 
 #### **Renamed functions**
 
@@ -31,6 +36,8 @@
 #### **Modified functions**
 
 - **pca**: Row "ncomp=0" removed in output "explvar"
+
+- Code cleaning
 
 
 

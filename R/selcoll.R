@@ -72,6 +72,8 @@ selcoll <- function(
         cat("\n\n")
     
     r <- 1 - q
+    r[r == 0] <- 1e-4
+
     
     if(plot) {
       

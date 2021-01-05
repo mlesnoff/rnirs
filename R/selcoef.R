@@ -65,8 +65,8 @@ selcoef <- function(
       q[a] <- sum(z) / p
       
       }
-
     set.seed(seed = NULL)
+    q[q == 0] <- 1e-4
 
     if(print)
         cat("\n\n")

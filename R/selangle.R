@@ -67,8 +67,7 @@ selangle <- function(
     ## Output in radiants: right angle = pi/2)
     ## Radiants are then standardized to [0, 1] by dividing by pi/2 
     r <- acos(q) / (pi / 2)
-    
-    print(r)
+    r[r == 0] <- 1e-4
     
     if(plot) {
       

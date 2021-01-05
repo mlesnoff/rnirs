@@ -57,6 +57,8 @@ selcoef(
 
 \item{ylab}{Label for the y-axis of the plot.}
 
+\item{print}{Logical. If \code{TRUE}, fitting information are printed.}
+
 \item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
 
 }

@@ -2,7 +2,7 @@ pls_iw <- function(
     X, Y, ncomp, 
     ncompw = 10, a = 3, 
     tol = 1e-2, maxit = 10, 
-    weights = NULL,
+    weights = NULL
     ) {
     
     X <- .matrix(X)

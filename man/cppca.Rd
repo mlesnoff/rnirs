@@ -18,7 +18,7 @@ Depending on argument \code{type}, \eqn{alpha} is equal to either \eqn{2} (AIC p
 
 \bold{## Corrected nb. model's degrees of freedom \eqn{dfc}}
 
-The model complexity of a fitted PCA model of dimension \eqn{a} is known to be \eqn{df = p + a * (n - 1) + p * a - a^2} (Faber et al. 1994, Faber 2012, Josse & Husson 2012). Monte Carlo estimates (Ye 1998, Efron 2004) of \eqn{df} are consistent with this previous formula; see for instance the example presented for function \code{\link{dfpcadiv}}. 
+The model complexity of a fitted PCA model of dimension \eqn{a} is known to be \eqn{df = p + a * (n - 1) + p * a - a^2} (Faber et al. 1994, Faber 2012, Josse & Husson 2012). Monte Carlo estimates (Ye 1998, Efron 2004) of \eqn{df} are consistent with this previous formula; see for instance the example presented for function \code{\link{dfpca_div}}. 
 
 Nevertheless and unfortunately, \eqn{df} can not be used directly in criteria such as \eqn{Cp}, \eqn{GCV} etc. for model selection. Such a procedure underestimates the prediction error that is normally targeted by these criteria, with the consequence of selecting models with too large dimensions. This is the same problem that encounters the row-wise PCA CV. 
 

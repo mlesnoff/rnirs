@@ -496,10 +496,13 @@
     }
 
 .subsetC <- function(X, cols, values) {
-    rows <- Reduce("&", 
-                   lapply(seq_along(cols), 
-                          function(z) X[, cols[z]] == values[z])
-                   )
+    rows <- Reduce(
+      "&", 
+      lapply(
+        seq_along(cols), 
+        function(z) X[, cols[z]] == values[z]
+        )
+      )
     X[rows, ]
     }
 
