@@ -54,7 +54,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### <span style="color:green"> FDA </span>
 
-- ***fda*** Using EIGEN decomposition of a compromise
+- ***fda*** Using EIGEN decomposition of the compromise "inter/intra"
 - ***fdasvd*** Using weighted SVD decomposition of class centers
 
 ### <span style="color:green"> Non Linear Kernel </span>
@@ -80,14 +80,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### <span style="color:green"> Multi-block </span> 
 
-- ***blocksel*** Block selection in a matrix
+- ***blockscal*** Block autoscaling: Used for MB-PLS and MB-PCA 
 - ***blockpls*** Block dimension reduction by PLS
-- ***blockscal*** Block autoscaling: Used for MB-PLS or MB-PCA 
 - ***blocksopca*** Block dimension reduction by SO-PCA (sequential orthogonalization)
 - ***blocksopls*** Block dimension reduction by SO-PLS (sequential orthogonalization)
+
+- ***blocksel*** Block selection in a matrix
 - ***orthog*** Orthogonalization of a matrix to another matrix
 
-### <span style="color:green"> Outlyingness Multivariate Measures (Outliers) </span> 
+### <span style="color:green"> Outlyingness Multivariate Measures </span> 
 
 - ***outeucl*** Outlyingness using Euclidean distance
 - ***outsdod*** Outlyingness based on a score space
@@ -113,7 +114,7 @@ knitr::opts_chunk$set(echo = TRUE)
   - ***plsr*** PLSR
   - **Auxiliary functions**
     - ***bcoef*** b-coefficients for PLSR and PCR models
-    - Same other auxiliary functions as for PCA & PLS
+    - Same other **auxiliary functions** as for PCA & PLS
 
 ### <span style="color:green"> Non Linear </span> 
 
@@ -136,7 +137,7 @@ knitr::opts_chunk$set(echo = TRUE)
   - ***knnr*** KNN regression
   - ***lwplsr*** KNN-LWPLSR
   - **Generic function**
-    - ***locw*** building KNN-locally weighted models
+    - ***locw*** Build any KNN-locally weighted models
       
 ## DISCRIMINATION (DA) 
 
@@ -144,7 +145,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - **Probabilistic**
 
-  - ***daprob*** Probablistic (parametric and non-parametric) LDA and QDA
+  - ***daprob*** Probabilistic (parametric and non-parametric) LDA and QDA
 
 - **Distance-based**
 
@@ -190,35 +191,58 @@ knitr::opts_chunk$set(echo = TRUE)
 - ***stackavg*** Stacking for regression models 
 - ***stackavgcla*** Stacking for discrimination models
 
-## CROSS-VALIDATION, ERROR RATES, DEGREES OF FREEDOM (DOF)
+## SELECTING MODEL DIMENSION
 
-- ***segmkf*** Building segments for K-Fold CV
-- ***segmts*** Building segments for test-set CV
-- ***cvfit*** Generic function for cross-validating a model
-- **Specific CV for PCA**
-  - ***cvpca_ia*** IA algorithm
-  - ***cvpca_tri*** ekf-TRI algorithm
-  - ***cvpca_ckf*** ckf-TRI algorithm
-  - ***cvpca_rw*** Row-wise algorithm
-- **Model complexity (df)**
-  - ***dfplsrcov***, ***dfplsrdiv*** Monte Carlo estimation of df for PLSR1 models 
-  - ***dfpcadiv*** Monte Carlo estimation of df for PCA models 
-- **Mallows Cp**
-  - ***cpplsr*** Mallows Cp criterion for PLSR1 models
-  - ***cppca*** Mallows Cp criterion for PCA models
+- **Cross-validation**
+
+  - **Generic for regression and DA**
+
+    - ***segmkf*** Building segments for K-Fold CV
+    - ***segmts*** Building segments for test-set CV
+    - ***cvfit*** Generic function for cross-validating any model
+    
+  - **Specific for PCA**
+    - ***cvpca_ia*** IA algorithm
+    - ***cvpca_tri*** ekf-TRI algorithm
+    - ***cvpca_ckf*** ckf-TRI algorithm
+    - ***cvpca_rw*** Row-wise naïve algorithm
+
+- **Model complexity (*df*)**
+  - ***dfpca_div*** SURE estimation of *df* for PCA 
+  - ***dfplsr_cov*** Bootstrap estimation of *df* for PLSR1
+  - ***dfplsr_div*** SURE estimation of *df* for PLSR1
+
+- **Mallows Cp (AIC, AICc, BIC)**
+  - ***cppca*** Mallows Cp criterion for PCA
+  - ***cpplsr*** Mallows Cp criterion for PLSR1
+
+- **Heuristic methods**
+  - ***selscree*** Scree plots for PCA and PLS
+  - **Specific to PCA**
+    - **selkaiser** Guttman-Kaiser method (Guttman 1954, Kaiser 1960)
+    - **selkarlis** Modified Guttman-Kaiser method (Karlis et al. 2003)
+    - **selbroken** Broken-stick method (Frontier 1976)
+    - **selhorn** Horn method for PCA (Horn 1965)
+  - **Stability of PCA and PLS loadings (and PLS *b*-coefficients)**
+    - ***selangle*** Angles betwwen bootstrapped loading matrices
+    - ***selcoef*** Significant coefficients of bootstrapped loading vectors
+    - ***selcoll*** Collinearity of bootstrapped loading (or b-coefficients) vectors 
+  - **Specific to regression models** 
+    - ***selsign*** Permutation tests on CV-PRESS (e.g. van der Voet 1994) 
+    - ***selwik*** Permutation test for PLS scores (Wiklund et al. 2007, Faber et al. 2007)
+    - ***selwold*** Wold's criterion for PCR, PLSR, PCDA, PLSDA, etc.
 - **Prediction error rate**
   - ***mse*** For regression models
   - ***err*** For discrimination models
   - ***plotmse*** Plotting error rates of prediction models
-  - ***selwold*** Wold's criterion for selecting the number of components in PCR/DA and PLSR/DA model
 
 ## SELECTION OF VARIABLES 
 
-- ***covsel*** COVSEL algorithm
+- ***covsel*** COVSEL algorithm (Roger et al. 2011)
 
 ## MODEL TUNING
 
-- ***splitpar*** Split the value of a parameter within an interval
+- ***splitpar*** Split the value of a parameter within an interval (auxiliary for RR, SVMR, etc.)
 
 ## DATA PRE-PROCESSING 
 
@@ -230,17 +254,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## DATA SAMPLING 
 
-- ***sampclas*** Within-class (stratified) sampling
-- ***sampdp*** Duplex sampling 
 - ***sampks*** Kennard-Stone sampling 
+- ***sampdp*** Duplex sampling 
+- ***sampclas*** Within-class (stratified) sampling
 
 ## DATA MANAGEMENT
 
 ### <span style="color:green"> Checking </span> 
 
+- ***checkna*** Find and count NA values in a data set
+- ***plotxna*** Plotting missing data in a matrix
 - ***checkdupl*** Find duplicated row observations between two data sets 
 - ***rmdupl*** Remove duplicated row observations between two data sets
-- ***checkna*** Find and count NA values in a data set
 
 ### <span style="color:green"> Summary </span> 
 
@@ -252,12 +277,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - ***ximputia*** PCA iterative algorithm (IA)
 
-## GRAPHICS
+## OTHER GRAPHICS
 
-- ***plotsp***, ***plostsp1*** Plotting spectra, loadings, or more generally row observations of a data set
+- ***plotsp*** Plotting spectra, loadings, or more generally row observations of a data set
+- ***plostsp1*** Same as  ***plotsp*** but one-by-one row
 - ***plotxy*** 2-d scatter plot
 - ***plotjit*** Jittered plot
-- ***plotxna*** Plotting missing data in a matrix
+- ***plotsl*** Plotting slopes of successive values (auxiliary)
 
 ## AUXILIARY
 
@@ -285,6 +311,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### How to cite
 
-Lesnoff, M. 2020. R package rnirs: Dimension reduction, Regression and Discrimination for Chemometrics. https://github.com/mlesnoff/rnirs. CIRAD, UMR SELMET, Montpellier, France
+Lesnoff, M. 2021. R package rnirs: Dimension reduction, Regression and Discrimination for Chemometrics. https://github.com/mlesnoff/rnirs. CIRAD, UMR SELMET, Montpellier, France
 
 

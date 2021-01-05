@@ -6,17 +6,24 @@
 
 - Graphic methods for selecting PCA or PLS model dimension
 
-  - **selscree**
-  - **selkaiser**
-  - **selkarlis**
   - **selbroken**
   - **selhorn**
-  - **plotsl**
+  - **selkaiser**
+  - **selkarlis**
+  - **selscree**
+  
+  - **selangle**
+  - **selcoef**
+  - **selcoll**
   
 - Graphic methods for selecting regression models 
   
   - **selsign**
   - **selwik**
+
+- Auxiliaray function
+
+  - **plotsl**
 
 #### **Renamed functions**
 

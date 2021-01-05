@@ -8,7 +8,7 @@
   - Robust PCA and PLS
   - Non Linear Kernel PCA and PLS
   - Multi-block
-    - MB-PCA, MB-PLS (block autos-scaling)
+    - MB-PCA, MB-PLS (block auto-scaling)
     - SO-PCA, SO-PLS (sequential block orthogonalization)
 
 - **Regression**
@@ -35,19 +35,29 @@
     - KNNDA
     - KNN-LWPLSDA
 
-- **Model dimension**
-
+- **Selecting model dimension**
   - Cross-validation
-  - Mallows Cp
+    - PCA
+    - Regression or discrimination models
+  - Mallows Cp (AIC, AICc, BIC)
   - Model complexity (Degrees of Freedom)
-  - Heuristic graphic methods
+  - Heuristic methods
+    - Scree plot, Horn, Kaiser, Karlis, Broken-stick
+    - Bootstrap (Loadings stability)
+    - Permutation tests
 
 - **Missing data imputation (MDI)**
-
+  - Iterative algorithm
+  
 - **Signal pre-processing**
+  - Detrend (polynom, ALS), Smoothing, SNV, Derivations, etc.
+
+- **Sampling**
+  - Kennard-Stone
+  - Duplex
+  - Classes
 
 - **Plotting**
-
 
 ## <span style="color:green"> **Available functions** </span> 
 
@@ -113,7 +123,7 @@ it is recommended to skip updates (usually choice **3** = None)
 
 **b) Any given tagged version**
 
-e.g. with tag "v1.9-0"
+e.g. with tag "v1.9-0"   (Be carefull, this is not the more recent version)
 
 write in the R console
 ```{r}
@@ -140,7 +150,7 @@ library(rnirs)
 
 ### How to cite
 
-Lesnoff, M. 2020. R package rnirs: Dimension reduction, Regression and Discrimination for Chemometrics. https://github.com/mlesnoff/rnirs. CIRAD, UMR SELMET, Montpellier, France
+Lesnoff, M. 2021. R package rnirs: Dimension reduction, Regression and Discrimination for Chemometrics. https://github.com/mlesnoff/rnirs. CIRAD, UMR SELMET, Montpellier, France
 
 
 
