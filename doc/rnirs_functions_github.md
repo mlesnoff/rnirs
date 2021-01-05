@@ -204,18 +204,19 @@
 - **Heuristic methods**
   - ***selscree*** Scree plots for PCA and PLS
   - **Specific to PCA**
-    - **selkaiser** Guttman-Kaiser method (Guttman 1954, Kaiser 1960)
-    - **selkarlis** Modified Guttman-Kaiser method (Karlis et al. 2003)
-    - **selbroken** Broken-stick method (Frontier 1976)
-    - **selhorn** Horn method for PCA (Horn 1965)
+    - ***selkaiser*** Guttman-Kaiser method (Guttman 1954, Kaiser 1960)
+    - ***selkarlis*** Modified Guttman-Kaiser method (Karlis et al. 2003)
+    - ***selbroken*** Broken-stick method (Frontier 1976)
+    - ***selhorn*** Horn method for PCA (Horn 1965)
   - **Stability of PCA and PLS loadings (and PLS *b*-coefficients)**
-    - ***selangle*** Angles betwwen bootstrapped loading matrices
+    - ***selangle*** Angles between bootstrapped loading matrices
     - ***selcoef*** Significant coefficients of bootstrapped loading vectors
     - ***selcoll*** Collinearity of bootstrapped loading (or b-coefficients) vectors 
   - **Specific to regression models** 
     - ***selsign*** Permutation tests on CV-PRESS (e.g. van der Voet 1994) 
     - ***selwik*** Permutation test for PLS scores (Wiklund et al. 2007, Faber et al. 2007)
     - ***selwold*** Wold's criterion for PCR, PLSR, PCDA, PLSDA, etc.
+
 - **Prediction error rate**
   - ***mse*** For regression models
   - ***err*** For discrimination models
