@@ -107,13 +107,13 @@
 
 - **Kernel**
 
-  - ***krr*** Kernel ridge regression (LS-SVM)
+  - ***krr*** Kernel ridge regression (KRR = LS-SVM)
   - ***svmr*** SVM regression
   - **On latent variables**
     - Using functions ***kpca*** and ***kpls_nipals***
       - ***kpcr*** Kernel PCR
       - ***kplsr*** Kernel PLSR
-    - Direct KPCR and KPLSR
+    - Direct KRR, KPCR and KPLSR
       - ***dkplsr***
       - Or use ***kgram***
       
@@ -153,7 +153,7 @@
 ### <span style="color:green"> Non Linear </span> 
   
 - **Kernel**
-  - ***dakrr*** Using kernel ridge regression
+  - ***dakrr*** Using kernel ridge regression (KRR-DA = LS-SVM-DA)
   - ***svmc*** SVM classification
   - **On latent variables**
     - Using functions ***kpca*** and ***kpls_nipals***
@@ -161,7 +161,7 @@
       - ***kpcdalm*** Same as ***kpcda(dalm)*** but faster
       - ***kplsda*** Kernel PLSDA using any above DA method
       - ***kplsdalm*** Same as ***kplsda(dalm)*** but faster
-    - Direct KPCDA and KPLSDA 
+    - Direct KRR-DA, KPCDA and KPLSDA 
       - ***dkplsda***
       - ***dkplsdalm***
       - Or use ***kgram***
