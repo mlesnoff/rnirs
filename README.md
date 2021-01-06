@@ -1,6 +1,4 @@
-## **rnirs - Chemometrics, Dimension reduction, Regression and Discrimination**  
-
-### Machine Learning Library With Focus on Chemometrics
+## **rnirs - Machine Learning With Focus on Chemometrics **  
 
 ## <span style="color:grey70"> **Version 1.9-10** </span> 
 
