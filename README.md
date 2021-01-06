@@ -1,6 +1,6 @@
 ## rnirs - Machine Learning for Chemometrics  
 
-## <span style="color:grey70"> **Version 1.9-10** </span> 
+## <span style="color:grey70"> **Version 1.9-11** </span> 
 
 ## <span style="color:green"> **Key Features** </span> 
 

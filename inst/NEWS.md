@@ -1,5 +1,12 @@
 ## NEWS for package **rnirs**
 
+## **Version 1.9-11**
+
+- Modification of **selangle**
+
+
+
+
 ## **Version 1.9-10**
 
 #### **New functions**

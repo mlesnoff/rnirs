@@ -1,7 +1,7 @@
 selangle <- function(
     X, Y = NULL, ncomp = NULL, algo = NULL, 
     B = 50, seed = NULL,
-    type = c("maxsub", "hot"),
+    type = c("R", "P"),
     plot = TRUE, 
     xlab = "Nb. components", ylab = NULL,
     print = TRUE, 
@@ -30,6 +30,8 @@ selangle <- function(
         if(is.null(algo))
             algo <- pls_kernel
         fm <- algo(X, Y, ncomp = ncomp, ...)
+        if(type == "R")
+            fm$P <- fm$R
         }
     
     set.seed(seed = seed)
@@ -47,11 +49,13 @@ selangle <- function(
             zfm <- algo(X[s, ], Y[s, ], ncomp = ncomp)
             }
         
+        if(type == "R")
+            zfm$P <- zfm$R
 
         zq <- numeric()
         for(a in seq_len(ncomp))
             zq[a] <- .corvec(fm$P[, seq_len(a), drop = FALSE],
-                             zfm$P[, seq_len(a), drop = FALSE], type = type)
+                             zfm$P[, seq_len(a), drop = FALSE], type = "hot")
 
         Q[i, ] <- zq
         

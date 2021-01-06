@@ -2,21 +2,27 @@
 \alias{selangle}
 \encoding{latin1}
 
-\title{Heuristic selection of the dimension of a PCA or PLS model using angles betwwen bootstrapped loading matrices}
+\title{Heuristic selection of the dimension of a PCA or PLS model using angles between bootstrapped loading matrices}
 
 \description{
 
-The function helps selecting the dimension (i.e. nb. components) of a PCA or PLS by bootstrapping the loading matrix \eqn{P} and exploring its stability. Stability is quantified by angles between matrices. 
+The function helps selecting the dimension (i.e. nb. components) of a PCA or PLS by bootstrapping the loading matrix \eqn{P} (or eventually the rotation matris \eqn{R} for PLS) and exploring its stability. Stability is quantified by angles between the boostrapped matrices. 
 
-The general idea was proposed by Ye & Weiss 2003 for the sliced inverse regression, and applied to PCA by Luo & Li 2016.
+The general idea was proposed by Ye & Weiss 2003 for the sliced inverse regression, and applied to PCA by Luo & Li 2016. The loading matrix \eqn{P} (with a total number of \eqn{A} columns, i.e. loading vectors) is computed on the raw matrix \eqn{X}. 
 
-The loading matrix \eqn{P} (with a total number of \eqn{A} columns, i.e. loading vectors) is computed on the raw matrix \eqn{X}. Then, a non parametric bootstrap is implemented on the rows of matrix \eqn{X}, and the loading matrices \eqn{P(b)  b = 1,...,B} are calculated for each bootstrap replication \eqn{b}, all with \eqn{A} columns. 
+Then, a non parametric bootstrap is implemented on the rows of matrix \eqn{X}, and the loading matrices \eqn{P(b)  b = 1,...,B} are calculated for each bootstrap replication \eqn{b}, all with \eqn{A} columns. 
 
-For a given model dimension \eqn{a <= A}, an "angle" is then calculated between the raw matrix \eqn{P} and each matrix \eqn{P(b)}, all with considering only the  first \eqn{a} columns. The stability indicator for a matrix  \eqn{P} with \eqn{a} loading vectors is the mean of the \eqn{B} angles. Higher is the mean angle (meaning that the compared matrices do not span the same space), lower is the stability of matrix \eqn{P} whose some last columns were probably built from noise. 
+For a given model dimension \eqn{a <= A}, an "angle" is then calculated between the raw matrix \eqn{P} and each matrix \eqn{P(b)}, all with considering only the  first \eqn{a} columns. The stability indicator for a matrix  \eqn{P} with \eqn{a} vectors is the mean of the \eqn{B} angles. 
 
-Function \code{selangle} proposes two measures of angle: the vector correlation coefficient "q" (Hotelling 1936; used by Ye & Weiss 2003 and Luo & Li 2016), and a similar angle refered to as "maxsub" (Krzanowski 1979, Hubert et al 2005, Engelen et al. 2005). Print function rnirs::.corvec for the formulas.  
+Higher is the mean angle (meaning that the compared matrices do not span the same space), lower is the stability of matrix \eqn{P} whose some last columns were probably built from noise. 
 
-Angles are first computed in radians (the right angle = \eqn{pi / 2}), and then divided by \eqn{pi / 2} to vary between 0 and 1 (1 = minimal stability). Jumps in the curve of the mean angle, followed by regular patterns close to unity, are expected revealing unstable loadings. 
+The measure of angle is the vector correlation coefficient "q" (Hotelling 1936) used by Ye & Weiss 2003 and Luo & Li 2016). A similar angle measure is refered to as "maxsub" (Krzanowski 1979, Hubert et al 2005, Engelen et al. 2005). Print function rnirs::.corvec for the formulas.  
+
+Angles are first computed in radians (the right angle = \eqn{pi / 2}), and then divided by \eqn{pi / 2} to vary between 0 and 1 (1 = minimal stability). 
+
+Jumps in the curve of the mean angle, followed by regular patterns close to unity, are expected revealing unstable loadings. 
+
+In the function, the method is the same for PLS except thatby default the loading matrix \eqn{P} is replaced by the rotation matrix \eqn{P}. 
 
 }
 
@@ -25,7 +31,7 @@ Angles are first computed in radians (the right angle = \eqn{pi / 2}), and then 
 selangle(
     X, Y = NULL, ncomp = NULL, algo = NULL, 
     B = 50, seed = NULL,
-    type = c("maxsub", "hot"),
+    type = c("R", "P"),
     plot = TRUE, 
     xlab = "Nb. components", ylab = NULL,
     print = TRUE, 
@@ -48,7 +54,7 @@ selangle(
 
 \item{seed}{An integer defining the seed for the random simulation, or \code{NULL} (default). See \code{\link{set.seed}}.}
 
-\item{type}{Type of measure of angle. Possible values are "hot" (Hotteling \eqn{q}; default) or "maxsub".} 
+\item{type}{Type of matrix considered for PLS. Possible values are "R" (rotation matrix; default) or "P" (loading matrix).} 
 
 \item{plot}{Logical. If \code{TRUE} (default), results are plotted.}
 

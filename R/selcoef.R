@@ -45,6 +45,7 @@ selcoef <- function(
             }
         
         P[, , k] <- zfm$P
+        #P[, , k] <- zfm$R    ## not good
         
         }
 

@@ -57,6 +57,7 @@ selcoll <- function(
          ### End
         
         P[, , k] <- zfm$P
+        #P[, , k] <- zfm$R     ## seems not good
         
         }
 
