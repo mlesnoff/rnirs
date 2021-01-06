@@ -1,4 +1,4 @@
-## rnirs - A Library for Machine Learning and Chemometrics  
+## rnirs - Machine Learning for Chemometrics  
 
 ## <span style="color:grey70"> **Version 1.9-10** </span> 
 
