@@ -213,7 +213,6 @@
   - ***selhorn*** Horn method for PCA (Horn 1965)
 - **Stability of PCA and PLS loadings (and PLS *b*-coefficients)**
   - ***selangle*** Angles between bootstrapped loading matrices
-  - ***selcoef*** Significant coefficients of bootstrapped loading vectors
   - ***selcoll*** Collinearity of bootstrapped loading (or b-coefficients) vectors 
 - **Specific to regression models** 
   - ***selsign*** Permutation tests on CV-PRESS (e.g. van der Voet 1994) 

@@ -1,5 +1,12 @@
 ## NEWS for package **rnirs**
 
+## **Version 1.9-12**
+
+- Function **selcoef** was removed (possibly temporrary)
+
+
+
+
 ## **Version 1.9-11**
 
 - Modification of **selangle**
