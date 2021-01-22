@@ -58,7 +58,7 @@ selangle(
 
 \item{seed}{An integer defining the seed for the random simulation, or \code{NULL} (default). See \code{\link{set.seed}}.}
 
-\item{type}{Type of angle. Possible values are "maxsub" (default) or "hot" (q of Hotelling).} 
+\item{angle}{Type of angle. Possible values are "maxsub" (default) or "hot" (q of Hotelling).} 
 
 \item{plot}{Logical. If \code{TRUE} (default), results are plotted.}
 

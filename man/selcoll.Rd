@@ -16,7 +16,7 @@ For a given model dimension \eqn{a <= A}, the \eqn{B} loading vectors correspond
 
 Then, two alternative measures of collinearity are proposed, depending on argument \code{corr}:
 
-1) Default method. Correlation coefficients are calculated between couples of columns \eqn{V(a)} and set in a vector \eqn{v}. The non-collinearity indicator \eqn{r} is the quantile of the elements in \eqn{v} (by default, prob = 1, correspondind to \eqn{max(v)).  
+1) Default method. Correlation coefficients are calculated between couples of columns \eqn{V(a)} and set in a vector \eqn{v}. The non-collinearity indicator \eqn{r} is the quantile of the elements in \eqn{v} (by default, prob = 1, correspondind to \eqn{max(v))}.  
 
 2) A SVD decompostion of \eqn{V(a)} is computed, and the collinearity measure \eqn{r} between the \eqn{B} vectors is given by proportion of variance accounted by the first SVD dimension (i.e. \eqn{r = eig[1] / sum(eigs)}). 
 
