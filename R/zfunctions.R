@@ -399,6 +399,39 @@
   
     }
 
+.qqbeta <- function(x, shape1 = 1, shape2 = 1) {       
+
+  Fn <- ecdf(x)       
+  p <- Fn(x)
+  ## For escaping that q...(p) returns Inf
+  p[p == 1] <- 1 - 1e-4
+  y <- qbeta(p, shape1, shape2)
+  list(x = x, y = y)
+  
+  }
+
+.qqchisq <- function(x, df = 1) {       
+
+  Fn <- ecdf(x)       
+  p <- Fn(x)
+  ## For escaping that q...(p) returns Inf
+  p[p == 1] <- 1 - 1e-4
+  y <- qchisq(p, df)
+  list(x = x, y = y)
+  
+  }
+
+.qqf <- function(x, df1 = 1, df2 = 1) {       
+
+  Fn <- ecdf(x)       
+  p <- Fn(x)
+  ## For escaping that q...(p) returns Inf
+  p[p == 1] <- 1 - 1e-4
+  y <- qf(p, df1, df2)
+  list(x = x, y = y)
+  
+  }
+
 .qqt <- function(x, alpha = 0, df = 1, plot = FALSE) {
   
     x <- c(x)
@@ -406,14 +439,14 @@
   
     .Fn <- ecdf(y)
     p <- .Fn(y)
-    ## For escaping that qt(p) returns Inf
+    ## For escaping that q...(p) returns Inf
     p[p == 1] <- 1 - 1e-3
   
     a <- alpha / 2
     lim <- quantile(y, probs = c(a, 1 - a))
     u <- which(y >= lim[1] & y <= lim[2])
   
-    zx <- qt(p = p, df = df)[u]
+    zx <- qt(p, df)[u]
     zy <- y[u]
 
     if(plot) {

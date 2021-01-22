@@ -1,7 +1,9 @@
 selcoll <- function(
     X, Y = NULL, ncomp = NULL, algo = NULL,
     B = 50, seed = NULL,
-    type = c("loadings", "b"),
+    type = c("P", "b"),
+    coll = c("corr", "eig"),
+    prob = 1,
     plot = TRUE, 
     xlab = "Nb. components", ylab = NULL,
     print = TRUE, 
@@ -9,7 +11,9 @@ selcoll <- function(
     ) {
     
     type <- match.arg(type)
-    
+    prob <- min(prob, 1)
+    coll <- match.arg(coll)
+  
     X <- .matrix(X)
     zdim <- dim(X)
     n <- zdim[1]
@@ -61,10 +65,37 @@ selcoll <- function(
         
         }
 
-    q <- numeric()
+    r <- numeric()
     for(a in seq_len(ncomp)) {
-        eig <- svd(P[, a, ], nu = 0, nv = 0)$d^2
-        q[a] <- eig[1] / sum(eig)
+        
+        z <- P[, a, ]
+        
+        q <- numeric()
+        
+        if(coll == "corr") {
+        
+            znrep <- 10
+            zj <- 1
+            for(l in 1:znrep) {
+                s <- sample(seq_len(ncol(z)))
+                v <- z[, s, drop = FALSE]
+                for(j in 1:(ncol(z) - 1)) {
+                    q[zj] <- abs(cor(z[, j], z[, j + 1]))
+                    zj <- zj + 1
+                    }
+                }
+        
+            r[a] <- quantile(q, probs = prob)
+        
+            }
+        
+        if(coll == "eig") {
+        
+            eig <- svd(P[, a, ], nu = 0, nv = 0)$d^2
+            r[a] <- eig[1] / sum(eig)
+      
+            }
+        
         }
 
     set.seed(seed = NULL)
@@ -72,14 +103,12 @@ selcoll <- function(
     if(print)
         cat("\n\n")
     
-    r <- 1 - q
     r[r == 0] <- 1e-4
-
     
     if(plot) {
       
         if(is.null(ylab))
-            ylab <- "Non-collinearity"
+            ylab <- "Collinearity"
 
         oldpar <- par(mfrow = c(1, 1))
         par(mfrow = c(1, 2))

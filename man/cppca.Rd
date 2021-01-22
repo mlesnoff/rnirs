@@ -43,7 +43,7 @@ In our case, the justification and interpretation of the additional part \eqn{th
 \usage{
 
 cppca(X, ncomp, algo = NULL,
-  segm = segm,
+  segm,
   type = c("aicc", "aic", "bic"), 
   k = 10,
   print = TRUE, ...)

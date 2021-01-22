@@ -28,15 +28,19 @@ pls_kernel <- function(X, Y, ncomp, weights = NULL) {
     Xd <- weights * X
     # = D %*% X = d * X = X * d
 
-    XY <- crossprod(Xd, Y)
+    tXY <- crossprod(Xd, Y)
     # = t(D %*% X) %*% Y = t(X) %*% D %*% Y
     
     for(a in seq_len(ncomp)) {
     
-        if(q == 1) w <- XY
+        if(q == 1) w <- tXY
             else {
-                w <- XY %*% svd(t(XY), nu = 1, nv = 0)$u
-                }
+                u <- svd(t(tXY), nu = 1, nv = 0)$u
+                ## Same as
+                ## u <- svd(tXY, nu = 0, nv = 1)$v
+                ## u <- eigen(crossprod(tXY), symmetric = TRUE)$vectors[, 1]
+                w <- tXY %*% u
+                } 
 
         w <- w / sqrt(sum(w * w))
         
@@ -49,11 +53,11 @@ pls_kernel <- function(X, Y, ncomp, weights = NULL) {
         
         tt <- sum(weights * t * t)         
         
-        c <- crossprod(XY, r) / tt
+        c <- crossprod(tXY, r) / tt
         
         p <- crossprod(Xd, t) / tt 
         
-        XY <- XY - tcrossprod(p, c) * tt    
+        tXY <- tXY - tcrossprod(p, c) * tt    
         
         T[, a] <- t
         P[, a] <- p

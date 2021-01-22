@@ -1,5 +1,17 @@
 ## NEWS for package **rnirs**
 
+## **Version 1.9-13**
+
+- Correction of small typo bugs in function **cppca**
+
+- Improvements and modifications **selangle** and **selcoll**; See the corresponding help pages
+
+- Code cleaning
+
+
+
+
+
 ## **Version 1.9-12**
 
 - Function **selcoef** was removed (possibly temporrary)

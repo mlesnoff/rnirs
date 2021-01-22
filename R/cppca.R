@@ -1,11 +1,13 @@
 cppca <- function(
     X, ncomp, algo = NULL,
-    segm = segm,
+    segm,
     type = c("aicc", "aic", "bic"), 
     k = 10,
     print = TRUE, 
     ...
     ) {
+    
+    type <- match.arg(type)
     
     X <- .matrix(X)
     zdim <- dim(X)
@@ -26,8 +28,11 @@ cppca <- function(
     
     s2 <- ssr[k + 1] / (N - dfcal[k + 1])
     
-    z <- cvpca_rw(X, ncomp, algo = algo, 
-                                segm = segm, print = print, ...)$res.summ
+    z <- cvpca_rw(
+        X, ncomp, algo = algo, 
+        segm = segm, print = print, 
+        ...
+        )$res.summ
 
     R <- ssr / z$ssr
     R <- ifelse(R > 1, 1, R)

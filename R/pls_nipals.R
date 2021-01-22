@@ -27,15 +27,15 @@ pls_nipals <- function(X, Y, ncomp, weights = NULL) {
     
     for(a in seq_len(ncomp)) {
             
-        XY <- crossprod(weights * X, Y)
+        tXY <- crossprod(weights * X, Y)
         # = t(D %*% X) %*% Y = t(X) %*% D %*% Y
         
         if(q == 1) {
-            w <- XY
+            w <- tXY
             w <- w / sqrt(sum(w * w))
             }
         else {
-            w <- svd(XY, nu = 1, nv = 0)$u
+            w <- svd(tXY, nu = 1, nv = 0)$u
             }
         
         t <- X %*% w

@@ -29,10 +29,10 @@ pls_rannar <- function(X, Y, ncomp, weights = NULL) {
     Xd <- sqrt(weights) * X
     Yd <- sqrt(weights) * Y
     
-    XX <- tcrossprod(Xd)
-    YY <- tcrossprod(Yd)
+    XtX <- tcrossprod(Xd)
+    YtY <- tcrossprod(Yd)
     
-    XY <- XX %*% YY    
+    XY <- XtX %*% YtY    
     
     I <- diag(n)
 
@@ -40,18 +40,18 @@ pls_rannar <- function(X, Y, ncomp, weights = NULL) {
         
         t <- .eigpow(XY)$v
 
-        u <- YY %*% t
+        u <- YtY %*% t
     
         utemp <-    u / sum(u * t)
-        wtw <- c(crossprod(utemp, XX) %*% utemp)
+        wtw <- c(crossprod(utemp, XtX) %*% utemp)
         tclass <- t * sqrt(wtw) / sqrt(weights)
         
         tt <- sum(weights * tclass * tclass)    
         
         G <- I - tcrossprod(t)
-        XX <- G %*% (XX) %*% G 
-        YY <- G %*% YY %*% G
-        XY <- XX %*% YY
+        XtX <- G %*% (XtX) %*% G 
+        YtY <- G %*% YtY %*% G
+        XY <- XtX %*% YtY
         
         T[, a] <- t
         Tclass[, a] <- tclass

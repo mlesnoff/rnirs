@@ -8,13 +8,19 @@
 
 The function helps selecting the dimension (i.e. nb. components) of a PCA or PLS by bootstrapping the loading vectors and, for PLS, eventually the b-coefficient vectors, for exploring their collinearity. 
 
-The principle is detailed below for loading vectors. The same principle applies to the b-coefficient vectors (only availbel for PLS1). 
+The principle is detailed below for loading vectors. The same principle applies to the b-coefficient vectors (only availalble for PLS1). 
 
 A non parametric bootstrap is implemented on the rows of matrix \eqn{X} (and eventually \eqn{Y} if PLS), and the loading matrices \eqn{P(b)  b = 1,...,B} are calculated for each bootstrap replication \eqn{b}, all with a total number of \eqn{A} columns. 
 
-For a given model dimension \eqn{a <= A}, the \eqn{B} loading vectors corresponding to loadings "\eqn{a}" (column \eqn{a} in matrices \eqn{P(b)}) are set in a matrix \eqn{V(a)} (this last matrix has \eqn{B} columns). A SVD decompostion of \eqn{V(a)} is computed, and a collinearity measure between the \eqn{B} vectors is given by the proportion of variance accounted by the first SVD dimension (i.e. \eqn{p = eig[1] / sum(eigs)}). Lower is this proportion, lower is the collinearity between the vectors of rank, indicating they may have built from noise (unstability of the loading vector of rank \eqn{a}). 
+For a given model dimension \eqn{a <= A}, the \eqn{B} loading vectors corresponding to loadings "\eqn{a}" (column \eqn{a} in matrices \eqn{P(b)}) are set in a matrix \eqn{V(a)} (this last matrix has \eqn{B} columns). 
 
-The non-collinearity indicator \eqn{r = 1 - p} is returned. Jumps in the curve of the indicator, followed by regular patterns close to unity, are expected revealing unstable loadings. 
+Then, two alternative measures of collinearity are proposed, depending on argument \code{corr}:
+
+1) Default method. Correlation coefficients are calculated between couples of columns \eqn{V(a)} and set in a vector \eqn{v}. The non-collinearity indicator \eqn{r} is the quantile of the elements in \eqn{v} (by default, prob = 1, correspondind to \eqn{max(v)).  
+
+2) A SVD decompostion of \eqn{V(a)} is computed, and the collinearity measure \eqn{r} between the \eqn{B} vectors is given by proportion of variance accounted by the first SVD dimension (i.e. \eqn{r = eig[1] / sum(eigs)}). 
+
+Low collinearity between the vectors of rank \eqn{a} (columns of matrix  matrix \eqn{V(a)}) may indicate they may have built from noise (generating unstability in \eqn{V(a)}). Jumps in the curve of \eqn{r}, followed by regular patterns are also informative. 
 
 }
 
@@ -23,7 +29,9 @@ The non-collinearity indicator \eqn{r = 1 - p} is returned. Jumps in the curve o
 selcoll(
     X, Y = NULL, ncomp = NULL, algo = NULL,
     B = 50, seed = NULL,
-    type = c("loadings", "b"),
+    type = c("P", "b"),
+    coll = c("corr", "eig"),
+    prob = 1,
     plot = TRUE, 
     xlab = "Nb. components", ylab = NULL,
     print = TRUE, 
@@ -46,7 +54,11 @@ selcoll(
 
 \item{seed}{An integer defining the seed for the random simulation, or \code{NULL} (default). See \code{\link{set.seed}}.}
 
-\item{type}{Type of measure of angle. Possible values are "hot" (Hotteling \eqn{q}; default) or "maxsub".} 
+\item{type}{Type of output whose the stability is evaluated. Possible values are "P" (loadings; default) and or "b" (b-coefficients).} 
+
+\item{coll}{Type of collinearity measure. Possible values are "corr" (quantile of correlation coefficeints; default) or "eig" (SVD decomposition).} 
+
+\item{prob}{Probability level for quantile (default to 1; the maximal vaule is considered).} 
 
 \item{plot}{Logical. If \code{TRUE} (default), results are plotted.}
 
@@ -73,7 +85,7 @@ Xr <- datcass$Xr
 yr <- datcass$yr
 
 ncomp <- 30
-selcoll(Xr, yr, ncomp = ncomp, B = 10)
+selcoll(Xr, ncomp = ncomp, B = 10)
 
 }
 
