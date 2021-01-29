@@ -5,8 +5,14 @@ dfplsr_cov <- function(
     ...
     ) {
     
+    if(is.null(algo))
+        algo <- pls_kernel
+    
     X <- .matrix(X)
-    n <- dim(X)[1]
+    zdim <- dim(X)
+    n <- zdim[1]
+    p <- zdim[2]
+    ncomp <- min(ncomp, p)
 
     fm <- plsr(X, Y, X, Y, ncomp = ncomp, algo = algo, ...)
     z <- mse(fm, ~ ncomp, digits = 25)
@@ -17,13 +23,16 @@ dfplsr_cov <- function(
     #for(a in seq_len(ncomp))
     #    ssr[a] <- sum(.resid.pls(fm, Y, ncomp = a)$r^2)
     ## End
+    
     ## Low biased model estimate
     k <- min(ncomp, 30)
-    s2 <- ssr[k + 1] / (k + 1)
-
+    s2 <- ssr[k + 1] / (n - 1)
+    zfm <- algo(X, Y, ncomp = k, ...)
+    mu <- .resid.pls(zfm, Y, ncomp = k)$fit
+    
     #s2 <- ssr[ncomp + 1] / (ncomp + 1)
         
-    zY <- matrix(rep(Y, B), nrow = n, ncol = B, byrow = FALSE)
+    zY <- matrix(rep(mu, B), nrow = n, ncol = B, byrow = FALSE)
     set.seed(seed = seed)
     zE <- matrix(rnorm(n * B, sd = s2^.5), nrow = n, ncol = B)
     set.seed(seed = NULL)

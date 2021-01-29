@@ -6,9 +6,14 @@ dfplsr_div <- function(
     ) {
     
     meth.samp <- match.arg(meth.samp)
-    
+    if(is.null(algo))
+        algo <- pls_kernel
+   
     X <- .matrix(X)
-    n <- dim(X)[1]
+    zdim <- dim(X)
+    n <- zdim[1]
+    p <- zdim[2]
+    ncomp <- min(ncomp, p)
     
     ns <- min(ns, n) 
     

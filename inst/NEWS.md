@@ -1,5 +1,14 @@
 ## NEWS for package **rnirs**
 
+## **Version 1.9-14**
+
+- Internal modifications in functions **dfplsr_cov**, **dfplsr_div**,
+**cpplsr** and **seldesign**
+
+
+
+
+
 ## **Version 1.9-13**
 
 - Correction of small typo bugs in function **cppca**

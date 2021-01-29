@@ -25,11 +25,12 @@ dfplsr_cov(
     )
 
 dfplsr_div(
-   X, Y, ncomp, algo = NULL, 
-   ns = 50, meth.samp = c("syst", "random"), eps = 1e-4, seed = NULL, 
-   print = TRUE, 
-   ...
-   ) 
+    X, Y, ncomp, algo = NULL, 
+    ns = 50, meth.samp = c("syst", "random"), 
+    eps = 1e-4, seed = NULL, 
+    print = TRUE, 
+    ...
+    ) 
 
 }
 

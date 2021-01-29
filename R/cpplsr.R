@@ -11,13 +11,16 @@ cpplsr <- function(
     type <- match.arg(type) 
     methdf <- match.arg(methdf) 
     
+    if(is.null(algo))
+        algo <- pls_kernel
+
     X <- .matrix(X)
     zdim <- dim(X)
     n <- zdim[1]
     p <- zdim[2]
     
     fm <- plsr(X, Y, X, Y, ncomp = ncomp, algo = algo, ...)
-    z <- mse(fm, ~ ncomp)
+    z <- mse(fm, ~ ncomp, digits = 20)
     ssr <- z$nbpred * z$msep
     
     if(methdf == "cov") 
@@ -36,6 +39,8 @@ cpplsr <- function(
     k <- min(ncomp, 30)
     s2 <- ssr[k + 1] / df.ssr[k + 1]
     
+    ## Warining: In the present function, r is not scaled by observation
+    ## (This is the total Cp for n obs)
     r <- switch(
         type,
         aic = ssr + 2 * s2 * df,
@@ -60,7 +65,7 @@ cpplsr <- function(
         crit = r, delta = delta, w = w
         )
     
- list(res = res, opt = opt, k = k, s2 = s2)
+    list(res = res, opt = opt, k = k, s2 = s2)
     
     
     }

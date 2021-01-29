@@ -27,7 +27,7 @@ selsign <- function(
         u <- (fm$y$rep == i)
         zfm <- list(y = fm$y[u, ], fit = fm$fit[u, ], r = fm$r[u, ])
     
-        z <- mse(zfm, formula)
+        z <- mse(zfm, formula, digits = 20)
         zopt <- which(z$msep == min(z$msep))[1]
         zopt <- z[zopt, vars]
         
