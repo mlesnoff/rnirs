@@ -71,7 +71,7 @@ dfplsr_cov <- function(
     cov <- colSums(Cov)
     df <- c(1, cov / s2)
     
-    list(df = df)
+    list(df = df, cov = cov)
     
     }
 
