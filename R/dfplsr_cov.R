@@ -18,19 +18,28 @@ dfplsr_cov <- function(
     z <- mse(fm, ~ ncomp, digits = 25)
     ssr <- z$nbpred * z$msep
     ## Same as
-    #fm <- algo(X, Y, ncomp = ncomp, ...)
-    #ssr <- numeric()
-    #for(a in seq_len(ncomp))
-    #    ssr[a] <- sum(.resid.pls(fm, Y, ncomp = a)$r^2)
+    ## fm <- algo(X, Y, ncomp = ncomp, ...)
+    ## ssr <- numeric()
+    ## for(a in seq_len(ncomp))
+    ##    ssr[a] <- sum(.resid.pls(fm, Y, ncomp = a)$r^2)
     ## End
     
-    ## Low biased model estimate
+    ## mu and s2 for the parametric bootstrap
+    ## estimated from a low biased model
     k <- min(ncomp, 30)
-    s2 <- ssr[k + 1] / (n - 1)
+    ## Below s2 is not the unbiased estimate of sigma2 for the model
+    ## This unbiased estimate would need to know df ...
+    ## This is not important here, since the amount put in 
+    ## the simulated variations is counter-balanced by the covariances
+    ## Efron 2004 p. 620 is not clear how he calculates s2
+    ## "obtained from residuals of some 'big' model presumed 
+    ## to have negligible bias"
+    s2 <- ssr[k + 1] / (n - k - 1)
     zfm <- algo(X, Y, ncomp = k, ...)
+    ## In Efron 2004, mu is estimated for each number of LV
+    ## This is a simplification here: mu is computed only one time 
+    ## from the low-biased model
     mu <- .resid.pls(zfm, Y, ncomp = k)$fit
-    
-    #s2 <- ssr[ncomp + 1] / (ncomp + 1)
         
     zY <- matrix(rep(mu, B), nrow = n, ncol = B, byrow = FALSE)
     set.seed(seed = seed)
@@ -60,12 +69,9 @@ dfplsr_cov <- function(
             Cov[i, a] <- cov(zY[i, ], Fit[i, , a])
         
     cov <- colSums(Cov)
-    df <- cov / s2
+    df <- c(1, cov / s2)
     
-    df <- c(1, df)
-    cov <- c(NA, cov)
-    
-    list(df = df, cov = cov, s2 = s2)
+    list(df = df)
     
     }
 

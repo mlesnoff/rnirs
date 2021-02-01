@@ -1,9 +1,12 @@
 cpplsr <- function(
     X, Y, ncomp, algo = NULL,
-    type = c("aicc", "aic", "bic"),
-    methdf = c("cov", "div", "naive"),
-    B = 50, eps = 1e-4, seed = NULL,
+    type = c("aicc", "aic"),
+    methdf = c("cov", "div", "crude"),
     theta = 3, 
+    maxlv = 15,
+    B = 50
+    eps = 1e-4,
+    seed = NULL,
     print = TRUE, 
     ...
     ) {
@@ -20,7 +23,7 @@ cpplsr <- function(
     p <- zdim[2]
     
     fm <- plsr(X, Y, X, Y, ncomp = ncomp, algo = algo, ...)
-    z <- mse(fm, ~ ncomp, digits = 20)
+    z <- mse(fm, ~ ncomp, digits = 25)
     ssr <- z$nbpred * z$msep
     
     if(methdf == "cov") 
@@ -31,27 +34,26 @@ cpplsr <- function(
         df <- dfplsr_div(X, Y, ncomp = ncomp, algo = algo, 
                          ns = B, eps = eps, seed = seed, print = print, ...)$df
     
-    if(methdf == "naive")
+    if (methdf == "crude") 
         df <- 1 + theta * seq(0, ncomp)
     
     df.ssr <- n - df
-    
-    k <- min(ncomp, 30)
+    ## Unbiased estimate of sigma2 for the low biased model
+    k <- min(ncomp, maxlv)
     s2 <- ssr[k + 1] / df.ssr[k + 1]
-    
-    ## Warining: In the present function, r is not scaled by observation
-    ## (This is the total Cp for n obs)
+
     r <- switch(
         type,
-        aic = ssr + 2 * s2 * df,
         aicc = ssr + 2 * s2 * df * n / (n - df - 1),
-        bic = ssr + log(n) * s2 * df
+        aic = ssr + 2 * s2 * df,
+        #bic = ssr + log(n) * s2 * df
         ##fpe = (n + df) / (n - df) * ssr,
         ##gcv = n / (df.ssr)^2 * ssr
         )
-    
-    ##if(type != "gcv")
-    ##    r <- r / n
+
+    ## Warning
+    ## Here Cp is scaled by observation
+    r <- r / n
     
     delta <- r - min(r)
     z <- exp(-.5 * delta)

@@ -2,8 +2,10 @@
 
 ## **Version 1.9-14**
 
-- Internal modifications in functions **dfplsr_cov**, **dfplsr_div**,
-**cpplsr** and **seldesign**
+
+- Modification of function **cpplsr**. See help page.
+
+- Internal modifications in functions **dfplsr_cov**, **dfplsr_div** and **seldesign**
 
 
 
