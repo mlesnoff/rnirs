@@ -4,7 +4,7 @@ cpplsr <- function(
     methdf = c("cov", "div", "crude"),
     theta = 3, 
     maxlv = 15,
-    B = 50
+    B = 50,
     eps = 1e-4,
     seed = NULL,
     print = TRUE, 
