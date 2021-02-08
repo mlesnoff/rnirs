@@ -19,15 +19,17 @@ Monte Carlo estimation of the model complexity \eqn{df} (number of degrees of fr
 
 dfplsr_cov(
     X, Y, ncomp, algo = NULL,
-    B = 50, seed = NULL, 
+    maxlv = 50, 
+    B = 30, seed = NULL, 
     print = TRUE, 
     ...
     )
 
 dfplsr_div(
-    X, Y, ncomp, algo = NULL, 
-    B = 50, samp = c("random", "syst"), 
-    eps = 1e-2, seed = NULL, 
+    X, Y, ncomp, algo = NULL,
+    eps = 1e-2,
+    B = 30, samp = c("random", "syst"), 
+    seed = NULL, 
     print = TRUE, 
     ...
     ) 
@@ -44,11 +46,13 @@ dfplsr_div(
 
 \item{algo}{a PLS algorithm. Default to  \code{NULL} (\code{\link{pls_kernel}} is used).}
 
+\item{maxlv}{For \code{dfplsr_cov}: dimenson of the PLSR model used for parametric bootstrap.}
+
+\item{eps}{For \code{dfplsr_div}. The \eqn{epsilon} quantity used for scaling the perturbation analysis.}
+
 \item{B}{For \code{dfplsr_cov}: number of bootstrap replications. For \code{dfplsr_div}: number of observations in the data receiving perturbation (the maximum is \eqn{n}).}
 
 \item{samp}{For \code{dfplsr_div}. When \eqn{ns < n}, method used for sampling the observations receiving a perturbation. Possible values are  "random" (default) ore "syst" (observations are sampled regularly over \eqn{y}).}
-
-\item{eps}{For \code{dfplsr_div}. The \eqn{epsilon} quantity used for scaling the perturbation analysis.}
 
 \item{seed}{An integer defining the seed for the random simulation, or \code{NULL} (default). See \code{\link{set.seed}}.}
 

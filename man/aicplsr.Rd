@@ -122,7 +122,7 @@ res <- aicplsr(
     Xr, yr, ncomp = ncomp, 
     methdf = "cov", B = B
     )
-names(fm)
+names(res)
 res$crit
 res$opt
 z <- res$crit

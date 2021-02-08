@@ -1,8 +1,8 @@
 dfplsr_div <- function(
     X, Y, ncomp, algo = NULL, 
     eps = 1e-2,
-    samp = c("random", "syst"), 
-    B = 30, seed = NULL,
+    B = 30, samp = c("random", "syst"), 
+    seed = NULL,
     print = TRUE, 
     ...
     ) {
