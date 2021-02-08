@@ -6,13 +6,11 @@
 
 \description{
 
-The function helps selecting the dimension (i.e. nb. components) of a PCA or PLS by bootstrapping the loading vectors and, for PLS, eventually the b-coefficient vectors, for exploring their collinearity. 
+The function helps selecting the dimension (i.e. nb. components) of a PCA or PLS by bootstrapping the observations and exploring the collinearity of the loading vectors of same rank or, for PLS (univariate), eventually the b-coefficient vectors. 
 
-The principle is detailed below for loading vectors. The same principle applies to the b-coefficient vectors (only availalble for PLS1). 
+The principle is detailed below for loading vectors (the same applies to b-coefficient vectors). 
 
-A non parametric bootstrap is implemented on the rows of matrix \eqn{X} (and eventually \eqn{Y} if PLS), and the loading matrices \eqn{P(b)  b = 1,...,B} are calculated for each bootstrap replication \eqn{b}, all with a total number of \eqn{A} columns. 
-
-For a given model dimension \eqn{a <= A}, the \eqn{B} loading vectors corresponding to loadings "\eqn{a}" (column \eqn{a} in matrices \eqn{P(b)}) are set in a matrix \eqn{V(a)} (this last matrix has \eqn{B} columns). 
+A non parametric bootstrap is implemented on the rows of matrix \eqn{X} (and eventually \eqn{Y} if PLS), and the loading matrices \eqn{P(b)  b = 1,...,B} are calculated for each bootstrap replication \eqn{b}, all with a total number of \eqn{A} columns. For a given model dimension \eqn{a <= A}, the \eqn{B} loading vectors corresponding to loadings "\eqn{a}" (column \eqn{a} in matrices \eqn{P(b)}) are set in a matrix \eqn{V(a)} (this last matrix has \eqn{B} columns). 
 
 Then, two alternative measures of collinearity are proposed, depending on argument \code{corr}:
 
@@ -20,7 +18,7 @@ Then, two alternative measures of collinearity are proposed, depending on argume
 
 2) A SVD decompostion of \eqn{V(a)} is computed, and the collinearity measure \eqn{r} between the \eqn{B} vectors is given by proportion of variance accounted by the first SVD dimension (i.e. \eqn{r = eig[1] / sum(eigs)}). 
 
-Low collinearity between the vectors of rank \eqn{a} (columns of matrix  matrix \eqn{V(a)}) may indicate they may have built from noise (generating unstability in \eqn{V(a)}). Jumps in the curve of \eqn{r}, followed by regular patterns are also informative. 
+Low collinearity between the vectors of rank \eqn{a} (columns of matrix  matrix \eqn{V(a)}) may indicate they may have built with large uncertainity (generating unstability in \eqn{V(a)}). Jumps in the curve of \eqn{r}, followed by regular patterns are also informative. 
 
 }
 

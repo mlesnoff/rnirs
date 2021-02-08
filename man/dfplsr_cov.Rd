@@ -7,7 +7,7 @@
 
 \description{
 
-Monte Carlo estimation of the model complexity \eqn{df} (number of degrees of freedom) of PLSR1 models. See in particular Ye 1998 and Efron 2004.
+Monte Carlo estimation of the model complexity \eqn{df} (number of degrees of freedom) of univariate PLSR models. See in particular Ye 1998 and Efron 2004.
 
 - In \code{dfplsr_cov}, the covariances presented by Efron 2004 (Eq. 2.16) are calculated  by parametric bootstrap. The residual variance \eqn{sigma^2} is estimated from a low-biased model.
 
@@ -26,8 +26,8 @@ dfplsr_cov(
 
 dfplsr_div(
     X, Y, ncomp, algo = NULL, 
-    ns = 50, meth.samp = c("syst", "random"), 
-    eps = 1e-4, seed = NULL, 
+    B = 50, samp = c("random", "syst"), 
+    eps = 1e-2, seed = NULL, 
     print = TRUE, 
     ...
     ) 
@@ -44,11 +44,9 @@ dfplsr_div(
 
 \item{algo}{a PLS algorithm. Default to  \code{NULL} (\code{\link{pls_kernel}} is used).}
 
-\item{B}{For \code{dfplsr_cov}. Number of bootstrap replications.}
+\item{B}{For \code{dfplsr_cov}: number of bootstrap replications. For \code{dfplsr_div}: number of observations in the data receiving perturbation (the maximum is \eqn{n}).}
 
-\item{ns}{For \code{dfplsr_div}. Number of observations in the data receiving perturbation. The maximum is \eqn{n}.}
-
-\item{meth.samp}{For \code{dfplsr_div}. When \eqn{ns < n}, method used for sampling the observations receiving a perturbation. Possible values are "syst" (default; observations are sampled regularly over \eqn{y}) or "random".}
+\item{samp}{For \code{dfplsr_div}. When \eqn{ns < n}, method used for sampling the observations receiving a perturbation. Possible values are  "random" (default) ore "syst" (observations are sampled regularly over \eqn{y}).}
 
 \item{eps}{For \code{dfplsr_div}. The \eqn{epsilon} quantity used for scaling the perturbation analysis.}
 
@@ -115,12 +113,12 @@ X <- z[u, -4]
 y <- z[u, 4]
 dim(X)
 
-zX <- scale(X)    ## Scaling for consistency with plsdof
+zX <- scale(X)    ## Scaling only for consistency with plsdof
 
 ncomp <- 12
-ns <- B <- 50   ## Should be increased for more stability
+B <- 50   ## Should be increased for more stability
 u <- dfplsr_cov(zX, y, ncomp = ncomp, B = B)
-v <- dfplsr_div(zX, y, ncomp = ncomp, ns = ns)
+v <- dfplsr_div(zX, y, ncomp = ncomp, B = B)
 
 #library(plsdof)
 #fm <- pls.model(

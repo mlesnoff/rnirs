@@ -14,7 +14,7 @@ plotsp <- function(
     
     colnam <- suppressWarnings(as.numeric(colnames(X)))
     if(sum(is.na(colnam)) > 0) 
-        colnam <- seq_len(p)    
+        colnam <- seq_len(p)
     
     if(is.null(col)) 
         col <- rep("#045a8d", n)

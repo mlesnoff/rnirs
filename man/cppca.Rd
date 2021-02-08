@@ -2,11 +2,13 @@
 \alias{cppca}
 \encoding{latin1}
 
-\title{Mallows Cp for PCA Models}
+\title{Mallows's Cp for PCA Models}
 
 \description{
 
-Calculation of the Mallows \eqn{Cp} (Mallows 1973) criterion for PCA models. For a model with \eqn{a} components and a matrix \eqn{X} of dimension \eqn{n x p}, function \code{cppca} calculates \eqn{Cp} by:
+Calculation of a Mallows's \eqn{Cp} (Mallows 1973) criterion for PCA models. This function will probably be modified in the future (this is a work in progress). 
+
+For a model with \eqn{a} components and a matrix \eqn{X} of dimension \eqn{n x p}, function \code{cppca} calculates \eqn{Cp} by:
 
 \eqn{Cp(a) = SSR(a) / N + alpha * dfc(a) * sigma^2 / N}  
 
@@ -26,7 +28,7 @@ The underestimation comes from the fact that, in PCA, the new observations to pr
 
 The non-independence between \eqn{Xnew} and \eqn{Xnew_fit} consumes specific degrees of freedom that need to be added to \eqn{df} before using the Cp formula. Let us define the \bold{corrected} number of degrees of freedom (used finally in the \eqn{Cp} formula) by \eqn{dfc = df + theta}, where \eqn{theta} corresponds to the additional part. We need to estimate \eqn{dfc} (or \eqn{theta} since \eqn{df} is known).
 
-The proposed approach uses the nice idea of Hassani et al. 2012 that compared SSR to SSRCV (where \eqn{SSRCV} is the \eqn{PRESS} returned by a given  cross-validation process), but with a different interpretation and justification. 
+The approach  propoed in rnirs (publication should come) uses the nice idea of Hassani et al. 2012 that compared SSR to SSRCV (where \eqn{SSRCV} is the \eqn{PRESS} returned by a given  cross-validation process), but with a different interpretation and justification. 
 
 Function \eqn{cppca} estimates \eqn{dfc} from the following rule of thumb:
 

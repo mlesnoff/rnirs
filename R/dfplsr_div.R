@@ -1,11 +1,14 @@
 dfplsr_div <- function(
     X, Y, ncomp, algo = NULL, 
-    ns = 50, meth.samp = c("syst", "random"), eps = 1e-4, seed = NULL, 
+    eps = 1e-2,
+    samp = c("random", "syst"), 
+    B = 30, seed = NULL,
     print = TRUE, 
     ...
     ) {
     
-    meth.samp <- match.arg(meth.samp)
+    samp <- match.arg(samp)
+    
     if(is.null(algo))
         algo <- pls_kernel
    
@@ -13,9 +16,9 @@ dfplsr_div <- function(
     zdim <- dim(X)
     n <- zdim[1]
     p <- zdim[2]
-    ncomp <- min(ncomp, p)
+    ncomp <- min(ncomp, n, p)
     
-    ns <- min(ns, n) 
+    B <- min(B, n) 
     
     y <- c(Y)
     eps <- mean(y) * eps
@@ -23,23 +26,23 @@ dfplsr_div <- function(
     fm <- plsr(X, y, X, ncomp = ncomp, algo = algo, ...)
     fit <- fm$fit
     
-    if(meth.samp == "syst") {
+    if(samp == "random") {
+        set.seed(seed = seed)
+        s <- sample(seq_len(n), size = B, replace = FALSE)
+        set.seed(seed = NULL)
+        }
+    
+    if(samp == "syst") {
         ## Regular sampling (grid) over y
         ## "order(y) = 3 7 etc." means: the 1st lower value is the component 3 of the vector y,
         ## the 2nd lower value is the component 7 of the vector y, etc.
         id <- order(y)
-        u <- round(seq(1, n, length = ns))
+        u <- round(seq(1, n, length = B))
         s <- sort(id[u])
         }
     
-    if(meth.samp == "random") {
-        set.seed(seed = seed)
-        s <- sample(seq_len(n), size = ns, replace = FALSE)
-        set.seed(seed = NULL)
-        }
-    
-    S <- matrix(nrow = ns, ncol = ncomp)
-    for(i in seq_len(ns)) {
+    S <- matrix(nrow = B, ncol = ncomp)
+    for(i in seq_len(B)) {
         
         if(print)
             cat(i, " ")
@@ -68,7 +71,7 @@ dfplsr_div <- function(
     if(print)
         cat("\n\n")
     
-    df <- colSums(S) * n / ns
+    df <- colSums(S) * n / B
     df <- c(1, df)
     
     list(df = df)

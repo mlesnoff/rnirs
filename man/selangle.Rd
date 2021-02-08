@@ -6,15 +6,13 @@
 
 \description{
 
-The function helps selecting the dimension (i.e. nb. components) of a PCA or PLS by bootstrapping the loading matrix \eqn{P} and exploring its stability. Stability is quantified by angles between the boostrapped matrices. 
+The function helps selecting the dimension (i.e. nb. components) of a PCA or PLS by bootstrapping the observations and exploring the stability of the loading matrix \eqn{P}. Stability is quantified by angles between the boostrapped matrices. 
 
-The general idea was proposed by Ye & Weiss 2003 for the sliced inverse regression, and applied to PCA by Luo & Li 2016. The loading matrix \eqn{P} (with a total number of \eqn{A} columns, i.e. loading vectors) is computed on the raw matrix \eqn{X}. 
-
-Then, a non parametric bootstrap is implemented on the rows of matrix \eqn{X}, and the loading matrices \eqn{P(b)  b = 1,...,B} are calculated for each bootstrap replication \eqn{b}, all with \eqn{A} columns. 
+The general idea was proposed by Ye & Weiss 2003 for the sliced inverse regression, and applied to PCA by Luo & Li 2016. The loading matrix \eqn{P} (with a total number of \eqn{A} columns, i.e. loading vectors) is computed on the raw matrix \eqn{X}. Then, a non parametric bootstrap is implemented on the rows of matrix \eqn{X}, and the loading matrices \eqn{P(b)  b = 1,...,B} are calculated for each bootstrap replication \eqn{b}, all with \eqn{A} columns. 
 
 For a given model dimension \eqn{a <= A}, an "angle" is then calculated between the raw matrix \eqn{P} and each matrix \eqn{P(b)}, all with considering only the  first \eqn{a} columns. The stability indicator for a matrix  \eqn{P} with \eqn{a} vectors is the mean of the \eqn{B} angles. 
 
-Higher is the mean angle (meaning that the compared matrices do not span the same space), lower is the stability of matrix \eqn{P} whose some last columns were probably built from noise. 
+Higher is the mean angle (meaning that the compared matrices do not span the same space), lower is the stability of matrix \eqn{P} whose some last columns were probably with large uncertainty. 
 
 Two measures of angle are proposed, depending on argument \code{angle}
 

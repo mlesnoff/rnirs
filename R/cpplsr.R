@@ -32,7 +32,7 @@ cpplsr <- function(
     
     if(methdf == "div") 
         df <- dfplsr_div(X, Y, ncomp = ncomp, algo = algo, 
-                         ns = B, eps = eps, seed = seed, print = print, ...)$df
+                         B = B, eps = eps, seed = seed, print = print, ...)$df
     
     if (methdf == "crude") 
         df <- 1 + theta * seq(0, ncomp)
@@ -56,15 +56,15 @@ cpplsr <- function(
     r <- r / n
     
     delta <- r - min(r)
-    z <- exp(-.5 * delta)
-    w <- z / sum(z)
+    #z <- exp(-.5 * delta)
+    #w <- z / sum(z)
 
     opt <- which(r == min(r))[1] - 1
 
     res <- data.frame(
         ncomp = seq(0, ncomp), n = rep(n, ncomp + 1),
         ssr = ssr, df = df, df.ssr = df.ssr,
-        crit = r, delta = delta, w = w
+        crit = r, delta = delta
         )
     
     list(res = res, opt = opt, k = k, s2 = s2)

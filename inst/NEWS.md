@@ -1,5 +1,16 @@
 ## NEWS for package **rnirs**
 
+## **Version 1.9-15**
+
+
+- Function **cpplsr** has been removed and replaced by **aicplsr**
+
+- Internal modifications in functions **dfplsr_cov**, **dfplsr_div**
+
+
+
+
+
 ## **Version 1.9-14**
 
 

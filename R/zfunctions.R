@@ -463,6 +463,8 @@
 .resid.pls <- function(fm, Y, ncomp = NULL) {
   
     Y <- .matrix(Y, row = FALSE, prefix.colnam = "y")
+    if(is.null(fm$T))
+        fm$T <- fm$Tr
   
     zdim <- dim(fm$T) 
     n <-zdim[1]

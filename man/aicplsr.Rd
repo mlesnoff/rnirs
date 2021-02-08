@@ -1,30 +1,30 @@
-\name{cpplsr}
-\alias{cpplsr}
+\name{aicplsr}
+\alias{aicplsr}
 \encoding{latin1}
 
 \title{Mallows Cp for PLSR1 Models}
 
 \description{
 
-Calculation of the Mallows \eqn{Cp} criterion for PLSR1 models. For a model with \eqn{a} componetnts (LV), function \code{cpplsr} calculates \eqn{Cp} by:
+Calculation of the AIC and Mallows's \eqn{Cp} criteria for univariate PLSR models. This function may receive modifications in the future (work in progress).
 
-\eqn{Cp(a) = SSR(a) / n + alpha * df(a) * s2 / n}  
+For a model with \eqn{a} componetnts (LV), function \code{aicplsr} calculates \eqn{AIC} and \eqn{Cp} by:
 
-where \eqn{SSR} is the sum of squared residuals for the current model, \eqn{df(a)} the estimated PLSR model complexity (i.e. nb. model's degrees of freedom), \eqn{s2} an estimate of the irreductible error variance (computed from a low biased model), \eqn{alpha} a penalty coefficient, and \eqn{n} the number of training observations.  
+\eqn{AIC(a) = n * log(SSR(a)) + 2 * (df(a) + 1)}  
 
-Note that this Cp version is scaled by \eqn{n}.
+\eqn{Cp(a) = SSR(a) + 2 * df(a) * s2}  
 
-\bold{## Penalty coefficient \eqn{alpha}}
+where \eqn{SSR} is the sum of squared residuals for the current evaluated model, \eqn{df(a)} the estimated PLSR model complexity (i.e. nb. model's degrees of freedom), \eqn{s2} an estimate of the irreductible error variance (computed from a low biased model) and \eqn{n} the number of training observations.  
 
-Depending on argument \code{type}, \eqn{alpha} is equal to either \eqn{2} (AIC penalty) or \eqn{2 * n / (n - df - 1)} (small sample size correction AICc penalty).
+By default (argument \code{correct}), the small sample size correction (so-called AICc) is applied to AIC and Cp for deucing the bias. 
 
-We did not add the BIC penalty (\eqn{log(n)}) that assumes the rtrue generatiing model is one of the candidate model.
+The functions retunrs two Cp estimates, each corresponding to a different estimate of s2 (publication to come).
 
 \bold{## Model complexity df}
 
 Depending on argument \code{methdf}, model complexity \eqn{df} can be estimated 
 
-- from fonctions \code{\link{dfplsr_cov}} or \code{\link{dfplsr_div}}, 
+- from fonctions \code{\link{dfplsr_div}} or \code{\link{dfplsr_cov}}, 
 
 - or from the following ad'hoc and crude rule of thumb: \eqn{1 + theta * a} where \eqn{theta} is a given scalar higher or equal to 1 (\eqn{theta = 1} is the naive \eqn{df} estimation, which gives significant underestimations of \eqn{Cp}.). Parameter \eqn{theta} is data dependent and some knowledge on his average value should be available before using this crude rule of thumb..
 
@@ -32,15 +32,12 @@ Depending on argument \code{methdf}, model complexity \eqn{df} can be estimated
 
 \usage{
 
-cpplsr(
+aicplsr(
     X, Y, ncomp, algo = NULL,
-    type = c("aicc", "aic"),
-    methdf = c("cov", "div", "crude"),
-    theta = 3, 
-    maxlv = 15,
+    methdf = c("div", "cov", "crude"),
+    theta = 3,
+    correct = TRUE,
     B = 50,
-    eps = 1e-4,
-    seed = NULL,
     print = TRUE, 
     ...
     )
@@ -57,29 +54,23 @@ cpplsr(
 
 \item{algo}{a PLS algorithm. Default to  \code{NULL} (\code{\link{pls_kernel}} is used).}
 
-\item{type}{Type of penalty coefficient. Possible values are \code{"aicc"} (default) or \code{"aic"}. See \bold{Description} section.}
-
-\item{methdf}{The method used for estimating \eqn{df}. Possible values are \code{"cov"} (default), \code{"div"} or \code{"crude"}.}
+\item{methdf}{The method used for estimating \eqn{df}. Possible values are \code{"div"} (default), \code{"cov"} or \code{"crude"}.}
 
 \item{theta}{A scalar used in the crude estimation of \eqn{df}.}
 
-\item{maxlv}{Define the dimension of the low-biased model used for compyting s2 (\eqn{nb LV = min(maxlv, ncomp)}.}
+\item{correct}{Logical. If code{TRUE} (default), the AICc corection is applied to the criteria.}
 
-\item{B}{For \code{methdf = "cov"}: the number of bootstrap replications (see \code{\link{dfplsr_cov}}). For \code{methdf = "dif"}: the number of observations in the data receiving perturbation (maximum is \eqn{n}; see \code{\link{dfplsr_cov}}).}
-
-\item{eps}{For \code{methdf = "dif"}. The \eqn{epsilon} quantity used for scaling the perturbation analysis (see \code{\link{dfplsr_div}}).}
-
-\item{seed}{An integer defining the seed for the random simulation, or \code{NULL} (default). See \code{\link{set.seed}}.}
+\item{B}{For \code{methdf = "dif"}: the number of observations in the data receiving perturbation (maximum is \eqn{n}; see \code{\link{dfplsr_cov}}). For \code{methdf = "cov"}: the number of bootstrap replications (see \code{\link{dfplsr_cov}}).}
 
 \item{print}{Logical. If \code{TRUE}, fitting information are printed.}
 
-\item{...}{Optionnal arguments to pass in the function defined in \code{algo}.}
+\item{...}{Optionnal arguments to pass in functions \code{\link{dfplsr_div}} or \code{\link{dfplsr_cov}}.}
 
 }
 
 \value{
 
-A list of items. In particular, a data.frame with the estimated \eqn{Cp} and corresponding model weights (so-called "Akaike weights").
+A list of items. In particular, a data.frame with the estimated criteria.
 }
 
 \references{
@@ -127,14 +118,20 @@ yr <- datcass$yr
 
 ncomp <- 20
 B <- 30
-fm <- cpplsr(Xr, yr, ncomp = ncomp, 
-            type = "aicc",
-            methdf = "cov", B = B,
-            )
+res <- aicplsr(
+    Xr, yr, ncomp = ncomp, 
+    methdf = "cov", B = B
+    )
 names(fm)
-z <- fm$res
-u <- selwold(z$crit[-1], start = 1,
-             xlab = "Nb. components", main = "Cp", alpha = 0)
+res$crit
+res$opt
+z <- res$crit
+par(mfrow = c(1, 4))
+plot(z$df[-1])
+plot(z$aic[-1], type = "b", main = "AIC")
+plot(z$cp1[-1], type = "b", main = "Cp1")
+plot(z$cp2[-1], type = "b", main = "Cp2")
+par(mfrow = c(1, 1))
 
 }
 

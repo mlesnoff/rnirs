@@ -195,13 +195,13 @@
 ### <span style="color:green"> Model complexity (*df*) </span> 
 
 - ***dfpca_div*** SURE estimation of *df* for PCA 
-- ***dfplsr_cov*** Bootstrap estimation of *df* for PLSR1
-- ***dfplsr_div*** SURE estimation of *df* for PLSR1
+- ***dfplsr_cov*** Bootstrap estimation of *df* for univariate PLSR
+- ***dfplsr_div*** SURE estimation of *df* for univariate PLSR
 
-### <span style="color:green"> Mallows Cp (AIC, AICc, BIC) </span> 
+### <span style="color:green"> AIC and Mallows's Cp </span> 
   
 - ***cppca*** Cp criteria for PCA
-- ***cpplsr*** Cp criteria for PLSR1
+- ***aicplsr*** AIC and Cp criteria for univariate PLSR
 
 ### <span style="color:green"> Heuristic methods </span> 
 

@@ -1,64 +1,6 @@
-## rnirs - A Library for Chemometrics  
+## rnirs - Dimension reduction, Regression and Discrimination for Chemometrics  
 
-## <span style="color:grey70"> **Version 1.9-14** </span> 
-
-## <span style="color:green"> **Key Features** </span> 
-
-- **Dimension reduction** 
-  - PCA, PLS, FDA
-  - Robust PCA and PLS
-  - Non Linear Kernel PCA and PLS
-  - Multi-block
-    - MB-PCA, MB-PLS (block auto-scaling)
-    - SO-PCA, SO-PLS (sequential block orthogonalization)
-
-- **Regression**
-  - PCR, PLSR
-  - Ridge (RR)
-  - Robust PCR and PLSR
-  - Non Linear Kernels
-    - KPCR, KPLSR
-    - KRR (LS-SVMR)
-    - SVMR
-  - Local methods
-    - KNNR
-    - KNN-LWPLSR 
-
-- **Discrimination**
-  - PCDA, PLSDA
-  - Ridge (RR)
-  - Robust PCDA and PLSDA
-  - Non Linear Kernels
-    - KPCDA, KPLSDA
-    - KRDA (LS-SVMC)
-    - SVMC
-  - Local methods
-    - KNNDA
-    - KNN-LWPLSDA
-
-- **Selecting model dimension**
-  - Cross-validation
-    - PCA
-    - Regression or discrimination models
-  - Mallows Cp criteria (AIC, AICc, BIC)
-  - Model complexity (Degrees of Freedom)
-  - Heuristic methods
-    - Scree plot, Horn, Kaiser, Karlis, Broken-stick
-    - Bootstrap (Loadings stability)
-    - Permutation tests
-
-- **Missing data imputation (MDI)**
-  - Iterative algorithm
-  
-- **Signal pre-processing**
-  - Detrend (polynom, ALS), Smoothing, SNV, Derivations, etc.
-
-- **Sampling**
-  - Kennard-Stone
-  - Duplex
-  - Classes
-
-- **Plotting**
+## <span style="color:grey70"> **Version 1.9-15** </span> 
 
 ## <span style="color:green"> **Available functions** </span> 
 

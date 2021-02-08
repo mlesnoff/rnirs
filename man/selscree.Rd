@@ -6,12 +6,11 @@
 
 \description{
 
-The function helps selecting the dimension (i.e. nb. components) of a PCA or PLS model by Ploting the variability of the row observations over each score.
+The function helps selecting the dimension (i.e. nb. components) of a PCA or PLS model by ploting the variability of the scores.
 
 Depending on the following values of argument \code{scree}
 
-- \code{"log"} (default): log-eigenvalues are plotted (e.g. Faber et al. 1994). Patterns in eigen-values are often more apparent in the logarithm scale. Eigenvalues associated with eigenvectors that are dominated by
-noise are expected decaying geometrically (Cangelosi & Goriely 2007) leading to a straight line in the log-scale.
+- \code{"log"} (default): log-eigenvalues are plotted (e.g. Faber et al. 1994). Patterns in eigen-values are often more apparent in the logarithm scale. Eigenvalues associated with eigenvectors that are dominated by noise are expected decaying geometrically (Cangelosi & Goriely 2007) leading to a straight line in the log-scale.
 
 - \code{"eig"}: raw eigenvalues are plotted. For a PCA model, eigenvalues are the output \code{eig} of the fitted model. For a PLS model, they are the variances of the scores \code{T}.    
 
