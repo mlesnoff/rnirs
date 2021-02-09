@@ -86,6 +86,9 @@ aicplsr <- function(
     cp2 <- ssr + 2 * s2.2 * df * ct
     #fpe <- ssr * (n + df) / (n - df) * ct
     
+    cp1 <- cp1 / n
+    cp2 <- cp2 / n
+    
     crit <- data.frame(aic = aic, cp1 = cp1, cp2 = cp2)
     delta <- data.frame(
         apply(crit, MARGIN = 2, FUN = function(x) x - min(x, na.rm = TRUE))

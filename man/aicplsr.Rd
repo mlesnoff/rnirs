@@ -12,7 +12,7 @@ For a model with \eqn{a} componetnts (LV), function \code{aicplsr} calculates \e
 
 \eqn{AIC(a) = n * log(SSR(a)) + 2 * (df(a) + 1)}  
 
-\eqn{Cp(a) = SSR(a) + 2 * df(a) * s2}  
+\eqn{Cp(a) = SSR(a) / n + 2 * df(a) * s2 / n}  
 
 where \eqn{SSR} is the sum of squared residuals for the current evaluated model, \eqn{df(a)} the estimated PLSR model complexity (i.e. nb. model's degrees of freedom), \eqn{s2} an estimate of the irreductible error variance (computed from a low biased model) and \eqn{n} the number of training observations.  
 
