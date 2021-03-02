@@ -1,7 +1,5 @@
 lodis <- function(fm, Xr, Xu, alpha = .01) {
     
-    typcut <- match.arg(typcut)
-    
     fm <- fm$fm
     
     Xr <- .matrix(Xr)
@@ -21,7 +19,7 @@ lodis <- function(fm, Xr, Xu, alpha = .01) {
         s <- fm[[i]]$nn
         
         z <- odis(fm[[i]], 
-            Xr[s, , drop = FALSE], Xu[j, , drop = FALSE], alpha = .01)
+            Xr[s, , drop = FALSE], Xu[j, , drop = FALSE], alpha = alpha)
         
         z$dr$rownum <- s
         z$dr$rownam <- rownam[s]

@@ -8,9 +8,9 @@ xinterp <- function(X, w, meth = "cubic", ...) {
         colnam <- seq_len(p)
     w0 <- colnam
     
-    .fun <- function(x, w0, w, method, ...)
-        interp1(w0, x, w, method, ...)
-    zX <- t(apply(X, FUN = .fun, MARGIN = 1, w0 = w0, w = w, method = meth))
+    fun <- function(x, w0, w, method, ...)
+        signal::interp1(w0, x, w, method, ...)
+    zX <- t(apply(X, FUN = fun, MARGIN = 1, w0 = w0, w = w, method = meth))
     colnames(zX) <- w
     
     zX

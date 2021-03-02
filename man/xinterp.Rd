@@ -6,7 +6,7 @@
 
 \description{
 
-Resampling of spectra (or any signal) by interpolation methods, including linear, spline, and cubic interpolation. Uses \code{\link{interpl1}} of package \code{signal}.
+Resampling of spectra (or any signal) by interpolation methods, including linear, spline, and cubic interpolation. Uses \code{\link{interp1}} of package \code{signal}.
 
 }
 
@@ -22,7 +22,7 @@ xinterp(X, w, meth = "cubic", ...)
 
 \item{w}{A vector of the values where to interpolate (typically within the range of \eqn{w0}).}
 
-\item{meth}{The method of interpolation. See \code{\link{interpl1}}.}
+\item{meth}{The method of interpolation. See \code{\link{interp1}}.}
 
 \item{...}{Optionnal arguments to pass in function \code{\link{splinefun}} if \code{meth = "spline"}.}
 

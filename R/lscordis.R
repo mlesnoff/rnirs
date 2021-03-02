@@ -10,7 +10,7 @@ lscordis <- function(fm, alpha = .01) {
     
     for(i in seq_len(nmod)) {
         
-        z <- scordis(fm[[i]], alpha = .01)
+        z <- scordis(fm[[i]], alpha = alpha)
         
         z$dr$rownum <- fm[[i]]$nn
         

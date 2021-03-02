@@ -5,7 +5,10 @@
 
 - New function: **xinterp** (Resampling of spectra by nterpolation methods)
 
-- Modification of functions **scordis** and **odis**: cutoff value calculation has changed
+- Modification of functions 
+
+  - **scordis** and **odis**: cutoff value calculation has changed
+  - **pca_rob** and **pls_rob**: argument alpha changed to alpha.rm
 
 
 
