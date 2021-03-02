@@ -47,7 +47,7 @@ In our case, the justification and interpretation of the additional part \eqn{th
 cppca(X, ncomp, algo = NULL,
   segm,
   type = c("aicc", "aic", "bic"), 
-  k = 10,
+  k = 5,
   print = TRUE, ...)
 
 }
@@ -64,7 +64,7 @@ cppca(X, ncomp, algo = NULL,
 
 \item{type}{Type of penalty coefficient. Possible values are \code{"aicc"} (default), \code{"aic"} or \code{"bic"}. See \bold{Description} section.}
 
-\item{k}{Dimension of the PCA model used for estimating \code{"sigma2"}. In general, a value between 10 and 15 seems relevant.}
+\item{k}{Dimension of the PCA model used for estimating \code{"sigma2"}.}
 
 \item{print}{Logical. If \code{TRUE}, fitting information are printed.}
 

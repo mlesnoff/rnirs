@@ -15,9 +15,9 @@
 
 \usage{
 
-odis(fm, Xr, Xu = NULL, ncomp = NULL, typcut = c("param", "mad", "boxplot"))
+odis(fm, Xr, Xu = NULL, ncomp = NULL, alpha = .01)
 
-lodis(fm, Xr, Xu, typcut = c("param", "mad", "boxplot"))
+lodis(fm, Xr, Xu, alpha = .01)
 
 }
 
@@ -31,11 +31,13 @@ lodis(fm, Xr, Xu, typcut = c("param", "mad", "boxplot"))
 
 \item{ncomp}{Number of components to consider for the distance calculations. If \code{NULL} (default), the maximum number of components is considered.} 
 
-\item{typcut}{Character string defining the type of cutoff for the distance (see the code). Possible values are \code{"param"} (default) (parametric Gaussian quantile for the transformed distance, such as in Hubert et al. 2005 p.66, except that MCD location and scale estimates have been replaced by median and MAD), \code{"mad"} (\eqn{median(d) + 2.5 * mad(d)}) or \code{"boxplot"} (\eqn{Q3 + 1.5 IQR).}}
+\item{alpha}{Risk I level for defining the cutoff detecting extreme values (see the code).}
 
 }
 
 \details{
+
+The cutoff for detecting extreme OD values is computed using a moment estimation of a Chi-squared distrbution for the squared distance (see Nomikos & MacGregor 1995, and Pomerantzev 2008).
 
 Column \code{dstand} in the output is a "standardized" OD defined as \eqn{OD / cutoff} where the \eqn{cutoff} is calculated such as in Hubert et al. (2005 p.66) (). A value \code{dstand > 1} may be considered as extreme.
 
@@ -51,6 +53,10 @@ A list of outputs (see examples).
 \references{
 
 M. Hubert, P. J. Rousseeuw, K. Vanden Branden (2005). ROBPCA: a new approach to robust principal components analysis. Technometrics, 47, 64-79.
+
+Nomikos, P., MacGregor, J.F., 1995. Multivariate SPC Charts for Monitoring Batch Processes. null 37, 41–59. https://doi.org/10.1080/00401706.1995.10485888
+
+Pomerantsev, A.L., 2008. Acceptance areas for multivariate classification derived by projection methods. Journal of Chemometrics 22, 601–609. https://doi.org/10.1002/cem.1147
 
 K. Vanden Branden, M. Hubert (2005). Robuts classification in high dimension based on the SIMCA method. Chem. Lab. Int. Syst, 79, 10-21. 
 

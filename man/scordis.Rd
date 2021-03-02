@@ -15,9 +15,9 @@
 
 \usage{
 
-scordis(fm, ncomp = NULL, typcut = c("param", "mad", "boxplot"))
+scordis(fm, ncomp = NULL, alpha = .01)
 
-lscordis(fm, typcut = c("param", "mad", "boxplot"))
+lscordis(fm, alpha = .01)
 
 }
 
@@ -27,15 +27,17 @@ lscordis(fm, typcut = c("param", "mad", "boxplot"))
 
 \item{ncomp}{Number of components to consider for the distance calculations. If \code{NULL} (default), the maximum number of components is considered.} 
 
-\item{typcut}{Character string defining the type of cutoff for the distance (see the code). Possible values are \code{"param"} (default) (parametric Chi-square quantile, such as in Hubert et al. 2005 p.66), \code{"mad"} (\eqn{median(d) + 2.5 * mad(d)}) or \code{"boxplot"} (\eqn{Q3 + 1.5 IQR).}}
+\item{alpha}{Risk I level for defining the cutoff detecting extreme values (see the code).}
 
 }
 
 \details{
 
-Column \code{dstand} in the output is a "standardized" SD defined as \eqn{SD / cutoff} where the \eqn{cutoff} can be calculated in different ways. A value \code{dstand > 1} may be considered as extreme.
+The cutoff for detecting extreme SD values is computed using a moment estimation of a Chi-squared distrbution for the squared distance (see Pomerantzev 2008).
 
-The Winisi GH is also provided ("extreme" if GH > 3).
+Column \code{dstand} in the output is a "standardized" SD defined as \eqn{SD / cutoff}. A value \code{dstand > 1} may be considered as extreme.
+
+The Winisi "GH" is also provided (considered as extreme if GH > 3).
 
 }
 
@@ -49,6 +51,8 @@ A list of outputs (see examples).
 \references{
 
 M. Hubert, P. J. Rousseeuw, K. Vanden Branden (2005). ROBPCA: a new approach to robust principal components analysis. Technometrics, 47, 64-79.
+
+Pomerantsev, A.L., 2008. Acceptance areas for multivariate classification derived by projection methods. Journal of Chemometrics 22, 601–609. https://doi.org/10.1002/cem.1147
 
 }
 

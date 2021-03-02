@@ -1,7 +1,7 @@
 scordis <- function(
     fm, 
     ncomp = NULL, 
-    typcut = c("param", "mad", "boxplot")
+    alpha = .01
     ) {
     
     if(is.null(fm$Tr))
@@ -12,11 +12,10 @@ scordis <- function(
     else 
         ncomp <- min(ncomp, dim(fm$Tr)[2])
     
-    typcut <- match.arg(typcut)
-    
     if(fm$T.ortho) {
-        tt <- colSums(fm$weights * fm$Tr[, seq_len(ncomp), 
-                                                                         drop = FALSE] * fm$Tr[, seq_len(ncomp), drop = FALSE])
+        tt <- colSums(
+            fm$weights * fm$Tr[, seq_len(ncomp), drop = FALSE] * fm$Tr[, seq_len(ncomp), drop = FALSE]
+            )
         S <- diag(tt, nrow = ncomp, ncol = ncomp)
         }
     else 
@@ -26,24 +25,14 @@ scordis <- function(
                          rep(0, ncomp), "mahalanobis", S)
     
     dr <- res$dr
-    
-    cri <- 2.5
-    #cri <- 3
-    
-    d <- dr$d
-    cutoff <- switch(
-        typcut, 
-        param = qchisq(p = .975, df = ncomp)^.5,
-        mad = median(d) + cri * mad(d),
-        boxplot = {
-            z <- fivenum(d)
-            z <- z[4] + 1.5 * diff(z[c(2, 4)])
-            max(d[d <= z])
-            }
-        )    
 
-    dr$dstand <- d / cutoff
-    dr$gh <- d^2 / ncomp
+    d2 <- dr$d^2
+    mu <- ncomp  ## = mean(d2)
+    nu <- 2 * mu^2 / var(d2)
+    cutoff <- sqrt(mu / nu * qchisq(1 - alpha, df = nu))
+    
+    dr$dstand <- dr$d / cutoff
+    dr$gh <- dr$d^2 / ncomp
     
     du <- NULL
     if(!is.null(fm$Tu[, seq_len(ncomp), drop = FALSE])) {

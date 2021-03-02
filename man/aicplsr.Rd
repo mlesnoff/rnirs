@@ -2,7 +2,7 @@
 \alias{aicplsr}
 \encoding{latin1}
 
-\title{Mallows Cp for PLSR1 Models}
+\title{AIC and Cp for PLSR1 Models}
 
 \description{
 

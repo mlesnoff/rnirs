@@ -2,7 +2,7 @@ cppca <- function(
     X, ncomp, algo = NULL,
     segm,
     type = c("aicc", "aic", "bic"), 
-    k = 10,
+    k = 5,
     print = TRUE, 
     ...
     ) {
@@ -22,11 +22,12 @@ cppca <- function(
     
     ssr <- xssr(X, fm$Tr, fm$P, fm$xmeans)
 
-    dfcal <- p    + (n - 1) * zncomp + p * zncomp - zncomp^2
+    dfcal <- p + (n - 1) * zncomp + p * zncomp - zncomp^2
     
     k <- min(k, ncomp)
     
     s2 <- ssr[k + 1] / (N - dfcal[k + 1])
+    #s2 <- ssr / (N - dfcal)
     
     z <- cvpca_rw(
         X, ncomp, algo = algo, 
@@ -47,6 +48,9 @@ cppca <- function(
         aicc = ssr + 2 * s2 * df * N / (N - df - 1),
         bic = ssr + log(N) * s2 * df
         )
+    
+    ## AIC
+    ## r <- N * log(ssr) + 2 * (df + 1) * N / (N - df - 1)
     
     r <- r / N
     

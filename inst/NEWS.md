@@ -3,6 +3,17 @@
 ## **Version 1.9-15**
 
 
+- New function: **xinterp** (Resampling of spectra by nterpolation methods)
+
+- Modification of functions **scordis** and **odis**: cutoff value calculation has changed
+
+
+
+
+
+## **Version 1.9-15**
+
+
 - Function **cpplsr** has been removed and replaced by **aicplsr**
 
 - Internal modifications in functions **dfplsr_cov**, **dfplsr_div**

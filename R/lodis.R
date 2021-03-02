@@ -1,4 +1,4 @@
-lodis <- function(fm, Xr, Xu, typcut = c("param", "mad", "boxplot")) {
+lodis <- function(fm, Xr, Xu, alpha = .01) {
     
     typcut <- match.arg(typcut)
     
@@ -21,7 +21,7 @@ lodis <- function(fm, Xr, Xu, typcut = c("param", "mad", "boxplot")) {
         s <- fm[[i]]$nn
         
         z <- odis(fm[[i]], 
-            Xr[s, , drop = FALSE], Xu[j, , drop = FALSE], typcut = typcut)
+            Xr[s, , drop = FALSE], Xu[j, , drop = FALSE], alpha = .01)
         
         z$dr$rownum <- s
         z$dr$rownam <- rownam[s]
