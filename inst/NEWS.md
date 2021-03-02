@@ -1,6 +1,6 @@
 ## NEWS for package **rnirs**
 
-## **Version 1.9-15**
+## **Version 1.9-16**
 
 
 - New function: **xinterp** (Resampling of spectra by nterpolation methods)
