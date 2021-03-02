@@ -15,9 +15,13 @@
 
 \usage{
 
-odis(fm, Xr, Xu = NULL, ncomp = NULL, alpha = .01)
+odis(fm, Xr, Xu = NULL, 
+    ncomp = NULL,
+    robust = FALSE, alpha = .01)
 
-lodis(fm, Xr, Xu, alpha = .01)
+lodis(fm, Xr, Xu, 
+    ncomp = NULL,
+    robust = FALSE, alpha = .01)
 
 }
 
@@ -30,6 +34,8 @@ lodis(fm, Xr, Xu, alpha = .01)
 \item{Xu}{A \eqn{m x p} matrix or data frame of new (= test) observations (\eqn{Xu} is not used in the calculation of the median and MAD used for calculating the standardized distances; see Details).}
 
 \item{ncomp}{Number of components to consider for the distance calculations. If \code{NULL} (default), the maximum number of components is considered.} 
+
+\item{robust}{Logical. If \code{TRUE}, the moment estimation of the cutoff (see Details) is robustified. This is recommended in particular after robust PCA or PLS on small data sets containing strong outliers. Default to \code{FALSE}.}
 
 \item{alpha}{Risk I level for defining the cutoff detecting extreme values (see the code).}
 

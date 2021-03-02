@@ -1,6 +1,8 @@
-lscordis <- function(fm, alpha = .01) {
-    
-    typcut <- match.arg(typcut)
+lscordis <- function(
+    fm, 
+    ncomp = NULL, 
+    robust = FALSE, alpha = .01
+    ) {
     
     fm <- fm$fm
     
@@ -10,7 +12,9 @@ lscordis <- function(fm, alpha = .01) {
     
     for(i in seq_len(nmod)) {
         
-        z <- scordis(fm[[i]], alpha = alpha)
+        z <- scordis(fm[[i]],
+                     ncomp = ncomp, 
+                     robust = robust, alpha = alpha)
         
         z$dr$rownum <- fm[[i]]$nn
         

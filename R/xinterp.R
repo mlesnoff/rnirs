@@ -1,7 +1,7 @@
 xinterp <- function(X, w, meth = "cubic", ...) {
     
     X <- .matrix(X)
-    p <- dim(X)[p]
+    p <- dim(X)[2]
     
     colnam <- suppressWarnings(as.numeric(colnames(X)))
     if(sum(is.na(colnam)) > 0) 

@@ -1,8 +1,8 @@
 pca_rob <- function(
     X, ncomp, 
-    nsim = 1500, alpha.rm = .30, 
+    nsim = 1500, p.rm = .30, 
     step2 = TRUE, weights = NULL, 
-    ...
+    robust = TRUE, alpha = 0.01
     ) {
     
     X <- .matrix(X)
@@ -23,10 +23,10 @@ pca_rob <- function(
         algo <- pca_eigen
     
     r <- outstah(X, nsim = nsim)
-    w1 <- .talworth(r, quantile(r, 1 - alpha.rm))
+    w1 <- .talworth(r, quantile(r, 1 - p.rm))
 
     r <- outeucl(X)
-    w2 <- .talworth(r, quantile(r, 1 - alpha.rm))
+    w2 <- .talworth(r, quantile(r, 1 - p.rm))
     
     w <- w1 * w2
 
@@ -34,7 +34,8 @@ pca_rob <- function(
     
     if(step2) {
         
-        r <- outsdod(fm, X, ...)
+        r <- outsdod(fm, X, robust = robust, alpha = alpha)
+        
         w <- .talworth(r, 1)
         
         fm <- algo(X, ncomp = ncomp, weights = weights * w)

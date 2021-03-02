@@ -32,7 +32,9 @@ outstah(X, scale = TRUE, nsim = 1500)
 
 outeucl(X, scale = TRUE, spatial = FALSE)
 
-outsdod(fm, X, ...)
+outsdod(fm, X,
+    ncomp = NULL, 
+    robust = FALSE, alpha = .01)
 
 }
 
@@ -46,9 +48,13 @@ outsdod(fm, X, ...)
 
 \item{spatial}{For \code{outeucl}. Logical. If \code{TRUE}, the center of the data is calculated by the spatial median (computed by function \code{.xmedspa} available in file \code{zfunctions.R}; this function uses the fast code of rrcov v.1.4-3 available on R CRAN; Thanks to V. Todorov, 2016). If \code{FALSE} (default), the center of the data is calculated by the column-wise medians.}
 
-\item{fm}{For \code{outsdod}. The PCA model from wich is calculated the outlyingness.}
+\item{fm}{For \code{outsdod}. The PCA model from wich are calculated the outlyingness.}
 
-\item{...}{For \code{outsdod}. Optional arguments to pass in functions \code{\link{scordis}} and  \code{\link{odis}}.}
+\item{ncomp}{For \code{outsdod}. See \code{\link{scordis}} and  \code{\link{odis}}.} 
+
+\item{robust}{For \code{outsdod}. See \code{\link{scordis}} and  \code{\link{odis}}.}
+
+\item{alpha}{For \code{outsdod}. See \code{\link{scordis}} and  \code{\link{odis}}.}
 
 }
 

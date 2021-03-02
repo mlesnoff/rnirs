@@ -1,8 +1,9 @@
 scordis <- function(
     fm, 
     ncomp = NULL, 
-    alpha = .01
+    robust = FALSE, alpha = .01
     ) {
+
     
     if(is.null(fm$Tr))
         names(fm)[which(names(fm) == "T")] <- "Tr"
@@ -27,8 +28,15 @@ scordis <- function(
     dr <- res$dr
 
     d2 <- dr$d^2
-    mu <- ncomp  ## = mean(d2)
-    nu <- 2 * mu^2 / var(d2)
+    if(!robust) {
+        mu <- mean(d2)   
+        s2 <- var(d2)
+        }
+    else{
+        mu <- median(d2)
+        s2 <- mad(d2)^2
+        }
+    nu <- 2 * mu^2 / s2
     cutoff <- sqrt(mu / nu * qchisq(1 - alpha, df = nu))
     
     dr$dstand <- dr$d / cutoff

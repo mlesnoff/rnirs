@@ -15,9 +15,13 @@
 
 \usage{
 
-scordis(fm, ncomp = NULL, alpha = .01)
+scordis(fm, 
+    ncomp = NULL, 
+    robust = FALSE, alpha = .01)
 
-lscordis(fm, alpha = .01)
+lscordis(fm, 
+    ncomp = NULL, 
+    robust = FALSE, alpha = .01)
 
 }
 
@@ -26,6 +30,8 @@ lscordis(fm, alpha = .01)
 \item{fm}{For \code{scordis}, output of functions \code{\link{pca}}, \code{\link{pls}} or \code{\link{plsr}}. For \code{lscordis}, output of functions  \code{\link{locw}},  \code{\link{lwplsr}}, etc.}
 
 \item{ncomp}{Number of components to consider for the distance calculations. If \code{NULL} (default), the maximum number of components is considered.} 
+
+\item{robust}{Logical. If \code{TRUE}, the moment estimation of the cutoff (see Details) is robustified. This is recommended in particular after robust PCA or PLS on small data sets containing strong outliers. Default to \code{FALSE}.}
 
 \item{alpha}{Risk I level for defining the cutoff detecting extreme values (see the code).}
 

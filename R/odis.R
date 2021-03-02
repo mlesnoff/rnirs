@@ -1,7 +1,7 @@
 odis <- function(
-    fm, 
-    Xr, Xu = NULL, ncomp = NULL,
-    alpha = .01
+    fm, Xr, Xu = NULL, 
+    ncomp = NULL,
+    robust = FALSE, alpha = .01
     ) {
     
     if(is.null(fm$Tr))
@@ -27,8 +27,15 @@ odis <- function(
     d <- sqrt(rowSums(E * E))
     
     d2 <- d^2
-    mu <- mean(d2)
-    nu <- 2 * mu^2 / var(d2)
+    if(!robust) {
+        mu <- mean(d2)   
+        s2 <- var(d2)
+        }
+    else{
+        mu <- median(d2)
+        s2 <- mad(d2)^2
+        }
+    nu <- 2 * mu^2 / s2
     cutoff <- sqrt(mu / nu * qchisq(1 - alpha, df = nu))
     
     dstand <- d / cutoff 

@@ -12,7 +12,7 @@ Algorithms implementing a robust PCA of a matrix \eqn{X}.
 
 - \code{pca_cr}: 
 
-Croux & Ruiz-Gazen (C-R) PCA algorithm using projection pursuit (PP) method (Croux & Ruiz-Gazen 2005). The observations are robustly centered, and projected to specific "PP" directions (see below) of the spaned by the variables (\eqn{X} columns). The PCA loading vectors are the directions (within these PP directions) that maximize a given "projection index", usually a robust spread measure such as MAD. The 1st loading vector is choosen within the \eqn{n} directions corresponding the observations (rows of \eqn{X}). The next loading vector is choosen in \eqn{n} directions corresponding the rows of the deflated matrix \eqn{X}). And so on.
+Croux & Ruiz-Gazen (C-R) PCA algorithm using projection pursuit (PP) method (Croux & Ruiz-Gazen 2005). The observations are robustly centered, and projected to specific "PP" directions (see below) of the space spaned by the variables (\eqn{X} columns). The PCA loading vectors are the directions (within the PP directions) that maximize a given "projection index", usually a robust spread measure such as MAD. The 1st loading vector is choosen within the \eqn{n} directions corresponding the observations (rows of \eqn{X}). The next loading vector is choosen in \eqn{n} directions corresponding the rows of the deflated matrix \eqn{X}). And so on.
 
 A possible extension  of the algorithm is to randomly simulate additionnal candidate PP directions to the \eqn{n} row observations. In function \code{pca_cr}, this is done when argument \code{nsim > 0}. In such a case, the function simulates \eqn{nsim} additional PP directions to the \eqn{n} initial ones, as proposed in Hubert et al. (2005): random couples of observations are sampled in \eqn{X} and, for each couple, the direction passes through the two observations of the couple (see functions \code{.simpp.hub} in file \code{zfunctions.R}).
 
@@ -22,13 +22,13 @@ Spherical PCA (see Locantore et al. 1990, Maronna 2005, Daszykowski et al. 2007)
 
 - \code{pca_rob}: 
 
-Robust PCA combining outlyingness measures and weighted PCA (WPCA). Rows of matrix \eqn{X} receive weights depending on outlyingness. The algorithm is in the same spirit (but quite different) as the ROBPCA method (Hubert et al. 2005, 2009). It is built in the two following steps. Note that the second step is facultative (argument \code{step2}). 
+Robust PCA combining outlyingness measures and weighted PCA (WPCA). Rows of matrix \eqn{X} receive weights depending on outlyingness. The algorithm is in the same spirit (but quite different) as the ROBPCA method (Hubert et al. 2005, 2009). It is built in the two following steps. The second step is facultative (argument \code{step2}). 
 
-Step 1 intends to detect and remove multivariate \eqn{X-}outliers that have potentially bad leverages. First, the Stahel-Donoho outlyingness (Maronna and Yohai, 1995) is computed for each of the rows of matrix \eqn{X} (see \code{\link{outstah}}). Noting \eqn{1 - alpha.rm} a proportion (by default in the function, \eqn{alpha.rm = .30},  as in Hubert et al. 2005, 2009), the  \eqn{alpha.rm * n} observations that have the highest outlyingness receive a weight \eqn{w1 = 0} (the other receive a weight \eqn{w1 = 1}). Then, a robust Euclidean outlyingness (see \code{\link{outeucl}}) is calculated. The  \eqn{(alpha.rm * n} observations that have the highest outlyingness receive a weight \eqn{w2 = 0} (the other receive a weight \eqn{w2 = 1}). The final weight for Step 1 is \eqn{w = w1 * w2}), which is used for a first weighted PCA.  
+Step 1 intends to detect and remove multivariate \eqn{X-}outliers that have potentially bad leverages. First, the Stahel-Donoho outlyingness (Maronna and Yohai, 1995) is computed for each of the rows of matrix \eqn{X} (see \code{\link{outstah}}). Noting \eqn{1 - p.rm} a proportion (by default in the function, \eqn{p.rm = .30},  as in Hubert et al. 2005, 2009), the  \eqn{p.rm * n} observations that have the highest outlyingness receive a weight \eqn{w1 = 0} (the other receive a weight \eqn{w1 = 1}). Then, a robust Euclidean outlyingness (see \code{\link{outeucl}}) is calculated. The  \eqn{(p.rm * n} observations that have the highest outlyingness receive a weight \eqn{w2 = 0} (the other receive a weight \eqn{w2 = 1}). The final weight for Step 1 is \eqn{w = w1 * w2}), which is used for a first weighted PCA.  
 
-Step2 (facultative) intends to detect outliers in the robust score space computed in Step 1. The score and orthogonal distances, standardized by given cutoffs (see \code{\link{scordis}} and \code{\link{odis}}), of each of the \eqn{n} observations are calculated from this score space. An outlyingness is computed by \eqn{(.5 * SD.stand^2 + .5 * OD.stand^2)^.5}. The  \eqn{alpha.rm * n} observations that have the highest outlyingness receive a weight \eqn{w = 0} (the other receive a weight \eqn{w = 1}), and a new weighted PCA is fitted.
+Step2 (facultative) intends to detect outliers in the robust score space computed in Step 1. The score and orthogonal distances, standardized by given cutoffs (see \code{\link{scordis}} and \code{\link{odis}}), of each of the \eqn{n} observations are calculated from this score space. An outlyingness is computed by \eqn{(.5 * SD.stand^2 + .5 * OD.stand^2)^.5}. This is implemented using \code{\link{outsdod}}. Outlyingness values higher than 1 receive a weight \eqn{w = 0} (the other receive a weight \eqn{w = 1}), and a new weighted PCA is fitted.
 
-In all functions, matrix \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
+In all the functions, matrix \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
 
 }
 
@@ -38,8 +38,10 @@ pca_cr(X, ncomp, obj = mad, nsim = 0)
 
 pca_sph(X, ncomp, weights = NULL)
 
-pca_rob(X, ncomp, nsim = 1500, alpha.rm = .30, step2 = TRUE, 
-                    weights = NULL, ...)
+pca_rob(X, ncomp, 
+    nsim = 1500, p.rm = .30, 
+    step2 = TRUE, weights = NULL, 
+    robust = TRUE, alpha = 0.01)
 
 }
 
@@ -55,11 +57,13 @@ pca_rob(X, ncomp, nsim = 1500, alpha.rm = .30, step2 = TRUE,
 
 \item{weights}{For \code{pca_sph} and \code{pca_rob}. A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
-\item{alpha.rm}{For \code{pca_rob}. Proportion \eqn{alpha.rm} of the data used as hard rejection (outliers) in Step 1 (default to \code{alpha.rm = .30}, i.e. 30pct are rejected).}
+\item{p.rm}{For \code{pca_rob}. Proportion \eqn{p.rm} of the data used as hard rejection (outliers) in Step 1 (default to \code{p.rm = .30}, i.e. 30pct are rejected).}
 
 \item{step2}{For \code{pca_rob}. If \code{TRUE} (default), Step 2 is implemented.}
 
-\item{...}{For \code{pca_rob}. Optional arguments to pass in function \code{\link{outsdod}}.}
+\item{robust}{For \code{pca_rob} ans step2 (used in \code{\link{outsdod}}). Logical. If \code{TRUE}, the moment estimation of the cutoff is robustified (this is advised in particular after robust PCA or PLS on small data sets containing strong outliers). Default to \code{FALSE}.}
+
+\item{alpha}{For \code{pca_rob} and step2 (used in \code{\link{outsdod}}). Risk I level for defining the cutoff detecting extreme values (see the code).}
 
 }
 
@@ -113,10 +117,10 @@ fm <- pca_cr(X, ncomp = ncomp)
 #fm <- pca_sph(X, ncomp = ncomp)
 #fm <- pca_rob(X, ncomp = ncomp)
 #fm <- pca_eigen(X, ncomp = ncomp)
-z <- scordis(fm)
+z <- scordis(fm, robust = TRUE)
 sd <- z$dr$d
 cutsd <- z$cutoff
-z <- odis(fm, X)
+z <- odis(fm, X, robust = TRUE)
 od <- z$dr$d
 cutod <- z$cutoff
 plot(sd, od, pch = 16,

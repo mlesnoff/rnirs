@@ -1,6 +1,6 @@
 pls_rob <- function(
     X, Y, ncomp, 
-    ncompw = 10, alpha.rm = .30,
+    ncompw = 10, p.rm = .30,
     typcut = c("param", "mad"), 
     weights = NULL, 
     ...
@@ -20,10 +20,13 @@ pls_rob <- function(
     
     ncompw <- min(ncompw, n, p)
     
-    fm <- pca_rob(X, ncompw, typcut = typcut, weights = weights, ...)
+    print(ncompw)
+    
+    fm <- pca_rob(X, ncompw, weights = weights, ...)
+    
     #fm <- pca_sph(X, min(ncompw, n, p), ...)
-    r <- outsdod(fm, X, ...)
-    wx <- .talworth(r, quantile(r, 1 - alpha.rm))
+    r <- outsdod(fm, X, robust = TRUE, alpha = .01)
+    wx <- .talworth(r, quantile(r, 1 - p.rm))
 
     fm <- pls_kernel(X, Y, ncomp = ncompw, weights = weights * wx)
     r <- .resid.pls(fm, Y)$r
