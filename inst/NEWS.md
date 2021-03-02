@@ -8,7 +8,7 @@
 - Modification of functions 
 
   - **scordis** and **odis**: cutoff value calculation has changed
-  - **pca_rob** and **pls_rob**: argument alpha changed to alpha.rm
+  - Arguments of **outsdod**, **pca_rob** and **pls_rob** have changed
 
 
 
