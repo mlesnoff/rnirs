@@ -240,7 +240,7 @@
 - ***mavg*** Smoothing by moving average
 - ***savgol*** Savitsky-Golay filtering (derivation)
 - ***snv*** Standard-normal-deviation transformation
-- ***xinterp*** Resampling of spectra by nterpolation methods
+- ***xinterp*** Resampling of spectra by interpolation methods
 
 ## DATA SAMPLING 
 
