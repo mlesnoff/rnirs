@@ -1,4 +1,4 @@
-cvfit <- function(X, Y, fun, segm, print = FALSE, ...) {
+cvfit <- function(X, Y, fun, segm, printcv = FALSE, ...) {
     
     fun <- match.fun(FUN = fun)
 
@@ -18,7 +18,7 @@ cvfit <- function(X, Y, fun, segm, print = FALSE, ...) {
     
     for(i in seq_len(nrep)) {
         
-        if(print)
+        if(printcv)
             cat("/ rep=", i, " ", sep = "") 
             
         
@@ -31,7 +31,7 @@ cvfit <- function(X, Y, fun, segm, print = FALSE, ...) {
             
             s <- sort(listsegm[[j]])
             
-            if(print)
+            if(printcv)
                 cat("segm=", j, " ", sep = "")
                 #cat("\n\n------------------------- Repetition: ", i, "    Segment: ", j,
                 #    "\n\nRow numbers of X to predict: \ns =", s,
@@ -42,7 +42,6 @@ cvfit <- function(X, Y, fun, segm, print = FALSE, ...) {
                 Y[-s, , drop = FALSE], 
                 X[s, , drop = FALSE], 
                 Y[s, , drop = FALSE],
-                #print = FALSE,
                 ...
                 )
             
@@ -64,7 +63,7 @@ cvfit <- function(X, Y, fun, segm, print = FALSE, ...) {
     
         }
     
-    if(print)
+    if(printcv)
         cat("/ End. \n\n")
     
     y <- setDF(rbindlist(y))

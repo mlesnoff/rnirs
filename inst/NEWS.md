@@ -1,5 +1,13 @@
 ## NEWS for package **rnirs**
 
+## **Version 1.9-17**
+
+- **cvfit**: Argument "print" replaced by "printcv"  
+
+
+
+
+
 ## **Version 1.9-16**
 
 

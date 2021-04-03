@@ -12,7 +12,7 @@
 
 \usage{
 
-cvfit(X, Y, fun, segm, print = FALSE, ...)
+cvfit(X, Y, fun, segm, printcv = FALSE, ...)
 
 }
 
@@ -26,7 +26,7 @@ cvfit(X, Y, fun, segm, print = FALSE, ...)
 
 \item{segm}{A list of the test segments. Typically, output of function \code{\link{segmkf}} or \code{\link{segmts}}.} 
 
-\item{print}{Logical. If \code{TRUE} (default), fitting information are printed.}
+\item{printcv}{Logical. If \code{TRUE} (default), fitting information are printed.}
 
 \item{...}{Optionnal arguments to pass through function \code{fun}.}
 
@@ -65,7 +65,7 @@ fm <- cvfit(
   fun = plsr,
   ncomp = 20,
   segm = segm,
-  print = TRUE
+  printcv = TRUE
   )
 names(fm)
 headm(fm$y)
@@ -114,7 +114,7 @@ fm <- cvfit(
   ncomp = 20,
   ncompdis = 10,
   segm = segm,
-  print = TRUE
+  printcv = TRUE
   )
 headm(fm$fit)
 

@@ -20,8 +20,6 @@ pls_rob <- function(
     
     ncompw <- min(ncompw, n, p)
     
-    print(ncompw)
-    
     fm <- pca_rob(X, ncompw, weights = weights, ...)
     
     #fm <- pca_sph(X, min(ncompw, n, p), ...)

@@ -12,31 +12,33 @@
 
 Algorithms implementing a centered PCA of a matrix \eqn{X}. 
 
-The functions, except \code{pca_nipalsna}, can set a priori weights to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. Noting \eqn{D} a \eqn{n x n} diagonal matrix of weights for the observations (rows of \eqn{X}),
+Except for \code{pca_nipalsna}, a priori weights can be set to the observations (rows of \eqn{X}), with argument \code{weights}. This modifies the importance given to each of the \eqn{n} observations in the calculations of the scores and loadings. By default, argument \code{weights} is set to \code{NULL} corresponding to the usual weights \eqn{1/n}.
 
-- \code{pca_svd}: SVD decomposition of \eqn{D^(1/2) * X}, using function \code{\link{svd}}. 
+Noting \eqn{D} a \eqn{n x n} diagonal matrix of weights for the observations (rows of \eqn{X}), the functions consist in:
 
-- \code{pca_eigen}: eigen decomposition of \eqn{X' * D * X}, using function \code{\link{eigen}}. 
+- \code{pca_svd} ==> SVD decomposition of \eqn{D^(1/2) * X}, using function \code{\link{svd}}. 
 
-- \code{pca_eigenk}: eigen decomposition of \eqn{D^(1/2) * X * X' D^(1/2)}, using function \code{\link{eigen}}. This is the "kernel cross-product trick" version of the PCA algorithm (Wu et al. 1997). For wide matrices (\eqn{n << p}) and \eqn{n} not too large, this algorithm can be much faster than the others. 
+- \code{pca_eigen} ==> eigen decomposition of \eqn{X' * D * X}, using function \code{\link{eigen}}. 
 
-- \code{pca_nipals}: eigen decomposition of \eqn{X' * D * X} using NIPALS. 
+- \code{pca_eigenk} ==> eigen decomposition of \eqn{D^(1/2) * X * X' D^(1/2)}, using function \code{\link{eigen}}. This is the "kernel cross-product trick" version of the PCA algorithm (Wu et al. 1997). For wide matrices (\eqn{n << p}) and \eqn{n} not too large, this algorithm can be much faster than the others. 
 
-- \code{pca_nipalsna}: eigen decomposition of \eqn{X' * D * X} using NIPALS allowing missing data in \eqn{X}. 
+- \code{pca_nipals} ==> eigen decomposition of \eqn{X' * D * X} using NIPALS. 
 
-In all functions, matrix \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
+- \code{pca_nipalsna} ==> eigen decomposition of \eqn{X' * D * X} using NIPALS allowing missing data in \eqn{X}. 
 
-Function \code{pca_nipalsna} accepts missing data (\code{NA}s) in \eqn{X}, unlike the other functions. The part of \code{pca_nipalsna} accounting specifically for missing missing data in NIPALS is based on the efficient proposition of K. Wright in the R package \code{nipals} (https://cran.r-project.org/web/packages/nipals/index.html).
+In all the functions, matrix \eqn{X} is centered before the analyses, but \eqn{X} is not column-wise scaled (there is no argument \code{scale} available). If a scaling is needed, the user has to scale \eqn{X} before using the functions. 
 
-\bold{Gram-Schmidt orthogonalization for NIPALS}
+Function \code{pca_nipalsna} accepts missing data (\code{NA}s) in \eqn{X}, unlike the other functions. The part of \code{pca_nipalsna} accounting specifically for missing missing data in the NIPALS algorithm is based on the efficient code of K. Wright in the R package \code{nipals} (https://cran.r-project.org/web/packages/nipals/index.html).
 
-PCA NIPALS is known generating a lost of orthogonality of the scores (due to the accumulation of rounding errors in the successive iterations), particularly for large matrices or with high degrees of column collinearity.
+\bold{Gram-Schmidt orthogonalization in the NIPALS algorithm}
+
+The PCA NIPALS is known generating a loss of orthogonality of the scores (due to the accumulation of rounding errors in the successive iterations), particularly for large matrices or with high degrees of column collinearity.
 
 With missing data, orthogonality of loadings is not satisfied neither.
 
-A performant approach for retrieving orthogonality (scores and loadings) is the iterative classical Gram-Schmidt orthogonalization (Lingen 2000, Andrecut 2009, and vignette of R package \code{nipals}), say iterative CGS. It consists in adding a CGS orthorgonalisation step in each iteration of the scores and loadings calculations.
+A performant approach for coming back to orthogonality (scores and loadings) is the iterative classical Gram-Schmidt orthogonalization (Lingen 2000, Andrecut 2009, and vignette of R package \code{nipals}), referred to as the iterative CGS. It consists in adding a CGS orthorgonalization step in each iteration of the scores and loadings calculations.
 
-Note that, for the missing data case, the iterative CGS does not insure that the orthogonalized scores are centered.
+For the case with missing data, the iterative CGS does not insure that the orthogonalized scores are centered.
 
 }
 
@@ -60,13 +62,13 @@ pca_nipalsna(X, ncomp,
 
 \arguments{
 
-\item{X}{A \eqn{n x p} matrix or data frame of variables.}
+\item{X}{A matrix or dataframe (\eqn{n x p}).}
 
-\item{ncomp}{The maximal number of PCA scores (= components = latent variables) to be calculated.}
+\item{ncomp}{The maximal number of PCA scores (= components) to be calculated.}
 
 \item{weights}{A vector of length \eqn{n} defining a priori weights to apply to the observations. Internally, weights are "normalized" to sum to 1. Default to \code{NULL} (weights are set to \eqn{1 / n}).}
 
-\bold{Specific arguments of} \code{pca_nipalsna}
+\bold{Specific arguments for the NIPALS} 
 
 \item{gs}{For \code{pca_nipalsna} and \code{pca_nipalsna}. Logical indicating if a Gram-Schmidt orthogonalization is implemented or not (default to \code{TRUE}).}
 
@@ -105,7 +107,6 @@ Andrecut, M., 2009. Parallel GPU Implementation of Iterative PCA Algorithms. Jou
 Gabriel, R. K., 2002. Le biplot - Outil d'exploration de données multidimensionnelles. Journal de la Société Française de la Statistique, 143, 5-55.
 
 Lingen, F.J., 2000. Efficient Gram–Schmidt orthonormalisation on parallel computers. Communications in Numerical Methods in Engineering 16, 57-66. https://doi.org/10.1002/(SICI)1099-0887(200001)16:1<57::AID-CNM320>3.0.CO;2-I
-
 
 Tenenhaus, M., 1998. La régression PLS: théorie et pratique. Editions Technip, Paris, France.
 
