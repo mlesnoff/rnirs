@@ -1,8 +1,10 @@
 ## rnirs - Dimension reduction, Regression and Discrimination for Chemometrics  
 
-## <span style="color:grey70"> **Version 1.9-17** </span> 
+### **Warning**
 
-<span style="color:red"> **Warning**: This package **rnirs** will not be developed anymore (only maintenance). It is replaced by package [**rchemo**](https://github.com/mlesnoff/rchemo), more scalable. </span>
+This package **rnirs** will not be developed anymore (only maintenance). It is replaced by package [**rchemo**](https://github.com/mlesnoff/rchemo), more scalable.
+
+## <span style="color:grey70"> **Version 1.9-17** </span> 
 
 ## <span style="color:green"> **Available functions** </span> 
 
