@@ -2,6 +2,8 @@
 
 ## <span style="color:grey70"> **Version 1.9-17** </span> 
 
+<span style="color:red"> **Warning**: This package **rnirs** will not be developed anymore (only maintenance). It is replaced by package [**rchemo**](https://github.com/mlesnoff/rchemo), more scalable. </span>
+
 ## <span style="color:green"> **Available functions** </span> 
 
 **Click** [**HERE**](https://github.com/mlesnoff/rnirs/blob/master/doc/rnirs_functions_github.md) **to see the list of the available functions** 
@@ -71,7 +73,7 @@ e.g. with tag "v1.9-0"   (Be carefull, this is not the more recent version)
 write in the R console
 ```{r}
 remotes::install_github("mlesnoff/rnirs@v1.9-0", dependencies = TRUE, 
-  build_vignettes = FALSE)
+  build_vignettes = TRUE)
 ```
 
 ### <span style="color:green"> 3. Usage </span>

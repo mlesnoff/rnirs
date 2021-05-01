@@ -11,7 +11,8 @@ sampclas <- function(x, y = NULL, k, seed = NULL) {
         k <- rep(k, nclas)
     else
         if(length(k) != nclas)
-            stop("\n\n    Length of argument 'k' must be =1 or =the number of classes in vector'x'. \n\n") 
+            stop("\n\n    Length of argument 'k' must be =1 
+                 or =the number of classes in vector'x'. \n\n") 
     
     s <- list()
     set.seed(seed = seed) 
