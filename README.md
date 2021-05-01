@@ -1,6 +1,6 @@
 ## rnirs - Dimension reduction, Regression and Discrimination for Chemometrics  
 
-### **Warning**
+## **Warning**
 
 This package **rnirs** will not be developed anymore (only maintenance). It is replaced by package [**rchemo**](https://github.com/mlesnoff/rchemo), more scalable.
 
