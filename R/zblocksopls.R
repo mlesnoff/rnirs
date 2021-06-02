@@ -75,7 +75,7 @@
             fm <- pls(
                 Xr = z$Y,
                 Yr = Yr - Fitr,
-                Xu = Xu[, newblocks[[i]], drop = FALSE] - cbind(rep(1, m), Tu) %*% z$b,
+                Xu = Xu[, newblocks[[i]], drop = FALSE] - Tu %*% z$b,
                 ncomp = ncomp[i], ...
                 )
                 

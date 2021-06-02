@@ -67,7 +67,7 @@
             
             fm <- pca(
                 z$Y,
-                Xu[, newblocks[[i]], drop = FALSE] - cbind(rep(1, m), Tu) %*% z$b,
+                Xu[, newblocks[[i]], drop = FALSE] - Tu %*% z$b,
                 ncomp = ncomp[i], ...
                 )
         

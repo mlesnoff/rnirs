@@ -4,7 +4,7 @@
 
 This package **rnirs** will not be developed anymore (only maintenance). It is replaced by package [**rchemo**](https://github.com/mlesnoff/rchemo), more scalable.
 
-## <span style="color:grey70"> **Version 1.9-17** </span> 
+## <span style="color:grey70"> **Version 1.9-18** </span> 
 
 ## <span style="color:green"> **Available functions** </span> 
 
