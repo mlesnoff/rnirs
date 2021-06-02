@@ -2,7 +2,7 @@
 
 ## **Version 1.9-17**
 
-- **cvfit**: Argument "print" replaced by "printcv"  
+- **orthog**: Internal modification  
 
 
 
