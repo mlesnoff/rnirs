@@ -38,10 +38,10 @@ orthog(X, Y, weights = NULL)
 
 \examples{
 
-n <- 8 ; p <- 3
+n <- 8 ; p <- 3 ; q <- 2
 set.seed(1)
-X <- matrix(rnorm(n * p, mean = 10), ncol = p, byrow = TRUE)
-Y <- matrix(rnorm(n * 2, mean = 10), ncol = 2, byrow = TRUE)
+X <- matrix(rnorm(n * p), ncol = p)
+Y <- matrix(rnorm(n * q), ncol = q)
 colnames(Y) <- c("y1", "y2")
 set.seed(NULL)
 X
@@ -53,20 +53,20 @@ crossprod(res$Y, X)     # ===> orthogonal
 res$b
 
 # Same as:
-fm <- lm(Y ~ X)
+fm <- lm(Y ~ X - 1)
 Y - fm$fitted.values
 fm$coef
 
 #### WITH WEIGHTS
 
 w <- 1:n
-fm <- lm(Y ~ X, weights = w)
+fm <- lm(Y ~ X - 1, weights = w)
 Y - fm$fitted.values
 fm$coef
 
 res <- orthog(X, Y, weights = w)
 res$Y
-t(res$Y) %*% diag(w) %*% X       # ===> orthogonal
+crossprod(res$Y, w * X)       # ===> orthogonal in metric w
 res$b
 
 }

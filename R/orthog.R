@@ -12,7 +12,7 @@ orthog <- function(X, Y, weights = NULL) {
     else
         weights <- weights / sum(weights)
     
-    fm <- lm(Y ~ X, weights = weights)
+    fm <- lm(Y ~ X - 1, weights = weights)
     
     b <- coef(fm)
     
