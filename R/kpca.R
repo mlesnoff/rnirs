@@ -20,11 +20,12 @@ kpca <- function(Xr, Xu = NULL, ncomp, kern = kpol, weights = NULL, ...) {
     
     A <- fm$vectors[, seq_len(ncomp)]
     eig <- fm$values[seq_len(ncomp)]
+    
     sv <- sqrt(eig)
     xsstot <- sum(fm$values)
     
     Pr <- sqrt(weights) * .scale(A, scale = sv)
-
+    
     T <- Kc %*% Pr
     
     z <- data.frame(ncomp = seq_len(ncomp), var = eig, pvar = eig / xsstot)
