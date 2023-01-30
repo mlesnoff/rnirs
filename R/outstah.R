@@ -1,20 +1,22 @@
 outstah <- function(X, scale = TRUE, nsim = 1500) {
     
-    X <- .matrix(X, row = FALSE)
+    X <- rnirs:::.matrix(X, row = FALSE)
     
     if(scale) {
         zmu <- matrixStats::colMedians(X)
         zs <- matrixStats::colMads(X)
-        X <- .scale(X, zmu, zs)
+        X <- rnirs:::.scale(X, zmu, zs)
         }
     
-    P <- .simpp.hub(X, nsim = nsim, seed = 1)
+    #P <- .simpp.hub(X, nsim = nsim, seed = 1)
+    P <- matrix(sample(0:1, ncol(X) * nsim, replace = TRUE), nrow = ncol(X))
+    headm(P)
 
     T <- X %*% P
     
     mu <- matrixStats::colMedians(T)
     s <- matrixStats::colMads(T)
-    T <- .scale(T, mu, s)
+    T <- rnirs:::.scale(T, mu, s)
     
     r <- matrixStats::rowMaxs(abs(T))
     
