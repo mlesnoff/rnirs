@@ -2,7 +2,8 @@
 
 ## **Warning**
 
-This package **rnirs** will not be developed anymore (only maintenance). It is replaced by package [**rchemo**](https://github.com/mlesnoff/rchemo), more scalable.
+**This repository is archived.** Package **rnirs** will not be developed anymore (only maintenance). 
+Under R, it is replaced by package [**rchemo**](https://github.com/ChemHouse-group/rchemo).
 
 ## <span style="color:grey70"> **Version 1.9-18** </span> 
 
