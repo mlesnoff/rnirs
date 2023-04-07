@@ -2,7 +2,7 @@
 
 ## **Warning**
 
-**This repository is archived.** Package **rnirs** will not be developed anymore (only maintenance). 
+**This repository is archived.** Package **rnirs** is not be developed nor maintained anymore. 
 Under R, it is replaced by package [**rchemo**](https://github.com/ChemHouse-group/rchemo).
 
 ## <span style="color:grey70"> **Version 1.9-18** </span> 
